@@ -22,7 +22,6 @@ import "./App.css";
 
 function App() {
   const [searchCategory, setSearchCategory] = useState("");
-  const [demoMode, setDemoMode] = useState(false);
 
   const { t, i18n } = useTranslation();
 
@@ -288,7 +287,7 @@ function App() {
           <div className="community-activity-wrapper">
             <div className="community-activity-content">
               <img
-                src={`${rcApiDomain}/avatar/rocket.cat`}
+                src={`https://open.rocket.chat/avatar/rocket.cat`}
                 className="community-activity-author-image"
               />
               <div className="community-activity-heading">
