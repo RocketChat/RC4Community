@@ -132,7 +132,7 @@ export default function Home() {
     );
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setSearchCategory(event.target.value);
   };
 
