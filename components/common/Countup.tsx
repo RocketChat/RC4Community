@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function Countup(props) {
+interface Props {
+    end: number,
+    className: string
+}
+
+export default function Countup(props: Props) {
   const [count, setCount] = useState(0);
   const [value, setValue] = useState("");
   const speed = 1000 / props.end;
@@ -11,7 +16,7 @@ export default function Countup(props) {
         setCount((prevCount) => prevCount + 1);
       }, speed);
     } else {
-      setValue(props.end);
+      setValue(props.end.toString());
     }
   });
   return <div className={props.className}>{value || count}</div>;

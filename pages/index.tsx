@@ -12,15 +12,12 @@ import { FiThumbsUp } from "react-icons/fi";
 import { FaRegComment, FaLaptopCode, FaRegSun } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { BsChatDots } from "react-icons/bs";
-import Countup from "./components/common/Countup";
+import Countup from "../components/common/Countup";
 import { Trans, useTranslation } from "react-i18next";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { rcApiDomain } from "./utils/constants";
 
-import "./App.css";
-
-function App() {
+export default function Home() {
   const [searchCategory, setSearchCategory] = useState("");
 
   const { t, i18n } = useTranslation();
@@ -31,8 +28,7 @@ function App() {
       description: "5 security features that every company should keep in mind",
       imageUrl:
         "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/03/Cover-Image-Blog-11.jpg.webp",
-      url:
-        "https://rocket.chat/blog/learn/data-protection-solutions-security-features/",
+      url: "https://rocket.chat/blog/learn/data-protection-solutions-security-features/",
     },
     {
       name: "Rocket.Chat raises $19m",
@@ -40,8 +36,7 @@ function App() {
         "In Series A funding confirming privacy-first communication as a major trend in 2021",
       imageUrl:
         "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/02/new_header.jpg.webp",
-      url:
-        "https://rocket.chat/blog/company/rocket-chat-raises-19-million-in-series-a-funding-confirming-privacy-first-communication-as-a-major-trend-in-2021/",
+      url: "https://rocket.chat/blog/company/rocket-chat-raises-19-million-in-series-a-funding-confirming-privacy-first-communication-as-a-major-trend-in-2021/",
     },
     {
       name: "4 Different Slack Alternatives",
@@ -64,8 +59,7 @@ function App() {
         "Get to Know Rocket.Chat’s Newest Weapon For Secure Messaging",
       imageUrl:
         "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/02/Security-Bundle-Ilustra.jpg.webp",
-      url:
-        "https://rocket.chat/blog/product/security-bundle-for-secure-messaging/",
+      url: "https://rocket.chat/blog/product/security-bundle-for-secure-messaging/",
     },
   ];
 
@@ -109,7 +103,16 @@ function App() {
     },
   ];
 
-  const Item = (props) => {
+  interface Props {
+    item: {
+      name: string;
+      description: string;
+      imageUrl: string;
+      url: string;
+    };
+  }
+
+  const Item = (props: Props) => {
     return (
       <div className="carousel-item-wrapper">
         <a
@@ -118,7 +121,10 @@ function App() {
           rel="noreferrer"
           className="carousel-item-link"
         >
-          <img className="carousel-item-image" src={props.item.imageUrl}></img>
+          <img
+            className="carousel-item-image"
+            src={props.item.imageUrl}
+          />
           <h2>{props.item.name}</h2>
         </a>
         <p className="carousel-item-description">{props.item.description}</p>
@@ -126,13 +132,14 @@ function App() {
     );
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setSearchCategory(event.target.value);
   };
 
   return (
     <div className="home-wrapper">
       <header className="unsigned-home-header">
+        <img src="/logo.svg" height="50px" />
         <h1 className="unsigned-home-heading">
           {t("unsigned-home-demo.heading")}
           <br />
@@ -154,7 +161,7 @@ function App() {
             className="header-link"
           >
             {t("unsigned-home-demo.user-guides")}
-          </a>
+          </a> {" "}
           |{" "}
           <a
             href="https://github.com/RocketChat/Rocket.Chat/releases"
@@ -317,5 +324,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
