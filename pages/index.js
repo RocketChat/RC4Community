@@ -103,16 +103,7 @@ export default function Home() {
     },
   ];
 
-  interface Props {
-    item: {
-      name: string;
-      description: string;
-      imageUrl: string;
-      url: string;
-    };
-  }
-
-  const Item = (props: Props) => {
+  const Item = (props) => {
     return (
       <div className="carousel-item-wrapper">
         <a
@@ -132,7 +123,7 @@ export default function Home() {
     );
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event) => {
     setSearchCategory(event.target.value);
   };
 
