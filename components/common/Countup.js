@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface Props {
-    end: number,
-    className: string
-}
-
-export default function Countup(props: Props) {
+export default function Countup(props) {
   const [count, setCount] = useState(0);
   const [value, setValue] = useState("");
   const speed = 1000 / props.end;
