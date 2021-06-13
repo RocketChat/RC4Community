@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_ENV='development' node server.js",
     "build": "next build",
     "start": "next start",
     "prod": "next build && next start -p 8090"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.0",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",
     "i18next-xhr-backend": "^3.2.2",

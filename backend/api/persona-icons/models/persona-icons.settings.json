@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "personas",
+  "collectionName": "persona_icons",
   "info": {
-    "name": "Persona",
-    "description": ""
+    "name": "PersonaIcons"
   },
   "options": {
     "increments": true,
@@ -12,11 +11,14 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "icon": {
       "type": "string"
     },
-    "persona_icon": {
-      "model": "persona-icons"
+    "size": {
+      "type": "integer"
+    },
+    "color": {
+      "type": "string"
     }
   }
 }
