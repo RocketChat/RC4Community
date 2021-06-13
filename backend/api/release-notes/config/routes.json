@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/release-notes",
+      "handler": "release-notes.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/release-notes",
+      "handler": "release-notes.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/release-notes",
+      "handler": "release-notes.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

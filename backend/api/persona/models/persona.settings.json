@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personas",
+  "info": {
+    "name": "Persona"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    }
+  }
+}
