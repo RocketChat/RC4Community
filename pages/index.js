@@ -127,8 +127,39 @@ export default function Home() {
     setSearchCategory(event.target.value);
   };
 
+  const showDropdown = () => {
+    const dropdown = document.querySelector('.profile-dropdown-container');
+    dropdown.classList.add('open');
+    const avatar = document.querySelector('.avatar');
+    avatar.classList.add('avatar-highlight');
+  }
+  const hideDropdown = () => {
+    const dropdown = document.querySelector('.profile-dropdown-container');
+    dropdown.classList.remove('open');
+    const avatar = document.querySelector('.avatar');
+    avatar.classList.remove('avatar-highlight');
+  }
+
+  const login = () => {
+    window.open("https://open.rocket.chat", "", "width=600,height=550,left=100");
+  }
+
   return (
     <div className="home-wrapper">
+      <div className="login-button" onClick={login}>Login</div>
+      <img src="https://open.rocket.chat/avatar/dhruv.jain?etag=erEdJMLnvie49L77a" className="avatar" onClick={showDropdown}></img>
+      <div className="profile-dropdown-container">
+        <div className="profile-dropdown-blocker" onClick={hideDropdown}></div>
+        <div className="profile-dropdown">
+          <img src="https://open.rocket.chat/avatar/dhruv.jain?etag=erEdJMLnvie49L77a" className="avatar-large" onClick={showDropdown}></img>
+          <p className="user-name">Dhruv Jain</p>
+          <p className="user-email">dhruv.jain93@gmail.com</p>
+          <div className="divider"></div>
+          <div className="profile-dropdown-option">
+            Logout
+          </div>
+        </div>
+      </div>
       <header className="unsigned-home-header">
         <img src="/logo.svg" height="50px" />
         <h1 className="unsigned-home-heading">
