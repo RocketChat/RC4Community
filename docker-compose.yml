@@ -1,0 +1,24 @@
+version: "2"
+services:
+  frontend:
+    container_name: rc4community_frontend
+    build: ./frontend
+    restart: always
+    ports:
+      - "8090:8090"
+    environment: 
+      - NEXT_PUBLIC_STRAPI_API_URL=http://rc4community_backend:1337
+    networks:
+      - rc4community-network
+  backend:
+    container_name: rc4community_backend
+    build: ./backend
+    restart: always
+    ports:
+      - "1337:1337"
+    networks:
+      - rc4community-network
+
+networks:
+  rc4community-network:
+    driver: bridge

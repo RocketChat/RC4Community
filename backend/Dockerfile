@@ -1,16 +1,18 @@
-FROM node:14
+FROM strapi/base
 
-# Copy the current directory contents into the container working directory
-COPY . /rc4community/backend/
-
-# Set the working directory
 WORKDIR /rc4community/backend
 
-# install dependencies for client
-RUN yarn
+COPY ./package.json ./
+COPY ./yarn.lock ./
 
-# Make port 8090 available to the world outside this container
+RUN yarn install
+
+COPY . .
+
+ENV NODE_ENV production
+
+RUN yarn build
+
 EXPOSE 1337
 
-# Run the app when the container launches
-CMD ["yarn", "develop"]
+CMD ["yarn", "start"]
