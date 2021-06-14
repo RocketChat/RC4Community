@@ -6,7 +6,7 @@ services:
     restart: always
     ports:
       - "8090:8090"
-    environment: 
+    environment:
       - NEXT_PUBLIC_STRAPI_API_URL=http://rc4community_backend:1337
     networks:
       - rc4community-network
@@ -18,6 +18,11 @@ services:
       - "1337:1337"
     networks:
       - rc4community-network
+    volumes:
+      - strapidata:/.tmp
+
+volumes:
+  strapidata:
 
 networks:
   rc4community-network:
