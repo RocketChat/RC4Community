@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "persona_icons",
+  "info": {
+    "name": "PersonaIcons"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "color": {
+      "type": "string"
+    }
+  }
+}

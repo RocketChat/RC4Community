@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personas",
+  "info": {
+    "name": "Persona",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "persona_icon": {
+      "model": "persona-icons"
+    }
+  }
+}

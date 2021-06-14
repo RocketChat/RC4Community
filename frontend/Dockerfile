@@ -1,10 +1,10 @@
 FROM node:14
 
 # Copy the current directory contents into the container working directory
-COPY . /rc4community/
+COPY . /rc4community/frontend/
 
 # Set the working directory
-WORKDIR /rc4community
+WORKDIR /rc4community/frontend
 
 # install dependencies for client
 RUN yarn
@@ -13,4 +13,4 @@ RUN yarn
 EXPOSE 8090
 
 # Run the app when the container launches
-CMD ["yarn", "prod"]
+CMD ["yarn", "dev"]

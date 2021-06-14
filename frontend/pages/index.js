@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { fetchAPI } from "../lib/api";
 import {
   Button,
   TextField,
@@ -7,61 +8,27 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import Slider from "react-slick";
+import * as FontAwesome from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
-import { FiThumbsUp } from "react-icons/fi";
-import { FaRegComment, FaLaptopCode, FaRegSun } from "react-icons/fa";
-import { RiAdminLine } from "react-icons/ri";
-import { BsChatDots } from "react-icons/bs";
 import Countup from "../components/common/Countup";
 import { Trans, useTranslation } from "react-i18next";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function Home() {
+const Icon = (props) => {
+  const { iconName, size, color, className } = props;
+  const icon = React.createElement(FontAwesome[iconName]);
+  return (
+    <div className={className} style={{ fontSize: size, color: color }}>
+      {icon}
+    </div>
+  );
+};
+
+export default function Home({ carousels, personas, guides, releaseNotes }) {
   const [searchCategory, setSearchCategory] = useState("");
 
   const { t, i18n } = useTranslation();
-
-  const carouselItems = [
-    {
-      name: "Data protection solutions",
-      description: "5 security features that every company should keep in mind",
-      imageUrl:
-        "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/03/Cover-Image-Blog-11.jpg.webp",
-      url: "https://rocket.chat/blog/learn/data-protection-solutions-security-features/",
-    },
-    {
-      name: "Rocket.Chat raises $19m",
-      description:
-        "In Series A funding confirming privacy-first communication as a major trend in 2021",
-      imageUrl:
-        "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/02/new_header.jpg.webp",
-      url: "https://rocket.chat/blog/company/rocket-chat-raises-19-million-in-series-a-funding-confirming-privacy-first-communication-as-a-major-trend-in-2021/",
-    },
-    {
-      name: "4 Different Slack Alternatives",
-      description:
-        "We’ve Tried 4 Different Slack Alternatives & Here’s Our Conclusion",
-      imageUrl:
-        "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2020/12/Frame-9.png.webp",
-      url: "https://rocket.chat/blog/learn/slack-alternative/",
-    },
-    {
-      name: "Is WhatsApp safe for companies?",
-      description: "A quick guide for secure messaging",
-      imageUrl:
-        "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/01/whatsapp-safe-secure-messaging-blog.jpg",
-      url: "https://rocket.chat/blog/learn/whatsapp-guide-secure-messaging/",
-    },
-    {
-      name: "Security Bundle",
-      description:
-        "Get to Know Rocket.Chat’s Newest Weapon For Secure Messaging",
-      imageUrl:
-        "https://528977-1685022-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2021/02/Security-Bundle-Ilustra.jpg.webp",
-      url: "https://rocket.chat/blog/product/security-bundle-for-secure-messaging/",
-    },
-  ];
 
   const activityItems = [
     {
@@ -112,10 +79,7 @@ export default function Home() {
           rel="noreferrer"
           className="carousel-item-link"
         >
-          <img
-            className="carousel-item-image"
-            src={props.item.imageUrl}
-          />
+          <img className="carousel-item-image" src={props.item.imageUrl} />
           <h2>{props.item.name}</h2>
         </a>
         <p className="carousel-item-description">{props.item.description}</p>
@@ -147,18 +111,12 @@ export default function Home() {
         <br />
 
         <p>
-          <a
-            href="https://docs.rocket.chat/guides/user-guides"
-            className="header-link"
-          >
-            {t("unsigned-home-demo.user-guides")}
-          </a> {" "}
+          <a href={guides.location} className="header-link">
+            {guides.label}
+          </a>{" "}
           |{" "}
-          <a
-            href="https://github.com/RocketChat/Rocket.Chat/releases"
-            className="header-link"
-          >
-            {t("unsigned-home-demo.release-notes")}
+          <a href={releaseNotes.location} className="header-link">
+            {releaseNotes.label}
           </a>
         </p>
         <div className="unsigned-search-wrapper">
@@ -254,7 +212,7 @@ export default function Home() {
         prevArrow={<img src="/prev-button-slider.png" />}
         nextArrow={<img src="/next-button-slider.png" />}
       >
-        {carouselItems.map((item, i) => (
+        {carousels.map((item, i) => (
           <Item key={i} item={item} />
         ))}
       </Slider>
@@ -262,22 +220,17 @@ export default function Home() {
         {t("unsigned-home-demo.select-role-heading")}
       </h1>
       <div className="select-role-buttons-row">
-        <div className="select-role-button">
-          <RiAdminLine className="select-role-button-icon" />
-          <span>{t("unsigned-home-demo.admin-role")}</span>
-        </div>
-        <div className="select-role-button">
-          <FaLaptopCode className="select-role-button-icon" />
-          <span>{t("unsigned-home-demo.developer-role")}</span>
-        </div>
-        <div className="select-role-button">
-          <BsChatDots className="select-role-button-icon" />
-          <span>{t("unsigned-home-demo.live-chat-user-role")}</span>
-        </div>
-        <div className="select-role-button">
-          <FaRegSun className="select-role-button-icon" />
-          <span>{t("unsigned-home-demo.gsoc-student-role")}</span>
-        </div>
+        {personas.map((persona) => (
+          <div className="select-role-button">
+            <Icon
+               iconName={persona.persona_icon.icon}
+               size={persona.persona_icon.size}
+               color={persona.persona_icon.color}
+              className="select-role-button-icon"
+            />
+            <span>{persona.name}</span>
+          </div>
+        ))}
       </div>
       <div className="communities-wrapper">
         <h1>{t("unsigned-home-demo.community-activity-heading")}</h1>
@@ -301,11 +254,21 @@ export default function Home() {
             </div>
             <div className="community-activity-actions-wrapper">
               <div className="community-activity-action">
-                <FiThumbsUp className="community-activity-action-button" />
+                <Icon
+                  iconName={"FaRegThumbsUp"}
+                  size={25}
+                  color={"black"}
+                  className="community-activity-action-button"
+                />
                 <span>{item.upvotes}</span>
               </div>
               <div className="community-activity-action">
-                <FaRegComment className="community-activity-action-button" />
+                <Icon
+                  iconName={"FaRegComment"}
+                  size={25}
+                  color={"black"}
+                  className="community-activity-action-button"
+                />
                 {item.comments}
               </div>
             </div>
@@ -314,4 +277,19 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps({ params }) {
+  const carousels = await fetchAPI("/carousels");
+  const personas = await fetchAPI("/personas");
+  const guides = await fetchAPI("/guides");
+  const releaseNotes = await fetchAPI("/release-notes");
+
+  return {
+    props: { carousels, personas, guides, releaseNotes },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 1 second
+    revalidate: 1,
+  };
 }
