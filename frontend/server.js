@@ -36,6 +36,13 @@ const apiPaths = {
       "^/i18n": "/i18n",
     },
   },
+  "/users-permissions": {
+    target: process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337",
+    changeOrigin: true,
+    pathRewrite: {
+      "^/users-permissions": "/users-permissions",
+    },
+  },
 };
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -53,6 +60,10 @@ app
         createProxyMiddleware(apiPaths["/content-manager"])
       );
       server.use("/i18n/*", createProxyMiddleware(apiPaths["/i18n"]));
+      server.use(
+        "/users-permissions/*",
+        createProxyMiddleware(apiPaths["/users-permissions"])
+      );
     }
 
     server.all("*", (req, res) => {
