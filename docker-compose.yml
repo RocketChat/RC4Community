@@ -19,7 +19,7 @@ services:
     networks:
       - rc4community-network
     volumes:
-      - strapidata:/.tmp
+      - strapidata:/rc4community/backend/.tmp
 
 volumes:
   strapidata:
