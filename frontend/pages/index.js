@@ -25,7 +25,13 @@ const Icon = (props) => {
   );
 };
 
-export default function Home({ carousels, personas, guides, releaseNotes }) {
+export default function Home({
+  carousels,
+  personas,
+  guides,
+  releaseNotes,
+  topNavItems,
+}) {
   const [searchCategory, setSearchCategory] = useState("");
 
   const { t, i18n } = useTranslation();
@@ -94,7 +100,46 @@ export default function Home({ carousels, personas, guides, releaseNotes }) {
   return (
     <div className="home-wrapper">
       <header className="unsigned-home-header">
-        <img src="/logo.svg" height="50px" />
+        <div className="nav-wrapper">
+          <div className="header-menu">
+            <a
+              class="logo"
+              href="https://community.rocket.chat/"
+              title="Rocket.chat"
+              alt="Rocket.chat"
+            >
+              <img
+                src="https://website-cdn.rocket.chat/assets/img/header/logo.svg"
+                title="Rocket.chat"
+                alt="Rocket.chat"
+              />
+            </a>
+            <ul className="nav-menu">
+              {topNavItems.body.map((item) => {
+                return item.sub_menus ? (
+                  <li className="menu-item trigger-submenu">
+                    <span className="item-link">{item.label}</span>
+                    <div className="wrapper-submenu">
+                      <ul>
+                        {item.sub_menus.map((sub) => (
+                          <li className="submenu-item">
+                            <a href={sub.url} title={sub.label}>
+                              {sub.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                ) : (
+                  <li className="menu-item trigger-submenu">
+                    <span className="item-link">{item.label}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
         <h1 className="unsigned-home-heading">
           {t("unsigned-home-demo.heading")}
           <br />
@@ -197,83 +242,85 @@ export default function Home({ carousels, personas, guides, releaseNotes }) {
           </Button>
         </div>
       </header>
-      <h1 className="featured-content-heading">
-        {t("unsigned-home-demo.blogs-heading")}
-      </h1>
-      <Slider
-        className="carousel-slider"
-        dots={true}
-        arrows={true}
-        infinite={true}
-        speed={500}
-        slidesToShow={3}
-        slidesToScroll={3}
-        pauseOnHover={true}
-        prevArrow={<img src="/prev-button-slider.png" />}
-        nextArrow={<img src="/next-button-slider.png" />}
-      >
-        {carousels.map((item, i) => (
-          <Item key={i} item={item} />
-        ))}
-      </Slider>
-      <h1 className="select-role-heading">
-        {t("unsigned-home-demo.select-role-heading")}
-      </h1>
-      <div className="select-role-buttons-row">
-        {personas.map((persona) => (
-          <div className="select-role-button">
-            <Icon
-               iconName={persona.persona_icon.icon}
-               size={persona.persona_icon.size}
-               color={persona.persona_icon.color}
-              className="select-role-button-icon"
-            />
-            <span>{persona.name}</span>
-          </div>
-        ))}
-      </div>
-      <div className="communities-wrapper">
-        <h1>{t("unsigned-home-demo.community-activity-heading")}</h1>
-        {activityItems.map((item) => (
-          <div className="community-activity-wrapper">
-            <div className="community-activity-content">
-              <img
-                src={`https://open.rocket.chat/avatar/rocket.cat`}
-                className="community-activity-author-image"
+      <div className="home-content-wrapper">
+        <h1 className="featured-content-heading">
+          {t("unsigned-home-demo.blogs-heading")}
+        </h1>
+        <Slider
+          className="carousel-slider"
+          dots={true}
+          arrows={true}
+          infinite={true}
+          speed={500}
+          slidesToShow={3}
+          slidesToScroll={3}
+          pauseOnHover={true}
+          prevArrow={<img src="/prev-button-slider.png" />}
+          nextArrow={<img src="/next-button-slider.png" />}
+        >
+          {carousels.map((item, i) => (
+            <Item key={i} item={item} />
+          ))}
+        </Slider>
+        <h1 className="select-role-heading">
+          {t("unsigned-home-demo.select-role-heading")}
+        </h1>
+        <div className="select-role-buttons-row">
+          {personas.map((persona) => (
+            <div className="select-role-button">
+              <Icon
+                iconName={persona.persona_icon.icon}
+                size={persona.persona_icon.size}
+                color={persona.persona_icon.color}
+                className="select-role-button-icon"
               />
-              <div className="community-activity-heading">
-                <h3>{item.title}</h3>
-                <p className="community-activity-info">
-                  by{" "}
-                  <strong>
-                    {item.author}({item.role})
-                  </strong>{" "}
-                  in <strong>{item.community}</strong> <i>{item.time}</i>{" "}
-                </p>
+              <span>{persona.name}</span>
+            </div>
+          ))}
+        </div>
+        <div className="communities-wrapper">
+          <h1>{t("unsigned-home-demo.community-activity-heading")}</h1>
+          {activityItems.map((item) => (
+            <div className="community-activity-wrapper">
+              <div className="community-activity-content">
+                <img
+                  src={`https://open.rocket.chat/avatar/rocket.cat`}
+                  className="community-activity-author-image"
+                />
+                <div className="community-activity-heading">
+                  <h3>{item.title}</h3>
+                  <p className="community-activity-info">
+                    by{" "}
+                    <strong>
+                      {item.author}({item.role})
+                    </strong>{" "}
+                    in <strong>{item.community}</strong> <i>{item.time}</i>{" "}
+                  </p>
+                </div>
+              </div>
+              <div className="community-activity-actions-wrapper">
+                <div className="community-activity-action">
+                  <Icon
+                    iconName={"FaRegThumbsUp"}
+                    size={25}
+                    color={"black"}
+                    className="community-activity-action-button"
+                  />
+                  <span>{item.upvotes}</span>
+                </div>
+                <div className="community-activity-action">
+                  <Icon
+                    iconName={"FaRegComment"}
+                    size={25}
+                    color={"black"}
+                    className="community-activity-action-button"
+                  />
+                  {item.comments}
+                </div>
               </div>
             </div>
-            <div className="community-activity-actions-wrapper">
-              <div className="community-activity-action">
-                <Icon
-                  iconName={"FaRegThumbsUp"}
-                  size={25}
-                  color={"black"}
-                  className="community-activity-action-button"
-                />
-                <span>{item.upvotes}</span>
-              </div>
-              <div className="community-activity-action">
-                <Icon
-                  iconName={"FaRegComment"}
-                  size={25}
-                  color={"black"}
-                  className="community-activity-action-button"
-                />
-                {item.comments}
-              </div>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -284,9 +331,10 @@ export async function getStaticProps({ params }) {
   const personas = await fetchAPI("/personas");
   const guides = await fetchAPI("/guides");
   const releaseNotes = await fetchAPI("/release-notes");
+  const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { carousels, personas, guides, releaseNotes },
+    props: { carousels, personas, guides, releaseNotes, topNavItems },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
