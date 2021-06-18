@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchAPI } from "../lib/api";
 import {
   Button,
@@ -14,6 +14,7 @@ import Countup from "../components/common/Countup";
 import { Trans, useTranslation } from "react-i18next";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Cookies from "js-cookie";
 
 const Icon = (props) => {
   const { iconName, size, color, className } = props;
@@ -31,10 +32,100 @@ export default function Home({
   guides,
   releaseNotes,
   topNavItems,
+  oauth
 }) {
   const [searchCategory, setSearchCategory] = useState("");
+  let [loggedIn, setLoggedIn] = useState(true);
+  let [user, setUser] = useState({
+    "name": "",
+    "email": "",
+    "avatarUrl": ""
+  })
+  const { t } = useTranslation();
 
-  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    window.cookieStore.onchange = () => {
+      checkAuth();
+    };
+    checkAuth();
+  }, [])
+
+  var loginWindow;
+
+  useEffect(() => {
+    console.log(loginWindow);
+    console.log(loggedIn);
+  }, [loggedIn])
+
+  let login = () => {
+    loginWindow = window.open(`${oauth.link}`, "", "width=600,height=550,left=100");
+    let count = 0;
+    let interval = setInterval(() => {
+      count++;
+      if((count > 600) || (Cookies.get("rc_token") && Cookies.get("rc_uid"))){
+        loginWindow.close();
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+  const logout = () => {
+    fetch('http://localhost:3000/api/v1/logout', {
+      headers: {
+        "X-Auth-Token": Cookies.get("rc_token"),
+        "X-User-Id": Cookies.get('rc_uid'),
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if(data.status === "success"){
+          setLoggedIn(false);
+          Cookies.remove('rc_uid');
+          Cookies.remove('rc_token');
+        }
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  }
+
+  const checkAuth = () => {
+    const uid = Cookies.get('rc_uid');
+    const token = Cookies.get('rc_token');
+    if(uid && token) {
+      getUser();
+    } else {
+      setLoggedIn(false);
+    }
+  }
+
+  const getUser = () => {
+    fetch('http://localhost:3000/api/v1/me', {
+      headers: {
+        "X-Auth-Token": Cookies.get("rc_token"),
+        "X-User-Id": Cookies.get("rc_uid"),
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const userResponse = {
+          name: data.name,
+          email: data.emails[0].address,
+          avatarUrl: data.avatarUrl
+        }
+        setUser(userResponse);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+        setLoggedIn(false);
+        Cookies.remove('rc_uid');
+        Cookies.remove('rc_token');
+      });
+  }
 
   const activityItems = [
     {
@@ -97,6 +188,19 @@ export default function Home({
     setSearchCategory(event.target.value);
   };
 
+  const showDropdown = () => {
+    const dropdown = document.querySelector('.profile-dropdown-container');
+    dropdown.classList.add('open');
+    const avatar = document.querySelector('.avatar');
+    avatar.classList.add('avatar-highlight');
+  }
+  const hideDropdown = () => {
+    const dropdown = document.querySelector('.profile-dropdown-container');
+    dropdown.classList.remove('open');
+    const avatar = document.querySelector('.avatar');
+    avatar.classList.remove('avatar-highlight');
+  }
+
   return (
     <div className="home-wrapper">
       <header className="unsigned-home-header">
@@ -115,7 +219,7 @@ export default function Home({
               />
             </a>
             <ul className="nav-menu">
-              {topNavItems.body.map((item) => {
+              {topNavItems?.body?.map((item) => {
                 return item.sub_menus ? (
                   <li className="menu-item trigger-submenu">
                     <span className="item-link">{item.label}</span>
@@ -138,6 +242,20 @@ export default function Home({
                 );
               })}
             </ul>
+            {!loggedIn && <div className="login-button" onClick={login}>Login / Register</div>}
+            {loggedIn && <>
+              <img src={user.avatarUrl} className="avatar" onClick={showDropdown} alt={user.name}></img>
+              <div className="profile-dropdown-container">
+                <div className="profile-dropdown-blocker" onClick={hideDropdown}></div>
+                <div className="profile-dropdown">
+                  <img src={user.avatarUrl} className="avatar-large" onClick={showDropdown} alt={user.name}></img>
+                  <p className="user-name">{user.name}</p>
+                  <p className="user-email">{user.email}</p>
+                  <div className="divider"></div>
+                  <div className="profile-dropdown-option" onClick={logout}>Logout</div>
+                </div>
+              </div>
+            </>}
           </div>
         </div>
         <h1 className="unsigned-home-heading">
@@ -332,9 +450,10 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI("/guides");
   const releaseNotes = await fetchAPI("/release-notes");
   const topNavItems = await fetchAPI("/top-nav-item");
+  const oauth = await fetchAPI("/oauth-link");
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, oauth },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second

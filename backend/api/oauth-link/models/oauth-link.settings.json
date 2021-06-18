@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "oauth_links",
+  "info": {
+    "name": "OauthLink"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    }
+  }
+}

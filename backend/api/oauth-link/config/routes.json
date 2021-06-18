@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/oauth-link",
+      "handler": "oauth-link.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/oauth-link",
+      "handler": "oauth-link.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/oauth-link",
+      "handler": "oauth-link.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

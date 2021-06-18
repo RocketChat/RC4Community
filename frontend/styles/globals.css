@@ -6,6 +6,108 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.login-button {
+  border-radius: 0px 10px 0px 10px;
+  border: #F5455C solid 2px;
+  padding: 9px 20px;
+  background-color: #F5455C;
+  color: #fff;
+  font-weight: bold;
+  transition-duration: 400ms;
+    
+}
+
+.login-button:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #F5455C;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 55px;
+  border: #fff solid 3px;
+}
+
+.avatar:hover {
+  cursor: pointer;
+  border: #bbbbbb63 solid 3px;
+}
+
+.avatar-highlight {
+  border: #bbbbbb9a solid 3px;
+}
+
+.profile-dropdown-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: none;
+}
+
+.open {
+  display: block;
+}
+
+.divider {
+  border: #bbbbbb8e solid 0.3px;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.profile-dropdown-blocker {
+    width: inherit;
+    height: inherit;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 90px;
+    right: 45px;
+    border: #bbbbbbbd solid 1px;
+    border-radius: 10px;
+    box-shadow: #9a9a9ab3 0px 0px 8px 0px;
+    padding: 15px 25px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+}
+
+.avatar-large {
+  width: 90px;
+  height: 90px;
+  border-radius: 55px;
+  margin-bottom: 15px;
+}
+
+.user-name {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0px 5px;
+}
+
+.user-email {
+  color: #6d6d6d;
+  margin: 5px;
+}
+
+.profile-dropdown-option {
+  border: #bbbbbbb2 solid 0.7px;
+  padding: 5px 25px;
+  border-radius: 5px;
+  color: #353535ee;
+  margin: 10px 0px;
+}
+
+.profile-dropdown-option:hover {
+  cursor: pointer;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -471,8 +573,6 @@ a {
   min-height: 80px;
   height: 80px;
   border-bottom: 2px solid #f2f3f5;
-  display: flex;
-  align-items: center;
   margin-bottom: 50px;
 }
 
@@ -481,4 +581,7 @@ a {
   flex-direction: row;
   align-items: center;
   margin-left: 50px;
+  margin-right: 50px;
+  justify-content: space-between;
+  height: 100%;
 }
