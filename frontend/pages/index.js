@@ -237,7 +237,7 @@ export default function Home({
                   </li>
                 ) : (
                   <li className="menu-item trigger-submenu">
-                    <span className="item-link">{item.label}</span>
+                    <a href={item.url} className="item-link">{item.label}</a>
                   </li>
                 );
               })}
