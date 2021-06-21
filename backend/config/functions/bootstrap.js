@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -10,4 +10,8 @@
  * See more details here: https://strapi.io/documentation/developer-docs/latest/setup-deployment-guides/configurations.html#bootstrap
  */
 
-module.exports = () => {};
+module.exports = () => {
+  // Uncomment this line to fetch latest data from
+  // https://community.rocket.chat on server restart
+//   strapi.config.functions.fetchData();
+};

@@ -43,6 +43,13 @@ const apiPaths = {
       "^/users-permissions": "/users-permissions",
     },
   },
+  "/content-type-builder": {
+    target: process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337",
+    changeOrigin: true,
+    pathRewrite: {
+      "^/content-type-builder": "/content-type-builder",
+    },
+  },
 };
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -63,6 +70,10 @@ app
       server.use(
         "/users-permissions/*",
         createProxyMiddleware(apiPaths["/users-permissions"])
+      );
+      server.use(
+        "/content-type-builder",
+        createProxyMiddleware(apiPaths["/content-type-builder"])
       );
     }
 
