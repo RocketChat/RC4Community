@@ -69,7 +69,7 @@ export default function Home({
     }, 500);
   }
   const logout = () => {
-    fetch('http://localhost:3000/api/v1/logout', {
+    fetch('https://open.rocket.chat/api/v1/logout', {
       headers: {
         "X-Auth-Token": Cookies.get("rc_token"),
         "X-User-Id": Cookies.get('rc_uid'),
@@ -101,7 +101,7 @@ export default function Home({
   }
 
   const getUser = () => {
-    fetch('http://localhost:3000/api/v1/me', {
+    fetch('https://open.rocket.chat/api/v1/me', {
       headers: {
         "X-Auth-Token": Cookies.get("rc_token"),
         "X-User-Id": Cookies.get("rc_uid"),
