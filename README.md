@@ -3,7 +3,9 @@
 
 ### Developer quick start
 
-Start backend in a shell: 
+During development, our  data provider is a headless CMS, strapi.  It is used only during development and build time, not during production.
+
+Start strapi in a shell: 
 
 ```
 git clone https://github.com/rocketchat/RC4Community
@@ -18,8 +20,9 @@ If you're using WSL2 on Windows also running Docker Desktop,  port 1337 may not 
 ```
   port: env.int('PORT', 3000),
 ``` 
+The application is written on nextjs and deployable on all nextjs compatible microservices and scaled deployment platforms.
 
-Start frontend in a shell:
+Start the application in a shell:
 
 ```
 cd ../frontend
@@ -29,12 +32,12 @@ npm run dev
 
 Now RC4Community should be accessible from http://localhost:8090 
 
-If you've changed the strapi (backend) port to 3000,  use the following line to start the frontend instead:
+If you've changed the strapi  port to 3000,  use the following line to start the application instead:
 
 ```
 export NEXT_PUBLIC_STRAPI_API_URL=http://localhost:3000;npm run dev
 ```
 
 
-You can now modify code in the frontend via standard nextjs dev best practices.
+You can now modify code in the application via standard nextjs dev workflow and following its best practices.
 
