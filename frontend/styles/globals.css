@@ -8,19 +8,18 @@ body {
 
 .login-button {
   border-radius: 0px 10px 0px 10px;
-  border: #F5455C solid 2px;
+  border: #f5455c solid 2px;
   padding: 9px 20px;
-  background-color: #F5455C;
+  background-color: #f5455c;
   color: #fff;
   font-weight: bold;
   transition-duration: 400ms;
-    
 }
 
 .login-button:hover {
   cursor: pointer;
   background-color: #fff;
-  color: #F5455C;
+  color: #f5455c;
 }
 
 .avatar {
@@ -59,23 +58,23 @@ body {
 }
 
 .profile-dropdown-blocker {
-    width: inherit;
-    height: inherit;
+  width: inherit;
+  height: inherit;
 }
 
 .profile-dropdown {
-    position: absolute;
-    top: 90px;
-    right: 45px;
-    border: #bbbbbbbd solid 1px;
-    border-radius: 10px;
-    box-shadow: #9a9a9ab3 0px 0px 8px 0px;
-    padding: 15px 25px;
-    z-index: 50;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 200px;
+  position: absolute;
+  top: 90px;
+  right: 45px;
+  border: #bbbbbbbd solid 1px;
+  border-radius: 10px;
+  box-shadow: #9a9a9ab3 0px 0px 8px 0px;
+  padding: 15px 25px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
 }
 
 .avatar-large {
@@ -187,23 +186,29 @@ a {
   box-shadow: 0px 8px 12px -7px #a9a6a6fc;
 }
 
+.stat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-right: 70px;
+}
+
 .stat-icon {
-  width: 45%;
-  height: 45%;
-  display: block;
-  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .stat-number {
-  font-size: 25px;
+  font-size: 20px;
   letter-spacing: 2px;
-  margin-bottom: 5px;
   font-weight: 500;
+  margin-right: 10px;
 }
 
 .stat-label {
+  display: flex;
+  align-items: center;
   font-weight: 400;
-  text-transform: uppercase;
   text-align: center;
 }
 
@@ -433,7 +438,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
 }
 

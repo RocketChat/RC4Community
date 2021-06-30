@@ -17,10 +17,9 @@
       "menu-item-2": "Rooms",
       "menu-item-3": "Users",
       "menu-item-4": "Messages",
-      "join-button": "JOIN NOW!",
       "users-stats-label": "Users",
-      "messages-exchanged-stats-label": "Messages Exchanged",
-      "online-users-stats-label": "Online Users",
+      "messages-exchanged-stats-label": "Messages",
+      "online-users-stats-label": "Online",
       "blogs-heading": "Latest Community News",
       "select-role-heading": "Get what you need ...",
       "community-activity-heading": "Community Activity"
