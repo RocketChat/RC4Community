@@ -55,7 +55,7 @@ NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run build
 
 Upon successful build, the cms (strapi) is no longer needed for deployemnt.  For example, you may want to deploy to vercel via a `git push`.
 
-For a workable but simple minded, non-scalable, never to be used in proudction deployment:
+For a workable but simple minded, non-scalable, never to be used in production deployment:
 
 ```
 cd app
