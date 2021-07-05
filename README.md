@@ -1,15 +1,20 @@
 ## Build and grow massive on-line communities with Rocket.Chat
 
 
+
 ### Developer quick start
 
-During development, our  data provider is a headless CMS, strapi.  It is used only during development and build time, not during production.
+##### Design and Build Time
 
-Start strapi in a shell: 
+During development, our data provider is a headless CMS, strapi.  
+
+Note that it is used only during development and build time, not during production.
+
+Start strapi: 
 
 ```
 git clone https://github.com/rocketchat/RC4Community
-cd backend
+cd cms
 npm i
 npm run develop
 ```
@@ -20,24 +25,48 @@ If you're using WSL2 on Windows also running Docker Desktop,  port 1337 may not 
 ```
   port: env.int('PORT', 3000),
 ``` 
-The application is written on nextjs and deployable on all nextjs compatible microservices and scaled deployment platforms.
+Restart strapi as above and you should be good to go.
 
-Start the application in a shell:
+The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
 
 ```
-cd ../frontend
+cd app
 npm i
-npm run dev
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337  npm run dev
 ```
+
+Of course, change the port to `3000` if you need to.
 
 Now RC4Community should be accessible from http://localhost:8090 
 
-If you've changed the strapi  port to 3000,  use the following line to start the application instead:
+You can now have designers and devs modify the portal content directly and independently from the dev and devOps folks working on the app.
+
+Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
+
+##### Deployment time
+
+This app is deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
+
+To build for deployment, first make sure cms (strapi) is up and running, then:
+```
+cd app
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run build
+```
+
+Upon successful build, the cms (strapi) is no longer needed for deployemnt.  For example, you may want to deploy to vercel via a `git push`.
+
+For a workable but simple minded, non-scalable, never to be used in production deployment:
 
 ```
-export NEXT_PUBLIC_STRAPI_API_URL=http://localhost:3000;npm run dev
+cd app
+npm run prod
 ```
 
+Again, note that cms/strapi is not required in production and should not be started.
 
-You can now modify code in the application via standard nextjs dev workflow and following its best practices.
+
+ 
+
+
+
 
