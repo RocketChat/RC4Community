@@ -217,7 +217,7 @@ export default function Home({
               alt="Rocket.chat"
             >
               <img
-                src="https://website-cdn.rocket.chat/assets/img/header/logo.svg"
+                src="https://rocket.chat/assets/img/header/logo.svg"
                 title="Rocket.chat"
                 alt="Rocket.chat"
               />
