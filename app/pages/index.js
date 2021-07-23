@@ -31,7 +31,6 @@ export default function Home({
   guides,
   releaseNotes,
   topNavItems,
-  oauth,
 }) {
   const [searchCategory, setSearchCategory] = useState("");
   const { t } = useTranslation();
@@ -334,10 +333,9 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI("/guides");
   const releaseNotes = await fetchAPI("/release-notes");
   const topNavItems = await fetchAPI("/top-nav-item");
-  const oauth = await fetchAPI("/oauth-link");
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, oauth },
+    props: { carousels, personas, guides, releaseNotes, topNavItems },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
