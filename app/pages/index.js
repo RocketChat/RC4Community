@@ -34,6 +34,7 @@ export default function Home({
 }) {
   const [searchCategory, setSearchCategory] = useState("");
   const { t } = useTranslation();
+  let loginWindow = null;
 
   const activityItems = [
     {
@@ -139,7 +140,7 @@ export default function Home({
                 );
               })}
             </ul>
-            <a href="https://open.rocket.chat" target="_blank" className="login-button">
+            <a onClick={(e) => {e.preventDefault(); if(!loginWindow || loginWindow.closed) loginWindow=window.open('https://open.rocket.chat','loginWindow'); else loginWindow.focus();}} className="login-button">
               Chat Now
             </a>
           </div>
