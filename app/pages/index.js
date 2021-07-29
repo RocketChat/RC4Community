@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { fetchAPI } from "../lib/api";
 import {
-  Button,
   TextField,
   Select,
   MenuItem,
@@ -260,7 +259,7 @@ export default function Home({
           prevArrow={<img src="/prev-button-slider.png" />}
           nextArrow={<img src="/next-button-slider.png" />}
         >
-          {carousels.map((item, i) => (
+          {carousels?.body?.map((item, i) => (
             <Item key={i} item={item} />
           ))}
         </Slider>
@@ -268,7 +267,7 @@ export default function Home({
           {t("unsigned-home-demo.select-role-heading")}
         </h1>
         <div className="select-role-buttons-row">
-          {personas.map((persona) => (
+          {personas?.body?.map((persona) => (
             <div className="select-role-button">
               <Icon
                 iconName={persona.persona_icon.icon}
