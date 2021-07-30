@@ -43,7 +43,7 @@ You can now have designers and devs modify the portal content directly and indep
 
 Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
 
-##### Deployment time
+## Deployment time
 
 This app is deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
 
@@ -64,8 +64,33 @@ npm run prod
 
 Again, note that cms/strapi is not required in production and should not be started.
 
+### Production Deployment
 
- 
+Production can be deployed as a statically generated website.
+
+Once you have run `npm run build` with the CMS started and have the static files ready in the `out` folder, use the following steps to get your site up and running on port `8090`.
+
+- Set the `SERVER_IP` to the IP address of your server.
+
+```
+export SERVER_IP=<Your Server IP Address>
+```
+- Migrate to `/deploy` and make `deploy.sh` executable.
+
+```
+chmod +x deploy.sh
+```
+- Run the script
+```
+./deploy.sh
+```
+
+You should now have the SSG website running on `localhost:8090`. Verify with a `curl`:
+```
+curl localhost:8090
+```
+
+In case you're using an AWS LightSail Ubuntu instance and your username is not `root`, uncomment the change ownership lines within `deploy.sh` and replace `root` by `ubuntu`.
 
 
 
