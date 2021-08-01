@@ -77,31 +77,19 @@ Again, note that cms/strapi is not required in production and should not be star
 
 ## Deployment time  (production deployment)
 
-Production can be deployed as a statically generated website.
+Production should be deployed as a statically generated website (with associated microservices and/or serverless execution support).
 
-Once you have run `npm run build` with the CMS started and have the static files ready in the `out` folder, use the following steps to get your site up and running on port `8090`.
-
-- Set the `SERVER_IP` to the IP address of your server.
+Make sure you have build the bundle  (with the cms running):
 
 ```
-export SERVER_IP=<Your Server IP Address>
-```
-- Migrate to `/deploy` and make `deploy.sh` executable.
-
-```
-chmod +x deploy.sh
-```
-- Run the script
-```
-./deploy.sh
+cd app
+npm i
+npm run build
 ```
 
-You should now have the SSG website running on `localhost:8090`. Verify with a `curl`:
-```
-curl localhost:8090
-```
+Once you have finshed the build,  the optimized files are ready in the `out` folder.  You will no no longer need the CMS running and can stop strapi.  This is key, deployment does not depend on the cms, in fact the same `tgz` can be immediately deployed to 1000s of smart edge nginx PoP as in modern CDNs.
 
-In case you're using an AWS LightSail Ubuntu instance and your username is not `root`, uncomment the change ownership lines within `deploy.sh` and replace `root` by `ubuntu`.
+Take a look at `deploy\deploy.sh` to see how to zip up the `out` content into a `site.tgz` file and transfer to your web server  (such as nginx in this example) for deployment.
 
 
 
