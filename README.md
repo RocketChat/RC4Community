@@ -2,13 +2,13 @@
 
 ## Build and grow massive on-line communities with Rocket.Chat
 
-Since 2015,  Rocket.Chat has been used globablly by groups and organizations to create and build online communities of all shape and sizes.    Today, with millions of end users and hundreds of thousands of deployed servers,  Rocket.Chat has uniquely become a networked community of community builders - a community of communities.   
+Since 2015,  Rocket.Chat has been used globally by groups and organizations to create and build online communities of all shapes and sizes.    Today, with millions of end users and hundreds of thousands of deployed servers,  Rocket.Chat has uniquely become a networked community of community builders - a community of communities.   
 
 With its upcoming decentralized federation refactor,   Rocket.Chat stands to become the next level Internet fabric that will loosely unite all on-line communities in a decentralized yet consistent manner.
 
 This project is an extension to Rocket.Chat that aims to satisfy the immediate demands of today's community builders.   Those who are intentionally building massive on-line communities (membership into the millions) centered around Rocket.Chat's core functionalities  (sharing of information, collaboration,  video and audio meet-ups, virtual conferences, and so on).  
 
-Unlike the team chat heritage of Rocket.Chat, this area is a trending but nascent field where major innovations are yet to be imagined. Participants in both open source and closed source space are dilligently working on scalability of their platforms and systems.   Rocket.Chat for Communities uniquely features an already proven scalable collaboration engine right from day number one.
+Unlike the team chat heritage of Rocket.Chat, this area is a trending but nascent field where major innovations are yet to be imagined. Participants in both open source and closed source space are diligently working on scalability of their platforms and systems.   Rocket.Chat for Communities uniquely features an already proven scalable collaboration engine right from day number one.
 
 If you are involved in some ways in the creation, building, and growth of massive communities online - we invite you to participate in this project; help us steer its direction and ensure its long term success. 
 
