@@ -89,7 +89,7 @@ npm run build
 
 Once you have finshed the build,  the optimized files are ready in the `out` folder.  You will no no longer need the CMS running and can stop strapi.  This is key, deployment does not depend on the cms, in fact the same `tgz` can be immediately deployed to 1000s of smart edge nginx PoP as in modern CDNs.
 
-Take a look at `deploy\deploy.sh` to see how to zip up the `out` content into a `site.tgz` file and transfer to your web server  (such as nginx in this example) for deployment.
+Take a look at `deploy/deploy.sh` to see how to zip up the `out` content into a `site.tgz` file and transfer to your web server  (such as nginx in this example) for deployment.
 
 
 
