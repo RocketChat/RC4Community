@@ -21,6 +21,13 @@ During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
 
+
+By default, strapi listen on port 1337.   If you're using WSL2 on Windows also running Docker Desktop,  port 1337 may not be available on your system.   To use port 3000 instead,  change this line in  `config/server.js` file:
+
+```
+  port: env.int('PORT', 3000),
+```
+
 Start strapi: 
 
 ```
@@ -29,14 +36,6 @@ cd cms
 npm i
 npm run develop
 ```
-Check http://localhost:1337 to access strapi.   
-
-If you're using WSL2 on Windows also running Docker Desktop,  port 1337 may not be available on your system.   To use port 3000 instead,  change this line in  `config/server.js` file:
-
-```
-  port: env.int('PORT', 3000),
-``` 
-Restart strapi as above and you should be good to go.
 
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
 
