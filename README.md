@@ -53,6 +53,17 @@ You can now have designers and devs modify the portal content directly and indep
 
 Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
 
+**Easy CMS data sync during development**
+
+A `fetchData.js` script has been written that can be used to **fetch and overwrite** local CMS data from an API endpoint. This script is executed on every Strapi server restart. To enable it start your Strapi CMS server with the `INITIALIZE_DATA` environment variable as follows:
+
+```
+cd cms
+INITIALIZE_DATA=true npm run develop
+```
+
+Your Strapi CMS data should now be in-sync with the remotely stored CMS data.
+
 ## Application build time
 
 This app is deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
@@ -89,7 +100,3 @@ npm run build
 Once you have finshed the build,  the optimized files are ready in the `out` folder.  You will no no longer need the CMS running and can stop strapi.  This is key, deployment does not depend on the cms, in fact the same `tgz` can be immediately deployed to 1000s of smart edge nginx PoP as in modern CDNs.
 
 Take a look at `deploy/deploy.sh` to see how to zip up the `out` content into a `site.tgz` file and transfer to your web server  (such as nginx in this example) for deployment.
-
-
-
-
