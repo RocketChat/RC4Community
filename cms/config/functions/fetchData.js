@@ -1,28 +1,20 @@
 const axios = require("axios");
 
 module.exports = async () => {
-  const carouselResponse = await axios.get(
-    "https://community.rocket.chat/api/carousels"
-  );
-  const guidesResponse = await axios.get(
-    "https://community.rocket.chat/api/guides"
-  );
-  const personaResponse = await axios.get(
-    "https://community.rocket.chat/api/personas"
-  );
+  const APIEndpoint =
+    "https://raw.githubusercontent.com/Sing-Li/bbug/master/api/";
+  const carouselResponse = await axios.get(APIEndpoint + "carousels.json");
+  const guidesResponse = await axios.get(APIEndpoint + "guides.json");
+  const personaResponse = await axios.get(APIEndpoint + "personas.json");
 
   const personaIconsResponse = await axios.get(
-    "https://community.rocket.chat/api/persona-icons"
+    APIEndpoint + "persona-icons.json"
   );
   const releaseNotesResponse = await axios.get(
-    "https://community.rocket.chat/api/release-notes"
+    APIEndpoint + "release-notes.json"
   );
-  const subMenuResponse = await axios.get(
-    "https://community.rocket.chat/api/sub-menus"
-  );
-  const topNavItemResponse = await axios.get(
-    "https://community.rocket.chat/api/top-nav-item"
-  );
+  const subMenuResponse = await axios.get(APIEndpoint + "sub-menus.json");
+  const topNavItemResponse = await axios.get(APIEndpoint + "top-nav-item.json");
 
   try {
     var carouselCount = await strapi.query("carousel").count();
@@ -30,6 +22,8 @@ module.exports = async () => {
     var personaCount = await strapi.query("persona").count();
     var subMenuCount = await strapi.query("sub-menu").count();
     var topNavItemCount = await strapi.query("top-nav-item").count();
+    var releaseNotesCount = await strapi.query("release-notes").count();
+    var guidesCount = await strapi.query("guides").count();
 
     carouselResponse.data.map(async (carousel, index) => {
       if (index <= carouselCount - 1) {
@@ -115,17 +109,65 @@ module.exports = async () => {
       }
     });
 
-    await strapi.query("release-notes").update(
-      { id: 1 },
-      {
+    if (releaseNotesCount) {
+      await strapi.query("release-notes").update(
+        { id: 1 },
+        {
+          label: releaseNotesResponse.data.label,
+          location: releaseNotesResponse.data.location,
+        }
+      );
+    } else {
+      await strapi.query("release-notes").create({
         label: releaseNotesResponse.data.label,
         location: releaseNotesResponse.data.location,
-      }
-    );
+      });
+    }
 
-    await strapi.query("top-nav-item").update(
-      { id: 1 },
-      {
+    if (guidesCount) {
+      await strapi.query("guides").update(
+        { id: 1 },
+        {
+          label: guidesResponse.data.label,
+          location: guidesResponse.data.location,
+        }
+      );
+    } else {
+      await strapi.query("guides").create({
+        label: guidesResponse.data.label,
+        location: guidesResponse.data.location,
+      });
+    }
+
+    if (topNavItemCount) {
+      await strapi.query("top-nav-item").update(
+        { id: 1 },
+        {
+          body: topNavItemResponse.data.body.map((topNavItem, index) => {
+            if (topNavItem.__component === "menu.links") {
+              return {
+                __component: "menu.links",
+                label: topNavItem.label,
+                url: topNavItem.url,
+              };
+            } else {
+              return {
+                __component: "menu.dropdown",
+                label: topNavItem.label,
+                sub_menus: topNavItem.sub_menus.map((subMenu) => {
+                  return {
+                    id: subMenu.id,
+                    label: subMenu.label,
+                    url: subMenu.url,
+                  };
+                }),
+              };
+            }
+          }),
+        }
+      );
+    } else {
+      await strapi.query("top-nav-item").create({
         body: topNavItemResponse.data.body.map((topNavItem, index) => {
           if (topNavItem.__component === "menu.links") {
             return {
@@ -147,8 +189,8 @@ module.exports = async () => {
             };
           }
         }),
-      }
-    );
+      });
+    }
   } catch (error) {
     console.log("Error:= ", error);
   }

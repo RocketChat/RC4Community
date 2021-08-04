@@ -10,8 +10,9 @@
  * See more details here: https://strapi.io/documentation/developer-docs/latest/setup-deployment-guides/configurations.html#bootstrap
  */
 
-module.exports = () => {
-  // Uncomment this line to fetch latest data from
-  // https://community.rocket.chat on server restart
-//   strapi.config.functions.fetchData();
+module.exports = async () => {
+  // Fetches data and populates CMS from remote on server restart
+  if(process.env.INITIALIZE_DATA) {
+    await strapi.config.functions.fetchData();
+  }
 };
