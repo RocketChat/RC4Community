@@ -1,20 +1,12 @@
-const axios = require("axios");
+const { carousels, 
+  guides, 
+  persona, 
+  personaIcons, 
+  releaseNotes, 
+  subMenus,
+  topNavItem } = require('../initialData');
 
 module.exports = async () => {
-  const APIEndpoint =
-    "https://raw.githubusercontent.com/Sing-Li/bbug/master/api/";
-  const carouselResponse = await axios.get(APIEndpoint + "carousels.json");
-  const guidesResponse = await axios.get(APIEndpoint + "guides.json");
-  const personaResponse = await axios.get(APIEndpoint + "personas.json");
-
-  const personaIconsResponse = await axios.get(
-    APIEndpoint + "persona-icons.json"
-  );
-  const releaseNotesResponse = await axios.get(
-    APIEndpoint + "release-notes.json"
-  );
-  const subMenuResponse = await axios.get(APIEndpoint + "sub-menus.json");
-  const topNavItemResponse = await axios.get(APIEndpoint + "top-nav-item.json");
 
   try {
     var carouselCount = await strapi.query("carousel").count();
@@ -25,7 +17,7 @@ module.exports = async () => {
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
 
-    carouselResponse.data.map(async (carousel, index) => {
+    carousels.map(async (carousel, index) => {
       if (index <= carouselCount - 1) {
         await strapi.query("carousel").update(
           { id: carousel.id },
@@ -46,7 +38,7 @@ module.exports = async () => {
       }
     });
 
-    personaIconsResponse.data.map(async (personaIcon, index) => {
+    personaIcons.map(async (personaIcon, index) => {
       if (index <= personaIconsCount - 1) {
         await strapi.query("persona-icons").update(
           { id: personaIcon.id },
@@ -65,7 +57,7 @@ module.exports = async () => {
       }
     });
 
-    personaResponse.data.map(async (persona, index) => {
+    persona.map(async (persona, index) => {
       if (index <= personaCount - 1) {
         await strapi.query("persona").update(
           { id: persona.id },
@@ -92,7 +84,7 @@ module.exports = async () => {
       }
     });
 
-    subMenuResponse.data.map(async (subMenu, index) => {
+    subMenus.map(async (subMenu, index) => {
       if (index <= subMenuCount - 1) {
         await strapi.query("sub-menu").update(
           { id: subMenu.id },
@@ -113,14 +105,14 @@ module.exports = async () => {
       await strapi.query("release-notes").update(
         { id: 1 },
         {
-          label: releaseNotesResponse.data.label,
-          location: releaseNotesResponse.data.location,
+          label: releaseNotes.label,
+          location: releaseNotes.location,
         }
       );
     } else {
       await strapi.query("release-notes").create({
-        label: releaseNotesResponse.data.label,
-        location: releaseNotesResponse.data.location,
+        label: releaseNotes.label,
+        location: releaseNotes.location,
       });
     }
 
@@ -128,14 +120,14 @@ module.exports = async () => {
       await strapi.query("guides").update(
         { id: 1 },
         {
-          label: guidesResponse.data.label,
-          location: guidesResponse.data.location,
+          label: guides.label,
+          location: guides.location,
         }
       );
     } else {
       await strapi.query("guides").create({
-        label: guidesResponse.data.label,
-        location: guidesResponse.data.location,
+        label: guides.label,
+        location: guides.location,
       });
     }
 
@@ -143,7 +135,7 @@ module.exports = async () => {
       await strapi.query("top-nav-item").update(
         { id: 1 },
         {
-          body: topNavItemResponse.data.body.map((topNavItem, index) => {
+          body: topNavItem.body.map((topNavItem, index) => {
             if (topNavItem.__component === "menu.links") {
               return {
                 __component: "menu.links",
@@ -168,7 +160,7 @@ module.exports = async () => {
       );
     } else {
       await strapi.query("top-nav-item").create({
-        body: topNavItemResponse.data.body.map((topNavItem, index) => {
+        body: topNavItem.body.map((topNavItem, index) => {
           if (topNavItem.__component === "menu.links") {
             return {
               __component: "menu.links",

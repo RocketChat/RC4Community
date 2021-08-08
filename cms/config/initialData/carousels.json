@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Data protection solutions",
+    "description": "5 security features that every company should keep in mind",
+    "imageUrl": "https://rocket.chat/wp-content/uploads/2021/03/Cover-Image-Blog-11.jpg.webp",
+    "url": "https://rocket.chat/blog/learn/data-protection-solutions-security-features/",
+    "published_at": "2021-06-21T09:03:49.990Z",
+    "created_at": "2021-06-21T09:03:50.005Z",
+    "updated_at": "2021-07-17T14:19:39.237Z"
+  },
+  {
+    "id": 2,
+    "name": "Rocket.Chat raises $19m",
+    "description": "In Series A funding confirming privacy-first communication as a major trend in 2021",
+    "imageUrl": "https://rocket.chat/wp-content/uploads/2021/02/new_header.jpg.webp",
+    "url": "https://rocket.chat/blog/company/rocket-chat-raises-19-million-in-series-a-funding-confirming-privacy-first-communication-as-a-major-trend-in-2021/",
+    "published_at": "2021-06-21T09:03:49.990Z",
+    "created_at": "2021-06-21T09:03:50.134Z",
+    "updated_at": "2021-07-17T14:19:56.643Z"
+  },
+  {
+    "id": 3,
+    "name": "4 Different Slack Alternatives",
+    "description": "We’ve Tried 4 Different Slack Alternatives & Here’s Our Conclusion",
+    "imageUrl": "https://rocket.chat/wp-content/uploads/2020/12/Frame-9.png.webp",
+    "url": "https://rocket.chat/blog/learn/slack-alternative/",
+    "published_at": "2021-06-21T09:03:49.990Z",
+    "created_at": "2021-06-21T09:03:50.301Z",
+    "updated_at": "2021-07-17T14:16:05.252Z"
+  },
+  {
+    "id": 4,
+    "name": "Is WhatsApp safe for companies?",
+    "description": "A quick guide for secure messaging",
+    "imageUrl": "https://rocket.chat/wp-content/uploads/2021/01/whatsapp-safe-secure-messaging-blog.jpg",
+    "url": "https://rocket.chat/blog/learn/whatsapp-guide-secure-messaging/",
+    "published_at": "2021-06-21T09:03:49.990Z",
+    "created_at": "2021-06-21T09:03:50.446Z",
+    "updated_at": "2021-07-17T14:18:39.712Z"
+  },
+  {
+    "id": 5,
+    "name": "Security Bundle",
+    "description": "Get to Know Rocket.Chat’s Newest Weapon For Secure Messaging",
+    "imageUrl": "https://rocket.chat/wp-content/uploads/2021/02/Security-Bundle-Ilustra.jpg.webp",
+    "url": "https://rocket.chat/blog/product/security-bundle-for-secure-messaging/",
+    "published_at": "2021-06-21T09:03:49.990Z",
+    "created_at": "2021-06-21T09:03:50.621Z",
+    "updated_at": "2021-07-17T14:20:12.000Z"
+  }
+]
