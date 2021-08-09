@@ -34,9 +34,11 @@ Start strapi:
 git clone https://github.com/rocketchat/RC4Community
 cd cms
 npm i
-npm run develop
+INITIALIZE_DATA=true npm run develop
 ```
 
+Note the `INITIALIZE_DATA` environment variable is only needed the first time you startup the cms for development.   It will seed the cms with a default set of components for you to start your own customization.  (see [fetch data](https://github.com/RonLek/RC4Community/blob/master/cms/config/functions/fetchData.js)  for the actual default initialization code)
+ 
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
 
 ```
@@ -53,16 +55,6 @@ You can now have designers and devs modify the portal content directly and indep
 
 Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
 
-**Easy CMS data sync during development**
-
-A `fetchData.js` script has been written that can be used to **fetch and overwrite** local CMS data from an API endpoint. This script is executed on every Strapi server restart. To enable it start your Strapi CMS server with the `INITIALIZE_DATA` environment variable as follows:
-
-```
-cd cms
-INITIALIZE_DATA=true npm run develop
-```
-
-Your Strapi CMS data should now be in-sync with the remotely stored CMS data.
 
 ## Application build time
 
