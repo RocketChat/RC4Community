@@ -72,7 +72,7 @@ For a workable but simple minded, non-scalable, never to be used in production d
 
 ```
 cd app
-npm run prod
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run prod
 ```
 
 Again, note that cms/strapi is not required in production and should not be started.
@@ -86,7 +86,7 @@ Make sure you have build the bundle  (with the cms running):
 ```
 cd app
 npm i
-npm run build
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337  npm run build
 ```
 
 Once you have finshed the build,  the optimized files are ready in the `out` folder.  You will no no longer need the CMS running and can stop strapi.  This is key, deployment does not depend on the cms, in fact the same `tgz` can be immediately deployed to 1000s of smart edge nginx PoP as in modern CDNs.
