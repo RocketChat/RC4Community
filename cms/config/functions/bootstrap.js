@@ -1,5 +1,7 @@
 "use strict";
 
+const { getLatestCommunityActivity } = require("./fetchTopPosts");
+
 /**
  * An asynchronous bootstrap function that runs before
  * your application gets started.
@@ -32,5 +34,6 @@ module.exports = async () => {
   // Fetches data and populates CMS from remote on server restart
   if (process.env.INITIALIZE_DATA) {
     await strapi.config.functions.fetchData();
+    await getLatestCommunityActivity();
   }
 };
