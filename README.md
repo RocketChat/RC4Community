@@ -34,10 +34,13 @@ Start strapi:
 git clone https://github.com/rocketchat/RC4Community
 cd cms
 npm i
-INITIALIZE_DATA=true npm run develop
+INITIALIZE_DATA=true DISCOURSE_DOMAIN=domain DISCOURSE_API_USERNAME=username DISCOURSE_API_KEY=api_key npm run develop
 ```
 
-Note the `INITIALIZE_DATA` environment variable is only needed the first time you startup the cms for development.   It will seed the cms with a default set of components for you to start your own customization.  (see [fetch data](https://github.com/RonLek/RC4Community/blob/master/cms/config/functions/fetchData.js)  for the actual default initialization code)
+Note:
+1. `INITIALIZE_DATA` environment variable is only needed the first time you startup the cms for development.   It will seed the cms with a default set of components for you to start your own customization.  (see [fetch data](https://github.com/RonLek/RC4Community/blob/master/cms/config/functions/fetchData.js)  for the actual default initialization code)
+2. `DISCOURSE_DOMAIN`, `DISCOURSE_API_USERNAME`, `DISCOURSE_API_KEY` environment variables are required for the cron job to fetch the latest top activity on discourse with the time interval of 5 mins.
+
  
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
 

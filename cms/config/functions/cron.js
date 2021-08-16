@@ -1,5 +1,5 @@
 'use strict';
-
+const { getLatestCommunityActivity } = require("./fetchTopPosts");
 /**
  * Cron config that gives you an opportunity
  * to run scheduled jobs.
@@ -18,4 +18,7 @@ module.exports = {
   // '0 1 * * 1': () => {
   //
   // }
+  '*/5 * * * *': () => {
+    getLatestCommunityActivity();
+  } 
 };

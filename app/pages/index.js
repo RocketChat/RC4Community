@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { fetchAPI } from "../lib/api";
 import {
-  Button,
   TextField,
   Select,
   MenuItem,
@@ -31,50 +30,50 @@ export default function Home({
   guides,
   releaseNotes,
   topNavItems,
+  topPosts
 }) {
   const [searchCategory, setSearchCategory] = useState("");
   const { t } = useTranslation();
   let loginWindow = null;
 
-  const activityItems = [
-    {
-      title:
-        "I am setting up live chat and want to send an attachment ...how do I do that?",
-      author: "LigayaFernandez",
-      role: "LiveChat User",
-      community: "Question Forum",
-      time: "17 min ago",
-      upvotes: 0,
-      comments: 1,
-    },
-    {
-      title: "Stranger Introduction",
-      author: "Izzie ",
-      role: "GSoC Student",
-      community: "GSoC 2021",
-      time: "1 hour ago",
-      upvotes: 5,
-      comments: 10,
-    },
-    {
-      title: "Setting Up Rocket Chat",
-      author: "arary",
-      role: "Developer",
-      community: "Developer Discussions",
-      time: "2 hours ago",
-      upvotes: 0,
-      comments: 1,
-    },
-    {
-      title: "RC4Community Improvements",
-      author: "aumurad",
-      role: "Admin",
-      community: "Announcements",
-      time: "4 hours ago",
-      upvotes: 50,
-      comments: 3,
-    },
-  ];
+
+  function timeSince(date) {
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) {
+      return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+  }
+  let activityItems = [];
+  topPosts[0]?.TopPost?.topic_list?.topics.map((topic) => {
+    let newTopic = {
+      title: topic.fancy_title,
+      time: timeSince(new Date(topic.created_at)),
+      upvotes: topic.like_count,
+      comments: topic.posts_count,
+      link: `https://forums.rocket.chat/t/${topic.slug}/${topic.id}`,
+      image_url: topic.image_url
+    }
+    activityItems.push(newTopic);
+  })
+
 
   const Item = (props) => {
     return (
@@ -283,20 +282,16 @@ export default function Home({
         <div className="communities-wrapper">
           <h1>{t("unsigned-home-demo.community-activity-heading")}</h1>
           {activityItems.map((item) => (
-            <div className="community-activity-wrapper">
+            <a href={item.link} className="community-activity-wrapper">
               <div className="community-activity-content">
                 <img
-                  src={`https://open.rocket.chat/avatar/rocket.cat`}
+                  src={item.image_url || `https://open.rocket.chat/avatar/rocket.cat`}
                   className="community-activity-author-image"
                 />
                 <div className="community-activity-heading">
                   <h3>{item.title}</h3>
                   <p className="community-activity-info">
-                    by{" "}
-                    <strong>
-                      {item.author}({item.role})
-                    </strong>{" "}
-                    in <strong>{item.community}</strong> <i>{item.time}</i>{" "}
+                    <i>{item.time}</i>{" "}
                   </p>
                 </div>
               </div>
@@ -320,7 +315,7 @@ export default function Home({
                   {item.comments}
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -334,9 +329,10 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI("/guides");
   const releaseNotes = await fetchAPI("/release-notes");
   const topNavItems = await fetchAPI("/top-nav-item");
+  const topPosts = await fetchAPI("/discourses");
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
