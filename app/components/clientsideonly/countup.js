@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-export default function Countup(props) {
+// client-side only compoent -  dynamic Javascript count-up of numbers
+export default  function Countup(props) {
   const [count, setCount] = useState(0);
   const [value, setValue] = useState("");
   const speed = 1000 / props.end;
@@ -14,5 +15,5 @@ export default function Countup(props) {
       setValue(props.end.toString());
     }
   });
-  return <div className={props.className}>{value || count}</div>;
+  return <> <span className={props.className}>{value || count }</span> </>;
 }

@@ -1,12 +1,19 @@
-import "../styles/globals.css";
-import { I18nextProvider } from "react-i18next";
-import i18n from "../i18n";
+import '../styles/globals.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Layout from "../components/layout"
+import SSRProvider from 'react-bootstrap/SSRProvider';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <I18nextProvider i18n={i18n}>
-      <Component {...pageProps} />
-    </I18nextProvider>
-  );
+    <SSRProvider>
+
+      <Layout menu={pageProps}>
+        <Component {...pageProps} />
+      </Layout>
+    </SSRProvider>
+
+  )
 }
-export default MyApp;
+
+
+export default MyApp
