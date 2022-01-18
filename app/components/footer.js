@@ -1,22 +1,20 @@
-import styles from "../styles/Footer.module.css"
-import Image from "next/image"
+import Image from 'next/image';
 function Footer() {
-    return (
-        <>
-            <footer className={styles.footer}>
-                <a>
-                    Powered by{' '}
-                    <span className={styles.logo}>
-                        <Image src="/logo.svg" alt="Rocket.Chat Logo" width={98} height={32} />
-                    </span>
-                </a>
-            </footer>
-
-        </>
-
-    )
-
-
+  return (
+    <>
+      <footer>
+        <a className='p-3 d-flex align-content-center justify-content-center text-decoration-none text-black'>
+          Powered by{' '}
+          <Image
+            src='/logo.svg'
+            alt='Rocket.Chat Logo'
+            width={98}
+            height={32}
+          />
+        </a>
+      </footer>
+    </>
+  );
 }
 
-export default Footer
+export default Footer;

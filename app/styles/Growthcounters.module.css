@@ -1,11 +1,8 @@
-.icon {
-    font-size: "120px";
-    color: "red";
+.countup {
+  font-size: clamp(16px, 5vw, 32px);
+  color: #f5455c;
 }
-
-.react-icons {
-    font-size: "120px";
-    color: "red";
-    vertical-align: middle;
-
+.text {
+  font-size: clamp(12px, 3vw, 20px);
+  font-weight: 300;
 }
