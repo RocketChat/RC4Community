@@ -6,7 +6,7 @@ import Personacircle from '../components/personalcircle';
 import Discourserankedlist from '../components/discourserankedlist';
 import Searchbox from '../components/searchbox';
 import Growthcounters from '../components/growthcounters';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 
 export default function Home(props) {

@@ -1,6 +1,6 @@
 import styles from '../styles/Growthcounters.module.css';
 import Countup from './clientsideonly/countup';
-import { Col, Row } from 'react-bootstrap';
+
 export default function Growthcounters() {
   return (
     <>
