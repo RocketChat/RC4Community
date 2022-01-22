@@ -1,8 +1,102 @@
-.footer {
-    display: flex;
-    flex: 1;
-    padding: 2rem 0;
-    border-top: 1px solid #eaeaea;
-    justify-content: center;
-    align-items: center;
-  }
+.brand {
+  font-size: clamp(16px, 2.4vw, 20px);
+}
+
+.navbarItem {
+  transition: all 0.5s;
+}
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.navbarItem::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #ff5050;
+  color: transparent;
+  width: 0%;
+  content: '.';
+  height: 2px;
+}
+
+.navbarItem:hover:after {
+  width: 100%;
+}
+
+.my-dropdown-toggle:after {
+  display: none;
+}
+
+.chat {
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* reseting the default styles */
+.default_toggler,
+.default_toggler:hover,
+.default_toggler:active,
+.default_toggler:focus {
+  border: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar_toggler {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  transition: 0.5s ease-in-out;
+}
+
+.navbar_toggler,
+.navbar_toggler:focus,
+.navbar_toggler:active,
+.toggler_icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+}
+
+.toggler_icon {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: rgb(107, 107, 107);
+  border-radius: 1px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+/* when navigation is clicked */
+.top_bar {
+  margin-top: 0px;
+  transform: rotate(-135deg);
+}
+
+.bottom_bar {
+  margin-top: 0px;
+  transform: rotate(-45deg);
+}
+
+/* state when the navbar is collapsed or collapsed==true */
+.top_bar_collapsed {
+  margin-top: -10px;
+  transform: rotate(0deg);
+}
+
+.bottom_bar_collapsed {
+  margin-top: 10px;
+  transform: rotate(0deg);
+}

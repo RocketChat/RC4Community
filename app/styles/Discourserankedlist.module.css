@@ -1,0 +1,24 @@
+.container {
+  max-width: 90rem;
+}
+.item_container {
+  width: 80vw;
+}
+.heading {
+  font-size: clamp(10px, 4.6vw, 16px);
+}
+.time {
+  font-size: clamp(8px, 3.6vw, 16px);
+}
+.numbers{
+  font-size: clamp(8px, 3.6vw, 16px);
+}
+.coloumn {
+  background: #f7f8fa;
+  max-width: 40rem;
+}
+@media (min-width: 768px) {
+  .item_container {
+    width: clamp(18rem, 36vw, 36rem);
+  }
+}
