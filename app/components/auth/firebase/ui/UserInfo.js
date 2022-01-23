@@ -1,6 +1,6 @@
 import { getApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { getUser } from "../hooks/getUser";
 import { FB_APP_NAME } from "../lib/constants";
 import { NoUserAvatar } from "../../NoUserAvatar";

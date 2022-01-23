@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {initializeApp} from 'firebase/app';
 import { getFirebaseConfig } from './lib/functions';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
