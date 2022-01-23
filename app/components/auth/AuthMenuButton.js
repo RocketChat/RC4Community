@@ -28,7 +28,7 @@ export function AuthMenuButton({}){
                 <button style={avatarButtonStyle} onClick={() => setOpen(!isOpen)}>
                     <span className="d-flex align-items-center">
                         {
-                            user.photoURL ?
+                            user?.photoURL ?
                             <img src={user.photoURL} 
                                 alt={user.displayName}
                                 style={{
