@@ -5,7 +5,7 @@ import Menubar from './menubar';
 function Layout(props) {
   return (
     <>
-      <Menubar menu={props.menu.topNavItems} />
+      <Menubar menu={props.menu.topNavItems} cookies={props.cookies} />
       {props.children}
       <Footer></Footer>
     </>

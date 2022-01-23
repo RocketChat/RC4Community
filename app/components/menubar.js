@@ -1,23 +1,30 @@
 import { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container, Col, Row } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container, Button } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
 
+  const handleClickToChat = () => {
+    if (props.cookies.rc_uid && props.cookies.rc_token) {
+      window.open('https://open.rocket.chat', '__blank');
+    }
+    window.open('https://open.rocket.chat', '__blank');
+  };
+
   return (
-    <Container fluid class='border-bottom '>
-      <Navbar expand='lg' className=' bg-white mx-4 my-2'>
-        <Navbar.Brand href='#home' className={styles.brand}>
+    <Container fluid class="border-bottom ">
+      <Navbar expand="lg" className=" bg-white mx-4 my-2">
+        <Navbar.Brand href="#home" className={styles.brand}>
           Rocket.Chat Community
         </Navbar.Brand>
         <Navbar.Toggle
-          aria-controls='basic-navbar-nav'
+          aria-controls="basic-navbar-nav"
           className={styles.default_toggler}
         >
           <button
             className={`${styles.navbar_toggler} navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around bg-white`}
-            type='button'
+            type="button"
             onClick={() => {
               setCollapsed(!collapsed);
             }}
@@ -34,8 +41,8 @@ export default function Menubar(props) {
             ></span>
           </button>
         </Navbar.Toggle>
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='mx-auto'>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mx-auto">
             {props.menu?.body?.map((item) => {
               return item.sub_menus ? (
                 <NavDropdown
@@ -52,15 +59,18 @@ export default function Menubar(props) {
                   ))}
                 </NavDropdown>
               ) : (
-                <Nav.Link href={item.url} className='fw-light'>
+                <Nav.Link href={item.url} className="fw-light">
                   {item.label}
                 </Nav.Link>
               );
             })}
           </Nav>
-          <Row className={`bg-danger bg-gradient p-2 ${styles.chat}`}>
-            <Col className='text-white '>Chat</Col>
-          </Row>
+          <Button
+            onClick={handleClickToChat}
+            className={`bg-danger bg-gradient text-white p-2 ${styles.chat}`}
+          >
+            Click to Chat
+          </Button>
         </Navbar.Collapse>
       </Navbar>
     </Container>
