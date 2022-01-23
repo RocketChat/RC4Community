@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { getUser } from "./firebase/hooks/getUser";
 import { AuthUI } from "./firebase/ui/AuthUI";
 import { NoUserAvatar } from "./NoUserAvatar";

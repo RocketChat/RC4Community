@@ -1,5 +1,4 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import styles from '../styles/Menubar.module.css'
 import { AuthMenuButton } from "./auth/AuthMenuButton";
 import styles from '../styles/Menubar.module.css';
 
