@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { getUser } from "./firebase/hooks/getUser";
 import { AuthUI } from "./firebase/ui/AuthUI";
+import { NoUserAvatar } from "./NoUserAvatar";
 import styles from "./styles/auth.module.css";
 export function AuthMenuButton({}){
     const user = getUser();
@@ -26,7 +27,9 @@ export function AuthMenuButton({}){
         <div style={wrapperStyle}>
             <div style={avatarStyle}>
                 <button style={avatarButtonStyle} onClick={() => setOpen(!isOpen)}>
-                    <span className="d-flex align-items-center"><FaUser/></span>
+                    <span className="d-flex align-items-center">
+                        <NoUserAvatar name={user?.displayName} size="42" />
+                    </span>
                 </button>
             </div>
             { isOpen &&
