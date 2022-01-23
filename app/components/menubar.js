@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Col, Row } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
+import BrandLogo from "./brandlogo";
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
@@ -8,9 +9,14 @@ export default function Menubar(props) {
   return (
     <Container fluid class='border-bottom '>
       <Navbar expand='lg' className=' bg-white mx-4 my-2'>
-        <Navbar.Brand href='#home' className={styles.brand}>
-          Rocket.Chat Community
-        </Navbar.Brand>
+        <BrandLogo 
+          brandLink={'#home'}
+          logoLink={'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'}
+          imageTitle={'Rocket.Chat'}
+          brandName={'Rocket.Chat Community'}
+          height={21}
+          width={124}
+        />
         <Navbar.Toggle
           aria-controls='basic-navbar-nav'
           className={styles.default_toggler}

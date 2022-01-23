@@ -1,7 +1,3 @@
-.brand {
-  font-size: clamp(16px, 2.4vw, 20px);
-}
-
 .navbarItem {
   transition: all 0.5s;
 }
