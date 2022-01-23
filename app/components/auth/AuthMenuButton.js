@@ -28,7 +28,18 @@ export function AuthMenuButton({}){
             <div style={avatarStyle}>
                 <button style={avatarButtonStyle} onClick={() => setOpen(!isOpen)}>
                     <span className="d-flex align-items-center">
-                        <NoUserAvatar name={user?.displayName} size="42" />
+                        {
+                            user.photoURL ?
+                            <img src={user.photoURL} 
+                                alt={user.displayName}
+                                style={{
+                                    borderRadius: "50%"    
+                                }}
+                                height="42px" 
+                                width="42px" />
+                            :
+                            <NoUserAvatar name={user?.displayName} size="42" />
+                        }
                     </span>
                 </button>
             </div>
