@@ -1,8 +1,19 @@
-.footer {
-    display: flex;
-    flex: 1;
-    padding: 2rem 0;
-    border-top: 1px solid #eaeaea;
-    justify-content: center;
-    align-items: center;
-  }
+.form {
+  width: clamp(12rem, 80vw, 48rem);
+}
+.dropdown {
+  color: gray;
+  font-weight: regular;
+  background-color: #fff;
+  border: 1px solid rgba(195, 195, 195, 0.781);
+}
+.dropdown:hover {
+  color: gray;
+  background-color: #fff;
+}
+.dropdown:active {
+  background-color: #fff;
+}
+.dropdown:checked {
+  background-color: #fff;
+}
