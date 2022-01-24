@@ -1,1 +1,1 @@
-export const FB_APP_NAME = 'RC4C_AUTH'// '[DEFAULT]';
+export const FB_APP_NAME = '[DEFAULT]';

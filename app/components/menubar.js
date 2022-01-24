@@ -1,5 +1,5 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { AuthMenuButton } from "./auth/AuthMenuButton";
+import { AuthMenuButton } from "./auth/firebase/ui/AuthMenuButton";
 import '../styles/Menubar.module.css';
 
 export default function Menubar(props) {

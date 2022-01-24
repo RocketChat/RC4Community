@@ -1,48 +1,40 @@
-import { getUser} from "../hooks/getUser";
+import { useAuthUser } from "next-firebase-auth";
 import { LoginForm } from "./LoginForm";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { SignupForm } from "./SignupForm";
 import { UserInfo } from "./UserInfo";
+import styles from '../styles/AuthUI.module.css';
+
 export function AuthUI(){
-    const user = getUser();
+    const user = useAuthUser();
     const [signupVisible,setSignupVisible] = useState(false);
-    const onSignupComplete = () => {
-        setSignupVisible(false);
-    };
-    const wrapperStyle = {
-        width: "100%", 
-        maxWidth: "400px", 
-        border: "1px solid #ddd", 
-        boxShadow: "2px 2px 3px 3px #0000001D", 
-        background: "#FFF"
-    };
-    if(user){
+    if(user.id){
         return (
-            <div style={wrapperStyle}> 
+            <div className={styles.authUIWrapper}> 
                 <UserInfo/>
             </div>
         );
     } else if(signupVisible){
         return (
-            <div style={wrapperStyle}>
+            <div className={styles.authUIWrapper}>
                 <div className="w-100 p-1 d-flex align-items-center justify-content-center bg-light">
                     <Button
                         style={{position: "absolute", left: "5px"}}
-                        variant="light" 
-                        size="sm" 
+                        variant="light"
+                        size="sm"
                         onClick={()=>setSignupVisible(false)}>
                         &lt; back
                     </Button>
                     &nbsp;
                     <span>Sign up</span>
                 </div>
-                <SignupForm onSignupComplete={onSignupComplete}/>
+                <SignupForm onSignupComplete={()=>setSignupVisible(false)}/>
             </div>
         );
     } else {
         return (
-            <div style={wrapperStyle}> 
+            <div className={styles.authUIWrapper}>
                 <div className="w-100 p-1 d-flex align-items-center justify-content-center bg-light">
                     <span>Log in</span>
                 </div>

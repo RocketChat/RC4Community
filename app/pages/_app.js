@@ -2,16 +2,16 @@ import '/styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../components/layout';
 import SSRProvider from 'react-bootstrap/SSRProvider';
-import AuthProvider from '../components/auth/firebase/AuthProvider';
+import { initAuth } from '../components/auth/firebase/lib/functions';
+
+initAuth();
 
 function MyApp({ Component, pageProps }) {
   return (
     <SSRProvider>
-      <AuthProvider>
-        <Layout menu={pageProps}>
-          <Component {...pageProps} />
-        </Layout>
-      </AuthProvider>
+      <Layout menu={pageProps}>
+        <Component {...pageProps} />
+      </Layout>
     </SSRProvider>
   );
 }
