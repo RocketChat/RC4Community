@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { FirebaseSignupForm } from "./FirebaseSignupForm";
 import { FirebaseUserInfo } from "./FirebaseUserInfo";
-import styles from '../styles/AuthUI.module.css';
+import styles from '../styles/FirebaseAuthUI.module.css';
 
 export function FirebaseAuthUI(){
     const user = useAuthUser();

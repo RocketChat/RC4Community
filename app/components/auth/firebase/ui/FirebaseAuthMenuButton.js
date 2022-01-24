@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthUser } from "next-firebase-auth";
 import { FirebaseAuthUI } from "./FirebaseAuthUI";
 import { NoUserAvatar } from "../../NoUserAvatar";
-import styles from "../styles/AuthMenuButton.module.css";
+import styles from "../styles/FirebaseAuthMenuButton.module.css";
 export function FirebaseAuthMenuButton({}){
     const user = useAuthUser();
     const [isOpen,setOpen] = useState(false);
