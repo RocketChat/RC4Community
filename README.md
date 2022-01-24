@@ -1,8 +1,11 @@
-# Rocket.Chat for Communities 
+<h1 align='center'>Rocket.Chat for Communities </h1>
 
-## Build and grow massive on-line communities with Rocket.Chat
+![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
-Since 2015,  Rocket.Chat has been used globally by groups and organizations to create and build online communities of all shapes and sizes.    Today, with millions of end users and hundreds of thousands of deployed servers,  Rocket.Chat has uniquely become a networked community of community builders - a community of communities.   
+<h3 align='center'>✨ About the repository ✨</h3>
+
+
+Since 2015, [Rocket.Chat](https://rocket.chat) has been used globally by groups and organizations to create and build online communities of all shapes and sizes.    Today, with millions of end users and hundreds of thousands of deployed servers,  Rocket.Chat has uniquely become a networked community of community builders - a community of communities.   
 
 With its upcoming decentralized federation refactor,   Rocket.Chat stands to become the next level Internet fabric that will loosely unite all on-line communities in a decentralized yet consistent manner.
 
@@ -12,10 +15,13 @@ Unlike the team chat heritage of Rocket.Chat, this area is a trending but nascen
 
 If you are involved in some ways in the creation, building, and growth of massive communities online - we invite you to participate in this project; help us steer its direction and ensure its long term success. 
 
+![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
 
-### Developer quick start
+<h2 align='center'>🚀 Developer quick start 🚀</h2>
+<p align='center'> Development - Build - Production </p>
 
-##### Design and Development Time
+
+## 💻 Design and Development Time
 
 During development, our data provider is a headless CMS, strapi.  
 
@@ -63,7 +69,7 @@ You can now have designers and devs modify the portal content directly and indep
 Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
 
 
-## Application build time
+## 🛠  Application build time
 
 This app is deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
 
@@ -84,7 +90,8 @@ NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run prod
 
 Again, note that cms/strapi is not required in production and should not be started.
 
-## Deployment time  (production deployment)
+
+## 🗄 Deployment time  (production deployment)
 
 Production should be deployed as a statically generated website (with associated microservices and/or serverless execution support).
 
