@@ -1,18 +1,18 @@
 import { useAuthUser } from "next-firebase-auth";
-import { LoginForm } from "./LoginForm";
+import { FirebaseLoginForm } from "./FirebaseLoginForm";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { SignupForm } from "./SignupForm";
-import { UserInfo } from "./UserInfo";
+import { FirebaseSignupForm } from "./FirebaseSignupForm";
+import { FirebaseUserInfo } from "./FirebaseUserInfo";
 import styles from '../styles/AuthUI.module.css';
 
-export function AuthUI(){
+export function FirebaseAuthUI(){
     const user = useAuthUser();
     const [signupVisible,setSignupVisible] = useState(false);
     if(user.id){
         return (
             <div className={styles.authUIWrapper}> 
-                <UserInfo/>
+                <FirebaseUserInfo/>
             </div>
         );
     } else if(signupVisible){
@@ -29,7 +29,7 @@ export function AuthUI(){
                     &nbsp;
                     <span>Sign up</span>
                 </div>
-                <SignupForm onSignupComplete={()=>setSignupVisible(false)}/>
+                <FirebaseSignupForm onSignupComplete={()=>setSignupVisible(false)}/>
             </div>
         );
     } else {
@@ -38,7 +38,7 @@ export function AuthUI(){
                 <div className="w-100 p-1 d-flex align-items-center justify-content-center bg-light">
                     <span>Log in</span>
                 </div>
-                <LoginForm onSignupClick={()=>setSignupVisible(true)}/>
+                <FirebaseLoginForm onSignupClick={()=>setSignupVisible(true)}/>
             </div>
         );
     }

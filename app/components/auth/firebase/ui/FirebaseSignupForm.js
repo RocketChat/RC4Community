@@ -1,9 +1,10 @@
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification} from "firebase/auth";
 import {getApp} from 'firebase/app';
+import {reload} from 'firebase/auth';
 import { useState } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
 import {FB_APP_NAME} from '../lib/constants';
-export function SignupForm({onSignupComplete}){
+export function FirebaseSignupForm({onSignupComplete}){
     const [email,setEmail] = useState("");
     const [name,setName] = useState("");
     const [password1,setPassword1] = useState("");
@@ -41,6 +42,7 @@ export function SignupForm({onSignupComplete}){
             const fbApp = getApp(FB_APP_NAME);
             const userCred = await createUserWithEmailAndPassword(getAuth(fbApp),email,password1);
             await updateProfile(userCred.user,{displayName: name});
+            await reload(userCred.user);
             await sendEmailVerification(userCred.user);
             onSignupComplete && onSignupComplete();
         } catch(error){

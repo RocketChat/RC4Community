@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import { useAuthUser } from "next-firebase-auth";
 import { NoUserAvatar } from "../../NoUserAvatar";
 
-export function UserInfo(){
+export function FirebaseUserInfo(){
     const user = useAuthUser();
     if(!user.id)
         return <div/>;

@@ -1,5 +1,5 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { AuthMenuButton } from "./auth/firebase/ui/AuthMenuButton";
+import { FirebaseAuthMenuButton } from "./auth/firebase/ui/FirebaseAuthMenuButton";
 import '../styles/Menubar.module.css';
 
 export default function Menubar(props) {
@@ -25,7 +25,7 @@ export default function Menubar(props) {
                         </Nav>
                     </Navbar.Collapse>
                     &nbsp;
-                    <AuthMenuButton/>
+                    <FirebaseAuthMenuButton/>
             </Navbar>
         </>
     )

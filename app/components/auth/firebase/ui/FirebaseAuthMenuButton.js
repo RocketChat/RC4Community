@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useAuthUser } from "next-firebase-auth";
-import { AuthUI } from "./AuthUI";
+import { FirebaseAuthUI } from "./FirebaseAuthUI";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import styles from "../styles/AuthMenuButton.module.css";
-export function AuthMenuButton({}){
+export function FirebaseAuthMenuButton({}){
     const user = useAuthUser();
     const [isOpen,setOpen] = useState(false);
     return (
@@ -25,7 +25,7 @@ export function AuthMenuButton({}){
                 </button>
             </div>
             { isOpen &&
-                <div className={styles.authContainer}><AuthUI/></div>
+                <div className={styles.authContainer}><FirebaseAuthUI/></div>
             }
         </div>
     )
