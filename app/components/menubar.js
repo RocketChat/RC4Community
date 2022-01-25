@@ -6,7 +6,7 @@ export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <Container fluid class='border-bottom '>
+    <Container fluid className='border-bottom '>
       <Navbar expand='lg' className=' bg-white mx-4 my-2'>
         <Navbar.Brand href='#home' className={styles.brand}>
           Rocket.Chat Community
@@ -36,13 +36,13 @@ export default function Menubar(props) {
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mx-auto'>
-            {props.menu?.body?.map((item) => {
+            {props.menu?.body?.map(item => {
               return item.sub_menus ? (
                 <NavDropdown
                   title={item.label}
                   className={`ml-4 fw-light ${styles.navbarItem}`}
                 >
-                  {item.sub_menus.map((sub) => (
+                  {item.sub_menus.map(sub => (
                     <NavDropdown.Item
                       href={sub.url}
                       className={['dropdown-toggle']}
