@@ -33,13 +33,14 @@ jobs:
         run: |
           echo "Waiting 1 minute for strapi data initialization to complete.."
           sleep 1m # wait a moment grandpa
-          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || true
-          if { [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; }; then
+          _health=$(curl -s http://localhost:$PORT/_health -I | awk -F: '$1 == "strapi" { print $NF ~ /^[[:space:]]/ ? substr($NF, 2) : $NF }') || true
+          status_code=$(curl -so/dev/null -w "%{http_code}" http://localhost:$PORT/_health -I) || true
+          if [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; then
             echo "::error file=cms,title=cms_start_failure::" \
               "cms failed to start, returned status code '${status_code:-NO_STATUS_CODE}'"
             exit 7
           fi
-          if [ "${status_code:--999}" -ne 200 ]; then
+          if [ $_health != "You are so French!" ]; then
             echo "::error file=cms,title=cms_unknown_error::" \
               "cms started, but something else is wrong; returned status code '${status_code:-NO_STATUS_CODE}'"
             exit 1
