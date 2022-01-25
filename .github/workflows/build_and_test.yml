@@ -5,57 +5,79 @@ on:
   push: { branches: [master] }
 
 jobs:
-  build:
+  bat:
     runs-on: ubuntu-latest
     strategy:
       matrix: { node: [12, 14] }
 
     steps:
-      - name: clone repo
+      - name: Clone repo
         uses: actions/checkout@v2
 
-      - name: setup node
+      - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
-      - name: check cms package-lock
-        run: npx package-lock-check
+      - name: Check cms package-lock
+        run: cd cms; npx package-lock-check
 
-      - name: install cms dependencies
+      - name: Install cms dependencies
         run: cd cms && npm install --production
 
-      - name: check app package-lock
-        run: npx package-lock-check
-
-      - name: install app dependencies
-        run: cd app && npm i --production
-
-      - name: start cms
+      - name: Start cms
         run: cd cms; npm run develop &
         env: { INITIALIZE_DATA: 'true' }
 
-      - name: check cms running
+      - name: Check cms running
         run: |
-          sleep 10s # wait a moment grandpa
-          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || echo '::setFailed::curl failed'
-          [ "$status_code" -eq 200 ] || echo "::setFailed file={cms} title={cms failed to start}::returned status code '${status_code:-NO_STATUS_CODE}'"
+          echo "Waiting 1 minute for strapi data initialization to complete.."
+          sleep 1m # wait a moment grandpa
+          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || true
+          if { [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; }; then
+            echo "::error file=cms,title=cms_start_failure::" \
+              "cms failed to start, returned status code '${status_code:-NO_STATUS_CODE}'"
+            exit 7
+          fi
+          if [ "${status_code:--999}" -ne 200 ]; then
+            echo "::error file=cms,title=cms_unknown_error::" \
+              "cms started, but something else is wrong; returned status code '${status_code:-NO_STATUS_CODE}'"
+            exit 1
+          fi
+          echo "CMS successfully started"
         env: { PORT: 1337 }
 
-      - name: start app
+      - name: Check app package-lock
+        run: cd app; npx package-lock-check
+
+      - name: Install app dependencies
+        run: cd app && npm i --production
+
+      - name: Start app
         run: cd app; npm run dev &
 
-      - name: check app running
+      - name: Check app running
         run: |
+          echo "Waiting 10 seconds for app to start..."
           sleep 10s # wait a moment grandma
-          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || echo '::setFailed::curl failed'
-          [ "$status_code" -eq 200 ] || echo "::setFailed file={app} title={app failed to start}::returned status code '${status_code:-NO_STATUS_CODE}'"
+          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || true
+          if { [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; }; then
+            echo "::error file=app,title=app_start_failure::" \
+              "app failed to start, returned status code '${status_code:-NO_STATUS_CODE}'"
+            exit 7
+          fi
+          if [ "${status_code:--999}" -ne 200 ]; then
+            echo "::error file=app,title=app_unknown_error::" \
+              "app started, but something else is wrong; returned status code '${status_code:-NO_STATUS_CODE}'"
+            exit 1
+          fi
+          echo "app successfully started"
         env: { PORT: 3000 }
 
-      - name: build app (scalable)
+      - name: Build app (scalable)
         run: cd app; npm run build
-        env: { NEXT_PUBLIC_STRAPI_API_URL: http://localhost:1337 }
+        env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
 
-      - name: build app (non-scalable)
+      - name: Build app (non-scalable)
         run: cd app; npm run prod
-        env: { NEXT_PUBLIC_STRAPI_API_URL: http://localhost:1337 }
+        env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
