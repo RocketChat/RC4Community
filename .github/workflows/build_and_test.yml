@@ -1,7 +1,7 @@
 name: Build and Test
 
 on:
-  pull_request: {}
+  pull_request: { types: [ready_for_review] }
   push: { branches: [master] }
 
 jobs:
