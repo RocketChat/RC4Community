@@ -1,4 +1,5 @@
 <h1 align='center'>Rocket.Chat for Communities </h1>
+<p align='center'>![Build](https://github.com/Rocket.Chat/RC4Community/actions/workflows/build_and_test.yml/badge.svg)</p>
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
