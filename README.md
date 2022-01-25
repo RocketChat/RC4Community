@@ -1,5 +1,5 @@
+![Build](https://github.com/Rocket.Chat/RC4Community/actions/workflows/build_and_test.yml/badge.svg)
 <h1 align='center'>Rocket.Chat for Communities </h1>
-<p align='center'><img src="https://github.com/Rocket.Chat/RC4Community/actions/workflows/build_and_test.yml/badge.svg" alt="Build"></p>
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
