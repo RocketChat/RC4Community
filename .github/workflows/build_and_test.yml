@@ -1,0 +1,61 @@
+name: Build and Test
+
+on:
+  pull_request: {}
+  push: { branches: [master] }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { node: [12, 14] }
+
+    steps:
+      - name: clone repo
+        uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: check cms package-lock
+        run: npx package-lock-check
+
+      - name: install cms dependencies
+        run: cd cms && npm install --production
+
+      - name: check app package-lock
+        run: npx package-lock-check
+
+      - name: install app dependencies
+        run: cd app && npm i --production
+
+      - name: start cms
+        run: cd cms; npm run develop &
+        env: { INITIALIZE_DATA: 'true' }
+
+      - name: check cms running
+        run: |
+          sleep 10s # wait a moment grandpa
+          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || echo '::setFailed::curl failed'
+          [ "$status_code" -eq 200 ] || echo "::setFailed file={cms} title={cms failed to start}::returned status code '${status_code:-NO_STATUS_CODE}'"
+        env: { PORT: 1337 }
+
+      - name: start app
+        run: cd app; npm run dev &
+
+      - name: check app running
+        run: |
+          sleep 10s # wait a moment grandma
+          status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || echo '::setFailed::curl failed'
+          [ "$status_code" -eq 200 ] || echo "::setFailed file={app} title={app failed to start}::returned status code '${status_code:-NO_STATUS_CODE}'"
+        env: { PORT: 3000 }
+
+      - name: build app (scalable)
+        run: cd app; npm run build
+        env: { NEXT_PUBLIC_STRAPI_API_URL: http://localhost:1337 }
+
+      - name: build app (non-scalable)
+        run: cd app; npm run prod
+        env: { NEXT_PUBLIC_STRAPI_API_URL: http://localhost:1337 }
