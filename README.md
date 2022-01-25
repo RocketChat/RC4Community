@@ -25,10 +25,10 @@ During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
 
-By default, strapi listens on port 1337. If you're using WSL2 on Windows and also running Docker Desktop, port 1337 may not be available on your system. To use port 3000 instead, change this line in `config/server.js` file:
+By default, strapi listens on port 1337. If you're using WSL2 on Windows and also running Docker Desktop, port 1337 may not be available on your system. To use port 3000 instead, set the environment variable `PORT` to 3000.
 
 ```
-  port: env.int('PORT', 3000),
+export PORT=3000
 ```
 
 Start strapi:
