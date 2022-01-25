@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container, Col, Row } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
 import BrandLogo from "./brandlogo";
+import RocketChatLinkButton from './rocketchatlinkbutton';
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
@@ -64,9 +65,9 @@ export default function Menubar(props) {
               );
             })}
           </Nav>
-          <Row className={`bg-danger bg-gradient p-2 ${styles.chat}`}>
-            <Col className='text-white '>Chat</Col>
-          </Row>
+          <RocketChatLinkButton className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}>
+            Click to Chat
+          </RocketChatLinkButton>
         </Navbar.Collapse>
       </Navbar>
     </Container>
