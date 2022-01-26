@@ -23,13 +23,6 @@ export default function Menubar(props) {
           aria-controls='basic-navbar-nav'
           className={styles.default_toggler+" ms-auto"}
         >
-          <button
-            className={`${styles.navbar_toggler} navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around bg-white`}
-            type='button'
-            onClick={() => {
-              setCollapsed(!collapsed);
-            }}
-          >
             <span
               className={`${styles.toggler_icon} ${
                 collapsed ? styles.top_bar_collapsed : styles.top_bar
@@ -40,18 +33,19 @@ export default function Menubar(props) {
                 collapsed ? styles.bottom_bar_collapsed : styles.bottom_bar
               }`}
             ></span>
-          </button>
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mx-auto'>
-            {props.menu?.body?.map(item => {
+            {props.menu?.body?.map((item,index) => {
               return item.sub_menus ? (
                 <NavDropdown
+                  key = {item.id || item._id || `NavDropDown_${index}`}
                   title={item.label}
                   className={`ml-4 fw-light ${styles.navbarItem}`}
                 >
-                  {item.sub_menus.map(sub => (
+                  {item.sub_menus.map((sub,index) => (
                     <NavDropdown.Item
+                      key={sub.id || sub._id || `NavDropDownItem_${index}`}
                       href={sub.url}
                       className={['dropdown-toggle']}
                     >
@@ -60,7 +54,7 @@ export default function Menubar(props) {
                   ))}
                 </NavDropdown>
               ) : (
-                <Nav.Link href={item.url} className='fw-light'>
+                <Nav.Link href={item.url} className='fw-light' key={item.id || item._id || `NavLink_${index}`}>
                   {item.label}
                 </Nav.Link>
               );
