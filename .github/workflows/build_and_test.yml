@@ -84,6 +84,15 @@ jobs:
         run: cd app; npm run prod
         env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
 
+      - name: Build non-scalable app build archive
+        run: cd app; tar zcvf /tmp/site.tgz out
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: non_scalable_build
+          path: /tmp/site.tgz
+
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
@@ -94,26 +103,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: non_scalable_build
-          path: /tmp/build
+          path: /tmp/
 
-      - name: Push to remote
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
-          REMOTE_PORT: ${{ secrets.SSH_REMOTE_HOST_PORT }}
-          SOURCE: /tmp/build/site.tgz
-          TARGET: /tmp/
-
-      - name: Set up remote server
-        uses: appleboy/ssh-action@master
+      - name: Deploy
+        uses: debdutdeb@rc4community.deploy.action@main
         with:
-          host: ${{ secrets.SSH_REMOTE_HOST }}
-          port: ${{ secrets.SSH_REMOTE_HOST_PORT }}
-          username: ${{ secrets.SSH_REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            dest=${{ secrets.SSH_REMOTE_DESTINATION }}
-            tar zxf "${dest%/}/site.tgz" -C
-          debug: true
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_host_port: ${{ secrets.REMOTE_PORT }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_user: ${{ secrets.SSH_USER }}
+          source: /tmp/site.tgz
+          destination: ${{ secrets.DEPLOY_DESTINATION }}
