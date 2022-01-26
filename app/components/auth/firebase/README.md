@@ -3,7 +3,8 @@
 1. set up environment variables for firebase config in `.env.local`
 
 ```
-# Environment variables for firebase-admin
+# Environment variables for firebase-admin. 
+# You can also find these values in the service-key.json file that you downloaded from firebase.
 FIREBASE_PROJECT_ID=required
 FIREBASE_PRIVATE_KEY=required
 FIREBASE_CLIENT_EMAIL=required
@@ -26,7 +27,7 @@ COOKIE_SECRET_PREVIOUS=example_string_u4ht83r3m20rxc34nty340v9t4ty340mtu438ty48n
 2. Initialize `next-firebase-auth` in _app.js
 ```
 // ./pages/_app.js
-import initAuth from '../initAuth' // the module you created above
+import { initAuth } from '../components/auth/firebase/lib/functions';
 
 initAuth()
 ..
