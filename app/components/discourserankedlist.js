@@ -130,8 +130,9 @@ function Discourserankedlist(props) {
       <Col
         className={`${styles.container} d-flex flex-wrap justify-content-center`}
       >
-        {Data.map((item) => (
+        {Data.map(item => (
           <Col
+            key={item.id}
             href={item.link}
             className={`${
               styles.coloumn
