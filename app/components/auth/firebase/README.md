@@ -3,7 +3,8 @@
 1. set up environment variables for firebase config in `.env.local`
 
 ```
-# Environment variables for firebase-admin
+# Environment variables for firebase-admin. 
+# You can also find these values in the service-key.json file that you downloaded from firebase.
 FIREBASE_PROJECT_ID=required
 FIREBASE_PRIVATE_KEY=required
 FIREBASE_CLIENT_EMAIL=required
