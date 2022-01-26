@@ -27,7 +27,7 @@ COOKIE_SECRET_PREVIOUS=example_string_u4ht83r3m20rxc34nty340v9t4ty340mtu438ty48n
 2. Initialize `next-firebase-auth` in _app.js
 ```
 // ./pages/_app.js
-import initAuth from '../initAuth' // the module you created above
+import { initAuth } from '../components/auth/firebase/lib/functions';
 
 initAuth()
 ..
