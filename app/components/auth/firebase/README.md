@@ -27,13 +27,13 @@ COOKIE_SECRET_PREVIOUS=example_string_u4ht83r3m20rxc34nty340v9t4ty340mtu438ty48n
 2. Initialize `next-firebase-auth` in _app.js
 ```
 // ./pages/_app.js
-import { initAuth } from '../components/auth/firebase/lib/functions';
+import { initAuth } from '../components/auth/firebase';
 
 initAuth()
 ..
 ..
 ```
-3. Export the page component with `withAuthUser(Page)` or  and use `useAuthUser()` hook to get user info.
+3. Export the page component with `withAuthUser(Page)` and use `useAuthUser()` hook to get user info.
 ```
 // ./pages/demo
 import React from 'react'
@@ -76,3 +76,4 @@ signed: true,
 },
 
 ```
+7. Build will fail if environment variables are not set. In order not to affect rendering of other components make use of `withFirebaseAuthUser`, `withFirebaseAuthUserSSR`, `withFirebaseAuthUserTokenSSR` and `useFirebaseAuthUser` instead of their respective `next-firebase-auth` version. They are just a wrapper that checks if firebase is initialised properly or not. And prevents build fail. They are exported from `/app/components/auth/firebase`.

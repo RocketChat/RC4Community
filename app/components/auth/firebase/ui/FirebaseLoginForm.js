@@ -13,7 +13,8 @@ import {getApp} from 'firebase/app';
 import { useState } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
 import {FB_APP_NAME} from '../lib/constants';
-export function FirebaseLoginForm({onSignupClick}){
+
+export default function FirebaseLoginForm({onSignupClick}){
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [errorMessage,setError] = useState("");

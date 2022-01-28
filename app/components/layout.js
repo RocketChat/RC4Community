@@ -1,5 +1,5 @@
-import { withAuthUser } from 'next-firebase-auth'
 import '../styles/Layout.module.css'
+import { withFirebaseAuthUser } from './auth/firebase';
 import Footer from './footer'
 import Menubar from './menubar'
 
@@ -15,4 +15,4 @@ function Layout(props) {
     )
 }
 
-export default withAuthUser()(Layout);
+export default withFirebaseAuthUser()(Layout);

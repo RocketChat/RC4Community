@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useAuthUser } from "next-firebase-auth";
-import { FirebaseAuthUI } from "./FirebaseAuthUI";
+import FirebaseAuthUI from "./FirebaseAuthUI";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import styles from "../styles/FirebaseAuthMenuButton.module.css";
-export function FirebaseAuthMenuButton({}){
-    const user = useAuthUser();
+import { useFirebaseAuthUser } from "../lib/functions";
+
+export default function FirebaseAuthMenuButton({}){
+    const user = useFirebaseAuthUser();
     const [isOpen,setOpen] = useState(false);
     return (
         <div className={styles.authDialogWrapper}>

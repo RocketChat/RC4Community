@@ -4,7 +4,8 @@ import {reload} from 'firebase/auth';
 import { useState } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
 import {FB_APP_NAME} from '../lib/constants';
-export function FirebaseSignupForm({onSignupComplete}){
+
+export default function FirebaseSignupForm({onSignupComplete}){
     const [email,setEmail] = useState("");
     const [name,setName] = useState("");
     const [password1,setPassword1] = useState("");
