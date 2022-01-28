@@ -130,7 +130,7 @@ const handleFBNotInitError = async (context,getServerSidePropsFunc) => {
   context.AuthUser = AuthUser;
   
   const AuthUserSerialized = AuthUser.serialize();
-  const returnData = {props: {AuthUserSerialized}};
+  let returnData = {props: {AuthUserSerialized}};
   
   if(getServerSidePropsFunc) {  
     // a getServerSideProps function is passed
