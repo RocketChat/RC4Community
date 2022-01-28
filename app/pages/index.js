@@ -8,8 +8,9 @@ import Searchbox from '../components/searchbox';
 import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
+import { withFirebaseAuthUser } from '../components/auth/firebase';
 
-export default function Home(props) {
+function Home(props) {
   return (
     <>
       <Head>
@@ -70,6 +71,8 @@ export default function Home(props) {
     </>
   );
 }
+export default withFirebaseAuthUser()(Home);
+
 export async function getStaticProps({ params }) {
   const carousels = await fetchAPI('/carousels');
   const personas = await fetchAPI('/personas');
