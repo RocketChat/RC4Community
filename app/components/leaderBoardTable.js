@@ -18,7 +18,7 @@ export default function LeaderboardTable({ contributors }) {
               Open PRs
             </th>
             <th scope="col" colSpan="1">
-              Merged PRs.
+              Merged PRs
             </th>
             <th scope="col" colSpan="1">
               Issues
