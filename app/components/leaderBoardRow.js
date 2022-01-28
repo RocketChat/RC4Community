@@ -1,4 +1,3 @@
-import Table from "react-bootstrap/Table";
 import styles from "../styles/Leaderboard.module.css";
 import Image from "next/image";
 
