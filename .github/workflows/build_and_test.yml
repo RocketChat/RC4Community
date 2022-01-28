@@ -3,7 +3,7 @@ name: Build and Test
 on:
   pull_request: { types: [ready_for_review] }
   push: { branches: [master] }
-  release: { types: [published] }
+    #release: { types: [published] }
 
 jobs:
   bat:
