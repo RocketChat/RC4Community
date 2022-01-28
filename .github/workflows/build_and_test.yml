@@ -110,9 +110,9 @@ jobs:
       #     echo "app successfully started"
       #   env: { PORT: 3000 }
 
-      - name: Build app (scalable)
-        run: cd app; npm run build
-        env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
+      # - name: Build app (scalable)
+      #   run: cd app; npm run build
+      #   env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
 
   #     - name: Build non-scalable app build archive
   #       run: cd app; tar zcvf /tmp/site.tgz out
