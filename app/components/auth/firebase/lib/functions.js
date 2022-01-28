@@ -1,4 +1,5 @@
 import { init, useAuthUser, withAuthUser, withAuthUserSSR, withAuthUserTokenSSR} from 'next-firebase-auth'
+import { getGoogleCredsFromFile } from './getGoogleCredsFromFile';
 
 const initAuthHelper = (function(){
   let initAuthResult = {success: false, error: new Error('Firebase auth is not yet initialised')};
@@ -42,6 +43,20 @@ export const createEmptyAuthUser = () => {
 }
 
 export const initAuth = () => {
+  let googleCreds = {
+    projectId: process.env.FIREBASE_PROJECT_ID || null,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL || null,
+    // The private key must not be accessible on the client side.
+    privateKey: process.env.FIREBASE_PRIVATE_KEY || null,
+  }
+  if(typeof window === 'undefined' && process.env.GOOGLE_CREDS_PATH){
+    // firebase admin has to be initialized using service acccount json file.
+    const googleCredsFromFile = getGoogleCredsFromFile(process.env.GOOGLE_CREDS_PATH);
+    googleCreds.projectId = googleCredsFromFile.project_id;
+    googleCreds.privateKey = googleCredsFromFile.private_key;
+    googleCreds.clientEmail = googleCredsFromFile.client_email;
+  }
+
   try {
     init({
       loginAPIEndpoint: '/api/fb/login', // required
@@ -53,12 +68,7 @@ export const initAuth = () => {
         console.error(err)
       },
       firebaseAdminInitConfig: {
-        credential: {
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-          // The private key must not be accessible on the client side.
-          privateKey: process.env.FIREBASE_PRIVATE_KEY,
-        },
+        credential: googleCreds,
         databaseURL: process.env.FIREBASE_DATABASE_URL,
       },
 
