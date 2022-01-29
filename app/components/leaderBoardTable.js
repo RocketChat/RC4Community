@@ -1,4 +1,4 @@
-import styles from "../styles/Leaderboard.module.css";
+import styles from "../styles/LeaderboardTable.module.css";
 import Table from "react-bootstrap/Table";
 import LeaderBoardRow from "./leaderBoardRow";
 
@@ -30,6 +30,7 @@ export default function LeaderboardTable({ contributors }) {
             <LeaderBoardRow
               contributor={contributor}
               key={contributor.username}
+              styles={styles}
             />
           ))}
         </tbody>

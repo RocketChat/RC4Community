@@ -1,7 +1,6 @@
-import styles from "../styles/Leaderboard.module.css";
 import Image from "next/image";
 
-export default function LeaderBoardRow({ contributor }) {
+export default function LeaderBoardRow({ contributor , styles }) {
   return (
     <>
       <tr>
