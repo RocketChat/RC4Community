@@ -38,7 +38,7 @@ jobs:
         with:
           script: |
             const http = require('http');
-            const fs = require('fs/promises');
+            const {readFileSync} = require('fs');
             core.info('waiting 1 minute for strapi data initialization to complete ..');
             await new Promise(zzz => setTimeout(zzz, 60 * 1000));
             http
