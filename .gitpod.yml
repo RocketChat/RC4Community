@@ -1,0 +1,17 @@
+tasks:
+  - env: 
+      INITIALIZE_DATA: true
+    init: |
+      cd cms
+      npm install
+    command: |
+      cd cms
+      npm run develop
+  - init: |
+      cd app
+      npm install
+    command: |
+      gp await-port 1337    
+      cd app
+      npm run dev 
+    openMode: split-right
