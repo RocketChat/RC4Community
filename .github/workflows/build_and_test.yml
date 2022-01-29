@@ -1,0 +1,146 @@
+name: Build and Test
+
+on:
+  pull_request: { types: [ready_for_review] }
+  push: { branches: [master] }
+  #release: { types: [published] }
+
+jobs:
+  bat:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { node: [12, 14] }
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Check cms package-lock
+        run: cd cms; npx package-lock-check
+
+      - name: Install cms dependencies
+        run: cd cms && npm install --production
+
+      - name: Start cms
+        run: cd cms; npm run develop &
+        env: { INITIALIZE_DATA: 'true' }
+
+      - name: Check cms running
+        uses: actions/github-script@v5
+        env: { PORT: 1337 }
+        with:
+          script: |
+            const http = require('http');
+            core.info('waiting 1 minute for strapi data initialization to complete ..');
+            await new Promise(zzz => setTimeout(zzz, 60 * 1000));
+            http
+              .request(`http://localhost:${process.env.PORT}/_health`, { method: 'HEAD' }, r => {
+                if (r.statusCode !== 204 || r.headers.strapi !== 'You are so French!')
+                  core.setFailed(`cms failed to start; returned status code: ${r.statusCode}; health status: ${r.headers.strapi}`);
+              })
+              .on('error', core.setFailed)
+              .end();
+            core.info('cms successfully started')
+
+      # - name: Check cms running
+      #   run: |
+      #     echo "Waiting 1 minute for strapi data initialization to complete.."
+      #     sleep 1m # wait a moment grandpa
+      #     _health=$(curl -s http://localhost:$PORT/_health -I | awk -F: '$1 == "strapi" { print $NF ~ /^[[:space:]]/ ? substr($NF, 2) : $NF }') || true
+      #     status_code=$(curl -so/dev/null -w "%{http_code}" http://localhost:$PORT/_health -I) || true
+      #     if [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; then
+      #       echo "::error file=cms,title=cms_start_failure::" \
+      #         "cms failed to start, returned status code '${status_code:-NO_STATUS_CODE}'"
+      #       exit 7
+      #     fi
+      #     if [ "$_health" != "You are so French!" ]; then
+      #       echo "::error file=cms,title=cms_unknown_error::" \
+      #         "cms started, but something else is wrong; returned status code '${status_code:-NO_STATUS_CODE}'"
+      #       exit 1
+      #     fi
+      #     echo "CMS successfully started"
+      #   env: { PORT: 1337 }
+
+      - name: Check app package-lock
+        run: cd app; npx package-lock-check
+
+      - name: Install app dependencies
+        run: cd app && npm i --production
+
+      - name: Start app
+        run: cd app; npm run dev &
+
+      - name: Check app running
+        uses: actions/github-script@v5
+        env: { PORT: 3000 }
+        with:
+          script: |
+            const http = require('http');
+            core.info('waiting 10 seconds for app to start ..');
+            await new Promise(zzz => setTimeout(zzz, 10 * 1000));
+            http
+              .request(`http://localhost:${process.env.PORT}`, { method: 'GET' }, r => {
+                if (r.statusCode !== 200)
+                  core.setFailed(`app failed to start; returned status code: ${r.statusCode}; body: ${r.read()}`);
+              })
+              .on('error', core.setFailed)
+              .end();
+            core.info('app successfully started')
+
+      # - name: Check app running
+      #   run: |
+      #     echo "Waiting 10 seconds for app to start..."
+      #     sleep 10s # wait a moment grandma
+      #     status_code="$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:$PORT)" || true
+      #     if { [ $? -eq 7 ] || [ ${status_code:--999} -eq 000 ]; }; then
+      #       echo "::error file=app,title=app_start_failure::" \
+      #         "app failed to start, returned status code '${status_code:-NO_STATUS_CODE}'"
+      #       exit 7
+      #     fi
+      #     if [ "${status_code:--999}" -ne 200 ]; then
+      #       echo "::error file=app,title=app_unknown_error::" \
+      #         "app started, but something else is wrong; returned status code '${status_code:-NO_STATUS_CODE}'"
+      #       exit 1
+      #     fi
+      #     echo "app successfully started"
+      #   env: { PORT: 3000 }
+
+      # - name: Build app (scalable)
+      #   run: cd app; npm run build
+      #   env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
+
+  #     - name: Build non-scalable app build archive
+  #       run: cd app; tar zcvf /tmp/site.tgz out
+
+  #     - name: Upload archive
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: non_scalable_build
+  #         path: /tmp/site.tgz
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'release'
+  #   needs: [bat]
+
+  #   steps:
+  #     - name: Get non-scalable build
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: non_scalable_build
+  #         path: /tmp/
+
+  #     - name: Deploy
+  #       uses: debdutdeb/rc4community.deploy.action@main
+  #       with:
+  #         remote_host: ${{ secrets.REMOTE_HOST }}
+  #         remote_host_port: ${{ secrets.REMOTE_PORT }}
+  #         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         remote_user: ${{ secrets.SSH_USER }}
+  #         source: /tmp/site.tgz
+  #         destination: ${{ secrets.DEPLOY_DESTINATION }}
