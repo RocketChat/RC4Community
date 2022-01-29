@@ -35,7 +35,7 @@ export default function LeaderBoard({ contributors }) {
           </p>
         </Col>
         <Col className="d-flex flex-column align-items-center col-10 col-md-8">
-          <LeaderboardTable contributors={contributors} />
+          <LeaderboardTable contributors={contributors} tableSize={30}/>
         </Col>
       </Container>
     </div>

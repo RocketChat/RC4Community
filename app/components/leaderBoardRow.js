@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function LeaderBoardRow({ contributor , styles }) {
+export default function LeaderBoardRow({ contributor, styles }) {
   return (
     <>
       <tr>
@@ -20,7 +20,9 @@ export default function LeaderBoardRow({ contributor , styles }) {
         </td>
         <td
           className={
-            contributor.openPRsNumber > 0 ? "" : styles["disabled-link"]
+            contributor.openPRsNumber > 0
+              ? "d-none d-sm-table-cell"
+              : `${styles["disabled-link"]} d-none d-sm-table-cell`
           }
           colSpan="1"
         >
@@ -34,7 +36,9 @@ export default function LeaderBoardRow({ contributor , styles }) {
         </td>
         <td
           className={
-            contributor.mergedPRsNumber > 0 ? "" : styles["disabled-link"]
+            contributor.mergedPRsNumber > 0
+              ? "d-none d-sm-table-cell"
+              : `${styles["disabled-link"]} d-none d-sm-table-cell`
           }
           colSpan="1"
         >
@@ -44,7 +48,9 @@ export default function LeaderBoardRow({ contributor , styles }) {
         </td>
         <td
           className={
-            contributor.issuesNumber > 0 ? "" : styles["disabled-link"]
+            contributor.issuesNumber > 0
+              ? "d-none d-sm-table-cell"
+              : `${styles["disabled-link"]} d-none d-sm-table-cell`
           }
           colSpan="1"
         >
