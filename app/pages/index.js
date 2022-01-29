@@ -10,6 +10,7 @@ import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
 import GithubIssuesList from '../components/githubissueslist';
+import { octokitClient } from '../lib/octokit'
 
 function Home(props) {
   return (
@@ -88,13 +89,10 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-
-  const i = await fetch('https://api.github.com/repos/RocketChat/RC4Community/issues', {
-    headers: {
-      Accept: 'application/vnd.github.v3+json',
-    }
-  })
-  const issues = await i.json()
+  const issues = await octokitClient('GET /repos/{owner}/{repo}/issues', {
+    owner: 'RocketChat',
+    repo: 'RC4Community'
+  });
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues },

@@ -11,19 +11,22 @@ function truncateUpto(str, noOfWords) {
 
 const GithubIssuesList = ({ issues }) => {
   const [data, setData] = useState([]);
-  console.log(data);
 
   useEffect(() => {
     // it gives us issues + PRs,
     // so we can filter them and use top 15 issues (we can also sort them by reactions or comments? or labels maybe?)
-    setData(issues.filter((issue) => !issue.pull_request).splice(0, 10));
+    if (Array.isArray(issues)) {
+      setData(issues.filter((issue) => !issue.pull_request).splice(0, 10));
+    } else {
+      setData(issues);
+    }
   }, [issues]);
 
   return (
     <div
       className={`${styles.container} d-flex flex-wrap justify-content-center`}
     >
-      {data.map((issue) => (
+      {Array.isArray(data) ? data.map((issue) => (
         <Col
           key={issue.id}
           className={`${styles.column} p-2 m-2 mx-md-3  ps-4 col-md-5 d-flex justify-content-between border-start border-4`}
@@ -48,7 +51,7 @@ const GithubIssuesList = ({ issues }) => {
             </span>
           </Row>
         </Col>
-      ))}
+      )): <p className='text-danger'>{issues}, ERROR :( </p>}
     </div>
   );
 };
