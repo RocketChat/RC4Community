@@ -48,6 +48,7 @@ jobs:
                     core.info('cms successfully started')
                     return
                   }
+                core.error(readFileSync(process.env.LOG_FILE, 'utf-8'))
                 core.setFailed(`cms failed to start; returned status code: ${r.statusCode}; health status: ${r.headers.strapi}`);
               })
               .on('error', core.setFailed)
@@ -89,7 +90,7 @@ jobs:
         with:
           script: |
             const http = require('http');
-            const fs = require('fs/promises');
+            const {readFileSync} = require('fs');
             core.info('waiting 10 seconds for app to start ..');
             await new Promise(zzz => setTimeout(zzz, 10 * 1000));
             http
@@ -99,7 +100,7 @@ jobs:
                     core.info('app successfully started')
                     return
                   }
-                core.error((await fs.readFile(process.env.LOG_FILE)).toString())
+                core.error(readFileSync(process.env.LOG_FILE, 'utf8'))
                 core.setFailed(`app failed to start; returned status code: ${r.statusCode}; body: ${r.read()}`);
               })
               .on('error', core.setFailed)
