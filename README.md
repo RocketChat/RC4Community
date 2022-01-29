@@ -4,6 +4,18 @@
 ![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
+<h2 align='center'>🚀 Community Builder quick start 🚀</h2>
+<p align='center'> Customize - Deploy - Manage </p>
+
+## 💻 Work from any browser or Chromebook
+
+Paste the following into your browser:
+
+```
+gitpod.io/#https://github.com/RocketChat/RC4Community
+```
+
+Start designing and customizing your community management system!
 
 <h2 align='center'>🚀 Developer quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
