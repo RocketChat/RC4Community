@@ -42,10 +42,10 @@ jobs:
               .request(`http://localhost:${process.env.PORT}/_health`, { method: 'HEAD' }, r => {
                 if (r.statusCode !== 204 || r.headers.strapi !== 'You are so French!')
                   core.setFailed(`cms failed to start; returned status code: ${r.statusCode}; health status: ${r.headers.strapi}`);
+                core.info('cms successfully started')
               })
               .on('error', core.setFailed)
               .end();
-            core.info('cms successfully started')
 
       # - name: Check cms running
       #   run: |
@@ -87,10 +87,10 @@ jobs:
               .request(`http://localhost:${process.env.PORT}`, { method: 'GET' }, r => {
                 if (r.statusCode !== 200)
                   core.setFailed(`app failed to start; returned status code: ${r.statusCode}; body: ${r.read()}`);
+                core.info('app successfully started')
               })
               .on('error', core.setFailed)
               .end();
-            core.info('app successfully started')
 
       # - name: Check app running
       #   run: |
