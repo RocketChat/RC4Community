@@ -48,7 +48,11 @@ jobs:
                     core.info('cms successfully started')
                     return
                   }
-                core.error((await fs.readFile(process.env.LOG_FILE)).toString())
+                try {
+                  core.error((await fs.readFile(process.env.LOG_FILE)).toString())
+                } catch (e) {
+                  core.setFailed(e)
+                }
                 core.setFailed(`cms failed to start; returned status code: ${r.statusCode}; health status: ${r.headers.strapi}`);
               })
               .on('error', core.setFailed)
