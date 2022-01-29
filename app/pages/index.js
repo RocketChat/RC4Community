@@ -9,6 +9,7 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
+import GithubIssuesList from '../components/githubissueslist';
 
 function Home(props) {
   return (
@@ -67,6 +68,13 @@ function Home(props) {
           </h2>
           <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
         </div>
+
+        <div className={` d-flex flex-column py-5 align-items-center`}>
+          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
+            GitHub Issues
+          </h2>
+          <GithubIssuesList issues={props.issues}></GithubIssuesList>
+        </div>
       </Container>
     </>
   );
@@ -81,8 +89,15 @@ export async function getStaticProps({ params }) {
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
 
+  const i = await fetch('https://api.github.com/repos/RocketChat/RC4Community/issues', {
+    headers: {
+      Accept: 'application/vnd.github.v3+json',
+    }
+  })
+  const issues = await i.json()
+
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
