@@ -78,18 +78,4 @@ export async function getStaticPaths() {
       ],
       fallback : false
   }
-  // Return a list of possible value for id
 }
-// LeaderBoard.getInitialProps = async (ctx) => {
-//   const res = await fetch("https://gsoc.rocket.chat/api/data");
-//   const data = await res.json();
-
-//   let contributors = await contributorList(data);
-//   const topNavItems = await fetchAPI("/top-nav-item");
-
-//   return {    
-//     contributors,
-//     topNavItems,
-//   };
-// }
-
