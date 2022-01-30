@@ -15,7 +15,7 @@ export default function FirebaseAuthUI(){
             <div className="container-fluid p-1">
                 <h1>Firebase not configured!</h1>
                 <p className="p-1">
-                Firebase authentication is used. You must set environment variables to initialize your firebase app. See <a href="https://github.com/RocketChat/RC4Community/blob/firebase-auth/app/components/auth/firebase/README.md">README.MD</a> for setting up firebase authentication for RC4Community.
+                Firebase authentication is used. You must set environment variables to initialize your firebase app. See <a href="https://github.com/RocketChat/RC4Community/blob/master/app/components/auth/firebase/README.md">README.md</a> for setting up firebase authentication for RC4Community.
                 </p>
             </div>
         )
