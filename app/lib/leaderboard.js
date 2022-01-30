@@ -1,4 +1,5 @@
 export function contributorList(data) {
+
     const list = Object.keys(data);
     let contributors = [];
     list.forEach((username) => {
