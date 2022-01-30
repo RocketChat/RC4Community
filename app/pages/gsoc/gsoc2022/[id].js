@@ -5,7 +5,7 @@ import { Container, Col } from "react-bootstrap";
 import styles from "../../../styles/Leaderboard.module.css";
 import LeaderboardTable from "../../../components/leaderBoardTable";
 
-export default function LeaderBoard({ contributors }) {
+export default function LeaderBoard({ contributors , community }) {
   return (
     <div>
       <Head>
@@ -26,13 +26,13 @@ export default function LeaderBoard({ contributors }) {
           <h1
             className={`display-6 fw-bold text-center ${styles.hero_heading}`}
           >
-            <span className={styles.redText}>Rocket.Chat</span> GSoC
+            <span className={styles.redText}>{community}</span> GSoC
             Contribution Leaderboard
           </h1>
           <p
             className={`fw-regular col-10 col-md-8 text-center ${styles.hero_subheading}`}
           >
-            Start your open-source jourey with rocket.chat
+            Start your open-source jourey with {community}
           </p>
         </Col>
         <Col className="d-flex flex-column align-items-center col-10 col-md-8">
@@ -50,10 +50,6 @@ export async function getStaticProps({ params }) {
   const communityData = {
     rocketChat : {
       community : "Rocket.Chat",
-      leaderBoardAPI : "https://gsoc.rocket.chat/api/data"
-    },
-    socketChat : {
-      community : "Socket.Chat",
       leaderBoardAPI : "https://gsoc.rocket.chat/api/data"
     }
   };
@@ -78,10 +74,9 @@ export async function getStaticPaths() {
 
   return {
       paths: [
-        { params: { id : 'rocketChat' } },
-        { params: { id : 'socketChat' } }
+        { params: { id : 'rocketChat' } }
       ],
-      fallback : 'blocking'
+      fallback : false
   }
   // Return a list of possible value for id
 }
