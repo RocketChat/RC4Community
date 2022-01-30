@@ -1,4 +1,3 @@
-import {useState , useEffect}  from 'react'
 import styles from "../styles/LeaderboardTable.module.css";
 import Table from "react-bootstrap/Table";
 import LeaderBoardRow from "./leaderBoardRow";
