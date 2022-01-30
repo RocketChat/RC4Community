@@ -1,6 +1,7 @@
 import { init, useAuthUser, withAuthUser, withAuthUserSSR, withAuthUserTokenSSR} from 'next-firebase-auth'
 import { getGoogleCredsFromFile } from './getGoogleCredsFromFile';
 
+
 const initAuthHelper = (function(){
   let initAuthResult = {success: false, error: new Error('Firebase auth is not yet initialised')};
   const getInitAuthResult = () => {
@@ -53,7 +54,7 @@ export const initAuth = () => {
     // firebase admin has to be initialized using service acccount json file.
     googleCreds = getGoogleCredsFromFile(process.env.GOOGLE_CREDS_PATH);
   }
-
+  
   try {
     init({
       loginAPIEndpoint: '/api/fb/login', // required
