@@ -1,4 +1,6 @@
 import { init, useAuthUser, withAuthUser, withAuthUserSSR, withAuthUserTokenSSR} from 'next-firebase-auth'
+import { getGoogleCredsFromFile } from './getGoogleCredsFromFile';
+
 
 const initAuthHelper = (function(){
   let initAuthResult = {success: false, error: new Error('Firebase auth is not yet initialised')};
@@ -42,6 +44,17 @@ export const createEmptyAuthUser = () => {
 }
 
 export const initAuth = () => {
+  let googleCreds = {
+    projectId: process.env.FIREBASE_PROJECT_ID || null,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL || null,
+    // The private key must not be accessible on the client side.
+    privateKey: process.env.FIREBASE_PRIVATE_KEY || null,
+  }
+  if(typeof window === 'undefined' && process.env.GOOGLE_CREDS_PATH){
+    // firebase admin has to be initialized using service acccount json file.
+    googleCreds = getGoogleCredsFromFile(process.env.GOOGLE_CREDS_PATH);
+  }
+  
   try {
     init({
       loginAPIEndpoint: '/api/fb/login', // required
@@ -53,12 +66,7 @@ export const initAuth = () => {
         console.error(err)
       },
       firebaseAdminInitConfig: {
-        credential: {
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-          // The private key must not be accessible on the client side.
-          privateKey: process.env.FIREBASE_PRIVATE_KEY,
-        },
+        credential: googleCreds,
         databaseURL: process.env.FIREBASE_DATABASE_URL,
       },
 
@@ -106,7 +114,7 @@ export const withFirebaseAuthUser = (options) => (ChildComponent) => {
       return <Component {...props}/>
     } else {
       console.error(initAuthHelper.getInitAuthResult().error);
-      console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/firebase-auth/app/components/auth/firebase/README.md");
+      console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/master/app/components/auth/firebase/README.md");
       return <ChildComponent {...props} initAuthResult={initAuthHelper.getInitAuthResult()}/> 
     }
   }
@@ -124,7 +132,7 @@ export const useFirebaseAuthUser = () => {
 
 const handleFBNotInitError = async (context,getServerSidePropsFunc) => {
   console.error(initAuthHelper.getInitAuthResult().error);
-  console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/firebase-auth/app/components/auth/firebase/README.md");
+  console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/master/app/components/auth/firebase/README.md");
 
   const AuthUser = createEmptyAuthUser();
   context.AuthUser = AuthUser;

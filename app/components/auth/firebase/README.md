@@ -3,8 +3,10 @@
 1. set up environment variables for firebase config in `.env.local`
 
 ```
-# Environment variables for firebase-admin. 
-# You can also find these values in the service-key.json file that you downloaded from firebase.
+# Environment variables for firebase-admin
+GOOGLE_CREDS_PATH=required, path to your service account json file that you downloaded from firebase console.
+
+#Alternatively you can set values for projectId, privateKey, clientEmail individually. Though service account json file will be prefered.
 FIREBASE_PROJECT_ID=required
 FIREBASE_PRIVATE_KEY=required
 FIREBASE_CLIENT_EMAIL=required
