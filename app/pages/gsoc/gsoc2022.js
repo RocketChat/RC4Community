@@ -1,10 +1,11 @@
 import Head from "next/head";
 import { fetchAPI } from "../../lib/api";
+import { contributorList } from "../../lib/leaderboard";
 import { Container, Col } from "react-bootstrap";
 import styles from "../../styles/Leaderboard.module.css";
 import LeaderboardTable from "../../components/leaderBoardTable";
 
-export default function LeaderBoard({ contributors }) {
+function LeaderBoard({ contributors }) {
   return (
     <div>
       <Head>
@@ -42,52 +43,17 @@ export default function LeaderBoard({ contributors }) {
   );
 }
 
-export async function getServerSideProps() {
+LeaderBoard.getInitialProps = async (ctx) => {
   const res = await fetch("https://gsoc.rocket.chat/api/data");
   const data = await res.json();
 
-  const list = Object.keys(data);
-  let contributors = [];
-  list.forEach((username) => {
-    contributors.push({
-      username,
-      avatarUrl: data[username].avatarUrl,
-      profileUrl: data[username].home,
-      mergedPRsNumber: data[username].mergedPRsNumber,
-      mergedPRsLink: data[username].mergedPRsLink,
-      openPRsNumber: data[username].openPRsNumber,
-      openPRsLink: data[username].openPRsLink,
-      issuesNumber: data[username].issuesNumber,
-      issuesLink: data[username].issuesLink,
-    });
-  });
-
-  contributors = contributors.sort((contributor1, contributor2) => {
-    if (contributor1.mergedPRsNumber === contributor2.mergedPRsNumber) {
-      if (contributor1.openPRsNumber === contributor2.openPRsNumber) {
-        if (contributor1.issuesNumber < contributor2.issuesNumber) {
-          return 1;
-        }
-        return -1;
-      }
-      if (contributor1.openPRsNumber < contributor2.openPRsNumber) {
-        return 1;
-      }
-      return -1;
-    }
-
-    if (contributor1.mergedPRsNumber < contributor2.mergedPRsNumber) {
-      return 1;
-    }
-    return -1;
-  });
-
+  let contributors = await contributorList(data);
   const topNavItems = await fetchAPI("/top-nav-item");
 
-  return {
-    props: {
-      contributors,
-      topNavItems,
-    },
+  return {    
+    contributors,
+    topNavItems,
   };
 }
+
+export default LeaderBoard;

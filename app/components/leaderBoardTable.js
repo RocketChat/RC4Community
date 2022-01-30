@@ -1,15 +1,19 @@
+import {useState , useEffect}  from 'react'
 import styles from "../styles/LeaderboardTable.module.css";
 import Table from "react-bootstrap/Table";
 import LeaderBoardRow from "./leaderBoardRow";
 
-export default function LeaderboardTable({ contributors, tableSize }) {
+function LeaderboardTable({ contributors, tableSize }) {
   return (
     <>
-      <Table className={styles["leader-board-table"]}>
+      <Table className={`${styles["leader-board-table"]} d-sm-table-sm`}>
         <thead>
           <tr>
+            <th scope="col" colSpan="1" className="d-sm-none d-table-cell">
+              Rank
+            </th>
             <th scope="col" colSpan="1">
-              Contributors
+              Contributor
             </th>
             <th scope="col" colSpan="2">
               UserName
@@ -26,11 +30,12 @@ export default function LeaderboardTable({ contributors, tableSize }) {
           </tr>
         </thead>
         <tbody>
-          {contributors.slice(0, tableSize).map((contributor) => (
+          {contributors.slice(0, tableSize).map((contributor,index) => (
             <LeaderBoardRow
               contributor={contributor}
               key={contributor.username}
               styles={styles}
+              rank={index+1}
             />
           ))}
         </tbody>
@@ -38,3 +43,5 @@ export default function LeaderboardTable({ contributors, tableSize }) {
     </>
   );
 }
+
+export default LeaderboardTable;

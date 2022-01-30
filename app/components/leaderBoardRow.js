@@ -1,9 +1,12 @@
 import Image from "next/image";
 
-export default function LeaderBoardRow({ contributor, styles }) {
+export default function LeaderBoardRow({ contributor, styles ,rank }) {
   return (
     <>
       <tr>
+        <td scope="col" colSpan="1" className="d-sm-none d-table-cell">
+          {rank}
+        </td>
         <td scope="row" colSpan="1">
           <Image
             src={contributor.avatarUrl}
