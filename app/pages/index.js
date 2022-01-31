@@ -9,8 +9,8 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
-import GithubIssuesList from '../components/githubissueslist';
-import { octokitClient } from '../lib/octokit'
+import { GithubIssuesList, ContributorsList } from '../components/github';
+import { getContributors, getIssues } from '../lib/github';
 
 function Home(props) {
   return (
@@ -76,6 +76,13 @@ function Home(props) {
           </h2>
           <GithubIssuesList issues={props.issues}></GithubIssuesList>
         </div>
+
+        <div className={` d-flex flex-column py-5 align-items-center`}>
+          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
+            Contributors ✨
+          </h2>
+          <ContributorsList contributors={props.contributors}></ContributorsList>
+        </div>
       </Container>
     </>
   );
@@ -89,13 +96,11 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-  const issues = await octokitClient('GET /repos/{owner}/{repo}/issues', {
-    owner: 'RocketChat',
-    repo: 'RC4Community'
-  });
+  const issues = await getIssues('RocketChat', 'RC4Community');
+  const contributors = await getContributors('RocketChat', 'RC4Community');
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues, contributors },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
