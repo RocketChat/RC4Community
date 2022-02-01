@@ -43,39 +43,42 @@ export default function LeaderBoard({ contributors , community }) {
   );
 }
 
-
 export async function getStaticProps({ params }) {
-
-  const communityName  = params.id;
-  const communityData = {
-    rocketChat : {
-      community : "Rocket.Chat",
-      leaderBoardAPI : "https://gsoc.rocket.chat/api/data"
+  const communityId = params.id;
+  let data = [];
+  let communityName = null;
+  let communities = await fetchAPI("/communities");
+  communities.forEach((community) => {
+    if (community.communityId === communityId) {
+      data = community.contibutors;
+      communityName = community.communityName;
     }
-  };
+  });
 
-  const leaderBoardAPI = (communityData[communityName].leaderBoardAPI);
-  const res = await fetch(leaderBoardAPI);
-  const data = await res.json();
   const contributors = await contributorList(data);
   const topNavItems = await fetchAPI("/top-nav-item");
-  console.log(contributors);
+
   return {
-      props:{
-        contributors,
-        topNavItems,
-        community:communityData[communityName].community
-      },
-      revalidate: 10,
-  }
+    props: {
+      contributors,
+      topNavItems,
+      community: communityName,
+    },
+    revalidate: 30,
+  };
 }
 
 export async function getStaticPaths() {
+  let communities = await fetchAPI("/communities");
+  let paths = [];
+  communities.forEach((community) => {
+    paths.push({
+      params: { id: community.communityId },
+    });
+  });
 
   return {
-      paths: [
-        { params: { id : 'rocketChat' } }
-      ],
-      fallback : false
-  }
+    paths: paths,
+    fallback: false,
+  };
 }
