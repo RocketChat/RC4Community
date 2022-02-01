@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "communities",
+  "info": {
+    "name": "Communities",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "communityId": {
+      "type": "uid",
+      "required": true
+    },
+    "communityName": {
+      "type": "string"
+    },
+    "contibutors": {
+      "via": "community",
+      "collection": "g-so-c-contributor"
+    }
+  }
+}

@@ -59,7 +59,7 @@ export async function getStaticProps({ params }) {
   const data = await res.json();
   const contributors = await contributorList(data);
   const topNavItems = await fetchAPI("/top-nav-item");
-
+  console.log(contributors);
   return {
       props:{
         contributors,
