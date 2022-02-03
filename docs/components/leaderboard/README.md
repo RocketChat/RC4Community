@@ -1,4 +1,4 @@
-# Open-Source Contibution Leaderboard
+# Open-Source Contribution Leaderboard
 
 The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent project but it can be easily incorporated as a ReactJS Component anywhere you want in RC4Community . It helps you track contibutions by aspiring developers to various open-source projects which are maintained by your community/organization. 
 
