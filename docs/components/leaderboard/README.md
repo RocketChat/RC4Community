@@ -36,5 +36,5 @@ The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent
 
 ---
 
-### <a href="../">:arrow_left: Explore More Compoenents</a>
+### <a href="../">:arrow_left: Explore More Components</a>
 
