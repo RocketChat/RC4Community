@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from '../../styles/GithubIssuesList.module.css';
 import GithubIssue from './githubissue';
 
-const GithubIssuesList = ({ issues, noOfIssues = 4 }) => {
+const GithubIssuesList = ({ issues, noOfIssues = 6 }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
