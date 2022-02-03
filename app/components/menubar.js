@@ -12,7 +12,7 @@ export default function Menubar(props) {
     <Container fluid className='border-bottom '>
       <Navbar expand='lg' className=' bg-white mx-4 my-2'>
         <BrandLogo 
-          brandLink={'#home'}
+          brandLink={'/'}
           logoLink={'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'}
           imageTitle={'Rocket.Chat'}
           brandName={'Rocket.Chat Community'}

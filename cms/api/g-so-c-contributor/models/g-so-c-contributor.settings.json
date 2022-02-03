@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "g_so_c_contributors",
+  "info": {
+    "name": "GSocContributor",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "avatarUrl": {
+      "type": "string"
+    },
+    "profileUrl": {
+      "type": "string"
+    },
+    "mergedPRsNumber": {
+      "type": "integer"
+    },
+    "openPRsNumber": {
+      "type": "integer"
+    },
+    "issuesNumber": {
+      "type": "integer"
+    },
+    "mergedPRsLink": {
+      "type": "text"
+    },
+    "openPRsLink": {
+      "type": "text"
+    },
+    "issuesLink": {
+      "type": "text"
+    },
+    "community": {
+      "via": "contibutors",
+      "model": "communities"
+    }
+  }
+}
