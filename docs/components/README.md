@@ -42,7 +42,7 @@ The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent
   <img alt="leaderboard" src="https://user-images.githubusercontent.com/70485812/152395227-3a0c0e37-0281-45c5-9ec8-9806603347af.png" width="70%" align="center">
 </p>
 
-
+---
 
 
 
