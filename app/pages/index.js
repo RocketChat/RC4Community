@@ -97,8 +97,8 @@ export async function getStaticProps({ params }) {
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
   const issues = await getIssues('RocketChat', 'RC4Community');
-  const contributors = await getContributors('RocketChat', 'RC4Community');
-
+  const contributors = await getContributors();
+  
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues, contributors },
     // Next.js will attempt to re-generate the page:
