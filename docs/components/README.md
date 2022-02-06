@@ -4,6 +4,7 @@ We at Rocket.Chat believe in  building susatinable online communities which can 
 
 1. <a href="./leaderboard#open-source-contibution-leaderboard
 " target="_blank">Open-Source Contibution Leaderboard</a>
+2. <a href="./github">GitHub Components Kit</a>
 
 ---
 
