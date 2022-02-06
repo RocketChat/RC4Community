@@ -19,9 +19,9 @@
     "communityName": {
       "type": "string"
     },
-    "contibutors": {
-      "via": "community",
-      "collection": "g-so-c-contributor"
+    "contributors": {
+      "collection": "g-so-c-contributor",
+      "via": "community"
     }
   }
 }

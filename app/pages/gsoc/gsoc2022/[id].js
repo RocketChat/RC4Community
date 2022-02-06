@@ -1,11 +1,15 @@
 import Head from "next/head";
+import Image from "next/image";
 import { fetchAPI } from "../../../lib/api";
 import { contributorList } from "../../../lib/leaderboard";
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Table } from "react-bootstrap";
 import styles from "../../../styles/Leaderboard.module.css";
-import LeaderboardTable from "../../../components/leaderBoardTable";
 
-export default function LeaderBoard({ contributors , community }) {
+export default function LeaderBoard({
+  contributors,
+  community,
+  leaderboardSize,
+}) {
   return (
     <div>
       <Head>
@@ -16,7 +20,6 @@ export default function LeaderBoard({ contributors , community }) {
         />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
       </Head>
       <Container
         fluid
@@ -36,7 +39,99 @@ export default function LeaderBoard({ contributors , community }) {
           </p>
         </Col>
         <Col className="d-flex flex-column align-items-center col-10 col-md-8">
-          <LeaderboardTable contributors={contributors} tableSize={30}/>
+          <Table className={`${styles["leader-board-table"]} d-sm-table-sm`}>
+            <thead>
+              <tr>
+                <th scope="col" colSpan="1" className="d-sm-none d-table-cell">
+                  Rank
+                </th>
+                <th scope="col" colSpan="1">
+                  Contributor
+                </th>
+                <th scope="col" colSpan="2">
+                  UserName
+                </th>
+                <th scope="col" colSpan="1" className="d-none d-sm-table-cell">
+                  Open PRs
+                </th>
+                <th scope="col" colSpan="1" className="d-none d-sm-table-cell">
+                  Merged PRs
+                </th>
+                <th scope="col" colSpan="1" className="d-none d-sm-table-cell">
+                  Issues
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {contributors
+                .slice(0, leaderboardSize)
+                .map((contributor, index) => (
+                  <tr>
+                    <td
+                      scope="col"
+                      colSpan="1"
+                      className="d-sm-none d-table-cell"
+                    >
+                      {index + 1}
+                    </td>
+                    <td scope="row" colSpan="1">
+                      <Image
+                        src={contributor.avatarUrl}
+                        title={contributor.username}
+                        alt={contributor.username}
+                        height={42}
+                        width={42}
+                      />
+                    </td>
+                    <td colSpan="2">
+                      <a href={contributor.profileUrl}>
+                        <span>{contributor.username}</span>
+                      </a>
+                    </td>
+                    <td
+                      className={
+                        contributor.openPRsNumber > 0
+                          ? "d-none d-sm-table-cell"
+                          : `${styles["disabled-link"]} d-none d-sm-table-cell`
+                      }
+                      colSpan="1"
+                    >
+                      <a
+                        href={contributor.openPRsLink}
+                        target={"blank"}
+                        className="leader-board-link"
+                      >
+                        {contributor.openPRsNumber}
+                      </a>
+                    </td>
+                    <td
+                      className={
+                        contributor.mergedPRsNumber > 0
+                          ? "d-none d-sm-table-cell"
+                          : `${styles["disabled-link"]} d-none d-sm-table-cell`
+                      }
+                      colSpan="1"
+                    >
+                      <a href={contributor.mergedPRsLink} target={"blank"}>
+                        {contributor.mergedPRsNumber}
+                      </a>
+                    </td>
+                    <td
+                      className={
+                        contributor.issuesNumber > 0
+                          ? "d-none d-sm-table-cell"
+                          : `${styles["disabled-link"]} d-none d-sm-table-cell`
+                      }
+                      colSpan="1"
+                    >
+                      <a href={contributor.issuesLink} target={"blank"}>
+                        {contributor.issuesNumber}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
         </Col>
       </Container>
     </div>
@@ -50,7 +145,7 @@ export async function getStaticProps({ params }) {
   let communities = await fetchAPI("/communities");
   communities.forEach((community) => {
     if (community.communityId === communityId) {
-      data = community.contibutors;
+      data = community.contributors;
       communityName = community.communityName;
     }
   });
@@ -63,6 +158,7 @@ export async function getStaticProps({ params }) {
       contributors,
       topNavItems,
       community: communityName,
+      leaderboardSize: 30,
     },
     revalidate: 30,
   };

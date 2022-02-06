@@ -40,7 +40,7 @@
       "type": "text"
     },
     "community": {
-      "via": "contibutors",
+      "via": "contributors",
       "model": "communities"
     }
   }
