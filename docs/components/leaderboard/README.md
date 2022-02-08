@@ -8,6 +8,8 @@ The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent
 
 ### Props
 
+We use our helper function `getLeaderboardStaticProps(communityId,leaderboardSize);` to generate the props needed for the component to work. The returned object breaks down into the following 3 props.
+
 | Prop Name     | Description                | Type  |
 | ------------- |------------------------- | -----|
 | contributors  | This is the contributor data which we want to display. This contains array of contributors  | array |
@@ -19,44 +21,29 @@ The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent
 ```
 import Head from "next/head";
 import { fetchAPI } from "../../../lib/api";
-import Leaderboard from "../../../components/leaderboard";
+import { Leaderboard ,  getLeaderboardStaticProps } from "../../../components/leaderboard";
 
-export default function Leaderboardpage({ contributors , community ,leaderboardSize }){
+export default function Leaderboardpage({ leaderboardProps }){
   return (
     <div>
       <Head>
         <title>GSOC2022 LeaderBoard</title>
       </Head>
-      <Leaderboard 
-        contributors= {contributors}
-        community = {community}
-        leaderboardSize = {leaderboardSize}
-      />
+      <Leaderboard {... leaderboardProps}/>
     </div>  
   );
 }
 
 export async function getStaticProps(){
-  const communityId = rocket.Chat ; //add your community id here
-  let contributors = [];
-  let communityName = null;
-  let communities = await fetchAPI("/communities");//fetch all the community dara
   
-  communities.forEach((community) => {
-    if (community.communityId === communityId) {
-      contributors = community.contributors;
-      communityName = community.communityName;
-    }
-  });
-
+  const communityId = rocket.Chat ; //add your community id here
+  const leaderboardProps = await getLeaderboardStaticProps(communityId,30); //this function will take the communtiyId and leaderboard size 
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: {
-      contributors,
+      leaderboardProps,
       topNavItems,
-      community: communityName,
-      leaderboardSize: 30,
     },
     revalidate: 30,
   };
