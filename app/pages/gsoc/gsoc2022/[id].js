@@ -1,12 +1,8 @@
 import Head from "next/head";
 import { fetchAPI } from "../../../lib/api";
-import Leaderboard from "../../../components/leaderboard";
+import { Leaderboard , getLeaderboardStaticProps } from "../../../components/leaderboard";
 
-export default function Leaderboardpage({
-  contributors,
-  community,
-  leaderboardSize,
-}) {
+export default function Leaderboardpage({ leaderboardProps }) {
   return (
     <div>
       <Head>
@@ -18,36 +14,20 @@ export default function Leaderboardpage({
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Leaderboard 
-        contributors= {contributors}
-        community = {community}
-        leaderboardSize = {leaderboardSize}
-      />
+      <Leaderboard {... leaderboardProps}/>
     </div>  
   );
 }
 
 export async function getStaticProps({ params }) {
   const communityId = params.id;
-  let contributors = [];
-  let communityName = null;
-  let communities = await fetchAPI("/communities");
-  
-  communities.forEach((community) => {
-    if (community.communityId === communityId) {
-      contributors = community.contributors;
-      communityName = community.communityName;
-    }
-  });
-
+  const leaderboardProps = await getLeaderboardStaticProps(communityId,30);
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: {
-      contributors,
       topNavItems,
-      community: communityName,
-      leaderboardSize: 30,
+      leaderboardProps
     },
     revalidate: 30,
   };

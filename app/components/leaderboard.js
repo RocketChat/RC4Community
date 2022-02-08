@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { contributorList } from "../lib/leaderboard";
+import { fetchAPI } from "../lib/api";
 import { Container, Col, Table } from "react-bootstrap";
 import styles from "../styles/Leaderboard.module.css";
 
-export default function Leaderboard({
+export function Leaderboard({
   contributors,
   community,
   leaderboardSize,
@@ -123,4 +124,25 @@ export default function Leaderboard({
       </Col>
     </Container>
   );
+}
+
+export async function getLeaderboardStaticProps(communityId,leaderboardSize){
+
+  let contributors = [];
+  let communityName = null;
+  let communities = await fetchAPI("/communities");
+  
+  communities.forEach((community) => {
+    if (community.communityId === communityId) {
+      contributors = community.contributors;
+      communityName = community.communityName;
+    }
+  });
+
+  return {
+    contributors: contributors,
+    community: communityName,
+    leaderboardSize
+  };
+
 }

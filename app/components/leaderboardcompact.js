@@ -2,8 +2,9 @@ import Image from "next/image";
 import styles from "../styles/Leaderboardcompact.module.css";
 import Table from "react-bootstrap/Table";
 import { contributorList } from "../lib/leaderboard";
+import { fetchAPI } from "../lib/api";
 
-function LeaderboardCompact({ contributors, leaderboardSize }) {
+export function LeaderboardCompact({ contributors, leaderboardSize }) {
   contributors = contributorList(contributors);
 
 
@@ -100,4 +101,23 @@ function LeaderboardCompact({ contributors, leaderboardSize }) {
   );
 }
 
-export default LeaderboardCompact;
+export async function getLeaderboardCompactStaticProps(communityId,leaderboardSize){
+
+  let contributors = [];
+  let communityName = null;
+  let communities = await fetchAPI("/communities");
+  
+  communities.forEach((community) => {
+    if (community.communityId === communityId) {
+      contributors = community.contributors;
+      communityName = community.communityName;
+    }
+  });
+
+  return {
+    contributors: contributors,
+    community: communityName,
+    leaderboardSize
+  };
+
+}
