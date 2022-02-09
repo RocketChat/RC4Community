@@ -1,0 +1,26 @@
+.container {
+  max-width: 90rem;
+}
+.item_container {
+  width: 80vw;
+}
+.numbers {
+  font-size: clamp(8px, 3.6vw, 16px);
+}
+.column {
+  background: transparent;
+  border: 1px solid #dedede;
+  max-width: 40rem;
+}
+.md_container {
+  width: 80vw;
+  font-size: 0.87rem;
+}
+@media (min-width: 768px) {
+  .item_container {
+    width: clamp(18rem, 36vw, 36rem);
+  }
+  .md_container {
+    width: clamp(18rem, 36vw, 36rem);
+  }
+}

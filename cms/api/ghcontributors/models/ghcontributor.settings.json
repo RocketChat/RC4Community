@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ghcontributors",
+  "info": {
+    "name": "ghcontributor",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Contributors": {
+      "type": "json",
+      "required": true,
+      "unique": false
+    }
+  }
+}

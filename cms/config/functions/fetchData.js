@@ -5,6 +5,7 @@ const { carousels,
   releaseNotes, 
   subMenus,
   topNavItem } = require('../initialData');
+const { getGithubIssues, getGithubContributors } = require('./github');
 
 module.exports = async () => {
 
@@ -16,6 +17,18 @@ module.exports = async () => {
     var topNavItemCount = await strapi.query("top-nav-item").count();
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
+
+    var ghissues = await strapi.query("ghissue").count();
+    var ghcontributor = await strapi.query("ghcontributor").count();
+
+    // initial fetch
+    if (!ghissues) {
+      getGithubIssues('RocketChat', 'RC4Community');
+    }
+
+    if (!ghcontributor) {
+      getGithubContributors('RocketChat', 'RC4Community');
+    }
 
     carousels.map(async (carousel, index) => {
       if (index <= carouselCount - 1) {
