@@ -1,11 +1,19 @@
 import Head from 'next/head';
-import { Container, Col } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Col, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
+import RocketChat from '../../../components/rocketchat';
 
 export default function ConfMainStage() {
+  const [openChat, setOpenChat] = useState(false);
+
+  const handleOpenChat = () => {
+    setOpenChat((prevState) => !prevState);
+  };
+
   return (
     <>
-    <div>
+      <div className="d-flex">
       <Head>
         <title>Virtual Conference Main Stage</title>
         <meta
@@ -21,7 +29,8 @@ export default function ConfMainStage() {
           </Videostreamer> 
           
       </Container>
-    </div>
+        {openChat ? <RocketChat closeChat={handleOpenChat} /> : <Button onClick={handleOpenChat}>Open Chat</Button>}
+      </div>
     </>
   );
 }

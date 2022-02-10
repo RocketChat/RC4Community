@@ -1,0 +1,22 @@
+.sidechat {
+    height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #fff;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.chatbox {
+    height: 85vh;
+    overflow: auto;
+}
+
+.cross {
+    display: flex;
+    justify-content: right;
+    padding: 0 40px;
+    cursor: pointer;
+}
