@@ -21,8 +21,7 @@ We use our helper function `getLeaderboardCompactStaticProps(communityId,leaderb
 
 ```
 import Head from "next/head";
-import { fetchAPI } from "../../../lib/api";
-import { LeaderboardCompact , getLeaderboardCompactStaticProps } from "../../../components/leaderboardcompact";
+import * as LeaderboardComponent from "../../../components/leaderboardcompact";
 
 export default function HomePage({ leaderboardCompactProps }){
   return (
@@ -30,7 +29,7 @@ export default function HomePage({ leaderboardCompactProps }){
       <Head>
         <title>Home</title>
       </Head>
-      <LeaderboardCompact {... leaderboardCompactProps } />
+      { LeaderboardComponent.LeaderboardCompact({... leaderboardProps}) }
     </div>  
   );
 }
@@ -38,14 +37,12 @@ export default function HomePage({ leaderboardCompactProps }){
 export async function getStaticProps(){
 
   const communityId = rocket.Chat ; //add your community id here
-  const leaderboardCompactProps = await getLeaderboardCompactStaticProps(communityId,30); //this function will take the communtiyId and leaderboard size 
+  const leaderboardCompactProps = await LeaderboardComponent.getLeaderboardCompactProps(communityId,30); //this function will take the communtiyId and leaderboard size 
   
-  const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: {
       leaderboardCompactProps,
-      topNavItems
     },
     revalidate: 30,
   };

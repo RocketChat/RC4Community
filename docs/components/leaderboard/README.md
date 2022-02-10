@@ -21,7 +21,7 @@ We use our helper function `getLeaderboardStaticProps(communityId,leaderboardSiz
 ```
 import Head from "next/head";
 import { fetchAPI } from "../../../lib/api";
-import { Leaderboard ,  getLeaderboardStaticProps } from "../../../components/leaderboard";
+import * as LeaderboardComponent from "../../../components/leaderboard";
 
 export default function Leaderboardpage({ leaderboardProps }){
   return (
@@ -29,7 +29,7 @@ export default function Leaderboardpage({ leaderboardProps }){
       <Head>
         <title>GSOC2022 LeaderBoard</title>
       </Head>
-      <Leaderboard {... leaderboardProps}/>
+      { LeaderboardComponent.Leaderboard({... leaderboardProps}) }
     </div>  
   );
 }
@@ -37,7 +37,7 @@ export default function Leaderboardpage({ leaderboardProps }){
 export async function getStaticProps(){
   
   const communityId = rocket.Chat ; //add your community id here
-  const leaderboardProps = await getLeaderboardStaticProps(communityId,30); //this function will take the communtiyId and leaderboard size 
+  const leaderboardProps = await LeaderboardComponent.getLeaderboardProps(communityId,30); //this function will take the communtiyId and leaderboard size 
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
