@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { fetchAPI } from "../../../lib/api";
+import { getCommunityIds } from "../../../lib/leaderboard";
+import { getNavItems } from "../../../lib/navbar";
 import * as LeaderboardComponent from "../../../components/leaderboard";
 
 export default function Leaderboardpage({ leaderboardProps }) {
@@ -14,7 +15,7 @@ export default function Leaderboardpage({ leaderboardProps }) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      {LeaderboardComponent.Leaderboard({... leaderboardProps})}
+      { LeaderboardComponent.Leaderboard({... leaderboardProps}) }
     </div>  
   );
 }
@@ -22,8 +23,7 @@ export default function Leaderboardpage({ leaderboardProps }) {
 export async function getStaticProps({ params }) {
   const communityId = params.id;
   const leaderboardProps = await LeaderboardComponent.getLeaderboardProps(communityId,30);
-
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const topNavItems = await getNavItems();
 
   return {
     props: {
@@ -35,14 +35,8 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  let communities = await fetchAPI("/communities");
-  let paths = [];
-  communities.forEach((community) => {
-    paths.push({
-      params: { id: community.communityId },
-    });
-  });
-
+  const paths = await getCommunityIds();
+  console.log(paths);
   return {
     paths: paths,
     fallback: false,

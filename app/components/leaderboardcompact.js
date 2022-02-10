@@ -7,7 +7,6 @@ import { fetchAPI } from "../lib/api";
 export function LeaderboardCompact({ contributors, leaderboardSize }) {
   contributors = contributorList(contributors);
 
-
   return (
     <>
       <Table className={`${styles["leader-board-table"]} d-sm-table-sm`}>
@@ -101,7 +100,7 @@ export function LeaderboardCompact({ contributors, leaderboardSize }) {
   );
 }
 
-export async function getLeaderboardCompactStaticProps(communityId,leaderboardSize){
+export async function getLeaderboardCompactProps(communityId,leaderboardSize){
 
   let contributors = [];
   let communityName = null;
