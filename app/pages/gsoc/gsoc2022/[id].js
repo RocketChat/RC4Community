@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { fetchAPI } from "../../../lib/api";
-import  Leaderboard  from "../../../components/leaderboard";
+import * as LeaderboardComponent from "../../../components/leaderboard";
 
 export default function Leaderboardpage({ leaderboardProps }) {
   return (
@@ -14,14 +14,14 @@ export default function Leaderboardpage({ leaderboardProps }) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      {Leaderboard.LeaderboardComponent({... leaderboardProps})}
+      {LeaderboardComponent.Leaderboard({... leaderboardProps})}
     </div>  
   );
 }
 
 export async function getStaticProps({ params }) {
   const communityId = params.id;
-  const leaderboardProps = await Leaderboard.getLeaderboardProps(communityId,30);
+  const leaderboardProps = await LeaderboardComponent.getLeaderboardProps(communityId,30);
 
   const topNavItems = await fetchAPI("/top-nav-item");
 

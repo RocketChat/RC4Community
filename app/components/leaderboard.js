@@ -4,13 +4,11 @@ import { fetchAPI } from "../lib/api";
 import { Container, Col, Table } from "react-bootstrap";
 import styles from "../styles/Leaderboard.module.css";
 
-class LeaderboardWrapper{
-
-  LeaderboardComponent = ({
+export function Leaderboard({
     contributors,
     community,
     leaderboardSize,
-  }) => {
+  }){
     contributors = contributorList(contributors);
   
     return (
@@ -129,7 +127,8 @@ class LeaderboardWrapper{
   }
 
 
-  getLeaderboardProps = async (communityId,leaderboardSize) => {
+
+export async function getLeaderboardProps(communityId,leaderboardSize){
 
     let contributors = [];
     let communityName = null;
@@ -151,8 +150,6 @@ class LeaderboardWrapper{
   }
 
 
-};
 
-let Leaderboard = new LeaderboardWrapper();
 
-export default Leaderboard;
+
