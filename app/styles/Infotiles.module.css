@@ -30,3 +30,9 @@
   background: #1d74f5;
   color: white;
 }
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+}
