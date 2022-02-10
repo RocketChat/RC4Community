@@ -1,5 +1,8 @@
 import dynamic from "next/dynamic";
+import { useState } from "react";
+import { getMessages, fetcher } from "../lib/rocketchatapi";
 import styles from "../styles/RocketChat.module.css";
+import useSWR from 'swr'
 
 const TextInput = dynamic(
   () => import("@rocket.chat/fuselage").then((comp) => comp.TextInput),
@@ -58,38 +61,59 @@ const MessageToolboxItem = dynamic(
   { ssr: false }
 );
 
-const RocketChat = ({ closeChat }) => {
+const RocketChat = ({ closeChat, sendMessage }) => {
+  const [message, setMessage] = useState("");
+  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher)
+
   return (
     <div className={styles.sidechat}>
       <div className={styles.cross} onClick={closeChat}>
         <Icon name="cross" size={"x30"} />
       </div>
       <div className={styles.chatbox}>
-        <Box w={"400px"} style={{ marginTop: "30px" }}>
-          <Message className="customclass" clickable>
-            <MessageContainer>
-              <MessageHeader>
-                <MessageName>Haylie George</MessageName>
-                <MessageUsername>@haylie.george</MessageUsername>
-                <MessageTimestamp>12:00 PM</MessageTimestamp>
-              </MessageHeader>
-              <MessageBody>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              </MessageBody>
-            </MessageContainer>
-            <MessageToolboxWrapper>
-              <MessageToolbox>
-                <MessageToolboxItem icon="quote" />
-                <MessageToolboxItem icon="clock" />
-                <MessageToolboxItem icon="thread" />
-              </MessageToolbox>
-            </MessageToolboxWrapper>
-          </Message>
+        <Box w={"500px"} style={{ marginTop: "30px" }}>
+          {data && data.messages
+              .sort(function (a, b) {
+                return a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0;
+              })
+              .map((m) => (
+                <Message className="customclass" clickable key={m._id}>
+                  <MessageContainer>
+                    <MessageHeader>
+                      <MessageName>{m.u.name}</MessageName>
+                      <MessageUsername>@{m.u.username}</MessageUsername>
+                      <MessageTimestamp>
+                        {new Date(m.ts).toDateString()}
+                      </MessageTimestamp>
+                    </MessageHeader>
+                    <MessageBody>{m.msg}</MessageBody>
+                  </MessageContainer>
+                  <MessageToolboxWrapper>
+                    <MessageToolbox>
+                      <MessageToolboxItem icon="quote" />
+                      <MessageToolboxItem icon="clock" />
+                      <MessageToolboxItem icon="thread" />
+                    </MessageToolbox>
+                  </MessageToolboxWrapper>
+                </Message>
+              ))}
         </Box>
       </div>
       <TextInput
         placeholder="Message"
-        addon={<Icon name="send" size="x20" />}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        addon={
+          <Icon
+            onClick={async () => {
+              const msg = await sendMessage("WS4FgsrngW4WNipgQ", message);
+              mutate({ ...data, messages: [...data.messages, msg.message] });
+              setMessage('');
+            }}
+            name="send"
+            size="x20"
+          />
+        }
         w={"400px"}
       />
     </div>
