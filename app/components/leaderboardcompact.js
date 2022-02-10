@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../styles/Leaderboardcompact.module.css";
 import Table from "react-bootstrap/Table";
-import contributorList from "../lib/leaderboard";
+import { contributorList } from "../lib/leaderboard";
 import { fetchAPI } from "../lib/api";
 
 export function LeaderboardCompact({ contributors, leaderboardSize }) {
