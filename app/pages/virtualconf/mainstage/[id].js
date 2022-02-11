@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useState } from "react";
-import { Container, Col, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
 import RocketChat from '../../../components/rocketchat';
 import { getMessages, sendMessage } from '../../../lib/rocketchatapi';
