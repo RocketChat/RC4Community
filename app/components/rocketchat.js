@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { getMessages, fetcher } from "../lib/rocketchatapi";
-import styles from "../styles/RocketChat.module.css";
 import useSWR from 'swr'
+import styles from "../styles/RocketChat.module.css";
 
 const TextInput = dynamic(
   () => import("@rocket.chat/fuselage").then((comp) => comp.TextInput),
