@@ -2,8 +2,8 @@ import Head from 'next/head';
 import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
-import RocketChat from '../../../components/rocketchat';
-import { getMessages, sendMessage } from '../../../lib/rocketchatapi';
+import InAppChat from '../../../components/inappchat/inappchat';
+import { getMessages, sendMessage } from '../../../components/inappchat/lib/api';
 
 // THE ROOM IN WHICH THE SUMMIT WILL TAKE PLACE! <HARD CODED FOR NOW>
 const rid = 'WS4FgsrngW4WNipgQ';
@@ -34,7 +34,7 @@ export default function ConfMainStage() {
           
       </Container>
         {openChat ? (
-          <RocketChat
+          <InAppChat
             closeChat={handleOpenChat}
             sendMessage={sendMessage}
             getMessages={getMessages}

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { getMessages, fetcher } from "../lib/rocketchatapi";
+import { getMessages, fetcher } from "./lib/api";
 import useSWR from 'swr'
-import styles from "../styles/RocketChat.module.css";
+import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
   MessageBody,
@@ -16,11 +16,11 @@ import {
   MessageToolboxItem,
   MessageToolboxWrapper,
   MessageUsername,
-} from "./clientsideonly/fuselage";
+} from "./lib/fuselage";
 
-const RocketChat = ({ closeChat, sendMessage }) => {
+const InAppChat = ({ closeChat, sendMessage }) => {
   const [message, setMessage] = useState("");
-  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher)
+  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher, { refreshInterval: 100 })
 
   const sendMsg = async () => {
     if (message.trim() === '') {
@@ -91,4 +91,4 @@ const RocketChat = ({ closeChat, sendMessage }) => {
   );
 };
 
-export default RocketChat;
+export default InAppChat;
