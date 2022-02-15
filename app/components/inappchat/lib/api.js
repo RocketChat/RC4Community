@@ -12,7 +12,8 @@ export const fetcher = (url) =>
 export const getMessages = (rid) => `http://localhost:3000/api/v1/channels.messages?roomId=${rid}`;
 
 export const sendMessage = async (rid, message) => {
-  const msg = await fetch("http://localhost:3000/api/v1/chat.sendMessage", {
+  try {
+    const msg = await fetch("http://localhost:3000/api/v1/chat.sendMessage", {
     body: `{"message": { "rid": "${rid}", "msg": "${message}" }}`,
     headers: {
       "Content-Type": "application/json",
@@ -23,4 +24,7 @@ export const sendMessage = async (rid, message) => {
   });
 
   return await msg.json();
-};
+  } catch (err) {
+    console.log(err.message);
+  }
+}

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { getMessages, fetcher } from "./lib/api";
-import useSWR from 'swr'
+import { useRef, useState } from "react";
+import { getMessages, fetcher, sendMessage } from "./lib/api";
+import useSWR from "swr";
 import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
@@ -17,20 +17,25 @@ import {
   MessageToolboxWrapper,
   MessageUsername,
 } from "./lib/fuselage";
+import MDPreview from "../mdpreview";
 
-const InAppChat = ({ closeChat, sendMessage }) => {
+const emojify = (message) => {
+  return joypixels.toImage(message);
+};
+
+const InAppChat = ({ closeChat }) => {
   const [message, setMessage] = useState("");
-  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher, { refreshInterval: 100 })
+  const [emojiClicked, setEmojiClicked] = useState(false);
+  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher);
 
   const sendMsg = async () => {
-    if (message.trim() === '') {
+    if (message.trim() === "") {
       return;
     }
-    setMessage('');
-
     const msg = await sendMessage("WS4FgsrngW4WNipgQ", message);
+    setMessage("");
     mutate({ ...data, messages: [...data.messages, msg.message] });
-  }
+  };
 
   return (
     <div className={styles.sidechat}>
@@ -39,7 +44,8 @@ const InAppChat = ({ closeChat, sendMessage }) => {
       </div>
       <div className={styles.chatbox}>
         <Box>
-          {data && data.messages
+          {data &&
+            data.messages
               .sort(function (a, b) {
                 return a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0;
               })
@@ -53,7 +59,9 @@ const InAppChat = ({ closeChat, sendMessage }) => {
                         {new Date(m.ts).toDateString()}
                       </MessageTimestamp>
                     </MessageHeader>
-                    <MessageBody>{m.msg}</MessageBody>
+                    <MessageBody>
+                      <MDPreview body={emojify(m.msg)} />
+                    </MessageBody>
                   </MessageContainer>
                   <MessageToolboxWrapper>
                     <MessageToolbox>
@@ -66,10 +74,14 @@ const InAppChat = ({ closeChat, sendMessage }) => {
               ))}
         </Box>
       </div>
+      {emojiClicked && <MDPreview body={emojify(":smile:")} />}
       <TextInput
         placeholder="Message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={(e) => {
+            setTimeout(() => {
+                setMessage(e.target.value)
+            }, 50)
+        }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
             sendMsg();
@@ -77,12 +89,15 @@ const InAppChat = ({ closeChat, sendMessage }) => {
         }}
         addon={
           <>
-          <Icon name="emoji" size="x20" style={{ marginRight: '6px' }} />
-          <Icon
-            onClick={sendMsg}
-            name="send"
-            size="x20"
-          />
+            {message.trim() !== "" ? (
+              <Icon onClick={sendMsg} name="send" size="x20" />
+            ) : (
+              <Icon
+                name="emoji"
+                size="x20"
+                onClick={(e) => setEmojiClicked((prevState) => !prevState)}
+              />
+            )}
           </>
         }
         w={"400px"}
