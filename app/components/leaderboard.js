@@ -6,7 +6,7 @@ import styles from "../styles/Leaderboard.module.css";
 
 export function Leaderboard({ contributors, community, leaderboardSize }) {
   contributors = contributorList(contributors);
-
+  
   return (
     <Container
       fluid
