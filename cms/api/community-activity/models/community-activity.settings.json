@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "persona_icons",
+  "collectionName": "community_activities",
   "info": {
-    "name": "PersonaIcons"
+    "name": "CommunityActivity",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,14 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "icon": {
+    "title": {
+      "type": "text"
+    },
+    "time": {
       "type": "string"
     },
-    "size": {
+    "upvotes": {
       "type": "integer"
     },
-    "color": {
-      "type": "string"
+    "comments": {
+      "type": "integer"
     }
   }
 }

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Infotiles from '../components/infotiles';
 import Newscarousel from '../components/newscarousel';
-import Personacircle from '../components/personalcircle';
+import Personacircle from '../components/personcircle';
 import Discourserankedlist from '../components/discourserankedlist';
 import Searchbox from '../components/searchbox';
 import Growthcounters from '../components/growthcounters';
@@ -43,10 +43,10 @@ function Home(props) {
           <Searchbox></Searchbox>
         </Col>
         <Col>
-          <Growthcounters></Growthcounters>
+          <Growthcounters counters={props.counters}></Growthcounters>
         </Col>
         <Col className='my-5'>
-          <Infotiles></Infotiles>
+          <Infotiles infotiles={props.infotiles}></Infotiles>
         </Col>
 
         <div
@@ -61,13 +61,13 @@ function Home(props) {
         <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
           Get What You Need...
         </h2>
-        <Personacircle personas={props.personas}></Personacircle>
+        <Personacircle persons={props.persons}></Personacircle>
 
         <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Community Activity
           </h2>
-          <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
+          <Discourserankedlist activities={props.communityActivities}></Discourserankedlist>
         </div>
 
         <div className={` d-flex flex-column py-5 align-items-center`}>
@@ -91,16 +91,19 @@ export default withFirebaseAuthUser()(Home);
 
 export async function getStaticProps({ params }) {
   const carousels = await fetchAPI('/carousels');
-  const personas = await fetchAPI('/personas');
+  const persons = await fetchAPI('/persons');
   const guides = await fetchAPI('/guides');
   const releaseNotes = await fetchAPI('/release-notes');
+  const infotiles=await fetchAPI('/infotiles');
+  const counters=await fetchAPI('/counters');
+  const communityActivities=await fetchAPI('/community-activities');
   const topNavItems = await fetchAPI('/top-nav-item');
-  const topPosts = await fetchAPI('/discourses');
   const issues = await getIssues('RocketChat', 'RC4Community');
   const contributors = await getContributors();
+ 
   
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues, contributors },
+    props: { carousels, persons, guides, releaseNotes, topNavItems, issues, contributors,infotiles,counters,communityActivities },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second

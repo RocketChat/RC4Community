@@ -2,7 +2,7 @@ import { Col, Row } from 'react-bootstrap';
 import styles from '../styles/Discourserankedlist.module.css';
 import Like from '../public/svg/like.js';
 import Comment from '../public/svg/comment';
-import Data from '../data/DiscourserankedlistData';
+
 function TimeSince(date) {
   let seconds = Math.floor((new Date() - date) / 1000);
   let interval = seconds / 31536000;
@@ -28,7 +28,7 @@ function TimeSince(date) {
   return Math.floor(seconds) + ' seconds ago';
 }
 
-function Discourserankedlist(props) {
+function Discourserankedlist({activities}) {
 
   //generates random colour for border styling
   const color = [
@@ -57,7 +57,7 @@ function Discourserankedlist(props) {
       <Col
         className={`${styles.container} d-flex flex-wrap justify-content-center`}
       >
-        {Data.map(item => (
+        {activities.map(item => (
           <Col
             key={item.id}
             href={item.link}

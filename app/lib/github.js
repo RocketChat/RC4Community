@@ -15,7 +15,6 @@ export const getIssues = async (owner, repo) => {
     },
   ];
   const res = await fetchAPI('/ghissues');
-  console.log(res);
   if (Array.isArray(res) && Array.isArray(res[0].Issues)) {
     issues = res[0].Issues;
   }

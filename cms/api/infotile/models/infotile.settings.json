@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "personas",
+  "collectionName": "infotiles",
   "info": {
-    "name": "Persona",
-    "description": ""
+    "name": "infotile"
   },
   "options": {
     "increments": true,
@@ -12,11 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "title": {
       "type": "string"
     },
-    "persona_icon": {
-      "model": "persona-icons"
+    "description": {
+      "type": "text"
     }
   }
 }

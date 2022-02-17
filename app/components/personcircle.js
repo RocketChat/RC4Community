@@ -1,17 +1,19 @@
 import { Button, ButtonGroup, Col } from "react-bootstrap";
 import styles from "../styles/Personacircle.module.css";
-import personalCircles from "../data/persionalCircleData";
-export default function Personacircle(props) {
+import {getStrapiURL } from '../lib/api';
+export default function Personcircle({persons}) {
   return (
     <>
       <Col
         className={`${styles.personas} d-flex flex-wrap justify-content-center`}
       >
-        {personalCircles.map((personal) => {
+        {persons.map((person) => {
           return (
             <span className={`${styles.persona}`}>
-              <div className={styles.svg}>{personal.svg}</div>
-              <div className={styles.title}>{personal.title}</div>
+              <div className={styles.svg}> 
+                <img src={getStrapiURL("")+person.avatar.url} />
+              </div>
+              <div className={styles.title}>{person.title}</div>
             </span>
           );
         })}

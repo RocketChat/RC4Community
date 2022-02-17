@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "discourses",
+  "collectionName": "counters",
   "info": {
-    "name": "discourse",
+    "name": "Counter",
     "description": ""
   },
   "options": {
@@ -12,10 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "TopPost": {
-      "type": "json",
-      "required": true,
-      "unique": false
+    "count": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
     }
   }
 }

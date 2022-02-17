@@ -1,6 +1,5 @@
 import Styles from "../styles/Infotiles.module.css";
-import infotiles from "../data/infotilesData";
-export default function Infotiles() {
+export default function Infotiles({infotiles}) {
   return (
     <>
       <div className={Styles.cards}>
@@ -8,7 +7,7 @@ export default function Infotiles() {
           return (
             <div className={Styles.card}>
               <h5 className={Styles.card_heading}>{info.title}</h5>
-              <p className={Styles.card_body}>{info.body}</p>
+              <p className={Styles.card_body}>{info.description}</p>
             </div>
           );
         })}
