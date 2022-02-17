@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import styles from "../styles/Personacircle.module.css";
 import {getStrapiURL } from '../lib/api';
 export default function Personcircle({persons}) {
