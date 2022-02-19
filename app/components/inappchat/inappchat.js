@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
-import { getMessages, fetcher, sendMessage } from "./lib/api";
-import useSWR from "swr";
+import { useEffect, useState } from "react";
+import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
@@ -23,18 +22,33 @@ const emojify = (message) => {
   return joypixels.toImage(message);
 };
 
-const InAppChat = ({ closeChat }) => {
+const emojis = [
+  { id: 1, value: ":smile:" },
+  { id: 2, value: ":thumbsup:" },
+  { id: 3, value: ":heart:" },
+  { id: 4, value: ":partying_face:" },
+];
+
+const InAppChat = ({ closeChat, cookies, rid }) => {
   const [message, setMessage] = useState("");
   const [emojiClicked, setEmojiClicked] = useState(false);
-  const { data, mutate } = useSWR(getMessages("WS4FgsrngW4WNipgQ"), fetcher);
+  const [data, setData] = useState({});
 
-  const sendMsg = async () => {
+  useEffect(() => {
+    async function getData() {
+      const data = await getMessages(rid, cookies);
+      setData(data);
+    }
+    getData();
+  }, []);
+
+  const sendMsg = async (message) => {
     if (message.trim() === "") {
       return;
     }
-    const msg = await sendMessage("WS4FgsrngW4WNipgQ", message);
+    const msg = await sendMessage(rid, message, cookies);
     setMessage("");
-    mutate({ ...data, messages: [...data.messages, msg.message] });
+    setData({ ...data, messages: [...data.messages, msg.message] });
   };
 
   return (
@@ -44,9 +58,10 @@ const InAppChat = ({ closeChat }) => {
       </div>
       <div className={styles.chatbox}>
         <Box>
-          {data &&
-            data.messages
-              .sort(function (a, b) {
+          {cookies.rc_token && cookies.rc_uid ? (
+            data &&
+            data?.messages
+              ?.sort(function (a, b) {
                 return a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0;
               })
               .map((m) => (
@@ -71,26 +86,48 @@ const InAppChat = ({ closeChat }) => {
                     </MessageToolbox>
                   </MessageToolboxWrapper>
                 </Message>
-              ))}
+              ))
+          ) : (
+            <p>
+              Please login into{" "}
+              <a href="https://open.rocket.chat" target="_blank">
+                RocketChat
+              </a>{" "}
+              to chat!
+            </p>
+          )}
         </Box>
       </div>
-      {emojiClicked && <MDPreview body={emojify(":smile:")} />}
+      {emojiClicked && (
+        <div className={styles.emojisHolder}>
+          {emojis.map((e) => (
+            <div
+              key={e.id}
+              className={styles.animatedEmoji}
+              dangerouslySetInnerHTML={{ __html: emojify(e.value) }}
+              onClick={() => {
+                setEmojiClicked((prevState) => !prevState);
+                sendMsg(e.value);
+              }}
+            />
+          ))}
+        </div>
+      )}
       <TextInput
         placeholder="Message"
+        value={message}
         onChange={(e) => {
-            setTimeout(() => {
-                setMessage(e.target.value)
-            }, 50)
+          setMessage(e.target.value);
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            sendMsg();
+            sendMsg(message);
           }
         }}
         addon={
           <>
             {message.trim() !== "" ? (
-              <Icon onClick={sendMsg} name="send" size="x20" />
+              <Icon onClick={() => sendMsg(message)} name="send" size="x20" />
             ) : (
               <Icon
                 name="emoji"

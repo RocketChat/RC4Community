@@ -22,3 +22,20 @@
   padding: 0 40px;
   cursor: pointer;
 }
+
+.emojisHolder {
+  background-color: white;
+  position: absolute;
+  display: inline;
+  right: 15px;
+  bottom: 6.4rem;
+}
+
+.animatedEmoji {
+  padding: 7px 3px;
+}
+
+.animatedEmoji:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}

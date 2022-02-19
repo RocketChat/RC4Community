@@ -1,30 +1,41 @@
 // using env variables for now, should be replaced with cookies!
-export const fetcher = (url) =>
-  fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      "X-Auth-Token": process.env.NEXT_PUBLIC_ROCKET_CHAT_AUTH_USER_TOKEN,
-      "X-User-Id": process.env.NEXT_PUBLIC_ROCKET_CHAT_AUTH_USER_ID,
-    },
-    method: "GET",
-  }).then((res) => res.json());
 
-export const getMessages = (rid) => `http://localhost:3000/api/v1/channels.messages?roomId=${rid}`;
+const host = process.env.NEXT_PUBLIC_ROCKET_CHAT_HOST;
 
-export const sendMessage = async (rid, message) => {
+export const getMessages = async (rid, cookies) => {
   try {
-    const msg = await fetch("http://localhost:3000/api/v1/chat.sendMessage", {
-    body: `{"message": { "rid": "${rid}", "msg": "${message}" }}`,
-    headers: {
-      "Content-Type": "application/json",
-      "X-Auth-Token": process.env.NEXT_PUBLIC_ROCKET_CHAT_AUTH_USER_TOKEN,
-      "X-User-Id": process.env.NEXT_PUBLIC_ROCKET_CHAT_AUTH_USER_ID,
-    },
-    method: "POST",
-  });
+    const messages = await fetch(
+      `${host}/api/v1/channels.messages?roomId=${rid}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": cookies.rc_token ?? "",
+          "X-User-Id": cookies.rc_uid ?? "",
+        },
+        method: "GET",
+      }
+    );
 
-  return await msg.json();
+    return await messages.json();
   } catch (err) {
     console.log(err.message);
   }
-}
+};
+
+export const sendMessage = async (rid, message, cookies) => {
+  try {
+    const msg = await fetch(`${host}/api/v1/chat.sendMessage`, {
+      body: `{"message": { "rid": "${rid}", "msg": "${message}" }}`,
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth-Token": cookies.rc_token ?? "",
+        "X-User-Id": cookies.rc_uid ?? "",
+      },
+      method: "POST",
+    });
+
+    return await msg.json();
+  } catch (err) {
+    console.log(err.message);
+  }
+};
