@@ -1,0 +1,41 @@
+.sidechat {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #fff;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.chatbox {
+  height: 85vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.cross {
+  display: flex;
+  justify-content: right;
+  padding: 0 40px;
+  cursor: pointer;
+}
+
+.emojisHolder {
+  background-color: white;
+  position: absolute;
+  display: inline;
+  right: 15px;
+  bottom: 6.4rem;
+}
+
+.animatedEmoji {
+  padding: 7px 3px;
+}
+
+.animatedEmoji:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
