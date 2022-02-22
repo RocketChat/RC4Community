@@ -6,7 +6,7 @@
 
 <h2 align='center'>🚀 Features 🚀</h2>
 <ul>
-  <li>every part of the system scalable from one to million plus community members</li>
+  <li>every part of the system scalable to handle from one to over a million online community members</li>
   <li>engage your community at Rocket.Chat, Github, Discourse, Discord - wherever they may be</li>
   <li>innovative reactJS components enhanced with fullstack behaviors</li>
   <li>choice of Identity Management - popular SaaS (auth0, firebase) and open source (gluu, keycloak OpenID Connect)</li>
