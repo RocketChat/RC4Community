@@ -13,8 +13,9 @@
   <li>full virtual conference handling</li>
   <li>modern profile and superprofile factoring</li>
   <li>supports flauna for scaled persistence</li>
-  <li>fine-grained optimizaation control - static, server side generation, per-request</li>
+  <li>fine-grained full-stack optimizaation control - static, server side generation, per-request</li>
   <li>designed for world-scale computing at the edge from day one</li>
+  <li>JAMStack and beyond, "no compromises" design</li>
   <li>supports NextJS and Vercel pay-as-you-grow scaled deployments</li>
   <li>easy assembly of reusable components for flexible adaptive systems</li>
 </uL>
