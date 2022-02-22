@@ -7,13 +7,13 @@
 <h2 align='center'>🚀 Features 🚀</h2>
 <ul>
   <li>every part of the system scalable from one to million plus community members</li>
-  <li>integrate with your community at Rocket.Chat, Github, Discourse, Discord - wherever they may be</li>
+  <li>engage your community at Rocket.Chat, Github, Discourse, Discord - wherever they may be</li>
   <li>innovative reactJS components enhanced with fullstack behaviors</li>
-  <li>choice of Identity Management - popular SaaS and open source</li>
+  <li>choice of Identity Management - popular SaaS (auth0, firebase) and open source (gluu, keycloak OpenID Connect)</li>
   <li>full virtual conference handling</li>
   <li>modern profile and superprofile factoring</li>
   <li>supports flauna for scaled persistence</li>
-  <li>fine-grained full-stack optimizaation control - static, server side generation, per-request</li>
+  <li>fine-grained full-stack optimization control - static, server side generation, per-request</li>
   <li>designed for world-scale computing at the edge from day one</li>
   <li>JAMStack and beyond, "no compromises" design</li>
   <li>supports NextJS and Vercel pay-as-you-grow scaled deployments</li>
