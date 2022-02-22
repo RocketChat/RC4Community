@@ -3,6 +3,22 @@
 ![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
+
+<h2 align='center'>🚀 Features 🚀</h2>
+<ul>
+  <li>every part of the system scalable from one to million plus community members</li>
+  <li>integrate with your community at Rocket.Chat, Github, Discourse, Discord - wherever they may be</li>
+  <li>innovative reactJS components enhanced with fullstack behaviors</li>
+  <li>choice of Identity Management - popular SaaS and open source</li>
+  <li>full virtual conference handling</li>
+  <li>modern profile and superprofile factoring</li>
+  <li>supports flauna for scaled persistence</li>
+  <li>fine-grained optimizaation control - static, server side generation, per-request</li>
+  <li>designed for world-scale computing at the edge from day one</li>
+  <li>supports NextJS and Vercel pay-as-you-grow scaled deployments</li>
+  <li>easy assembly of reusable components for flexible adaptive systems</li>
+</uL>
+
 <h2 align='center'>🚀 Community Builder quick start 🚀</h2>
 <p align='center'> Customize - Deploy - Manage </p>
 
@@ -16,6 +32,7 @@ gitpod.io/#https://github.com/RocketChat/RC4Community
 
 Start designing and customizing your community management system!
 
+ 
 <h2 align='center'>🚀 Developer quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
 
