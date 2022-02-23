@@ -18,7 +18,7 @@
   <li>JAMStack and beyond, "no compromises" design</li>
   <li>supports NextJS and Vercel pay-as-you-grow scaled deployments</li>
   <li>easy assembly of reusable components for flexible adaptive systems</li>
-  <li>ultra-light-weight and re-imagined next generation community builder / developer experience</li>
+  <li>ultra-light-weight and re-imagined UX for next generation community builder / developer experience</li>
 </uL>
 
 <h2 align='center'>🚀 Community Builder quick start 🚀</h2>
