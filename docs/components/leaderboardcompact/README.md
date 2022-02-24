@@ -1,14 +1,15 @@
-# Open-Source Contribution Leaderboard
+# Open-Source Contribution Leaderboard Compact
 
-The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent project but it can be easily incorporated as a ReactJS Component anywhere you want in RC4Community . It helps you track contibutions by aspiring developers to various open-source projects which are maintained by your community/organization. 
+The Open-Source Leaderboard project was started by Rocket.Chat as an indipendent project but it can be easily incorporated as a ReactJS Component anywhere you want in RC4Community . It helps you track contibutions by aspiring developers to various open-source projects which are maintained by your community/organization. This component is a compact version of our <a href="./leaderboard#open-source-contibution-leaderboard
+" target="_blank">Open-Source Contibution Leaderboard</a>.
 
 <p align="center" width="100%">
-  <img alt="leaderboard" src="https://user-images.githubusercontent.com/70485812/152374738-8c0e1472-ada2-49ce-ab94-90e047a9138c.png" width="70%" align="center">
+  <img alt="leaderboard" src="https://user-images.githubusercontent.com/70485812/152848020-0c304edb-d96f-4d89-934e-f2d895995351.png" width="70%" align="center">
 </p>
 
 ### Props
 
-We use our helper function `getLeaderboardStaticProps(communityId,leaderboardSize);` to generate the props needed for the component to work. The returned object breaks down into the following 3 props.
+We use our helper function `getLeaderboardCompactStaticProps(communityId,leaderboardSize);` to generate the props needed for the component to work. The returned object breaks down into the following 3 props.
 
 | Prop Name     | Description                | Type  |
 | ------------- |------------------------- | -----|
@@ -20,30 +21,28 @@ We use our helper function `getLeaderboardStaticProps(communityId,leaderboardSiz
 
 ```
 import Head from "next/head";
-import { fetchAPI } from "../../../lib/api";
-import * as LeaderboardComponent from "../../../components/leaderboard";
+import * as LeaderboardComponent from "../../../components/leaderboardcompact";
 
-export default function Leaderboardpage({ leaderboardProps }){
+export default function HomePage({ leaderboardCompactProps }){
   return (
     <div>
       <Head>
-        <title>GSOC2022 LeaderBoard</title>
+        <title>Home</title>
       </Head>
-      { LeaderboardComponent.Leaderboard({... leaderboardProps}) }
+      { LeaderboardComponent.LeaderboardCompact({... leaderboardProps}) }
     </div>  
   );
 }
 
 export async function getStaticProps(){
-  
+
   const communityId = rocket.Chat ; //add your community id here
-  const leaderboardProps = await LeaderboardComponent.getLeaderboardProps(communityId,30); //this function will take the communtiyId and leaderboard size 
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const leaderboardCompactProps = await LeaderboardComponent.getLeaderboardCompactProps(communityId,30); //this function will take the communtiyId and leaderboard size 
+  
 
   return {
     props: {
-      leaderboardProps,
-      topNavItems,
+      leaderboardCompactProps,
     },
     revalidate: 30,
   };
@@ -63,8 +62,6 @@ export async function getStaticProps(){
   <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/152384131-917c5be2-b6ea-4ad9-b643-e73c353b63be.png" width="50%" align="center">
 </p>
 
-
-5. In the front-end of the application, Next.js will by default show you your leaderboard using dynamic routes which is rendered on the page found at : `RC4Community/app/pages/gsoc/gsoc2022/[id].js`. You can display your `leaderboard` on any other page.
 
 ---
 

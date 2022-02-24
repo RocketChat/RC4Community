@@ -1,4 +1,6 @@
-export function contributorList(contributors) {
+import { fetchAPI } from "./api";
+
+export const contributorList = (contributors) => {
     contributors = contributors.sort((contributor1, contributor2) => {
         if (contributor1.mergedPRsNumber === contributor2.mergedPRsNumber) {
         if (contributor1.openPRsNumber === contributor2.openPRsNumber) {
@@ -20,3 +22,14 @@ export function contributorList(contributors) {
     });
     return contributors;
 }
+
+export const getCommunityIds = async () => {
+    let communities = await fetchAPI("/communities");
+    let paths = [];
+    communities.forEach((community) => {
+        paths.push({
+            params: { id: community.communityId },
+        });
+    });
+    return paths;
+} 
