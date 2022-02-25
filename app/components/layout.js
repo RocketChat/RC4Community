@@ -1,7 +1,7 @@
 import '../styles/Layout.module.css';
 import { withFirebaseAuthUser } from './auth/firebase';
 import Footer from './footer';
-import Menubar from './menubar';
+//import Menubar from './menubar';
 import NewMenubar from './newMenuBar';
 
 function Layout(props) {
