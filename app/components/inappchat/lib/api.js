@@ -1,5 +1,3 @@
-// using env variables for now, should be replaced with cookies!
-
 const host = process.env.NEXT_PUBLIC_ROCKET_CHAT_HOST;
 
 export const getMessages = async (rid, cookies) => {

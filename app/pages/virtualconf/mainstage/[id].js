@@ -4,11 +4,14 @@ import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
 import InAppChat from '../../../components/inappchat/inappchat';
+import { getMessages } from "../../../components/inappchat/lib/api";
+import { parseBody } from 'next/dist/server/api-utils';
 
 const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
 
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage({ cookies, messages, newMessage }) {
   const [openChat, setOpenChat] = useState(false);
+  console.log(newMessage)
 
   const handleOpenChat = () => {
     setOpenChat((prevState) => !prevState);
@@ -44,7 +47,12 @@ export default function ConfMainStage({ cookies }) {
             
         </Container>
         {openChat ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+          <InAppChat
+            closeChat={handleOpenChat}
+            cookies={cookies}
+            rid={rid}
+            messages={messages}
+          />
         ) : (
           <Button onClick={handleOpenChat}>Open Chat</Button>
         )}
@@ -53,10 +61,22 @@ export default function ConfMainStage({ cookies }) {
   );
 }
 
-ConfMainStage.getInitialProps = ({ req }) => {
-  const cookies = req.cookies;
-
+export async function getServerSideProps({ req, res }) {
+  const messages = await getMessages(process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID, req.cookies)
+  let newMessage = null;
+  
+  if (req.method === "POST") {
+    const body = await parseBody(req, '1mb')
+    console.log("POST METHOD CALLED")
+    console.log(body) // we get the response from webhook
+    newMessage = body // the question is, how do we update this on the client side??
+  }
+  
   return {
-    cookies,
+    props: {
+      messages,
+      cookies: req.cookies,
+      newMessage
+    },
   };
-};
+}

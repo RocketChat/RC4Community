@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getMessages, sendMessage } from "./lib/api";
+import { useState } from "react";
+import { sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
@@ -29,18 +29,9 @@ const emojis = [
   { id: 4, value: ":partying_face:" },
 ];
 
-const InAppChat = ({ closeChat, cookies, rid }) => {
+const InAppChat = ({ closeChat, cookies, rid, messages: data }) => {
   const [message, setMessage] = useState("");
   const [emojiClicked, setEmojiClicked] = useState(false);
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    async function getData() {
-      const data = await getMessages(rid, cookies);
-      setData(data);
-    }
-    getData();
-  }, []);
 
   const sendMsg = async (message) => {
     if (message.trim() === "") {
