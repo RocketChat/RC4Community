@@ -1,18 +1,32 @@
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  max-width: 38rem;
-}
-
 .card {
   width: clamp(15rem, 24vw, 17rem);
   height: clamp(8rem, 16vw, 11rem);
   background-color: #f7f8fa;
   border-radius: 6px;
   margin: clamp(0.4rem, 2vw, 1rem);
+}
+
+.card_content {
   padding: clamp(1.4rem, 2vw, 1.8rem);
+}
+
+.cardWithImage {
+  width: clamp(10rem, 24vw, 17rem);
+  background-color: #f7f8fa;
+  border-radius: 6px;
+  margin: clamp(0.4rem, 2vw, 1rem);
+  padding-bottom: 1rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.actionBtn {
+  background-color: #F8445F;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 0.3rem 1rem;
+  margin-right: 1rem;
 }
 
 .card_heading {
