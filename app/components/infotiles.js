@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Styles from "../styles/Infotiles.module.css";
 
 export default function Infotiles({ data }) {
@@ -7,22 +8,20 @@ export default function Infotiles({ data }) {
       {data.map((obj) => (
         <div
           key={obj.id}
-          className={obj.imageURL ? Styles.cardWithImage : Styles.card}
+          className={obj.imageUrl ? Styles.cardWithImage : Styles.card}
         >
-          {obj.imageURL && (
+          {obj.imageUrl && (
             <Image
-              className={Styles.image}
-              src={obj.imageURL}
+              src={obj.imageUrl}
               width={271}
               height={174}
+              objectFit="cover"
             />
           )}
           <div className={Styles.card_content}>
             <h5 className={Styles.card_heading}>{obj.name}</h5>
             <p className={Styles.card_body}>{obj.content}</p>
-            {obj.actionBtn && (
-              <button className={Styles.actionBtn}>{obj.actionBtn}</button>
-            )}
+            {obj.live && <Link href={obj.confHref}><button className={Styles.actionBtn}>Live</button></Link>}
           </div>
         </div>
       ))}

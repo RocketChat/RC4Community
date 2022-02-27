@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "speakers",
+  "info": {
+    "name": "Speaker"
+  },
+  "options": {
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "live": {
+      "type": "boolean",
+      "default": false
+    },
+    "ended": {
+      "type": "boolean",
+      "default": false
+    },
+    "confHref": {
+      "type": "string"
+    }
+  }
+}

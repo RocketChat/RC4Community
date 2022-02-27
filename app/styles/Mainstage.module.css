@@ -83,9 +83,8 @@
 }
 
 .speakersContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .footer {
@@ -97,6 +96,12 @@
 
 .footerText {
   cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .speakersContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -114,6 +119,10 @@
   }
   .imageHolders {
     text-align: center;
+  }
+  .speakersContainer {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
   }
   .liveNowInnerCol {
     text-align: center;

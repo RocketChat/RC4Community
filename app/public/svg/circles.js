@@ -25,7 +25,7 @@ export default function Circles() {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="1" stop-color="#9E9E9E" stop-opacity="0" />
+          <stop offset="1" stopColor="#9E9E9E" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_13_1579"
@@ -36,7 +36,7 @@ export default function Circles() {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="1" stop-color="#9E9E9E" stop-opacity="0" />
+          <stop offset="1" stopColor="#9E9E9E" stopOpacity="0" />
         </linearGradient>
       </defs>
     </svg>

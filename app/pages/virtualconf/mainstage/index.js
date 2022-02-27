@@ -9,6 +9,7 @@ import ArrowSVG from "/public/svg/arrow.js";
 import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
+import { fetchAPI } from "../../../lib/api";
 
 const data = [
   {
@@ -70,7 +71,8 @@ const data = [
   },
 ];
 
-const Mainstage = () => {
+const Mainstage = ({ speakers }) => {
+  console.log(speakers)
   return (
     <>
       <Head>
@@ -122,7 +124,7 @@ const Mainstage = () => {
             A Heading that indicates/says about speakers
           </h2>
           <div className={styles.speakersContainer}>
-            <Infotiles data={data} />
+            <Infotiles data={speakers} />
           </div>
         </Container>
         <footer className={styles.footer}>
@@ -140,3 +142,11 @@ export default Mainstage;
 Mainstage.getLayout = function getLayout(page) {
   return <>{page}</>;
 };
+
+export async function getStaticProps({ params }) {
+  const speakers = await fetchAPI('/speakers');
+  return {
+    props: { speakers },
+    revalidate: 1,
+  };
+}
