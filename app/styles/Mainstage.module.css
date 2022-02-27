@@ -20,6 +20,7 @@
 }
 
 .container h2 {
+  margin-top: 3rem;
   font-size: 2rem;
   line-height: 42px;
 }
@@ -27,6 +28,10 @@
 .container p {
   margin-top: 2rem;
   line-height: 26px;
+}
+
+.container svg {
+  position: absolute;
 }
 
 .headerTitle {

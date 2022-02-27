@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import RCPlusGSocLogo from "/public/rcandgsoclogo.png";
-import CirclesSVG from "/public/svg/circles.svg";
+import CirclesSVG from "/public/svg/circles.js";
 import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
-import ArrowSVG from "/public/svg/arrow.svg";
+import ArrowSVG from "/public/svg/arrow.js";
 import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
@@ -78,6 +78,7 @@ const Mainstage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.container}>
+          <CirclesSVG />
           <div className={styles.topNav}>
             <Link href="/">
               <h3 as="h3" className={styles.headerTitle}>
@@ -108,7 +109,7 @@ const Mainstage = () => {
               <h5>We are now live</h5>
               <p className={styles.thinText}>Click to attend the event</p>
               <button className={styles.btnColor}>
-                Join now <Image src={ArrowSVG} />
+                Join now <ArrowSVG />
               </button>
             </Col>
             <Col md={6} xs={12} className={styles.imageHolders}>
