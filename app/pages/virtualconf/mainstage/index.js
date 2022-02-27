@@ -11,68 +11,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
 import { fetchAPI } from "../../../lib/api";
 
-const data = [
-  {
-    id: 1,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-    actionBtn: "Live",
-  },
-  {
-    id: 2,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 3,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 4,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 5,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 6,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 7,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-  {
-    id: 8,
-    imageURL: "/placeholder-img.png",
-    name: "Lorem ipsum",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aligyam",
-  },
-];
-
 const Mainstage = ({ speakers }) => {
-  console.log(speakers)
   return (
     <>
       <Head>
