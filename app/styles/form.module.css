@@ -4,6 +4,18 @@
     margin-top: 15%;
 }
 
+.createCard {
+    width: 50%;
+    margin: auto;
+    margin-top: 15%;
+    min-width: 90%;
+    background-color: #fbbbc347;
+}
+
+.formRow {
+    margin-bottom: 1%;
+}
+
 .radio {
     align-self: center;
     margin-left: 1%!important;
@@ -11,4 +23,8 @@
 
 .select {
     max-width: 15%;
+}
+
+.submitGroup {
+    margin-top: 3%;
 }
