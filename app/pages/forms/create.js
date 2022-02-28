@@ -44,7 +44,6 @@ const CreateForm = () => {
     event.preventDefault();
     setPreviewShown(!isPreviewShown);
     setShow(true);
-    // alert(JSON.stringify(formValues));
   };
 
   const handleSelect = (e, i) => {
@@ -146,26 +145,11 @@ const CreateForm = () => {
       <ShowForm formVal={formValues} show={show} handleClose={handleClose} />
     </Card>
   );
-
-  // return (
-  //     <div className={styles.create}>
-  //         <Button variant="primary">Primary</Button>
-  //     </div>
-  // )
 };
 
 const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
-  console.log("confirm", formVal);
-
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
   return (
     <>
-      {/* <Button variant="primary" >
-        Launch static backdrop modal
-      </Button> */}
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -182,18 +166,18 @@ const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
                 <Form.Label>{ele.value}</Form.Label>
                 {ele.type == "number" ? (
                   <>
-                  <Form.Control
-                    key={i}
-                    type={ele.type}
-                    min={ele.min}
-                    max={ele.max}
-                    placeholder=""
-                    required={ele.required}
-                  />
-                  <Form.Text className="text-muted">
-                    * Value must be in range {ele.min} - {ele.max}
-                  </Form.Text>
-              </>
+                    <Form.Control
+                      key={i}
+                      type={ele.type}
+                      min={ele.min}
+                      max={ele.max}
+                      placeholder=""
+                      required={ele.required}
+                    />
+                    <Form.Text className="text-muted">
+                      * Value must be in range {ele.min} - {ele.max}
+                    </Form.Text>
+                  </>
                 ) : (
                   <Form.Control
                     key={i}
@@ -202,9 +186,7 @@ const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
                     required={ele.required}
                   />
                 )}
-                {/* <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text> */}
+
                 {ele.type == "number"}
               </Form.Group>
             ))}
