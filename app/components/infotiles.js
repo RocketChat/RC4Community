@@ -1,35 +1,30 @@
-import Styles from '../styles/Infotiles.module.css';
+import Image from "next/image";
+import Link from "next/link";
+import Styles from "../styles/Infotiles.module.css";
 
-export default function Infotiles() {
+export default function Infotiles({ data }) {
   return (
     <>
-      <div className={Styles.cards}>
-        <div className={Styles.card}>
-          <h5 className={Styles.card_heading}>Documentation</h5>
-          <p className={Styles.card_body}>
-            Find in-depth information about Rocket.Chat features and API.
-          </p>
+      {data.map((obj) => (
+        <div
+          key={obj.id}
+          className={obj.imageUrl ? Styles.cardWithImage : Styles.card}
+        >
+          {obj.imageUrl && (
+            <Image
+              src={obj.imageUrl}
+              width={271}
+              height={174}
+              objectFit="cover"
+            />
+          )}
+          <div className={Styles.card_content}>
+            <h5 className={Styles.card_heading}>{obj.name}</h5>
+            <p className={Styles.card_body}>{obj.content}</p>
+            {obj.live && <Link href={obj.confHref}><button className={Styles.actionBtn}>Live</button></Link>}
+          </div>
         </div>
-        <div className={Styles.card}>
-          <h5 className={Styles.card_heading}>Learn</h5>
-          <p className={Styles.card_body}>
-            Learn about Rocket.Chat in an interactive course with quizzes!
-          </p>
-        </div>
-        <div className={Styles.card}>
-          <h5 className={Styles.card_heading}>Examples</h5>
-          <p className={Styles.card_body}>
-            Discover and deploy boilerplate example Rocket.Chat projects.
-          </p>
-        </div>
-        <div className={Styles.card}>
-          <h5 className={Styles.card_heading}>Deploy</h5>
-          <p className={Styles.card_body}>
-            Instantly deploy your Rocket.Chat site to a public URL with
-            Rocket.Chat SaaS.
-          </p>
-        </div>
-      </div>
+      ))}
     </>
   );
 }

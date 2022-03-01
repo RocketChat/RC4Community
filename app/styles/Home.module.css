@@ -2,6 +2,14 @@
   color: #f5455c;
 }
 
+.infotiles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 38rem;
+}
+
 .hero_heading {
   color: #030c1a;
 }

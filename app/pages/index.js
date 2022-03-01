@@ -11,6 +11,7 @@ import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
 import { GithubIssuesList, ContributorsList } from '../components/github';
 import { getContributors, getIssues } from '../lib/github';
+import { INFOTILES_DATA } from '../lib/const/infotiles';
 
 function Home(props) {
   return (
@@ -46,7 +47,9 @@ function Home(props) {
           <Growthcounters></Growthcounters>
         </Col>
         <Col className='my-5'>
-          <Infotiles></Infotiles>
+          <div className={styles.infotiles}>
+            <Infotiles data={INFOTILES_DATA} />
+          </div>
         </Col>
 
         <div
