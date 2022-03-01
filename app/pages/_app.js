@@ -7,10 +7,11 @@ import { initAuth } from '../components/auth/firebase';
 initAuth();
 
 function MyApp({ Component, pageProps }) {
-  const getLayout = Component.getLayout || ((page) => <Layout menu={pageProps}>{page}</Layout>)
-  return getLayout(
+  return (
     <SSRProvider>
-      <Component {...pageProps} />
+      <Layout menu={pageProps}>
+        <Component {...pageProps} />
+      </Layout>
     </SSRProvider>
   );
 }

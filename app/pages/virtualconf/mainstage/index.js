@@ -66,21 +66,12 @@ const Mainstage = ({ speakers }) => {
             <Infotiles data={speakers} />
           </div>
         </Container>
-        <footer className={styles.footer}>
-          <Link href={"/"}>
-            <span className={styles.footerText}>Rocket.Chat</span>
-          </Link>
-        </footer>
       </main>
     </>
   );
 };
 
 export default Mainstage;
-
-Mainstage.getLayout = function getLayout(page) {
-  return <>{page}</>;
-};
 
 export async function getStaticProps({ params }) {
   const speakers = await fetchAPI('/speakers');
