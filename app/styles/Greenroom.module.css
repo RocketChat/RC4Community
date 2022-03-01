@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+.main {
+  font-family: "Roboto", sans-serif;
+}
+
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.2rem;
+  margin-left: 4.2rem;
+}
+
+.container {
+  background-color: #030c1a;
+  color: white;
+  padding-bottom: 4.2rem;
+}
+
+.container h2 {
+  margin-top: 3rem;
+  font-size: 2rem;
+  line-height: 42px;
+}
+
+.container p {
+  margin-top: 2rem;
+  line-height: 26px;
+}
+
+.container svg {
+  position: absolute;
+}
+
+.headerTitle {
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.thinText {
+  font-weight: 200;
+}
+
+.liveNow {
+  border-width: 4px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #f5455c, #ffffff) 1;
+  display: flex;
+  margin: 4.2rem 0;
+  padding: 2rem;
+  background-color: white;
+}
+
+.heading {
+  text-align: center;
+  background: -webkit-linear-gradient(#041631, #003990);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2.2rem;
+}
+
+.rcgsoccompactlogo {
+  display: none !important;
+}
+
+.liveNowInnerCol {
+  margin-top: 1rem;
+}
+
+.btnColor {
+  background-color: #f8445f;
+  color: white;
+  border: 1px solid white;
+  padding: 0.2rem 1rem;
+  border-radius: 3px;
+}
+
+.imageHolders {
+  text-align: right;
+}
+
+.speakersContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #EAEAEA;
+  color: #f8445f;
+}
+
+.footerText {
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .speakersContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .topNav {
+    margin: 0;
+  }
+  .container {
+    padding: 0;
+    margin: 0;
+  }
+  .container h2 {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    font-size: 2.7rem;
+  }
+  .imageHolders {
+    text-align: center;
+  }
+  .speakersContainer {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+  }
+  .liveNowInnerCol {
+    text-align: center;
+    margin-bottom: 2.2rem;
+  }
+  .rcgsoclogo {
+    display: none !important;
+  }
+  .rcgsoccompactlogo {
+    display: block !important;
+  }
+}
