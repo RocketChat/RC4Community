@@ -10,6 +10,7 @@ import {
 import styles from "../../styles/form.module.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { MdDeleteOutline } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const CreateForm = () => {
   const [formValues, setFormValues] = useState([
@@ -20,22 +21,23 @@ const CreateForm = () => {
   const [show, setShow] = useState(false);
 
   async function addForm() {
-
-    console.log("testing post data", formValues)
+    console.log("testing post data", formValues);
 
     let promises = [];
     for (let i = 0; i <= formValues.length; i++) {
-      promises.push(fetch("http://localhost:1337/forms", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formValues[i])
-      }));
+      promises.push(
+        fetch("http://localhost:1337/forms", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues[i]),
+        })
+      );
     }
     Promise.all(promises)
       .then((resp) => {
-        console.log("success")
+        console.log("success");
       })
       .catch(function handleError(error) {
         console.log("Error" + error);
@@ -46,7 +48,6 @@ const CreateForm = () => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
-
   };
 
   let addFormFields = () => {
@@ -66,7 +67,7 @@ const CreateForm = () => {
     event.preventDefault();
     setPreviewShown(!isPreviewShown);
     setShow(true);
-    addForm()
+    addForm();
   };
 
   const handleSelect = (e, i) => {
@@ -170,16 +171,9 @@ const CreateForm = () => {
   );
 };
 
-const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
+const ShowForm = ({ show, handleClose, handleShow, formVal }) => {
+  const router = useRouter();
 
-  const 
-
-  const fetchRaw = async () => {
-    const fetchResponse = fetch("http://localhost:1337/forms")
-
-  } 
-  const fetching = fetch("http://localhost:1337/forms").then((res) => res.json())
-  .then((fin) => console.log("fetch", fin))
   return (
     <>
       <Modal
@@ -189,7 +183,7 @@ const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Form Title</Modal.Title>
+          <Modal.Title>Form Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -231,7 +225,9 @@ const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button onClick={() => router.push("/forms/show")} variant="primary">
+            Understood
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

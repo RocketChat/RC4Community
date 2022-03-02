@@ -28,3 +28,10 @@
 .submitGroup {
     margin-top: 3%;
 }
+
+.showCard {
+    width: 50%;
+    margin: auto;
+    margin-top: 15%;
+    background-color: #fbbbc347;
+}
