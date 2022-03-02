@@ -3,8 +3,6 @@ import {
   Button,
   ButtonGroup,
   Card,
-  Dropdown,
-  DropdownButton,
   Form,
   FormControl,
   Modal,
@@ -21,10 +19,34 @@ const CreateForm = () => {
   const [isPreviewShown, setPreviewShown] = useState(false);
   const [show, setShow] = useState(false);
 
+  async function addForm() {
+
+    console.log("testing post data", formValues)
+
+    let promises = [];
+    for (let i = 0; i <= formValues.length; i++) {
+      promises.push(fetch("http://localhost:1337/forms", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formValues[i])
+      }));
+    }
+    Promise.all(promises)
+      .then((resp) => {
+        console.log("success")
+      })
+      .catch(function handleError(error) {
+        console.log("Error" + error);
+      });
+  }
+
   let handleChange = (e, i) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
+
   };
 
   let addFormFields = () => {
@@ -44,6 +66,7 @@ const CreateForm = () => {
     event.preventDefault();
     setPreviewShown(!isPreviewShown);
     setShow(true);
+    addForm()
   };
 
   const handleSelect = (e, i) => {
@@ -148,6 +171,15 @@ const CreateForm = () => {
 };
 
 const ShowForm = ({ formVal, show, handleClose, handleShow }) => {
+
+  const 
+
+  const fetchRaw = async () => {
+    const fetchResponse = fetch("http://localhost:1337/forms")
+
+  } 
+  const fetching = fetch("http://localhost:1337/forms").then((res) => res.json())
+  .then((fin) => console.log("fetch", fin))
   return (
     <>
       <Modal

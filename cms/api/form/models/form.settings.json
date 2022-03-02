@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "name": "form",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "text",
+      "required": true,
+      "unique": true
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "default": "text"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "min": {
+      "type": "string"
+    },
+    "max": {
+      "type": "string"
+    }
+  }
+}
