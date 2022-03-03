@@ -20,7 +20,7 @@ const RCreateForm = () => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [isPreviewShown, setPreviewShown] = useState(false);
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("Form Title");
 
   async function addForm() {
     const toPost = {
@@ -89,9 +89,22 @@ const RCreateForm = () => {
     setShow(false);
   };
 
+  const handleTitle = (e) => {
+    setTitle(e);
+  };
+
   return (
     <Card className={styles.createCard}>
-      <Card.Title>Form</Card.Title>
+      <Card.Title>
+        <div
+          suppressContentEditableWarning={true}
+          contentEditable={true}
+          className={styles.formTitle}
+          onInput={(e) => handleTitle(e.currentTarget.textContent)}
+        >
+          {title}
+        </div>
+      </Card.Title>
       <Card.Body>
         <Card.Subtitle className="mb-2 text-muted">Required</Card.Subtitle>
         <form onSubmit={handleSubmit}>

@@ -2,8 +2,10 @@ import { Button, Card, Form } from "react-bootstrap";
 import styles from "../../styles/form.module.css";
 
 function RCform({ formFields }) {
+  console.log("formFie", formFields)
   return (
     <Card className={styles.showCard}>
+      <Card.Title className={styles.showTitle}>{formFields.title}</Card.Title>
       <Card.Body>
         <Form>
           {formFields.formQs.map((ele, i) => (
