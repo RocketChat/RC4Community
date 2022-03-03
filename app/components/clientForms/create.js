@@ -11,37 +11,39 @@ import styles from "../../styles/form.module.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { MdDeleteOutline } from "react-icons/md";
 import { useRouter } from "next/router";
+import { getStrapiURL } from "../../lib/api";
 
-const CreateForm = () => {
+const RCreateForm = () => {
   const [formValues, setFormValues] = useState([
     { label: "", value: "", type: "text", min: "", max: "", required: false },
   ]);
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [isPreviewShown, setPreviewShown] = useState(false);
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
 
   async function addForm() {
-    console.log("testing post data", formValues);
+    const toPost = {
+      title: title,
+      formQs: formValues,
+    };
+    let path = getStrapiURL();
 
-    let promises = [];
-    for (let i = 0; i <= formValues.length; i++) {
-      promises.push(
-        fetch("http://localhost:1337/forms", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues[i]),
-        })
-      );
-    }
-    Promise.all(promises)
-      .then((resp) => {
-        console.log("success");
-      })
-      .catch(function handleError(error) {
-        console.log("Error" + error);
+    try {
+      const sendForm = await fetch(`${path}/forms`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toPost),
       });
+
+      if (sendForm.ok) {
+        return sendForm;
+      }
+    } catch (error) {
+      console.log("Error" + error);
+    }
   }
 
   let handleChange = (e, i) => {
@@ -89,6 +91,7 @@ const CreateForm = () => {
 
   return (
     <Card className={styles.createCard}>
+      <Card.Title>Form</Card.Title>
       <Card.Body>
         <Card.Subtitle className="mb-2 text-muted">Required</Card.Subtitle>
         <form onSubmit={handleSubmit}>
@@ -234,4 +237,4 @@ const ShowForm = ({ show, handleClose, handleShow, formVal }) => {
   );
 };
 
-export default CreateForm;
+export default RCreateForm;

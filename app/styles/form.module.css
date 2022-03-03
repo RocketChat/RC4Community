@@ -7,8 +7,7 @@
 .createCard {
     width: 50%;
     margin: auto;
-    margin-top: 15%;
-    min-width: 90%;
+    min-width: 100%;
     background-color: #fbbbc347;
 }
 
@@ -32,6 +31,6 @@
 .showCard {
     width: 50%;
     margin: auto;
-    margin-top: 15%;
+    margin-top: 10%;
     background-color: #fbbbc347;
 }

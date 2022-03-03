@@ -12,29 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "label": {
-      "type": "string"
+    "formQs": {
+      "type": "json"
     },
-    "value": {
-      "type": "text",
-      "required": true,
-      "unique": true
-    },
-    "type": {
+    "title": {
       "type": "string",
-      "required": true,
-      "default": "text"
-    },
-    "required": {
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "min": {
-      "type": "string"
-    },
-    "max": {
-      "type": "string"
+      "default": "Preview Form"
     }
   }
 }

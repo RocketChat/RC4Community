@@ -1,14 +1,12 @@
-import { getFormData } from "../../lib/formAPI";
 import { Button, Card, Form } from "react-bootstrap";
 import styles from "../../styles/form.module.css";
 
-function Blog({ formFields }) {
-  console.log("foelds", formFields);
+function RCform({ formFields }) {
   return (
     <Card className={styles.showCard}>
       <Card.Body>
         <Form>
-          {formFields.map((ele, i) => (
+          {formFields.formQs.map((ele, i) => (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>{ele.value}</Form.Label>
               {ele.type == "number" ? (
@@ -46,19 +44,4 @@ function Blog({ formFields }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const res = await getFormData();
-    // const data = await res.json()
-    return {
-      props: {
-        formFields: res,
-      },
-      revalidate: 30,
-    };
-  } catch (error) {
-    console.log("error is", error);
-  }
-}
-
-export default Blog;
+export default RCform;
