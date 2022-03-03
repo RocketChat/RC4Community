@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   ButtonGroup,
   Card,
@@ -18,7 +19,6 @@ const RCreateForm = () => {
     { label: "", value: "", type: "text", min: "", max: "", required: false },
   ]);
   const [isSwitchOn, setIsSwitchOn] = useState(false);
-  const [isPreviewShown, setPreviewShown] = useState(false);
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("Form Title");
 
@@ -67,7 +67,6 @@ const RCreateForm = () => {
 
   let handleSubmit = (event) => {
     event.preventDefault();
-    setPreviewShown(!isPreviewShown);
     setShow(true);
     addForm();
   };
@@ -87,6 +86,9 @@ const RCreateForm = () => {
 
   const handleClose = () => {
     setShow(false);
+    setFormValues([
+      { label: "", value: "", type: "text", min: "", max: "", required: false },
+    ]);
   };
 
   const handleTitle = (e) => {
@@ -182,12 +184,17 @@ const RCreateForm = () => {
           </ButtonGroup>
         </form>
       </Card.Body>
-      <ShowForm formVal={formValues} show={show} handleClose={handleClose} />
+      <ShowForm
+        formVal={formValues}
+        show={show}
+        title={title}
+        handleClose={handleClose}
+      />
     </Card>
   );
 };
 
-const ShowForm = ({ show, handleClose, handleShow, formVal }) => {
+const ShowForm = ({ show, handleClose, handleShow, formVal, title }) => {
   const router = useRouter();
 
   return (
@@ -199,52 +206,20 @@ const ShowForm = ({ show, handleClose, handleShow, formVal }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Form Preview</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            {formVal.map((ele, i) => (
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>{ele.value}</Form.Label>
-                {ele.type == "number" ? (
-                  <>
-                    <Form.Control
-                      key={i}
-                      type={ele.type}
-                      min={ele.min}
-                      max={ele.max}
-                      placeholder=""
-                      required={ele.required}
-                    />
-                    <Form.Text className="text-muted">
-                      * Value must be in range {ele.min} - {ele.max}
-                    </Form.Text>
-                  </>
-                ) : (
-                  <Form.Control
-                    key={i}
-                    type={ele.type}
-                    placeholder=""
-                    required={ele.required}
-                  />
-                )}
-
-                {ele.type == "number"}
-              </Form.Group>
-            ))}
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+          <Alert show={show} variant="success">
+            <Alert.Heading>How's it going?!</Alert.Heading>
+            <p>You have successfully created the form!</p>
+            <hr />
+            <div className="d-flex justify-content-end">
+              <Button onClick={handleClose} variant="outline-success">
+                Close me y'all!
+              </Button>
+            </div>
+          </Alert>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button onClick={() => router.push("/forms/show")} variant="primary">
-            Understood
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
