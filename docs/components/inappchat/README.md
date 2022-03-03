@@ -5,6 +5,7 @@
 
 Let's get started! Go through these points step by step to setup your very own inappchat for development.
 - InAppChat uses RocketChat as the main source, so we need to have our RocketChat server up and running for testing the message functionality part. Make sure you **fully setup** (providing admin details) the RocketChat server and for majority of the cases it must be running on your `localhost:3000/` port and your `localhost:3001/` must be taken up by the mongodb instance. You can follow this doc to get started, [setup rocket-chat](https://developer.rocket.chat/rocket.chat/rocket.chat-server)
+![rc-setup](./assets/inappchat3.png)
 - Now when you have the RocketChat instance running on your local machine, you can smoothly get started with the app now!  If you open the `.env.local.sample` file you will see this portion which requires certain params for development.
 ```
 # INAPPCHAT
@@ -19,7 +20,9 @@ NEXT_PUBLIC_ROCKET_CHAT_CONF_RID=required
 - Now when you run `npm run dev` inside the `/app`, you can visit any page that uses the `InAppChat` component. **NOTE:- For this to work, your dev server of RC4App must be running on one server (for most cases, `localhost:3002/`) and the RocketChat in another server simultaneously.** 
 > Why? You might ask, this is answered in detailed at the end! For now, we'll focus on setting it up.
 - One more step and we are good to go, We need to go to `http://localhost:3000/admin/General` and under **REST API** you will see an option called ***Enable CORS***; enable it.
+![cors](./assets/inappchat2.png)
 - You can now open the inappchat app and start chatting! It will update itself when you send any message in both the RocketChat instance (the id provided) and the Inappchat UI itself.
+![inappchat](./assets/inappchat1.png)
 
 ### Questions
 
