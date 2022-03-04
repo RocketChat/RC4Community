@@ -1,5 +1,4 @@
 import '../styles/Layout.module.css'
-import { withFirebaseAuthUser } from './auth/firebase';
 import Footer from './footer'
 import Menubar from './menubar'
 
@@ -15,4 +14,4 @@ function Layout(props) {
     )
 }
 
-export default withFirebaseAuthUser()(Layout);
+export default Layout;

@@ -4,7 +4,7 @@ export function NoUserAvatar({size,name}){
     const char = name ? name.charAt(0) : null;
     return (
         <div 
-            className="d-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-center text-capitalize"
             style={{
                 width: `${size}px`, 
                 height: `${size}px`, 
