@@ -7,14 +7,11 @@ export default function FormPage({ formFields }) {
     <div>
       <Head>
         <title>Form</title>
-        <meta
-          name="description"
-          content="Rocket.Chat LeaderBoard for GSOC2022"
-        />
+        <meta name="description" content="Rocket.Chat form tool demo" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <RCform formFields={formFields} />
+      <RCform formFields={[formFields]} />
     </div>
   );
 }
