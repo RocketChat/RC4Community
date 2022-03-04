@@ -11,7 +11,6 @@ import {
 import styles from "../../styles/form.module.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { MdDeleteOutline } from "react-icons/md";
-import { useRouter } from "next/router";
 import { getStrapiURL } from "../../lib/api";
 
 const RCreateForm = () => {
@@ -194,9 +193,7 @@ const RCreateForm = () => {
   );
 };
 
-const ShowForm = ({ show, handleClose, handleShow, formVal, title }) => {
-  const router = useRouter();
-
+const ShowForm = ({ show, handleClose, title }) => {
   return (
     <>
       <Modal

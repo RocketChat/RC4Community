@@ -1,16 +1,13 @@
 import Head from "next/head";
 import RCform from "../../components/clientForms/show";
-import { getFormData } from "../../lib/formAPI";
+import { getForms } from "../../lib/formAPI";
 
-export default function FormPage({ formFields }) {
+function FormDemo({ formFields }) {
   return (
     <div>
       <Head>
         <title>Form</title>
-        <meta
-          name="description"
-          content="Rocket.Chat LeaderBoard for GSOC2022"
-        />
+        <meta name="description" content="Rocket.Chat form tool demo" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
@@ -19,7 +16,13 @@ export default function FormPage({ formFields }) {
   );
 }
 
-FormPage.getInitialProps = async (ctx) => {
-  const res = await getFormData(ctx.query.id);
-  return { formFields: res };
-};
+export async function getStaticProps() {
+  const res = await getForms();
+  return {
+    props: {
+      formFields: res,
+    },
+  };
+}
+
+export default FormDemo;

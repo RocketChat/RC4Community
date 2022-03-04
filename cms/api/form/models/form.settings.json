@@ -17,7 +17,8 @@
     },
     "title": {
       "type": "string",
-      "default": "Preview Form"
+      "default": "Preview Form",
+      "required": true
     }
   }
 }

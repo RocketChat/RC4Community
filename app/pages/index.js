@@ -11,8 +11,6 @@ import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
 import { GithubIssuesList, ContributorsList } from '../components/github';
 import { getContributors, getIssues } from '../lib/github';
-import { FaWpforms } from 'react-icons/fa';
-import RCreateForm from '../components/clientForms/create';
 
 function Home(props) {
   return (
@@ -79,13 +77,6 @@ function Home(props) {
           <GithubIssuesList issues={props.issues}></GithubIssuesList>
         </div>
 
-        <div className={` d-flex flex-column py-5 align-items-center ${styles.form}`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-          <FaWpforms /> Preview Form
-          </h2>
-          <RCreateForm></RCreateForm>
-        </div>
-
         <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Contributors ✨
@@ -107,10 +98,9 @@ export async function getStaticProps({ params }) {
   const topPosts = await fetchAPI('/discourses');
   const issues = await getIssues('RocketChat', 'RC4Community');
   const contributors = await getContributors();
-  const forms = await fetchAPI('/forms');
   
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues, contributors, forms },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, issues, contributors },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second

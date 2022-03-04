@@ -1,14 +1,20 @@
+import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import styles from "../../styles/form.module.css";
 
 function RCform({ formFields }) {
-  console.log("formFie", formFields)
-  return (
-    <Card className={styles.showCard}>
-      <Card.Title className={styles.showTitle}>{formFields.title}</Card.Title>
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    setFormData([...formData, ...formFields]);
+  }, [formFields]);
+
+  return formData.map((form, ind) => (
+    <Card key={"indiForm" + ind} className={styles.showCard}>
+      <Card.Title className={styles.showTitle}>{form.title}</Card.Title>
       <Card.Body>
         <Form>
-          {formFields.formQs.map((ele, i) => (
+          {form.formQs.map((ele, i) => (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>{ele.value}</Form.Label>
               {ele.type == "number" ? (
@@ -43,7 +49,7 @@ function RCform({ formFields }) {
         </Form>
       </Card.Body>
     </Card>
-  );
+  ));
 }
 
 export default RCform;
