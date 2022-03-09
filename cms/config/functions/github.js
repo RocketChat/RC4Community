@@ -18,6 +18,7 @@ const getIssues = async (owner, repo) => {
   }
 };
 
+
 const getContributors = async (owner, repo) => {
   try {
     const res = await octokit.request(
@@ -70,4 +71,11 @@ module.exports.getGithubContributors = async (owner, repo) => {
       Contributors
     });
   }
+}
+
+
+module.exports.getGithubContributors = async () => {
+  
+  
+
 }

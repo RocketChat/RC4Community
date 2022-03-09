@@ -18,8 +18,8 @@
       "unique": false
     },
     "github_repository": {
-      "model": "github-repositories",
-      "via": "ghcontributor"
+      "via": "ghcontributor",
+      "model": "github-repositories"
     }
   }
 }

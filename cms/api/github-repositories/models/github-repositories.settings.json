@@ -49,6 +49,14 @@
     "ghcontributor": {
       "via": "github_repository",
       "model": "ghcontributor"
+    },
+    "ghpull": {
+      "via": "github_repository",
+      "model": "ghpulls"
+    },
+    "get_pulls": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
