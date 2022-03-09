@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Rocketchat } from "@rocket.chat/sdk";
 import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
+import { emojify, emojis, messagesSortedByDate, rcURL, useSsl } from "./helpers";
 import {
   Message,
   MessageBody,
@@ -18,28 +20,30 @@ import {
 } from "./lib/fuselage";
 import MDPreview from "../mdpreview";
 
-const emojify = (message) => {
-  return joypixels.toImage(message);
-};
-
-const emojis = [
-  { id: 1, value: ":smile:" },
-  { id: 2, value: ":thumbsup:" },
-  { id: 3, value: ":heart:" },
-  { id: 4, value: ":partying_face:" },
-];
+const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
 
 const InAppChat = ({ closeChat, cookies, rid }) => {
   const [message, setMessage] = useState("");
   const [emojiClicked, setEmojiClicked] = useState(false);
-  const [data, setData] = useState({});
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    const runRealtime = async (token, rid) => {
+      await rcClient.connect({ host: rcURL.host, useSsl });
+      await rcClient.resume({ token });
+      await rcClient.subscribe("stream-room-messages", rid);
+      rcClient.onMessage(() => {
+        // TODO: add the animate function here,
+        // and check if that corresponds to any of the emoji that we want to animate then animate()
+        getData();
+      });
+    };
     async function getData() {
       const data = await getMessages(rid, cookies);
-      setData(data);
+      setMessages(data.messages);
     }
     getData();
+    runRealtime(cookies.rc_token, rid);
   }, []);
 
   const sendMsg = async (message) => {
@@ -48,7 +52,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
     }
     const msg = await sendMessage(rid, message, cookies);
     setMessage("");
-    setData({ ...data, messages: [...data.messages, msg.message] });
+    setMessages([...messages, msg.message]);
   };
 
   return (
@@ -59,34 +63,29 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       <div className={styles.chatbox}>
         <Box>
           {cookies.rc_token && cookies.rc_uid ? (
-            data &&
-            data?.messages
-              ?.sort(function (a, b) {
-                return a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0;
-              })
-              .map((m) => (
-                <Message className="customclass" clickable key={m._id}>
-                  <MessageContainer>
-                    <MessageHeader>
-                      <MessageName>{m.u.name}</MessageName>
-                      <MessageUsername>@{m.u.username}</MessageUsername>
-                      <MessageTimestamp>
-                        {new Date(m.ts).toDateString()}
-                      </MessageTimestamp>
-                    </MessageHeader>
-                    <MessageBody>
-                      <MDPreview body={emojify(m.msg)} />
-                    </MessageBody>
-                  </MessageContainer>
-                  <MessageToolboxWrapper>
-                    <MessageToolbox>
-                      <MessageToolboxItem icon="quote" />
-                      <MessageToolboxItem icon="emoji" />
-                      <MessageToolboxItem icon="thread" />
-                    </MessageToolbox>
-                  </MessageToolboxWrapper>
-                </Message>
-              ))
+            messagesSortedByDate(messages)?.map((m) => (
+              <Message className="customclass" clickable key={m._id}>
+                <MessageContainer>
+                  <MessageHeader>
+                    <MessageName>{m.u.name}</MessageName>
+                    <MessageUsername>@{m.u.username}</MessageUsername>
+                    <MessageTimestamp>
+                      {new Date(m.ts).toDateString()}
+                    </MessageTimestamp>
+                  </MessageHeader>
+                  <MessageBody>
+                    <MDPreview body={emojify(m.msg)} />
+                  </MessageBody>
+                </MessageContainer>
+                <MessageToolboxWrapper>
+                  <MessageToolbox>
+                    <MessageToolboxItem icon="quote" />
+                    <MessageToolboxItem icon="emoji" />
+                    <MessageToolboxItem icon="thread" />
+                  </MessageToolbox>
+                </MessageToolboxWrapper>
+              </Message>
+            ))
           ) : (
             <p>
               Please login into{" "}
