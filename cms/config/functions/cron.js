@@ -26,8 +26,7 @@ module.exports = {
   '*/60 * * * * *': () => {
     getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
   },
-  '*/0 0 1 * * *': () => {
-    getGithubIssues('RocketChat', 'RC4Community');
-    getGithubContributors('RocketChat', 'RC4Community');
-  }
+  '*/10 * * * * *': () => {
+    githubKit();
+  },
 };
