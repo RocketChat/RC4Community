@@ -16,6 +16,10 @@
       "type": "json",
       "required": true,
       "unique": false
+    },
+    "github_repository": {
+      "model": "github-repositories",
+      "via": "ghcontributor"
     }
   }
 }
