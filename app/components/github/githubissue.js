@@ -12,7 +12,7 @@ function truncateUpto(str, noOfWords) {
 const GithubIssue = ({ issue }) => {
   return (
     <Col className={`${styles.column} py-2 px-3 m-2 rounded`}>
-      <Row className={`${styles.item_container}`}>
+      {/* <Row className={`${styles.item_container}`}>
         <NavLink href={issue.html_url}>{issue.title}</NavLink>
       </Row>
       <Row className="d-flex align-items-center">
@@ -38,7 +38,7 @@ const GithubIssue = ({ issue }) => {
       </Row>
       <Row className={`${styles.md_container} p-1`}>
         <MDPreview body={truncateUpto(issue.body, 20)} />
-      </Row>
+      </Row> */}
     </Col>
   );
 };

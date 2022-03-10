@@ -15,7 +15,7 @@
       "type": "json"
     },
     "github_repository": {
-      "via": "ghpull",
+      "via": "pulls",
       "model": "github-repositories"
     }
   }

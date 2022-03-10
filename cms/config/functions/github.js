@@ -158,6 +158,7 @@ module.exports.githubKit = async function () {
   try {
     let githubRepositories = await strapi.query("github-repositories").find({});
     for (const repo of githubRepositories) {
+      console.log(repo);
       if (repo.update_repo_data) {
         let repoData = await getRepoData(repo.owner, repo.name);
 

@@ -18,7 +18,7 @@
       "unique": false
     },
     "github_repository": {
-      "via": "ghissue",
+      "via": "issues",
       "model": "github-repositories"
     }
   }

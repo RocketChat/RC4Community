@@ -42,17 +42,17 @@
       "type": "boolean",
       "default": false
     },
-    "ghissue": {
-      "via": "github_repository",
-      "model": "ghissue"
+    "issues": {
+      "model": "ghissue",
+      "via": "github_repository"
     },
-    "ghcontributor": {
-      "via": "github_repository",
-      "model": "ghcontributor"
+    "contributors": {
+      "model": "ghcontributor",
+      "via": "github_repository"
     },
-    "ghpull": {
-      "via": "github_repository",
-      "model": "ghpulls"
+    "pulls": {
+      "model": "ghpulls",
+      "via": "github_repository"
     },
     "get_pulls": {
       "type": "boolean",
