@@ -30,7 +30,7 @@
       "type": "uid",
       "targetField": "unqiueId"
     },
-    "fresh": {
+    "update_repo_data": {
       "type": "boolean",
       "default": true
     },

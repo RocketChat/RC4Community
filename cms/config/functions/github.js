@@ -5,7 +5,6 @@ const octokit = new Octokit();
 const getRepoData = async function(parent,repo){
 
   try{
-      
       let returnedData = await octokit.request("GET /repos/{owner}/{repo}", {
         owner : parent,
           repo,
@@ -105,14 +104,14 @@ const getPulls = async function(owner,repo){
 
 module.exports.githubKit = async function() {
   
+  console.log("call");
   let githubRepositories = await strapi.query('github-repositories').find({});
   for(const repo of githubRepositories){
     // console.log(repo.fresh);
-    if(repo.fresh){
+    if(repo.update_repo_data){
       let repoData = await getRepoData(repo.owner,repo.name);
       // console.log(repoData);
       if(repoData.success){
-        repo.fresh = false;
         repo.repositoryData = repoData.data;
         repo.unqiueId = repoData.data.id;
       }
