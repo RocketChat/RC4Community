@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import Error from "next/error";
+import { Button, Card, Form, Spinner } from "react-bootstrap";
+import { getFormData } from "../../lib/formAPI";
 import styles from "../../styles/form.module.css";
 
-function RCform({ formFields }) {
-  const [formData, setFormData] = useState([]);
+function RCform({ formId, fw }) {
+  const { form, isLoading, isError } = getFormData(formId);
 
-  useEffect(() => {
-    setFormData([...formData, ...formFields]);
-  }, [formFields]);
+  if (isLoading) return <Spinner />;
+  if (isError) return <Error />;
 
-  return formData.map((form, ind) => (
-    <Card key={"indiForm" + ind} className={styles.showCard}>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form submitted", e);
+  };
+
+  return (
+    <Card style={{ width: fw }} className={styles.showCard}>
       <Card.Title className={styles.showTitle}>{form.title}</Card.Title>
       <Card.Body>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           {form.formQs.map((ele, i) => (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group key={i} className="mb-3" controlId="formBasicEmail">
               <Form.Label>{ele.value}</Form.Label>
               {ele.type == "number" ? (
                 <>
@@ -43,13 +48,13 @@ function RCform({ formFields }) {
               {ele.type == "number"}
             </Form.Group>
           ))}
-          <Button variant="primary" type="submit">
+          <Button variant="primary" o type="submit">
             Submit
           </Button>
         </Form>
       </Card.Body>
     </Card>
-  ));
+  );
 }
 
 export default RCform;
