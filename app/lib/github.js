@@ -9,9 +9,13 @@ export const githubKitData = async (owner, name, needed) => {
         neededRepository["id"] = repo.id;
         neededRepository["name"] = repo.name;
         neededRepository["owner"] = repo.owner;
-        needed.forEach((neededData) => {
-          neededRepository[neededData] = repo[neededData];
-        });
+        if(Array.isArray(needed)){
+          needed.forEach((neededData) => {
+            neededRepository[neededData] = repo[neededData];
+          });
+        }else{
+          neededRepository[needed] = repo[needed];
+        } 
       }
     });
     return neededRepository;

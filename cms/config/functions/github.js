@@ -67,6 +67,8 @@ const getIssues = async function (owner, repo) {
         newIssue["title"] = issue.title;
         newIssue["number"] = issue.number;
         newIssue["html_url"] = issue.html_url;
+        newIssue["reactions"] = issue.reactions;
+        newIssue["comments"] = issue.comments;
         issueList.push(newIssue);
       }
     });

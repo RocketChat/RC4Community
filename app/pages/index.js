@@ -9,7 +9,7 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
-import { GithubIssuesList, ContributorsList } from '../components/github';
+import { Github } from '../components/github';
 import { githubKitData } from '../lib/github';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
 
@@ -73,14 +73,14 @@ function Home(props) {
           <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
         </div>
 
-        {/* <div className={` d-flex flex-column py-5 align-items-center`}>
+        <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             GitHub Issues
           </h2>
-          <GithubIssuesList issues={props.issues}></GithubIssuesList>
+          <Github type={'issues'} githubData={props.githubData} />
         </div>
 
-        <div className={` d-flex flex-column py-5 align-items-center`}>
+        {/* <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Contributors ✨
           </h2>
@@ -99,10 +99,10 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-  const gitHubData = await githubData('RocketChat','RC4Community',['issues','pulls']);
+  const githubData = await githubKitData('RocketChat','RC4Community',['issues','pulls']);
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, gitHubData},
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, githubData},
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
