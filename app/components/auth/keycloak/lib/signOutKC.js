@@ -4,7 +4,7 @@ import { getCsrfToken } from "next-auth/react";
 const broadcast = new BroadcastChannel();
 
 export default async function signOutKC({
-    callbackUrl = window.location.href
+    callbackUrl = null
 }){
     const csrfToken = await getCsrfToken();
     const fetchOptions = {
@@ -14,7 +14,7 @@ export default async function signOutKC({
         },
         body: new URLSearchParams({
             csrfToken,
-            callbackUrl: '/api/auth/signoutkc?token='+csrfToken+'&callback='+encodeURIComponent(callbackUrl),
+            callbackUrl: `/api/auth/signoutkc?token=${csrfToken}${callbackUrl?'&callbackUrl='+encodeURIComponent(callbackUrl):''}`,
             json: true,
         }),
     }

@@ -41,7 +41,7 @@ export default function KeycloakUserInfo(){
             </div>
             <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">
                 <Button variant="secondary" 
-                    onClick={signOutKC}>
+                    onClick={() => signOutKC({callbackUrl: window.location.href})}>
                     Sign Out
                 </Button>
             </div>
