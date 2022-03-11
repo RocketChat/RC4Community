@@ -18,7 +18,7 @@ module.exports = async () => {
     var topNavItemCount = await strapi.query("top-nav-item").count();
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
-    var formCount = await strapi.query("forms").count();
+    var formCount = await strapi.query("form").count();
 
     var ghissues = await strapi.query("ghissue").count();
     var ghcontributor = await strapi.query("ghcontributor").count();
@@ -34,7 +34,7 @@ module.exports = async () => {
 
     forms.map(async (form, index) => {
       if (index <= formCount - 1) {
-        await strapi.query("forms").update(
+        await strapi.query("form").update(
           { id: form.id },
           {
            title: form.title,
@@ -42,7 +42,7 @@ module.exports = async () => {
           }
         );
       } else {
-        await strapi.query("forms").create({
+        await strapi.query("form").create({
           title: form.title,
           formQs: form.formQs
         });
