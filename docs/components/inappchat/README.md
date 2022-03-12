@@ -9,8 +9,8 @@ Let's get started! Go through these points step by step to setup your very own i
 - Now when you have the RocketChat instance running on your local machine, you can smoothly get started with the app now!  If you open the `.env.local.sample` file you will see this portion which requires certain params for development.
 ```
 # INAPPCHAT
-# for development http://localhost:3000
-NEXT_PUBLIC_ROCKET_CHAT_HOST=required
+# for development it defaults to http://localhost:3000
+NEXT_PUBLIC_ROCKET_CHAT_HOST=requiredinProd
 # id of the room where conf will take place
 NEXT_PUBLIC_ROCKET_CHAT_CONF_RID=required
 ```
