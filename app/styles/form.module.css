@@ -1,0 +1,47 @@
+.card {
+    width: 50%;
+    margin: auto;
+    margin-top: 15%;
+}
+
+.createCard {
+    width: 50%;
+    margin: auto;
+    min-width: 100%;
+    background-color: #fbbbc347;
+}
+
+.formRow {
+    margin-bottom: 1%;
+}
+
+.radio {
+    align-self: center;
+    margin-left: 1%!important;
+}
+
+.select {
+    max-width: 15%;
+}
+
+.submitGroup {
+    margin-top: 3%;
+}
+
+.formTitle {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.showCard {
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+    background-color: #fbbbc347;
+}
+
+.showTitle {
+    margin-top: 1em;
+    align-self: center;
+}

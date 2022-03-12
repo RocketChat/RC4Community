@@ -4,7 +4,8 @@ const { carousels,
   personaIcons, 
   releaseNotes, 
   subMenus,
-  topNavItem } = require('../initialData');
+  topNavItem,
+  forms } = require('../initialData');
 const { getGithubIssues, getGithubContributors } = require('./github');
 
 module.exports = async () => {
@@ -17,6 +18,7 @@ module.exports = async () => {
     var topNavItemCount = await strapi.query("top-nav-item").count();
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
+    var formCount = await strapi.query("form").count();
 
     var ghissues = await strapi.query("ghissue").count();
     var ghcontributor = await strapi.query("ghcontributor").count();
@@ -29,6 +31,23 @@ module.exports = async () => {
     if (!ghcontributor) {
       getGithubContributors('RocketChat', 'RC4Community');
     }
+
+    forms.map(async (form, index) => {
+      if (index <= formCount - 1) {
+        await strapi.query("form").update(
+          { id: form.id },
+          {
+           title: form.title,
+           formQs: form.formQs
+          }
+        );
+      } else {
+        await strapi.query("form").create({
+          title: form.title,
+          formQs: form.formQs
+        });
+      }
+    });
 
     carousels.map(async (carousel, index) => {
       if (index <= carouselCount - 1) {
