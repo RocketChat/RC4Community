@@ -1,11 +1,9 @@
-// using env variables for now, should be replaced with cookies!
-
-const host = process.env.NEXT_PUBLIC_ROCKET_CHAT_HOST;
+import { rcURL } from "../helpers";
 
 export const getMessages = async (rid, cookies) => {
   try {
     const messages = await fetch(
-      `${host}/api/v1/channels.messages?roomId=${rid}`,
+      `${rcURL.origin}/api/v1/channels.messages?roomId=${rid}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +22,7 @@ export const getMessages = async (rid, cookies) => {
 
 export const sendMessage = async (rid, message, cookies) => {
   try {
-    const msg = await fetch(`${host}/api/v1/chat.sendMessage`, {
+    const msg = await fetch(`${rcURL.origin}/api/v1/chat.sendMessage`, {
       body: `{"message": { "rid": "${rid}", "msg": "${message}" }}`,
       headers: {
         "Content-Type": "application/json",

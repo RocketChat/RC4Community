@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Script from 'next/script';
 import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
@@ -23,18 +22,7 @@ export default function ConfMainStage({ cookies }) {
             name="description"
             content="Demonstration main stage for a virtual conference"
           />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/emoji-toolkit@6.6.0/extras/css/joypixels.min.css"
-          />
         </Head>
-        <Script
-          src="https://cdn.jsdelivr.net/npm/emoji-toolkit@6.6.0/lib/js/joypixels.min.js"
-          strategy="afterInteractive"
-          onLoad={() =>
-            console.log(`script loaded correctly, joypixels`)
-          }
-        />
         <Container
           fluid>
             <Videostreamer poster="/gsocsmall.jpg"  
