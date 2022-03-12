@@ -23,7 +23,6 @@ function FormDemo() {
         </Stack>
         <Stack direction="horizontal">
           <RCform formId={5} fw={"50%"} />
-          <RCform formId={6} fw={"40%"} />
         </Stack>
       </Stack>
     </div>
