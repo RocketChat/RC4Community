@@ -1,5 +1,5 @@
-// TODO: Use joypixels from NPM package rather than <Script />
+import EmojiOne from 'emoji-toolkit';
 
 export default function emojify(message) {
-  return joypixels.toImage(message);
+  return EmojiOne.toImage(message);
 };
