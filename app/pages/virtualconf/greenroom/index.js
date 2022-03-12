@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Head from "next/head";
-import Script from "next/script";
 import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Jitsibroadcaster from '../../../components/clientsideonly/jitsibroadcaster'
@@ -20,13 +19,6 @@ const Greenroom = ({ cookies }) => {
 			<Head>
 				<title>Conference Green Room</title>
 			</Head>
-			<Script
-          		src="https://cdn.jsdelivr.net/npm/emoji-toolkit@6.6.0/lib/js/joypixels.min.js"
-          		strategy="afterInteractive"
-          		onLoad={() =>
-            		console.log(`script loaded correctly, joypixels`)
-          		}
-        	/>
 			<main className={styles.main}>
 				<div className={styles.container}>
 				</div>
