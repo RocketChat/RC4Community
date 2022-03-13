@@ -80,12 +80,12 @@ function Home(props) {
           <Github type={'issues'} githubData={props.githubData} />
         </div>
 
-        {/* <div className={` d-flex flex-column py-5 align-items-center`}>
+        <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Contributors ✨
           </h2>
-          <ContributorsList contributors={props.contributors}></ContributorsList>
-        </div> */}
+          <Github type={'contributors'} githubData={props.githubData} />
+        </div>
       </Container>
     </>
   );
@@ -99,7 +99,7 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-  const githubData = await githubKitData('RocketChat','RC4Community',['issues','pulls']);
+  const githubData = await githubKitData('RocketChat','RC4Community',['issues','pulls','contributors']);
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, githubData},

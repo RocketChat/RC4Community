@@ -36,9 +36,9 @@ const GithubIssue = ({ issue }) => {
           {issue.comments}
         </Col>
       </Row>
-      {/* <Row className={`${styles.md_container} p-1`}>
+      <Row className={`${styles.md_container} p-1`}>
         <MDPreview body={truncateUpto(issue.body, 20)} />
-      </Row> */}
+      </Row>
     </Col>
   );
 };

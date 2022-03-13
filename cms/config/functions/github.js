@@ -6,7 +6,7 @@ const getRepoData = async function (parent, repo) {
   try {
     let returnedData = await octokit.request("GET /repos/{owner}/{repo}", {
       owner: parent,
-      repo,
+      repo: repo,
     });
     const { data } = returnedData;
     const {
@@ -47,13 +47,13 @@ const getRepoData = async function (parent, repo) {
   }
 };
 
-const getIssues = async function (owner, repo) {
+const getRepoIssues = async function (owner, repo) {
   try {
     let returnedData = await octokit.request(
       "GET /repos/{owner}/{repo}/issues",
       {
-        owner,
-        repo,
+        owner: owner,
+        repo: repo,
       }
     );
     let data = returnedData.data;
@@ -69,6 +69,7 @@ const getIssues = async function (owner, repo) {
         newIssue["html_url"] = issue.html_url;
         newIssue["reactions"] = issue.reactions;
         newIssue["comments"] = issue.comments;
+        newIssue["body"] = issue.body;
         issueList.push(newIssue);
       }
     });
@@ -85,7 +86,7 @@ const getIssues = async function (owner, repo) {
   }
 };
 
-const getPulls = async function (owner, repo) {
+const getRepoPulls = async function (owner, repo) {
   try {
     let returnedData = await octokit.request(
       "GET /repos/{owner}/{repo}/pulls",
@@ -122,13 +123,13 @@ const getPulls = async function (owner, repo) {
   }
 };
 
-const getContributors = async function (owner, repo) {
+const getRepoContributors = async function (owner, repo) {
   try {
     const contributorData = await octokit.request(
       "GET /repos/{owner}/{repo}/contributors",
       {
-        owner: "RocketChat",
-        repo: "RC4Community",
+        owner: owner,
+        repo: repo,
       }
     );
 
@@ -156,101 +157,145 @@ const getContributors = async function (owner, repo) {
   }
 };
 
-module.exports.githubKit = async function () {
+module.exports.githubKit = async function (owner, name, needed) {
   try {
-    let githubRepositories = await strapi.query("github-repositories").find({});
-    for (const repo of githubRepositories) {
-      console.log(repo);
-      if (repo.update_repo_data) {
-        let repoData = await getRepoData(repo.owner, repo.name);
-
-        if (repoData.success) {
-          repo.repositoryData = repoData.data;
-          repo.unqiueId = repoData.data.id;
+    
+    let getIssues = false;
+    let getPulls = false;
+    let getContributors = false;
+    if (Array.isArray(needed)) {
+      needed.forEach((need) => {
+        if (need === "issues") {
+          getIssues = true;
+        } else if (need === "pulls") {
+          getPulls = true;
+        } else if (need === "contributors") {
+          getContributors = true;
         }
+      });
+    } else {
+      if (needed === "issues") {
+        getIssues = true;
+      } else if (needed === "pulls") {
+        getPulls = true;
+      } else if (needed === "contributors") {
+        getContributors = true;
+      }
+    }
 
+    let repoData = await getRepoData(owner, name);
+
+    let githubRepositoryCount = await strapi
+      .query("github-repositories")
+      .count({
+        owner: owner,
+        name: name,
+      });
+    let githubRepository = await strapi.query("github-repositories").findOne({
+      owner: owner,
+      name: name,
+    });
+
+    if (repoData.success) {
+      if (githubRepositoryCount === 0) {
+        githubRepository = await strapi.query("github-repositories").create({
+          owner: owner,
+          name: name,
+          repositoryData: repoData.data,
+          unqiueId: repoData.data.id,
+        });
+      } else {
+        githubRepository.repositoryData = repoData.data;
+        githubRepository.unqiueId = repoData.data.id;
         await strapi.query("github-repositories").update(
           {
-            id: repo.id,
+            id: githubRepository.id,
           },
-          repo
+          githubRepository
         );
       }
-      if (repo.get_issues) {
-        const issuesData = await getIssues(repo.owner, repo.name);
-        if (issuesData.success) {
-          const issueCount = await strapi.query("ghissue").count({
-            github_repository: repo.id,
+    }
+
+    if (getIssues) {
+      const issuesData = await getRepoIssues(owner, name);
+
+      if (issuesData.success) {
+        const issueCount = await strapi.query("ghissue").count({
+          github_repository: githubRepository.id,
+        });
+        if (issueCount === 0) {
+          let newissueData = await strapi.query("ghissue").create({
+            github_repository: githubRepository.id,
+            Issues: issuesData.data,
           });
-          if (issueCount === 0) {
-            await strapi.query("ghissue").create({
-              github_repository: repo.id,
+          issuesId = newissueData.id;
+        } else {
+          await strapi.query("ghissue").update(
+            {
+              github_repository: githubRepository.id,
+            },
+            {
+              github_repository: githubRepository.id,
               Issues: issuesData.data,
-            });
-          } else {
-            await strapi.query("ghissue").update(
-              {
-                github_repository: repo.id,
-              },
-              {
-                github_repository: repo.id,
-                Issues: issuesData.data,
-              }
-            );
-          }
+            }
+          );
         }
       }
+    }
 
-      if (repo.get_pulls) {
-        const pullData = await getPulls(repo.owner, repo.name);
+    if (getPulls) {
+      const pullData = await getRepoPulls(owner, name);
 
-        if (pullData.success) {
-          const contributorsDataCount = await strapi.query("ghpulls").count({
-            github_repository: repo.id,
+      if (pullData.success) {
+        const contributorsDataCount = await strapi.query("ghpulls").count({
+          github_repository: githubRepository.id,
+        });
+        if (contributorsDataCount === 0) {
+          let newPullsData = await strapi.query("ghpulls").create({
+            github_repository: githubRepository.id,
+            pulls: pullData.data,
           });
-          if (contributorsDataCount === 0) {
-            await strapi.query("ghpulls").create({
-              github_repository: repo.id,
+          pullsId = newPullsData.id;
+        } else {
+          await strapi.query("ghpulls").update(
+            {
+              github_repository: githubRepository.id,
+            },
+            {
+              github_repository: githubRepository.id,
               pulls: pullData.data,
-            });
-          } else {
-            await strapi.query("ghpulls").update(
-              {
-                github_repository: repo.id,
-              },
-              {
-                github_repository: repo.id,
-                pulls: pullData.data,
-              }
-            );
-          }
+            }
+          );
         }
       }
+    }
 
-      if (repo.get_contributors) {
-        const contributorData = await getContributors(repo.owner, repo.name);
-        if (contributorData.success) {
-          const contributorsDataCount = await strapi
+    if (getContributors) {
+      const contributorData = await getRepoContributors(owner, name);
+      if (contributorData.success) {
+        const contributorsDataCount = await strapi
+          .query("ghcontributor")
+          .count({
+            github_repository: githubRepository.id,
+          });
+
+        if (contributorsDataCount === 0) {
+          let newGithubContributor = await strapi
             .query("ghcontributor")
-            .count({
-              github_repository: repo.id,
-            });
-          if (contributorsDataCount === 0) {
-            await strapi.query("ghcontributor").create({
-              github_repository: repo.id,
+            .create({
+              github_repository: githubRepository.id,
               Contributors: contributorData.data,
             });
-          } else {
-            await strapi.query("ghcontributor").update(
-              {
-                github_repository: repo.id,
-              },
-              {
-                github_repository: repo.id,
-                Contributors: contributorData.data,
-              }
-            );
-          }
+        } else {
+          await strapi.query("ghcontributor").update(
+            {
+              github_repository: githubRepository.id,
+            },
+            {
+              github_repository: githubRepository.id,
+              Contributors: contributorData.data,
+            }
+          );
         }
       }
     }
