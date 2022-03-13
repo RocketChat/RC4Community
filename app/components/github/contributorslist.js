@@ -1,10 +1,12 @@
 import Image from 'next/image';
 
 const ContributorsList = (props) => {
-  let contributors = props.data.pulls.pulls;
+  
+  let contributors = props.data.contributors.Contributors;
+
   return (
     <div className="container">
-      {Array.isArray(props) &&
+      {Array.isArray(contributors) &&
         contributors.map((contributor) => (
           <a href={contributor.html_url} key={contributor.id}>
             <Image
