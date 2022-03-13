@@ -276,7 +276,7 @@ module.exports.githubKit = async function (owner, name, needed) {
           });
 
         if (contributorsDataCount === 0) {
-          let newGithubContributor = await strapi
+          await strapi
             .query("ghcontributor")
             .create({
               github_repository: githubRepository.id,

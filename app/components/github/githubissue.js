@@ -1,13 +1,8 @@
 import { Col, NavLink, Row } from 'react-bootstrap';
-import MDPreview from '../mdpreview';
 import LikeIcon from '../../public/svg/like';
 import CommentIcon from '../../public/svg/comment';
 import IssueIcon from '../../public/svg/issue';
 import styles from '../../styles/GithubIssuesList.module.css';
-
-function truncateUpto(str, noOfWords) {
-  return str.split(' ').splice(0, noOfWords).join(' ');
-}
 
 const GithubIssue = ({ issue }) => {
   return (
