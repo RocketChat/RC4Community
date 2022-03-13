@@ -7,8 +7,10 @@ const Github = (props) => {
     return (<><GithubIssuesList data={props.githubData}/></>);
   }else if(props.type === 'pulls'){
     return(<><GithubPullRequestsList data={props.githubData}/></>)
+  }else if(props.type === 'contributors'){
+    return (<ContributorsList data={props.githubData}/>);
   }
-  return (<ContributorsList data={props.githubData}/>);
+  return (<></>);
 };
 
 export default Github;
