@@ -28,5 +28,5 @@ module.exports = {
   },
   '*/60 * * * * *': () => {
     githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
-  },
+  },g
 };

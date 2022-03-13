@@ -1,15 +1,14 @@
 import GithubIssuesList from "./githubissueslist";
 import ContributorsList from "./contributorslist";
-import { useState } from "react";
+import GithubPullRequestsList from "./githubpullreqeusts";
 
 const Github = (props) => {
-
   if(props.type === 'issues'){
-    return (<>
-    <GithubIssuesList data={props.githubData}/></>);
+    return (<><GithubIssuesList data={props.githubData}/></>);
+  }else if(props.type === 'pulls'){
+    return(<><GithubPullRequestsList data={props.githubData}/></>)
   }
   return (<ContributorsList data={props.githubData}/>);
-// return (<h1>hey</h1>)
 };
 
 export default Github;

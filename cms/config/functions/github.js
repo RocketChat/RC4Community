@@ -99,14 +99,12 @@ const getRepoPulls = async function (owner, repo) {
     let pullList = [];
     data.forEach((pull) => {
       let newPull = new Object();
-
       newPull["id"] = pull.id;
       let { login, avatar_url, html_url } = pull.user;
       newPull["user"] = { login, avatar_url, html_url };
       newPull["title"] = pull.title;
       newPull["number"] = pull.number;
       newPull["state"] = pull.state;
-
       newPull["html_url"] = pull.html_url;
       pullList.push(newPull);
     });
@@ -159,7 +157,6 @@ const getRepoContributors = async function (owner, repo) {
 
 module.exports.githubKit = async function (owner, name, needed) {
   try {
-    
     let getIssues = false;
     let getPulls = false;
     let getContributors = false;
@@ -245,7 +242,6 @@ module.exports.githubKit = async function (owner, name, needed) {
 
     if (getPulls) {
       const pullData = await getRepoPulls(owner, name);
-
       if (pullData.success) {
         const contributorsDataCount = await strapi.query("ghpulls").count({
           github_repository: githubRepository.id,
