@@ -6,7 +6,7 @@ const { carousels,
   subMenus,
   topNavItem,
   forms } = require('../initialData');
-const { getGithubIssues, getGithubContributors } = require('./github');
+const { githubKit } = require('./github');
 
 module.exports = async () => {
 
@@ -19,17 +19,12 @@ module.exports = async () => {
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
     var formCount = await strapi.query("form").count();
-
-    var ghissues = await strapi.query("ghissue").count();
-    var ghcontributor = await strapi.query("ghcontributor").count();
-
+    var ghrepos =  await strapi.query("github-repositories").count({});
+    
     // initial fetch
-    if (!ghissues) {
-      getGithubIssues('RocketChat', 'RC4Community');
-    }
-
-    if (!ghcontributor) {
-      getGithubContributors('RocketChat', 'RC4Community');
+    
+    if (!ghrepos) {
+      githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
     }
 
     forms.map(async (form, index) => {
