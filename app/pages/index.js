@@ -9,7 +9,7 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
-import { Github } from '../components/github';
+import Github from '../components/github';
 import { githubKitData } from '../lib/github';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
 
