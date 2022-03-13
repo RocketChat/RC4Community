@@ -1,52 +1,168 @@
-# GitHub Components Kit
+# GitHub Component Kit
 
-## GitHub Issues Component
+The Github Component kit cane be used by communtiy builders to showcase the progress of their projects. The current github component kit can be usedto showcase the following details of a repository : 
 
-![gh-issues-rc4_comm](https://user-images.githubusercontent.com/73601258/152670598-3972804c-4493-4fb1-a066-b12ee8ed0d5d.png)
+### 1. Issues
 
-## Contributors List Component
+<p align="center" width="100%">
+  <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158072201-55ec7fbc-ecfe-4509-8b51-0b057d608bc3.png">
+</p>
 
-![rc4_comm_contributors1](https://user-images.githubusercontent.com/73601258/152670586-1ec2b0cd-d51c-4bc4-97f3-3717bbcce162.png)
+### 2. Contributors
 
-## Steps to setup your own GitHub Components:
+<p align="center" width="100%">
+  <img alt="crons-example" src="https://user-images.githubusercontent.com/73601258/152670586-1ec2b0cd-d51c-4bc4-97f3-3717bbcce162.png">
+</p>
+	
+### 3. Pull Requests
 
-### CMS
+<p align="center" width="100%">
+  <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158072226-bb39ded5-bdd6-4c23-ac89-cb6f6a742c18.png">
+</p>
 
-1. We need to add cron jobs to handle the fetch requests to GitHub, as frequent fetch request will forbid the IP address to fetch data. You can find `cron.js` file under `cms/config/functions` folder.
-   This example means after each 1 hour we will re-fetch and update our data.
-   ![cms1](https://user-images.githubusercontent.com/73601258/152671447-aeebd701-5ae7-4da8-91c0-2a97cf62ce36.png)
-2. These functions exist at `github.js` file under the same functions directory. If you will check, you need to provide `owner` and `repo` to get data. Simply, owner = organisation or the user and repo = repository.
-3. Just one more change and we are good to go! As the cron job will populate and re-populate data after 1 hour interval. We can't just wait for the first one hour to work with the data right? So we need an initial fetch!
-4. Go to `fetchData.js` file which is also in the same functions directory and change the `owner` and `repo` here so that when we first call `INITIALIZE_DATA=true npm run develop` it will call these functions and populate the data for us!
-   ![initfetch-gh](https://user-images.githubusercontent.com/73601258/152671919-8a7656f9-1445-47fe-a8f4-e3e88bc0ffcf.png)
 
-### Frontend
 
-1. All the GitHub Components reside in the `app/components/github` folder. You can just pull any one of them and use however you like.
-2. There are helper functions in `lib/github.js` file, so that you don't worry much about setting up things or handling errors and focus on instant results.
-3. Now that you know where stuffs exist, let's get started:
-4. While using `getStaticProps` you can fetch data through the helper functions we talked about in _point 2_. So in any page you wish to render them you just need to,
+All the componets use the same `<Github >` tag and the same data fetchig library with additional paramters.
 
-```javascript
-export  async  function  getStaticProps({ params }) {
-	...
-	// owner is (organisation/user), repo is (repository)
-	const  issues = await  getIssues('RocketChat', 'RC4Community');
-	const  contributors = await  getContributors();
-	return {
-		props: { issues, contributors }
-	}
+## Github Tag Props
+
+We use our helper function `githubKitData(repoName,ownerName,[... needs]);` to fetch the data for the component. The returned object can be directly passed to the component and it will render data based on the passed paramters
+
+| Prop Name     | Description                | Type  |
+| ------------- |------------------------- | -----|
+| type  | This specifies the type of github kit components we wish to use. This can be set to : `issues` , `pulls` or `contributors`  | string |
+| githubData     | This will contain the data which will be rendered by the component      |   json |
+
+# Usage Examples
+
+## #Example 1 : Using GitHub Issues, Contributors and Pull Request all at once.
+
+### Using the component
+
+```
+import Head from "next/head";
+import { Github } from '../components/github';
+import { githubKitData } from '../lib/github';
+
+export default function Leaderboardpage(props){
+  return (
+    <div>
+      <Head>
+        <title>GSOC2022 LeaderBoard</title>
+      </Head>
+       <div>
+          <h2>
+            GitHub Issues
+          </h2>
+          <Github type={'issues'} githubData={props.githubData} />
+        </div>
+        
+        <div>
+          <h2>
+            GitHub Pull Requests
+          </h2>
+          <Github type={'pulls'} githubData={props.githubData} />
+        </div>
+
+        <div>
+          <h2 >
+            Contributors ✨
+          </h2>
+          <Github type={'contributors'} githubData={props.githubData} />
+        </div>
+    </div>  
+  );
+}
+
+export async function getStaticProps(){
+  
+  const githubData = await githubKitData('RocketChat','RC4Community',['issues','pulls','contributors']);
+  const topNavItems = await fetchAPI("/top-nav-item");
+
+  return {
+    props: {
+      leaderboardProps,
+      githubData
+    },
+    revalidate: 30,
+  };
 }
 ```
 
-5. Now use them like any react component (make sure to import them),
+### Setting up component data in CMS
 
-```jsx
-<GithubIssuesList  issues={props.issues} noOfIssues={DEFAULT=6} />
-or
-<ContributorsList  contributors={props.contributors} />
+1. Open the your cron.js ( This can be located in the following path : `RC4Community/cms/config/functions/cron.js` ).
+2. We need to add cron jobs to handle the fetch requests to GitHub, as frequent fetch request will forbid the IP address to fetch data.
+   This example means after each 60 seconds we will re-fetch and update our data.
+   
+   ![image](https://user-images.githubusercontent.com/70485812/158072721-744b2475-7310-46f2-a3de-0f166bf72324.png)
+   
+3. The `githubKit()` function takes three arguments:
+	1. The github user name of the owner of the repostory.
+	2. Name of the repository.
+	3. The components we wish to use, as it fetches data accordigly. This will be an array of strinng and can take a combinationof values : `issues`, `contributors`,`pulls` depending on our usecase.
+
+4. Just one more change and we are good to go! As the cron job will populate and re-populate data after some time interval. We can't just wait for the first one hour to work with the data right? So we need an initial fetch!
+
+5. Go to `fetchData.js` file which is also in the same functions directory and change the `owner` and `repo` here so that when we first call `INITIALIZE_DATA=true npm run develop` it will call these functions and populate the data for us!
+
+![image](https://user-images.githubusercontent.com/70485812/158073123-6c637835-fc06-46f8-a279-af7003002ae6.png)
+
+## #Example 2 : Using Contributors and PullRequest components for the Rocket.Chat repository of RocketChat.
+
+### Using the component
+
+```
+import Head from "next/head";
+import { Github } from '../components/github';
+import { githubKitData } from '../lib/github';
+
+export default function Leaderboardpage(props){
+  return (
+    <div>
+      <Head>
+        <title>GSOC2022 LeaderBoard</title>
+      </Head>
+        <div>
+          <h2>
+            GitHub Pull Requests
+          </h2>
+          <Github type={'pulls'} githubData={props.githubData} />
+        </div>
+
+        <div>
+          <h2 >
+            Contributors ✨
+          </h2>
+          <Github type={'contributors'} githubData={props.githubData} />
+        </div>
+    </div>  
+  );
+}
+
+export async function getStaticProps(){
+  
+  const githubData = await githubKitData('RocketChat','RC4Community',['contributors','pulls']);
+  const topNavItems = await fetchAPI("/top-nav-item");
+
+  return {
+    props: {
+      leaderboardProps,
+      githubData
+    },
+    revalidate: 30,
+  };
+}
 ```
 
----
+### Setting up component data in CMS
+
+
+1. Cron Jobs ![image](https://user-images.githubusercontent.com/70485812/158073275-873f47dc-02ff-4998-83e9-71b5b83ff7b4.png)
+   
+2. Initial Fetch ![image](https://user-images.githubusercontent.com/70485812/158073303-054200ed-a6c9-4f15-b527-9e35ba2ac314.png)
+
+
+
 
 ### <a href="../">:arrow_left: Explore More Components</a>
