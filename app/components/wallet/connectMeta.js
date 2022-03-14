@@ -1,9 +1,17 @@
-import { useState } from "react";
-import { Alert, Badge, Button, Modal } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  Badge,
+  Button,
+  Modal,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { FaWallet } from "react-icons/fa";
+import styles from "../../styles/meta.module.css";
 
 const Meta = () => {
-  const [metaAccnt, setMetaAccnt] = useState(null);
+  const [metaAccnt, setMetaAccnt] = useState("0x0");
   const [userBalance, setUserBalance] = useState(null);
   const [show, setShow] = useState(false);
   const [buttonText, setButtonText] = useState("Connect to MetaMask");
@@ -16,13 +24,11 @@ const Meta = () => {
       setShow(true);
       return;
     }
-    // location.reload()
-    setButtonText("Connecting...");
     try {
+      setButtonText("Connecting...");
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      setButtonText("Connected");
       const account = accounts[0];
       setMetaAccnt(account);
       getAccountBalance(account);
@@ -33,33 +39,45 @@ const Meta = () => {
   };
 
   const getAccountBalance = async (account) => {
-    const balance = await ethereum.request({
-      method: "eth_getBalance",
-      params: [account, "latest"],
-    });
-    setUserBalance(balance);
-    setConnected(true);
+    try {
+      const balance = await ethereum.request({
+        method: "eth_getBalance",
+        params: [account, "latest"],
+      });
+      setUserBalance(balance);
+      setButtonText("Connected");
+      setConnected(true);
+    } catch (error) {
+      console.log("An error ocurred while fetching balance", error);
+      setButtonText("Re-connect to Metamask");
+      setConnected(false);
+    }
   };
 
-  typeof ethereum !== "undefined" &&
+  useEffect(() => {
+    if (typeof ethereum == "undefined") {
+      setShow(true);
+      return;
+    }
     ethereum.on("accountsChanged", (accounts) => {
       setMetaAccnt(accounts[0]);
+      getAccountBalance(accounts.toString());
     });
 
-  typeof ethereum !== "undefined" &&
     ethereum.on("chainChanged", (chainId) => {
+      alert(chainId);
       location.reload();
     });
-
-  console.log("et", metaAccnt);
-  console.log("ote", parseInt(userBalance, 16));
+  }, [metaAccnt]);
 
   return (
     <div>
       {connected ? (
         <ShowBalance balance={userBalance} account={metaAccnt} />
       ) : (
-        <Button onClick={getAccount}>{<FaWallet />} {buttonText }</Button>
+        <Button onClick={getAccount}>
+          {<FaWallet />} {buttonText}
+        </Button>
       )}
       <ErrorModal show={show} handleClose={handleClose} />
     </div>
@@ -68,10 +86,25 @@ const Meta = () => {
 
 const ShowBalance = ({ balance, account }) => {
   return (
-    <Button style={{display: "flex", alignItems: "flex-end"}} variant="secondary">
-      <Badge bg="dark">{parseInt(balance, 16)}</Badge>
-      <div style={{marginLeft: "0.5em", overflow: "hidden", textOverflow: "ellipsis", width: "90px"}}>{account}</div>
-    </Button>
+    <div>
+      <div className={styles.account}>
+        {parseInt(balance, 16)} ETH
+        <OverlayTrigger
+          overlay={
+            <Tooltip placement="right" id="tooltip-disabled">
+              Account Id!
+            </Tooltip>
+          }
+        >
+          <Badge className={styles.pill} pill>
+            {`${account.substr(0, 4)}...${account.substr(
+              account.length - 4,
+              account.length
+            )}`}
+          </Badge>
+        </OverlayTrigger>
+      </div>
+    </div>
   );
 };
 
@@ -85,7 +118,7 @@ function ErrorModal({ show, handleClose }) {
         keyboard={false}
       >
         <Modal.Body>
-          <Alert variant="danger" onClose={handleClose} dismissible>
+          <Alert variant="danger" onClose={handleClose}>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
             <p>
               Please get MetaMask and setup the MetaMask by following the
@@ -94,10 +127,9 @@ function ErrorModal({ show, handleClose }) {
           </Alert>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="primary" onClick={handleClose}>
+            Understood
           </Button>
-          <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
     </>
