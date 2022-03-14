@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Stack } from "react-bootstrap";
 import Meta from "../../components/wallet/connectMeta";
 
 function WalletDemo() {

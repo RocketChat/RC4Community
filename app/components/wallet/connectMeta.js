@@ -10,7 +10,6 @@ const Meta = () => {
   const [connected, setConnected] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const getAccount = async () => {
     if (typeof ethereum == "undefined") {
@@ -42,14 +41,6 @@ const Meta = () => {
     setConnected(true);
   };
 
-  const handleAccountChange = (newAccnt) => {
-    setMetaAccnt(newAccnt);
-  };
-
-  const handleChainChange = () => {
-    location.reload();
-  };
-
   typeof ethereum !== "undefined" &&
     ethereum.on("accountsChanged", (accounts) => {
       setMetaAccnt(accounts[0]);
@@ -78,7 +69,7 @@ const Meta = () => {
 const ShowBalance = ({ balance, account }) => {
   return (
     <Button style={{display: "flex", alignItems: "flex-end"}} variant="secondary">
-      <Badge bg="dark">{parseFloat(balance, 16)}</Badge>
+      <Badge bg="dark">{parseInt(balance, 16)}</Badge>
       <div style={{marginLeft: "0.5em", overflow: "hidden", textOverflow: "ellipsis", width: "90px"}}>{account}</div>
     </Button>
   );
