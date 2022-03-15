@@ -24,7 +24,7 @@ The Github Component kit cane be used by communtiy builders to showcase the prog
 ### 4. Pull Requests
 
 <p align="center" width="100%">
-  <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158072226-bb39ded5-bdd6-4c23-ac89-cb6f6a742c18.png">
+  <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158337347-ae75da38-3b3d-4f9f-a816-4f5e0fe0cc66.png">
 </p>
 
 
