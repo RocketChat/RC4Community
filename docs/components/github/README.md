@@ -2,19 +2,26 @@
 
 The Github Component kit cane be used by communtiy builders to showcase the progress of their projects. The current github component kit can be usedto showcase the following details of a repository : 
 
-### 1. Issues
+### 1. Repository Overview 
+
+<p align="center" width="100%">
+  <img alt="overview" src="https://user-images.githubusercontent.com/70485812/158334060-0f006063-3bae-472c-b85b-b32a018a5e1e.png">
+</p>
+
+
+### 2. Issues
 
 <p align="center" width="100%">
   <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158072201-55ec7fbc-ecfe-4509-8b51-0b057d608bc3.png">
 </p>
 
-### 2. Contributors
+### 3. Contributors
 
 <p align="center" width="100%">
   <img alt="crons-example" src="https://user-images.githubusercontent.com/73601258/152670586-1ec2b0cd-d51c-4bc4-97f3-3717bbcce162.png">
 </p>
 	
-### 3. Pull Requests
+### 4. Pull Requests
 
 <p align="center" width="100%">
   <img alt="crons-example" src="https://user-images.githubusercontent.com/70485812/158072226-bb39ded5-bdd6-4c23-ac89-cb6f6a742c18.png">
@@ -30,12 +37,12 @@ We use our helper function `githubKitData(repoName,ownerName,[... needs]);` to f
 
 | Prop Name     | Description                | Type  |
 | ------------- |------------------------- | -----|
-| type  | This specifies the type of github kit components we wish to use. This can be set to : `issues` , `pulls` or `contributors`  | string |
+| type  | This specifies the `type` of github kit components we wish to use. If `type` is not specified, by default the `repository overview` component is rendered. Type can be set to : `issues` , `pulls` or `contributors`  | string |
 | githubData     | This will contain the data which will be rendered by the component      |   json |
 
 # Usage Examples
 
-## #Example 1 : Using GitHub Issues, Contributors and Pull Request all at once.
+## #Example 1 : Using GitHub Repository Overview , Issues, Contributors and Pull Request all at once.
 
 ### Using the component
 
@@ -50,6 +57,12 @@ export default function Leaderboardpage(props){
       <Head>
         <title>GSOC2022 LeaderBoard</title>
       </Head>
+        <div>
+          <h2 >
+            Repository Overview
+          </h2>
+          <Github githubData={props.githubData} />
+        </div>
        <div>
           <h2>
             GitHub Issues
@@ -161,6 +174,58 @@ export async function getStaticProps(){
 1. Cron Jobs ![image](https://user-images.githubusercontent.com/70485812/158073275-873f47dc-02ff-4998-83e9-71b5b83ff7b4.png)
    
 2. Initial Fetch ![image](https://user-images.githubusercontent.com/70485812/158073303-054200ed-a6c9-4f15-b527-9e35ba2ac314.png)
+
+
+## #Example 3 : Using Repository Overview Component only.
+
+Note : the repository overview component can be used by default. We don not need to specify any `type` in Github component or add anything to `needed` in `githubKitData`
+or in `githubKit` in the cron job.
+
+### Using the component
+
+```
+import Head from "next/head";
+import { Github } from '../components/github';
+import { githubKitData } from '../lib/github';
+
+export default function Leaderboardpage(props){
+  return (
+    <div>
+      <Head>
+        <title>GSOC2022 LeaderBoard</title>
+      </Head>
+        <div>
+          <h2 >
+            Repository Overview
+          </h2>
+          <Github githubData={props.githubData} />
+        </div>
+    </div>  
+  );
+}
+
+export async function getStaticProps(){
+  
+  const githubData = await githubKitData('RocketChat','RC4Community');
+  const topNavItems = await fetchAPI("/top-nav-item");
+
+  return {
+    props: {
+      leaderboardProps,
+      githubData
+    },
+    revalidate: 30,
+  };
+}
+```
+
+### Setting up component data in CMS
+
+
+1. Cron Jobs ![image](https://user-images.githubusercontent.com/70485812/158336100-165bd60b-2528-47cb-a999-321ddbe325c3.png)
+   
+2. Initial Fetch ![image](https://user-images.githubusercontent.com/70485812/158336345-fd2cfde2-f435-4fd7-92c4-c52a54fc0789.png)
+
 
 
 

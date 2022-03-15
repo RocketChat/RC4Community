@@ -1,6 +1,7 @@
 import { Col, NavLink, Row } from "react-bootstrap";
 import styles from "../../styles/GithubPullRequest.module.css";
 import Image from "next/image";
+import PullsIcon from '../../public/svg/pull';
 
 const GithubPullReqeust = ({ pull }) => {
   return (
@@ -28,14 +29,7 @@ const GithubPullReqeust = ({ pull }) => {
       <Row className="d-flex align-items-center">
         <Col xs="auto" className={`${styles.numbers}`}>
           <span className="me-2">
-            <Image
-              className="rounded-circle"
-              src={
-                "https://img.icons8.com/ios-glyphs/50/000000/pull-request.png"
-              }
-              width={20}
-              height={20}
-            />
+            <PullsIcon />
           </span>
           {pull.state}
         </Col>

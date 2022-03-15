@@ -73,26 +73,35 @@ function Home(props) {
           <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
         </div>
 
-        <div className={` d-flex flex-column py-5 align-items-center`}>
+        <div className={` d-flex flex-column py-3 align-items-center`}>
+          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
+            Repository Overview 
+          </h2>
+          <Github githubData={props.githubData} />
+        </div>
+        
+
+        <div className={` d-flex flex-column py-3 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             GitHub Issues
           </h2>
           <Github type={'issues'} githubData={props.githubData} />
         </div>
         
-        <div className={` d-flex flex-column py-5 align-items-center`}>
+        <div className={` d-flex flex-column py-3 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             GitHub Pull Requests
           </h2>
           <Github type={'pulls'} githubData={props.githubData} />
         </div>
 
-        <div className={` d-flex flex-column py-5 align-items-center`}>
+        <div className={` d-flex flex-column py-3 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Contributors ✨
           </h2>
           <Github type={'contributors'} githubData={props.githubData} />
         </div>
+    
       </Container>
     </>
   );
