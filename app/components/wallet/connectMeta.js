@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap";
 import { FaWallet } from "react-icons/fa";
 import styles from "../../styles/meta.module.css";
-import RequestNFT from "./NFTprofile";
 
 const Meta = () => {
   const [metaAccnt, setMetaAccnt] = useState("0x0");
@@ -80,7 +79,6 @@ const Meta = () => {
           {<FaWallet />} {buttonText}
         </Button>
       )}
-      <RequestNFT />
       <ErrorModal show={show} handleClose={handleClose} />
     </div>
   );

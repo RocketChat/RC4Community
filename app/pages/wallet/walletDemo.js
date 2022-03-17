@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import Meta from "../../components/wallet/connectMeta";
+import RequestNFT from "../../components/wallet/NFTprofile";
 import styles from "../../styles/meta.module.css";
 
 function WalletDemo() {
@@ -14,6 +15,7 @@ function WalletDemo() {
       </Head>
       <Stack direction="horizontal" className={styles.demo}>
         <Meta />
+        <RequestNFT />
       </Stack>
     </div>
   );
