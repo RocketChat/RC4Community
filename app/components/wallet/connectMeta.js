@@ -65,7 +65,6 @@ const Meta = () => {
     });
 
     ethereum.on("chainChanged", (chainId) => {
-      alert(chainId);
       location.reload();
     });
   }, [metaAccnt]);
@@ -84,11 +83,21 @@ const Meta = () => {
   );
 };
 
+export const EthToWei = (num) => {
+  let conv = num * 10 ** 18
+  return conv.toString().slice(0, 6)
+}
+
+export const WeiToEth = (num) => {
+  let conv = num * 10 ** -18
+  return conv.toString().slice(0, 6)
+}
+
 const ShowBalance = ({ balance, account }) => {
   return (
     <div>
       <div className={styles.account}>
-        {parseInt(balance, 16)} ETH
+        {WeiToEth(parseInt(balance, 16))} ETH
         <OverlayTrigger
           overlay={
             <Tooltip placement="right" id="tooltip-disabled">
