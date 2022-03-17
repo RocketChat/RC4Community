@@ -44,14 +44,16 @@ export default function Menubar(props) {
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mx-auto'>
-            {props.menu?.body?.map(item => {
+            {props.menu?.body?.map((item,index) => {
               return item.sub_menus ? (
                 <NavDropdown
+                  key = {item.id || item._id || `NavDropDown_${index}`}
                   title={item.label}
                   className={`ml-4 fw-light ${styles.navbarItem}`}
                 >
-                  {item.sub_menus.map(sub => (
+                  {item.sub_menus.map((sub,index) => (
                     <NavDropdown.Item
+                      key={sub.id || sub._id || `NavDropDownItem_${index}`}
                       href={sub.url}
                       className={['dropdown-toggle']}
                     >
@@ -60,7 +62,7 @@ export default function Menubar(props) {
                   ))}
                 </NavDropdown>
               ) : (
-                <Nav.Link href={item.url} className='fw-light'>
+                <Nav.Link href={item.url} className='fw-light' key={item.id || item._id || `NavLink_${index}`}>
                   {item.label}
                 </Nav.Link>
               );
