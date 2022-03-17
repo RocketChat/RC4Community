@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, Form, Image, Modal, Spinner } from "react-bootstrap";
+import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
 import { fetchOpenSea } from "../../lib/walletAPI";
 
 const RequestNFT = () => {

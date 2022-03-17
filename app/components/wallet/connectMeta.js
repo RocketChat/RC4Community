@@ -8,7 +8,6 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaWallet } from "react-icons/fa";
-import { fetchOpenSea } from "../../lib/walletAPI";
 import styles from "../../styles/meta.module.css";
 import RequestNFT from "./NFTprofile";
 
