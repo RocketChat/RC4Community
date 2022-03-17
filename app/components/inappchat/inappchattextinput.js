@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextInput, Icon } from "./lib/fuselage";
-import { emojis } from "./helpers";
+import { emojify, emojis } from "./helpers";
 import styles from "../../styles/Inappchat.module.css";
 
 const InappchatTextInput = ({ sendMsg }) => {
