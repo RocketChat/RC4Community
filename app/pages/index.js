@@ -9,8 +9,6 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
-import Github from '../components/github';
-import { githubKitData } from '../lib/github';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
 
 function Home(props) {
@@ -72,36 +70,6 @@ function Home(props) {
           </h2>
           <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
         </div>
-
-        <div className={` d-flex flex-column py-3 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            Repository Overview 
-          </h2>
-          <Github githubData={props.githubData} />
-        </div>
-        
-
-        <div className={` d-flex flex-column py-3 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            GitHub Issues
-          </h2>
-          <Github type={'issues'} githubData={props.githubData} />
-        </div>
-        
-        <div className={` d-flex flex-column py-3 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            GitHub Pull Requests
-          </h2>
-          <Github type={'pulls'} githubData={props.githubData} />
-        </div>
-
-        <div className={` d-flex flex-column py-3 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            Contributors ✨
-          </h2>
-          <Github type={'contributors'} githubData={props.githubData} />
-        </div>
-    
       </Container>
     </>
   );
@@ -115,10 +83,9 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-  const githubData = await githubKitData('RocketChat','RC4Community',['issues','pulls','contributors']);
-
+ 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, githubData},
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second

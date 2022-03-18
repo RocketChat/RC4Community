@@ -1,0 +1,35 @@
+.redText {
+    color: #f5455c;
+  }
+  
+  .infotiles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 38rem;
+  }
+  
+  .hero_heading {
+    color: #030c1a;
+  }
+  
+  .hero_subheading {
+    color: #87898d;
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+  
+  .community_news {
+    background-color: #f7f8fa;
+    width: 98vw;
+    overflow: hidden;
+  }
+  
+  .title {
+    font-size: clamp(22px, 4.6vw, 30px);
+  }
+  
+  .form {
+    width: 90%;
+  }
+  
