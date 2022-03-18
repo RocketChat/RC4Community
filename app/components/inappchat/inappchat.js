@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Rocketchat } from "@rocket.chat/sdk";
 import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
-import { emojify, emojis, messagesSortedByDate, rcURL, useSsl } from "./helpers";
+import { emojify, messagesSortedByDate, rcURL, useSsl } from "./helpers";
 import {
   Message,
   MessageBody,
   MessageContainer,
-  TextInput,
   Icon,
   Box,
   MessageHeader,
@@ -19,12 +18,11 @@ import {
   MessageUsername,
 } from "./lib/fuselage";
 import MDPreview from "../mdpreview";
+import InappchatTextInput from "./inappchattextinput";
 
 const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
 
 const InAppChat = ({ closeChat, cookies, rid }) => {
-  const [message, setMessage] = useState("");
-  const [emojiClicked, setEmojiClicked] = useState(false);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -51,7 +49,6 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       return;
     }
     const msg = await sendMessage(rid, message, cookies);
-    setMessage("");
     setMessages([...messages, msg.message]);
   };
 
@@ -97,47 +94,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           )}
         </Box>
       </div>
-      {emojiClicked && (
-        <div className={styles.emojisHolder}>
-          {emojis.map((e) => (
-            <div
-              key={e.id}
-              className={styles.animatedEmoji}
-              dangerouslySetInnerHTML={{ __html: emojify(e.value) }}
-              onClick={() => {
-                setEmojiClicked((prevState) => !prevState);
-                sendMsg(e.value);
-              }}
-            />
-          ))}
-        </div>
-      )}
-      <TextInput
-        placeholder="Message"
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.keyCode === 13) {
-            sendMsg(message);
-          }
-        }}
-        addon={
-          <>
-            {message.trim() !== "" ? (
-              <Icon onClick={() => sendMsg(message)} name="send" size="x20" />
-            ) : (
-              <Icon
-                name="emoji"
-                size="x20"
-                onClick={(e) => setEmojiClicked((prevState) => !prevState)}
-              />
-            )}
-          </>
-        }
-        w={"400px"}
-      />
+      <InappchatTextInput sendMsg={sendMsg} />
     </div>
   );
 };
