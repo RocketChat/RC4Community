@@ -1,9 +1,26 @@
-import { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import React, {useState } from 'react';
+import { Navbar, Nav, NavDropdown, Container, Dropdown } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
 import {KeycloakAuthMenuButton} from './auth/keycloak';
 import BrandLogo from "./brandlogo";
 import RocketChatLinkButton from './rocketchatlinkbutton';
+import Cookies from 'js-cookie';
+import Link from 'next/link'
+
+const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+  <a
+    className={styles.elipses}
+    href=""
+    ref={ref}
+    onClick={e => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+    <span className={styles.threedots} />
+  </a>
+));
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
@@ -72,6 +89,21 @@ export default function Menubar(props) {
             Click to Chat
           </RocketChatLinkButton>
         </Navbar.Collapse>
+        <div className="mx-3">
+        {Cookies.get('user') ?
+        <Dropdown
+        align="end"
+        className={styles.dropdown_menu}>
+        <Dropdown.Toggle as={CustomToggle} />
+        <Dropdown.Menu size="sm" title="">
+          <Dropdown.Header>RC4Community Profile</Dropdown.Header>
+          <Dropdown.Item><Link href={`/profile/${Cookies.get('user')}`}><a className={styles.dropdown_menu_item}>Profile</a></Link></Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      :
+      ""
+      }
+      </div>
         <div className="mx-1">
           <KeycloakAuthMenuButton/>
         </div>
