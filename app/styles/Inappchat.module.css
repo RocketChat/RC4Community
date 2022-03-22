@@ -1,7 +1,7 @@
 .sidechat {
-  height: 100%;
-  position: fixed;
   z-index: 1;
+  min-width: 20vw;
+  margin: 0rem 1rem;
   top: 0;
   background-color: #fff;
   right: 0;
@@ -10,7 +10,9 @@
 }
 
 .chatbox {
-  height: 85vh;
+  margin: 1.5rem 0rem;
+  height: 68vh;
+  overflow: scroll;
   overflow: auto;
   display: flex;
   flex-direction: column-reverse;
@@ -19,23 +21,47 @@
 .cross {
   display: flex;
   justify-content: right;
-  padding: 0 40px;
   cursor: pointer;
 }
 
 .emojisHolder {
-  background-color: white;
-  position: absolute;
-  display: inline;
-  right: 15px;
-  bottom: 6.4rem;
+  transform: translateX(13rem);
+  transition: all ease-out 0.3s;
+}
+.emojiButton {
+  border: 2px solid red;
 }
 
 .animatedEmoji {
-  padding: 7px 3px;
+  padding-right: 7px;
+}
+.emojiHolderIsHidden::hover {
+  transform: translateX(0);
+  transition: all ease-out 0.3s;
 }
 
 .animatedEmoji:hover {
-  background-color: whitesmoke;
   cursor: pointer;
 }
+
+.textInput {
+  width: 100%;
+}
+
+
+@media (max-width: 1200px) {
+  .chatbox {
+    height: calc(100vh - 56.25vw - 13rem);
+  }
+}
+@media (max-width: 992px) {
+  .chatbox {
+    height: calc(100vh - 35.25vw - 13rem);
+  }
+}
+@media (max-width: 768px) {
+  .chatbox {
+    height: calc(100vh - 56.25vw - 12rem);
+  }
+}
+

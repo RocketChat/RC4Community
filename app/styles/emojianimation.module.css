@@ -1,0 +1,35 @@
+.track {
+  width: 6rem;
+  height: 16rem;
+  z-index: 10;
+  bottom: 2.5rem;
+  position: absolute;
+  right: 10px;
+  animation: 2s all;
+}
+
+.emojiAnimationContainer {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  font-size: 2rem;
+  animation-iteration-count: 2;
+  animation: emojiAnimationXaxis 2s ease-out infinite;
+}
+
+@keyframes emojiAnimationXaxis {
+  0% {
+    bottom: 5px;
+    opacity: 0;
+    scale: 0.3;
+  }
+  40% {
+    opacity: 1;
+    scale: 0.9;
+  }
+  100% {
+    bottom: 16rem;
+    opacity: 0;
+    scale: 1;
+  }
+}
