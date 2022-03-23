@@ -5,7 +5,6 @@ import RCPlusGSocLogo from "/public/rcandgsoclogo.png";
 import CirclesSVG from "/public/svg/circles.js";
 import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
-import ArrowSVG from "/public/svg/arrow.js";
 import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
@@ -92,10 +91,6 @@ const Mainstage = ({ speakers }) => {
                 Human connections that will expand your network and enable you
                 to both learn and teach along the way.
               </p>
-              <p className={styles.thinText}>Click here to register</p>
-              <button className={styles.btnColor}>
-                Register <ArrowSVG />
-              </button>
             </Col>
             <Col md={6} xs={12} className={styles.imageHolders}>
               <Image src={NowLive} />
