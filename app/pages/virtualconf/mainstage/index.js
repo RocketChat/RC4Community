@@ -74,7 +74,7 @@ const Mainstage = ({ speakers }) => {
         <Container>
           <Row className={styles.liveNow}>
             <Col md={6} xs={12} className={styles.liveNowInnerCol}>
-              <h5>
+              {new Date().getTime() - countdown.getTime() < 0 ? <h5>
                 The date of the summit will be{" "}
                 <span className="text-primary">
                   April {countdown.getDate()}th starting at{" "}
@@ -85,7 +85,7 @@ const Mainstage = ({ speakers }) => {
                   })}{" "}
                   {Intl.DateTimeFormat().resolvedOptions().timeZone}
                 </span>
-              </h5>
+              </h5>: <h5>Event is live now! <span role="img" aria-label="sparkles">✨</span></h5>}
               <p className="fw-light fst-italic">
                 Open Source is not only about technology. It's about people too!
                 Human connections that will expand your network and enable you
