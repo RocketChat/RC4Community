@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gitlab-merge-requests",
+      "handler": "gitlab-merge-requests.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-merge-requests/count",
+      "handler": "gitlab-merge-requests.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-merge-requests/:id",
+      "handler": "gitlab-merge-requests.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gitlab-merge-requests",
+      "handler": "gitlab-merge-requests.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gitlab-merge-requests/:id",
+      "handler": "gitlab-merge-requests.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gitlab-merge-requests/:id",
+      "handler": "gitlab-merge-requests.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

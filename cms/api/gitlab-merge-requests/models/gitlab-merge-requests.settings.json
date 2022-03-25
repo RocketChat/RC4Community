@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gitlab_merge_requests",
+  "info": {
+    "name": "GitlabMergeRequests"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "merges": {
+      "type": "json"
+    },
+    "gitlab_repository": {
+      "model": "gitlab-repositories",
+      "via": "gitlab_merge_request"
+    }
+  }
+}
