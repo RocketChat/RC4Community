@@ -20,7 +20,6 @@ export const connectAccount = async () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log("account_inside", accounts)
       const account = accounts[0];
       return account
     } catch (e) {

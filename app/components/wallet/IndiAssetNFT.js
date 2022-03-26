@@ -33,7 +33,6 @@ const NFTCard = ({ show, handleClose }) => {
     const res = await fetchOpenSea(a, t);
     setProc(false);
     setNFT(res);
-    console.log("resfs", res);
   };
 
   const handleSubmit = (e) => {
