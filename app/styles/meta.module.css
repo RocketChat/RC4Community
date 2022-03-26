@@ -28,3 +28,21 @@
   color: #313131;
   font-weight: 500;
 }
+
+.asset {
+  display: flex;
+  width: 7em;
+  height: 7em;
+  padding: 5px;
+}
+
+.assetImage {
+  max-width: 6em;
+}
+
+.selectNFT {
+  overflow: auto;
+  height: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -1,111 +1,108 @@
 import { useState } from "react";
-import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
-import { fetchOpenSea } from "../../lib/walletAPI";
+import { Button, Image, Modal } from "react-bootstrap";
+import { connectAccount, fetchAssets } from "../../lib/walletAPI";
+import { ErrorModal } from "./connectMeta";
+import styles from "../../styles/meta.module.css";
 
-const RequestNFT = () => {
-  const [show, setShow] = useState(false);
+const NFTProfile = ({ limit }) => {
+  const [assets, setAssets] = useState(null);
+  const [showErr, setShowErr] = useState(false);
+  const [bmess, setBmess] = useState("Set NFT profile");
+  const [errMess, setErrMess] = useState("");
+  const [preview, setPreview] = useState(false);
+  const [select, setSelect] = useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShowErr(false);
+    setSelect(null);
+  };
 
+  const handleImage = (e) => {
+    const selClass = e.target.className.split(" ")[1];
+    setSelect(selClass);
+    if (select != null) {
+      document.querySelector(`.${select}`).style.boxShadow = "none";
+    }
+    document.querySelector(`.${selClass}`).style.boxShadow =
+      "0px 0px 13px 1px #000000f2";
+  };
+
+  const handlePreviewModal = () => setPreview(false);
+
+  const handleButton = async () => {
+    if (typeof ethereum == "undefined") {
+      setShowErr(true);
+      setErrMess("Please Install MetaMask");
+      return;
+    }
+    try {
+      setBmess("Connecting Wallet...");
+      const account = await connectAccount();
+      setBmess("Fetching assets...");
+      const fessets = await fetchAssets(account, limit);
+      if (fessets.owner) {
+        setErrMess(fessets.owner[0]);
+        setShowErr(true);
+        console.error(fessets.owner[0]);
+        return;
+      }
+      setAssets(fessets.assets);
+      setPreview(true);
+      setBmess("Set NFT profile");
+    } catch (error) {
+      setBmess("Re-Fetch assets");
+      console.error("Oh snap, we ran into an error", error);
+    }
+  };
   return (
-    <div>
-      <Button variant="warning" onClick={handleShow}>
-        Request NFT
-      </Button>
-      <NFTCard show={show} handleClose={handleClose} />
-    </div>
+    <>
+      <Button variant="warning" onClick={handleButton}>{bmess}</Button>
+      <ErrorModal show={showErr} handleClose={handleClose} err={errMess} />
+      <GalleryModal
+        show={preview}
+        assets={assets}
+        handleClose={handlePreviewModal}
+        handleImage={handleImage}
+      />
+    </>
   );
 };
 
-const NFTCard = ({ show, handleClose }) => {
-  const [NFT, setNFT] = useState("");
-
-  const [nform, setNform] = useState({
-    nadd: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
-    token: "1",
-  });
-
-  const [proc, setProc] = useState(false);
-
-  const handleFetch = async (a, t) => {
-    setProc(true);
-    const res = await fetchOpenSea(a, t);
-    setProc(false);
-    setNFT(res);
-    console.log("resfs", res);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("form submit", nform);
-    handleFetch(nform.nadd, nform.token);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNform((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
+const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
+    console.log("assets", assets[0])
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Retrieve a Single Asset</Modal.Title>
-      </Modal.Header>
-      <Form onSubmit={handleSubmit}>
-        <Modal.Body>
-          <Form.Group>
-            <Form.Label>Address of the contract for this NFT</Form.Label>
-            <Form.Control
-              name="nadd"
-              type="text"
-              onChange={handleChange}
-              required
-              placeholder={nform.nadd}
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Token ID for this item</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              name="token"
-              type="text"
-              required
-              placeholder={nform.token}
-            />
-          </Form.Group>
-          {NFT.image_url ? (
-            <Card style={{ width: "10em", marginTop: "1em" }}>
-              <Card.Header>Preview Image</Card.Header>
-              <Card.Img src={NFT.image_preview_url}></Card.Img>
-            </Card>
-          ) : null}
+    <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Select a NFT</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={styles.selectNFT}>
+          {assets[0] ?
+            assets.map(
+              (a, i) =>
+                a.image_url && (
+                  <div key={i} className={styles.asset}>
+                    <Image
+                      key={i}
+                      onClick={handleImage}
+                      className={`${styles.assetImage} nim_${i}`}
+                      src={a.image_url}
+                    />
+                  </div>
+                )
+            ) : "No assets available"}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" disabled={proc} onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" disabled={proc} type="submit">
-            {proc ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            ) : (
-              "Submit"
-            )}
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
           </Button>
         </Modal.Footer>
-      </Form>
-    </Modal>
+      </Modal>
+    </>
   );
 };
 
-export default RequestNFT;
+export default NFTProfile;

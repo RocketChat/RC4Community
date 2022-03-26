@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaWallet } from "react-icons/fa";
+import { connectAccount } from "../../lib/walletAPI";
 import styles from "../../styles/meta.module.css";
 
 const Meta = () => {
@@ -26,10 +27,7 @@ const Meta = () => {
     }
     try {
       setButtonText("Connecting...");
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
+      const account = await connectAccount()
       setMetaAccnt(account);
       getAccountBalance(account);
     } catch {
@@ -78,7 +76,7 @@ const Meta = () => {
           {<FaWallet />} {buttonText}
         </Button>
       )}
-      <ErrorModal show={show} handleClose={handleClose} />
+      <ErrorModal err={"Please install MetaMask"} show={show} handleClose={handleClose} />
     </div>
   );
 };
@@ -117,7 +115,7 @@ const ShowBalance = ({ balance, account }) => {
   );
 };
 
-function ErrorModal({ show, handleClose }) {
+export function ErrorModal({ show, handleClose, err }) {
   return (
     <>
       <Modal
@@ -130,8 +128,7 @@ function ErrorModal({ show, handleClose }) {
           <Alert variant="danger" onClose={handleClose}>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
             <p>
-              Please get MetaMask and setup the MetaMask by following the
-              instructions as listed on official website.
+              {err}
             </p>
           </Alert>
         </Modal.Body>
