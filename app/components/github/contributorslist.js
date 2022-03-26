@@ -1,6 +1,9 @@
 import Image from 'next/image';
 
-const ContributorsList = ({ contributors }) => {
+const ContributorsList = (props) => {
+  
+  let contributors = props.data.contributors.Contributors;
+
   return (
     <div className="container">
       {Array.isArray(contributors) &&

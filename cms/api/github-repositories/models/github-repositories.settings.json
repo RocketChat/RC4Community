@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "github_repositories",
+  "info": {
+    "name": "GithubRepositories",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "owner": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "repositoryData": {
+      "type": "json"
+    },
+    "unqiueId": {
+      "type": "string"
+    },
+    "ID": {
+      "type": "uid",
+      "targetField": "unqiueId"
+    },
+    "update_repo_data": {
+      "type": "boolean",
+      "default": true
+    },
+    "get_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "get_contributors": {
+      "type": "boolean",
+      "default": false
+    },
+    "issues": {
+      "model": "ghissue",
+      "via": "github_repository"
+    },
+    "contributors": {
+      "model": "ghcontributor",
+      "via": "github_repository"
+    },
+    "pulls": {
+      "model": "ghpulls",
+      "via": "github_repository"
+    },
+    "get_pulls": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
