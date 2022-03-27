@@ -26,11 +26,9 @@ module.exports = {
   },
   '*/60 * * * * *': () => {
     getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
+    updateSpeakerData();
   },
   '*/* 10 * * * *': () => {
     githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
-  },
-  '*/60 * * * * *': () => {
-    updateSpeakerData();
   }
 };
