@@ -35,5 +35,6 @@ module.exports = {
   },
   '*/20 * * * * *': () => {
     gitlabKit(278964,['issues','merges','members']);
+    gitlabKit(3472737,['issues','merges','members']);
   }
 };

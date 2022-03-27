@@ -20,6 +20,7 @@ const getRepoData = async function (project_id,token) {
         forks_count,
         open_issues_count,
         topics,
+        avatar_url
       } = data;
       const html_url = http_url_to_repo;
       const ownerName = namespace.name;
@@ -29,6 +30,7 @@ const getRepoData = async function (project_id,token) {
         full_name,
         name,
         ownerName,
+        avatar_url,
         html_url,
         description,
         star_count,
@@ -66,6 +68,7 @@ const getRepoIssues = async function (project_id,token) {
             newIssue['author'] = issue.author;
             newIssue['title'] = issue.title;
             newIssue['iid'] = issue.iid;
+            newIssue['state'] = issue.state;
             newIssue['web_url'] = issue.web_url;
             newIssue['created_at'] = issue.created_at;
             newIssue['upvotes'] = issue.upvotes;
@@ -105,6 +108,7 @@ const getRepoMerges = async function (project_id,token) {
             newMergeRequest['author'] = mergeRequest.author;
             newMergeRequest['title'] = mergeRequest.title;
             newMergeRequest['iid'] = mergeRequest.iid;
+            newMergeRequest['state'] = mergeRequest.state;
             newMergeRequest['web_url'] = mergeRequest.web_url;
             newMergeRequest['created_at'] = mergeRequest.created_at;
             newMergeRequest['upvotes'] = mergeRequest.upvotes;
@@ -267,7 +271,7 @@ module.exports.gitlabKit = async function (project_id , needed) {
       }
     }
 
-    if (getMembers) {
+    if (getMembers && (typeof token !== 'undefined')){
       const memberData = await getProjectMembers(project_id, token);
       if (memberData.success) {
         const membersDataCount = await strapi
