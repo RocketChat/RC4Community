@@ -7,7 +7,7 @@ import BookmarkSVG from "/public/svg/bookmark.js";
 import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
 import styles from "../../../styles/Mainstage.module.css";
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
 import { fetchAPI } from "../../../lib/api";
 import { useEffect, useState } from "react";
