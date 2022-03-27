@@ -5,19 +5,6 @@ import { useRef, useState } from "react";
 const Jitsi = ({ password, subject }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
-  const [knockingParticipants, updateKnockingParticipants] = useState([]);
-
-  const printEventOutput = (payload) => {
-    updateLog((items) => [...items, JSON.stringify(payload)]);
-  };
-
-  const handleAudioStatusChange = (payload, feature) => {
-    if (payload.muted) {
-      updateLog((items) => [...items, `${feature} off`]);
-    } else {
-      updateLog((items) => [...items, `${feature} on`]);
-    }
-  };
 
   const handleChatUpdates = (payload) => {
     if (payload.isOpen || !payload.unreadCount) {
@@ -28,14 +15,7 @@ const Jitsi = ({ password, subject }) => {
       ...items,
       `you have ${payload.unreadCount} unread messages`,
     ]);
-  };
-
-  const handleKnockingParticipant = (payload) => {
-    updateLog((items) => [...items, JSON.stringify(payload)]);
-    updateKnockingParticipants((participants) => [
-      ...participants,
-      payload?.participant,
-    ]);
+    console.log(logItems)
   };
 
   const handleJitsiIFrameRef1 = (iframeRef) => {
@@ -48,17 +28,9 @@ const Jitsi = ({ password, subject }) => {
 
   const handleApiReady = (apiObj) => {
     apiRef.current = apiObj;
-    apiRef.current.on("knockingParticipant", handleKnockingParticipant);
     apiRef.current.addEventListeners({
       // Listening to events from the external API
-      audioMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "audio"),
-      videoMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "video"),
-      raiseHandUpdated: printEventOutput,
-      tileViewChanged: printEventOutput,
       chatUpdated: handleChatUpdates,
-      knockingParticipant: handleKnockingParticipant,
     });
 
     apiRef.current.addEventListener("participantRoleChanged", function (event) {
