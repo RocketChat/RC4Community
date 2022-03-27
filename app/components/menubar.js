@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
-import {KeycloakAuthMenuButton} from './auth/keycloak';
+import {RocketChatAuthMenuButton} from './auth/rocketchat';
 import BrandLogo from "./brandlogo";
 import RocketChatLinkButton from './rocketchatlinkbutton';
 
@@ -73,7 +73,7 @@ export default function Menubar(props) {
           </RocketChatLinkButton>
         </Navbar.Collapse>
         <div className="mx-1">
-          <KeycloakAuthMenuButton/>
+          <RocketChatAuthMenuButton/>
         </div>
       </Navbar>
     </Container>
