@@ -1,6 +1,6 @@
 # Crypto Integrtion
 
-The RC4Community's crypto integration provides the user with two components `Meta` and `RequestNFT`.
+The RC4Community's crypto integration provides the user with three components `Meta`, `RequestNFT` and `NFTProfile`.
 
 ## Components
 
@@ -16,6 +16,15 @@ The `RequestNFT` component is used to fetch the NFT assets with the help of Open
 | ------------- |------------------------- | -----|
 | asset_contract_address  | Address of the contract for this NFT  | string |
 | token_id     | Token ID for this item     |    string |
+|
+
+### _NFTProfile_
+
+The `NFTProfile` component provides the user with the feature to set one of the NFTs they own as their avatar; the NFT assets are fetched with the help of OpenSea API, the component renders an button with label *Set NFT profile*, on click if the wallet is not already connected it will prompt to establish an connection with an MetaMask or Brave wallet, after a succesful connection a modal is opened with a few NFTs the user could select the desired one by clicking on one of the assets. The props required to fetch the assets from OpenSea API are as listed below,  
+
+| Prop Name     | Description                | Type  |
+| ------------- |------------------------- | -----|
+| limit  | The limit of NFTs to be fetched. Defaults to 20, capped at 50  | string |
 |
 
 #### **Usage** 
@@ -39,6 +48,7 @@ function WalletDemo() {
       <Stack direction="horizontal" className={styles.demo}>
         <Meta /> 
         <RequestNFT />
+        <NFTProfile limit={20} />
       </Stack>
     </div>
   );
@@ -68,6 +78,11 @@ No setup required
 <figure align="center" width="100%">
   <img alt="demo page with preview form" src="./NFT_OS.gif" width="100%" align="center">
   <figcaption>A demo of NFT retrieval rendered on the demo page using "RequestNFT" component </figcaption>
+</figure>
+
+<figure align="center" width="100%">
+  <img alt="demo page for selection of NFTs" src="./NFT_Profile.png" width="100%" align="center">
+  <figcaption>A demo of modal to select one of the owned NFTs using "NFTProfile" component </figcaption>
 </figure>
 
 ### <a href="../">:arrow_left: Explore More Components</a>
