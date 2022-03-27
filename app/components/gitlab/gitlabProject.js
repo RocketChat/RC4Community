@@ -1,4 +1,4 @@
-import { Col, NavLink, Row , Badge } from 'react-bootstrap';
+import { Col , Row , Badge } from 'react-bootstrap';
 import Image from "next/image";
 import IssueIcon from '../../public/svg/issue';
 import StarIcon from '../../public/svg/star';
