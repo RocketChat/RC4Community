@@ -16,7 +16,7 @@
     "content": {
       "type": "string"
     },
-    "topic": {
+    "bio": {
       "type": "string"
     },
     "imageUrl": {

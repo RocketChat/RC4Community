@@ -6,7 +6,7 @@ import CirclesSVG from "/public/svg/circles.js";
 import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
 import styles from "../../../styles/Mainstage.module.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 import Infotiles from "../../../components/infotiles";
 import { fetchAPI } from "../../../lib/api";
 import { useEffect, useState } from "react";
@@ -73,6 +73,9 @@ const Mainstage = ({ speakers }) => {
         </div>
         <Container>
           <Row className={styles.liveNow}>
+          <Alert variant={"warning"}>
+            <span className="fw-bold">Bookmark this page and come back on April 6 for the LIVE conference!</span>
+          </Alert>
             <Col md={6} xs={12} className={styles.liveNowInnerCol}>
               {new Date().getTime() - countdown.getTime() < 0 ? <h5>
                 The date of the summit will be{" "}

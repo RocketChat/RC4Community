@@ -20,7 +20,7 @@ export default function Infotiles({ data }) {
           )}
           <div className={Styles.card_content}>
             <h5 className={Styles.card_heading}>{obj.name}</h5>
-            {obj.topic && <h6 className="fs-light">{obj.topic}</h6>}
+            {obj.bio && <p className="fs-light">{obj.bio}</p>}
             <p className={Styles.card_body}>{obj.content}</p>
             {obj.live && <Link href={obj.confHref}><button className={Styles.actionBtn}>Live</button></Link>}
           </div>
