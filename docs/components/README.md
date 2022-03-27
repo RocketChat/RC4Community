@@ -13,6 +13,8 @@ We at Rocket.Chat believe in  building susatinable online communities which can 
 
 4. <a href="./inappchat">InAppChat Component</a>
 
+5. <a href="./gitlab">Gitlab Components Kit</a>
+
 ---
 
 
