@@ -2,6 +2,7 @@
 const { getLatestCommunityActivity } = require("./fetchTopPosts");
 const { getCommunityContributors } = require("./fetchContributors")
 const { githubKit } = require("./github");
+const { updateSpeakerData } = require('./speaker')
 /**
  * Cron config that gives you an opportunity
  * to run scheduled jobs.
@@ -28,5 +29,8 @@ module.exports = {
   },
   '*/* 10 * * * *': () => {
     githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
+  },
+  '*/60 * * * * *': () => {
+    updateSpeakerData();
   }
 };
