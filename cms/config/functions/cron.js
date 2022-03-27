@@ -33,7 +33,7 @@ module.exports = {
   '*/* 10 * * * *': () => {
     githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
   },
-  '*/* 10 * * * *': () => {
+  '*/* 30 * * * *': () => {
     gitlabKit(3472737,['issues','merges','members']);
   }
 };
