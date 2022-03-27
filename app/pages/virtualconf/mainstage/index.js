@@ -3,6 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import RCPlusGSocLogo from "/public/rcandgsoclogo.png";
 import CirclesSVG from "/public/svg/circles.js";
+import BookmarkSVG from "/public/svg/bookmark.js";
 import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
 import styles from "../../../styles/Mainstage.module.css";
@@ -25,10 +26,10 @@ const Mainstage = ({ speakers }) => {
       );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      setTimer(`${days}d ${hours}h ${minutes}m ${seconds}s left`);
+      setTimer(`${days}d ${hours}h ${minutes}m ${seconds}s left ⏳`);
       if (distance < 0) {
         clearInterval(x);
-        setTimer("We are now live!");
+        setTimer("We are now live! ✨");
       }
     }, 1000);
   }, [timer]);
@@ -73,13 +74,10 @@ const Mainstage = ({ speakers }) => {
         </div>
         <Container>
           <Row className={styles.liveNow}>
-          <Alert variant={"warning"}>
-            <span className="fw-bold">Bookmark this page and come back on April 6 for the LIVE conference!</span>
-          </Alert>
             <Col md={6} xs={12} className={styles.liveNowInnerCol}>
-              {new Date().getTime() - countdown.getTime() < 0 ? <h5>
+              {new Date().getTime() - countdown.getTime() < 0 ? <p className={styles.liveNowHeading}>
                 The date of the summit will be{" "}
-                <span className="text-primary">
+                <span className={styles.liveNowDate}>
                   April {countdown.getDate()}th starting at{" "}
                   {countdown.toLocaleString("en-US", {
                     hour: "numeric",
@@ -88,8 +86,8 @@ const Mainstage = ({ speakers }) => {
                   })}{" "}
                   {Intl.DateTimeFormat().resolvedOptions().timeZone}
                 </span>
-              </h5>: <h5>Event is live now! <span role="img" aria-label="sparkles">✨</span></h5>}
-              <p className="fw-light fst-italic">
+              </p>: <p className={styles.liveNowHeading}>Event is live now! <span role="img" aria-label="sparkles">✨</span></p>}
+              <p className="fw-light">
                 Open Source is not only about technology. It's about people too!
                 Human connections that will expand your network and enable you
                 to both learn and teach along the way.
@@ -100,6 +98,9 @@ const Mainstage = ({ speakers }) => {
             </Col>
           </Row>
         </Container>
+        <p className={styles.announcement}>
+          <BookmarkSVG /> Bookmark this page and come back on <span>April 6</span> for the LIVE conference - {timer}
+        </p>
         <Container>
           <h2 className={styles.heading}>
             Speakers
