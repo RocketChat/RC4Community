@@ -7,7 +7,7 @@ const Jitsi = dynamic(
     { ssr: false }
 )
 
-function FormDemo() {
+function JitsiDemo() {
   return (
     <div>
       <Head>
@@ -24,4 +24,4 @@ function FormDemo() {
   );
 }
 
-export default FormDemo;
+export default JitsiDemo;
