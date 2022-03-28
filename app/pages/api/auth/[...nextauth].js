@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import KeyCloakProvider from "next-auth/providers/keycloak";
+import { RocketChatOAuthProvider } from "../../../lib/auth/RocketChatOAuthProvider";
 
 export default async function handleAuth(req,res){
     return await NextAuth({
@@ -18,6 +19,11 @@ export default async function handleAuth(req,res){
                     }
                 }
             }),
+			RocketChatOAuthProvider({
+				clientId: process.env.ROCKETCHAT_CLIENT_ID,
+				clientSecret: process.env.ROCKETCHAT_CLIENT_SECRET,
+				rocketChatUrl: process.env.ROCKETCHAT_URL
+			})
         ],
         callbacks: {
             async jwt({ token, account, profile }) {
