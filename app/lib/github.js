@@ -14,7 +14,7 @@ export const githubKitData = async (owner, name, needed) => {
           needed.forEach((neededData) => {
             neededRepository[neededData] = repo[neededData];
           });
-        }else if(typeof myVariable !== 'undefined'){
+        }else if(typeof needed !== 'undefined'){
           neededRepository[needed] = repo[needed];
         } 
       }
