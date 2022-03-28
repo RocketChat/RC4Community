@@ -1,17 +1,21 @@
 import dynamic from "next/dynamic";
 import React, { useRef, useState } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
+import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
   { ssr: false }
 );
 
-const Jitsibroadcaster = ({rtmp}) => {
+const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
+
+const Jitsibroadcaster = () => {
   const apiRef = useRef();
-  const apiRefNew = useRef();
   const [logItems, updateLog] = useState([]);
   const [showNew, toggleShowNew] = useState(false);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
+  const [mute, setMute] = useState(true);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -109,7 +113,50 @@ const Jitsibroadcaster = ({rtmp}) => {
       }
     }
     updateLog((items) => [...items, "switching to " + nextDevice]);
+
     await ref.current.setVideoInputDevice(nextDevice);
+  };
+
+  const showAudioDevice = async (ref) => {
+    const audioInputs = [];
+    let currentDevice = "";
+    // get all available audio input
+    const devices = await ref.current.getAvailableDevices();
+
+    for (const [key, value] of Object.entries(devices)) {
+      if (key == "audioInput") {
+        value.forEach((vid) => {
+          audioInputs.push(vid.label);
+        });
+      }
+    }
+    // log for debug
+    updateLog((items) => [...items, JSON.stringify(audioInputs)]);
+
+    let nextDevice = "";
+    let devs = await ref.current.getCurrentDevices();
+
+    for (const [key, value] of Object.entries(devs)) {
+      if (key == "audioInput") {
+        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
+        let devLabel = value.label;
+        let idx = 0;
+        audioInputs.forEach((vid) => {
+          if (devLabel == vid) {
+            let cur = idx + 1;
+            if (cur >= audioInputs.length) {
+              nextDevice = audioInputs[0];
+            } else {
+              nextDevice = audioInputs[cur];
+              updateLog((items) => [...items, "next is " + nextDevice]);
+            }
+          }
+          idx++;
+        });
+      }
+    }
+    updateLog((items) => [...items, "switching to " + nextDevice]);
+    await ref.current.setAudioInputDevice(nextDevice);
   };
 
   const handleApiReady = async (apiObj, ref) => {
@@ -140,6 +187,41 @@ const Jitsibroadcaster = ({rtmp}) => {
   const makeTile = (ref) => {
     ref.current.executeCommand("setTileView", true);
   };
+
+  const renderStream = () => (
+    <div style={{ margin: "15px 0" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <ButtonGroup className="m-auto">
+          <Button
+            variant="warning"
+            title="Click to start streaming"
+            onClick={() =>
+              apiRef.current.executeCommand("startRecording", {
+                mode: "stream",
+                rtmpStreamKey: rtmp,
+                youtubeStreamKey: "",
+              })
+            }
+          >
+            Go live!
+          </Button>
+          <Button
+            variant="danger"
+            title="Click to stop streaming"
+            onClick={() => apiRef.current.stopRecording("stream")}
+          >
+            End Stream!
+          </Button>
+        </ButtonGroup>
+      </div>
+    </div>
+  );
+
   const renderButtons = () => (
     <div style={{ margin: "15px 0" }}>
       <div
@@ -148,110 +230,50 @@ const Jitsibroadcaster = ({rtmp}) => {
           justifyContent: "center",
         }}
       >
-        <button
-          type="text"
-          title="Click to show devices"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#ff9b42",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() => showDevices(apiRef)}
-        >
-          Video Devices
-        </button>
-        <button
-          type="text"
-          title="Click to approve/reject knocking participant"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#0376da",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() => {
-            makeTile(apiRef);
-          }}
-        >
-          Tile
-        </button>
-        <button
-          type="text"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#a7a7a7",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() => showUsers(apiRef, 0)}
-        >
-          First user
-        </button>
-        <button
-          type="text"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#a7a7a7",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() => showUsers(apiRef, 1)}
-        >
-          Second user
-        </button>
-        <button
-          type="text"
-          title="Click to execute subject command"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "#f8ae1a",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() =>
-            apiRef.current.executeCommand("startRecording", {
-              mode: "stream",
-              rtmpStreamKey: rtmp,
-            //   rtmpStreamKey:
-            //     "rtmp://bkk.contribute.live-video.net/app/live_782944617_Gy6Oo02fe3LrSbou9fON0vW6NbGifk",
-              youtubeStreamKey: "",
-            })
-          }
-        >
-          Go live
-        </button>
-        <button
-          type="text"
-          title="Click to execute subject command"
-          style={{
-            border: 0,
-            borderRadius: "6px",
-            fontSize: "14px",
-            background: "red",
-            color: "white",
-            padding: "12px 46px",
-            margin: "2px 2px",
-          }}
-          onClick={() => apiRef.current.stopRecording("stream")}
-        >
-          Stop stream
-        </button>
+        <ButtonGroup className="m-auto">
+          <Button
+            title="Click to switch audio devices"
+            onClick={() => showAudioDevice(apiRef)}
+          >
+            Audio Device
+          </Button>
+          <Button
+            title="Click to switch video devices"
+            onClick={() => showDevices(apiRef)}
+          >
+            Video Device
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup className="m-auto">
+          <Button
+          variant="success"
+            title="Click to toogle audio"
+            onClick={() => {
+              apiRef.current.executeCommand("toggleAudio");
+              setMute(!mute);
+            }}
+          >
+            {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
+          </Button>
+          <Button
+          variant="info"
+            onClick={() => {
+              makeTile(apiRef);
+            }}
+            title="Click to toggle tile view"
+          >
+            Tile View
+          </Button>
+        </ButtonGroup>
+
+        <ButtonGroup className="m-auto">
+          <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
+            First User
+          </Button>
+          <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
+            Second User
+          </Button>
+        </ButtonGroup>
       </div>
     </div>
   );
@@ -323,6 +345,7 @@ const Jitsibroadcaster = ({rtmp}) => {
         }}
       />
       {renderButtons()}
+      {rtmp && renderStream()}
       {renderLog()}
     </>
   );

@@ -108,7 +108,7 @@ const Jitsi = ({ password, subject }) => {
           onClick={() =>
             apiRef.current.executeCommand("startRecording", {
                 mode: "stream",
-                rtmpStreamKey: "rtmp://bkk.contribute.live-video.net/app/live_782944617_Gy6Oo02fe3LrSbou9fON0vW6NbGifk",
+                rtmpStreamKey: "rtmp://bkk.contribute.live-video.net/app/live_782944617_jO1n8FKi51La1btVI3LXCTFinu04lS",
                 youtubeStreamKey: ""
             })
           }
