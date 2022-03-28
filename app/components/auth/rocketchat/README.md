@@ -6,10 +6,10 @@ We have used `next-auth` npm package to configure rocketchat authentication. Rea
 ```
 ### BEGIN: Environment variables for RocketChat OAuth legacy
 NEXTAUTH_SECRET="some random string for signing"
-NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="base url of rc4community"
 ROCKETCHAT_CLIENT_ID="client id"
 ROCKETCHAT_CLIENT_SECRET="client secret"
-ROCKETCHAT_URL="base url of rocket char server"
+ROCKETCHAT_URL="base url of rocket chat server"
 ### END: Environment variables for RocketChat OAuth legacy
 ```
 
