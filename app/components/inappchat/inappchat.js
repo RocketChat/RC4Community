@@ -27,14 +27,18 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
 
   useEffect(() => {
     const runRealtime = async (token, rid) => {
-      await rcClient.connect({ host: rcURL.host, useSsl });
-      await rcClient.resume({ token });
-      await rcClient.subscribe("stream-room-messages", rid);
-      rcClient.onMessage(() => {
-        // TODO: add the animate function here,
-        // and check if that corresponds to any of the emoji that we want to animate then animate()
-        getData();
-      });
+      try {
+        await rcClient.connect({ host: rcURL.host, useSsl });
+        await rcClient.resume({ token });
+        await rcClient.subscribe("stream-room-messages", rid);
+        rcClient.onMessage(() => {
+          // TODO: add the animate function here,
+          // and check if that corresponds to any of the emoji that we want to animate then animate()
+          getData();
+        });
+      } catch(err) {
+        console.log(err.message);
+      }
     };
     async function getData() {
       const data = await getMessages(rid, cookies);
@@ -94,7 +98,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           )}
         </Box>
       </div>
-      <InappchatTextInput sendMsg={sendMsg} />
+      {cookies.rc_token && cookies.rc_uid && <InappchatTextInput sendMsg={sendMsg} />}
     </div>
   );
 };
