@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "announcements",
+  "info": {
+    "name": "Announcement",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "announcement_text": {
+      "type": "string"
+    },
+    "publish_date": {
+      "type": "datetime"
+    },
+    "redirect_url": {
+      "type": "string"
+    },
+    "unpublish_date": {
+      "type": "datetime"
+    },
+    "announcement_code": {
+      "type": "string"
+    }
+  }
+}
