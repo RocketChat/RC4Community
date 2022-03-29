@@ -13,7 +13,6 @@ const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 const Jitsibroadcaster = () => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
-  const [showNew, toggleShowNew] = useState(false);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
 
