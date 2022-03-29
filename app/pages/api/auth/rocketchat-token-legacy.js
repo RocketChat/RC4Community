@@ -18,7 +18,7 @@ export default async function rocketChatCallback(req, res){
 			client_secret,
 			redirect_uri
 		});
-		console.log(result.data)
+
 		if(result.status == 200){
 			const data = {...result.data};
 			if(data.token_type === 'bearer')
