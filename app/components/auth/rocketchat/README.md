@@ -1,3 +1,4 @@
+
 Before setting up rocket.chat oauth, an oauth app must be created in rocket.chat server. Then, add the callback url in the `redirect uri` list of that app. 
 The callback url is `base-rc4community-url/api/auth/callback/rocket.chat`. For example, if rc4community is running on `http://localhost:3000`, then the callback url should be `http://localhost:3000/api/auth/callback/rocket.chat`.
 ### Set up

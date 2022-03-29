@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "ghissues",
+  "collectionName": "ghpulls",
   "info": {
-    "name": "ghissue",
-    "description": ""
+    "name": "Ghpulls"
   },
   "options": {
     "increments": true,
@@ -12,13 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Issues": {
-      "type": "json",
-      "required": true,
-      "unique": false
+    "pulls": {
+      "type": "json"
     },
     "github_repository": {
-      "via": "issues",
+      "via": "pulls",
       "model": "github-repositories"
     }
   }
