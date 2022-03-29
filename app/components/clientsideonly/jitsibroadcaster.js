@@ -65,18 +65,12 @@ const Jitsibroadcaster = () => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
     iframeRef.style.height = "720px";
-  };
-
-  const handleJitsiIFrameRef2 = (iframeRef) => {
-    iframeRef.style.marginTop = "10px";
-    iframeRef.style.border = "10px dashed tomato";
-    iframeRef.style.padding = "5px";
-    iframeRef.style.height = "400px";
+    iframeRef.style.overflow = "auto";
+    iframeRef.style.resize = "both";
   };
 
   const showDevices = async (ref) => {
     const videoInputs = [];
-    let currentDevice = "";
     // get all available video input
     const devices = await ref.current.getAvailableDevices();
 
@@ -117,9 +111,50 @@ const Jitsibroadcaster = () => {
     await ref.current.setVideoInputDevice(nextDevice);
   };
 
+  const showAudioOutDevices = async (ref) => {
+    const audioOutputs = [];
+    // get all available audio output
+    const devices = await ref.current.getAvailableDevices();
+
+    for (const [key, value] of Object.entries(devices)) {
+      if (key == "audioOutput") {
+        value.forEach((vid) => {
+          audioOutputs.push(vid.label);
+        });
+      }
+    }
+    // log for debug
+    updateLog((items) => [...items, JSON.stringify(audioOutputs)]);
+
+    let nextDevice = "";
+    let devs = await ref.current.getCurrentDevices();
+
+    for (const [key, value] of Object.entries(devs)) {
+      if (key == "audioOutput") {
+        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
+        let devLabel = value.label;
+        let idx = 0;
+        audioOutputs.forEach((vid) => {
+          if (devLabel == vid) {
+            let cur = idx + 1;
+            if (cur >= audioOutputs.length) {
+              nextDevice = audioOutputs[0];
+            } else {
+              nextDevice = audioOutputs[cur];
+              updateLog((items) => [...items, "next is " + nextDevice]);
+            }
+          }
+          idx++;
+        });
+      }
+    }
+    updateLog((items) => [...items, "switching to " + nextDevice]);
+
+    await ref.current.setAudioOutputDevice(nextDevice);
+  };
+
   const showAudioDevice = async (ref) => {
     const audioInputs = [];
-    let currentDevice = "";
     // get all available audio input
     const devices = await ref.current.getAvailableDevices();
 
@@ -230,23 +265,29 @@ const Jitsibroadcaster = () => {
           justifyContent: "center",
         }}
       >
-        <ButtonGroup className="m-auto">
+        <ButtonGroup size="sm" className="m-auto">
           <Button
             title="Click to switch audio devices"
             onClick={() => showAudioDevice(apiRef)}
           >
-            Audio Device
+            Microphone Devices
           </Button>
           <Button
             title="Click to switch video devices"
             onClick={() => showDevices(apiRef)}
           >
-            Video Device
+            Camera Devices
+          </Button>
+          <Button
+            title="Click to switch audio devices"
+            onClick={() => showAudioOutDevices(apiRef)}
+          >
+            Speaker Devices
           </Button>
         </ButtonGroup>
         <ButtonGroup className="m-auto">
           <Button
-          variant="success"
+            variant="success"
             title="Click to toogle audio"
             onClick={() => {
               apiRef.current.executeCommand("toggleAudio");
@@ -255,18 +296,16 @@ const Jitsibroadcaster = () => {
           >
             {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
           </Button>
+        </ButtonGroup>
+
+        <ButtonGroup size="sm" className="m-auto">
           <Button
-          variant="info"
-            onClick={() => {
-              makeTile(apiRef);
-            }}
+            variant="secondary"
+            onClick={() => makeTile(apiRef)}
             title="Click to toggle tile view"
           >
             Tile View
           </Button>
-        </ButtonGroup>
-
-        <ButtonGroup className="m-auto">
           <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
             First User
           </Button>
@@ -310,43 +349,45 @@ const Jitsibroadcaster = () => {
           textAlign: "center",
         }}
       ></h1>
-      <JitsiMeeting
-        domain="meet.jit.si"
-        roomName="whataroom987654321"
-        spinner={renderSpinner}
-        onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
-        getIFrameRef={handleJitsiIFrameRef1}
-        configOverwrite={{
-          startWithAudioMuted: true,
-          disableModeratorIndicator: true,
-          startScreenSharing: false,
-          enableEmailInStats: false,
-          toolbarButtons: [],
-          enableWelcomePage: false,
-          prejoinPageEnabled: false,
-          startWithVideoMuted: false,
-          liveStreamingEnabled: true,
-          disableSelfView: false,
-          disableSelfViewSettings: true,
-          disableShortcuts: true,
-          disable1On1Mode: true,
-          p2p: {
-            enabled: false,
-          },
-        }}
-        interfaceConfigOverwrite={{
-          DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
-          FILM_STRIP_MAX_HEIGHT: 0,
-          TILE_VIEW_MAX_COLUMNS: 0,
-          VIDEO_QUALITY_LABEL_DISABLED: true,
-        }}
-        userInfo={{
-          displayName: "Sing",
-        }}
-      />
+            {rtmp && renderStream()}
+        <JitsiMeeting
+          domain="meet.jit.si"
+          roomName="whataroom987654321"
+          spinner={renderSpinner}
+          onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
+          getIFrameRef={handleJitsiIFrameRef1}
+          configOverwrite={{
+            startWithAudioMuted: true,
+            disableModeratorIndicator: true,
+            startScreenSharing: false,
+            enableEmailInStats: false,
+            toolbarButtons: [],
+            enableWelcomePage: false,
+            prejoinPageEnabled: false,
+            startWithVideoMuted: false,
+            liveStreamingEnabled: true,
+            disableSelfView: false,
+            disableSelfViewSettings: true,
+            disableShortcuts: true,
+            disable1On1Mode: true,
+            p2p: {
+              enabled: false,
+            },
+          }}
+          interfaceConfigOverwrite={{
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+            FILM_STRIP_MAX_HEIGHT: 0,
+            TILE_VIEW_MAX_COLUMNS: 0,
+            VIDEO_QUALITY_LABEL_DISABLED: true,
+          }}
+          userInfo={{
+            displayName: "Sing",
+          }}
+        />
       {renderButtons()}
-      {rtmp && renderStream()}
-      {renderLog()}
+      <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+        {renderLog()}
+      </div>
     </>
   );
 };
