@@ -84,7 +84,7 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
-  const announcement = await getAnnouncementData('rc_open_conf');
+  const announcement = await getAnnouncementData('rc_alumini_conf');
  
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, announcement},

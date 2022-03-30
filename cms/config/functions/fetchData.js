@@ -6,7 +6,8 @@ const { carousels,
   subMenus,
   topNavItem,
   speakers,
-  forms } = require('../initialData');
+  forms,
+  announcements } = require('../initialData');
 const { githubKit } = require('./github');
 
 module.exports = async () => {
@@ -22,7 +23,8 @@ module.exports = async () => {
     var formCount = await strapi.query("form").count();
     var ghrepos = await strapi.query("github-repositories").count({});
     var speakersCount = await strapi.query("speaker").count({});
-
+    var announcementsCount = await strapi.query("announcement").count({});
+    
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
@@ -245,6 +247,13 @@ module.exports = async () => {
         }),
       });
     }
+
+    if (announcementsCount === 0) {
+      announcements.forEach(async (announcement) => {
+        await strapi.query("announcement").create(announcement);
+      });
+    }
+    
   } catch (error) {
     console.log("Error:= ", error);
   }
