@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Rocketchat } from "@rocket.chat/sdk";
-import { getMessages, sendMessage } from "./lib/api";
-import styles from "../../styles/Inappchat.module.css";
-import { emojify, messagesSortedByDate, rcURL, useSsl } from "./helpers";
+import { useEffect, useState, useRef } from 'react';
+import { Rocketchat } from '@rocket.chat/sdk';
+import { getMessages, sendMessage } from './lib/api';
+import styles from '../../styles/Inappchat.module.css';
+import { emojify, messagesSortedByDate, rcURL, useSsl } from './helpers';
 import {
   Message,
   MessageBody,
@@ -16,14 +16,18 @@ import {
   MessageToolboxItem,
   MessageToolboxWrapper,
   MessageUsername,
-} from "./lib/fuselage";
-import MDPreview from "../mdpreview";
-import InappchatTextInput from "./inappchattextinput";
+} from './lib/fuselage';
+import MDPreview from '../mdpreview';
+import InappchatTextInput from './inappchattextinput';
+import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 
-const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
+const rcClient = new Rocketchat({ logger: console, protocol: 'ddp' });
 
 const InAppChat = ({ closeChat, cookies, rid }) => {
   const [messages, setMessages] = useState([]);
+  const emojiAnimationRef = useRef();
+
+  const isSmallScreen = useMediaQuery("(max-width: 992px)");
 
   useEffect(() => {
     const runRealtime = async (token, rid) => {
@@ -54,9 +58,13 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
 
   return (
     <div className={styles.sidechat}>
-      <div className={styles.cross} onClick={closeChat}>
-        <Icon name="cross" size={"x30"} />
-      </div>
+      <ul ref={emojiAnimationRef} className={styles.track}></ul>{' '}
+      {!isSmallScreen && (
+        <div className={styles.cross} onClick={closeChat}>
+          <Icon name='cross' size={'x30'} />
+        </div>
+      )}
+      {/* chatbox component */}
       <div className={styles.chatbox}>
         <Box>
           {cookies.rc_token && cookies.rc_uid ? (
@@ -84,17 +92,20 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
               </Message>
             ))
           ) : (
-            <p>
-              Please login into{" "}
-              <a href="https://open.rocket.chat" target="_blank">
+            <p className='mx-auto text-center'>
+              Please login into{' '}
+              <a href='https://open.rocket.chat' target='_blank'>
                 RocketChat
-              </a>{" "}
+              </a>{' '}
               to chat!
             </p>
           )}
         </Box>
       </div>
-      <InappchatTextInput sendMsg={sendMsg} />
+      <InappchatTextInput
+        emojiAnimationRef={emojiAnimationRef}
+        sendMsg={sendMsg}
+      />
     </div>
   );
 };
