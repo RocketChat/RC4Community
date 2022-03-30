@@ -1,9 +1,16 @@
 import styles from "../styles/Announcement.module.css";
 
 export default function Announcement(props) {
+
+  const announcementPublishDateTime = new Date(props.announcement.publish_date);
+  const announcementUnpublishDateTime = new Date(props.announcement.unpublish_date);
+  const currentDateTime = new Date();
+
   if (
     typeof props.announcement === "undefined" ||
-    typeof props.announcement.announcement_text === "undefined"
+    typeof props.announcement.announcement_text === "undefined" ||
+    currentDateTime < announcementPublishDateTime ||
+    currentDateTime > announcementUnpublishDateTime
   ) {
     return <></>;
   }
