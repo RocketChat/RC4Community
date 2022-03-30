@@ -41,8 +41,12 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       }
     };
     async function getData() {
-      const data = await getMessages(rid, cookies);
-      setMessages(data.messages);
+      try {
+        const data = await getMessages(rid, cookies);
+        setMessages(data.messages);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
     getData();
     runRealtime(cookies.rc_token, rid);

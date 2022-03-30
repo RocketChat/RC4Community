@@ -4,4 +4,4 @@ let url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : pro
 export const rcURL = new URL(url);
 
 // Use useSsl: false only if server url starts with http://
-export const useSsl = () => !/http:\/\//.test(url);
+export const useSsl = !/http:\/\//.test(url);
