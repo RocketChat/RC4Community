@@ -52,6 +52,14 @@
   background-color: white;
 }
 
+.liveNowHeading {
+  font-size: 1.13rem;
+}
+
+.liveNowDate {
+  color: #F8445F;
+}
+
 .heading {
   text-align: center;
   background: -webkit-linear-gradient(#041631, #003990);
@@ -59,6 +67,21 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 2.2rem;
+}
+
+.announcement {
+  background-color: #030C1A;
+  border: 0.5px solid #B1B1B1;
+  color: whitesmoke;
+  text-align: center;
+  padding: 1.3rem 0;
+  position: sticky;
+  bottom: 0;
+}
+
+.announcement span {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .rcgsoccompactlogo {

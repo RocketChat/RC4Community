@@ -16,6 +16,9 @@
     "content": {
       "type": "string"
     },
+    "bio": {
+      "type": "string"
+    },
     "imageUrl": {
       "type": "string"
     },
