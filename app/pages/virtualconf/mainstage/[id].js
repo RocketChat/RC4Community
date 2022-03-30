@@ -32,7 +32,7 @@ export default function ConfMainStage({ cookies }) {
             
         </Container>
         {openChat ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+          <InAppChat host="http://localhost:3000" closeChat={handleOpenChat} cookies={cookies} rid={rid} />
         ) : (
           <Button onClick={handleOpenChat}>Open Chat</Button>
         )}

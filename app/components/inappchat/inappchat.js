@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Rocketchat } from "@rocket.chat/sdk";
 import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
-import { emojify, messagesSortedByDate, rcURL, useSsl } from "./helpers";
+import { emojify, messagesSortedByDate } from "./helpers";
 import {
   Message,
   MessageBody,
@@ -22,8 +22,11 @@ import InappchatTextInput from "./inappchattextinput";
 
 const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
 
-const InAppChat = ({ closeChat, cookies, rid }) => {
+const InAppChat = ({ host, closeChat, cookies, rid }) => {
   const [messages, setMessages] = useState([]);
+  const isAuth = cookies.rc_token && cookies.rc_uid;
+  const rcURL = new URL(host);
+  const useSsl = !/http:\/\//.test(host);
 
   useEffect(() => {
     const runRealtime = async (token, rid) => {
@@ -42,7 +45,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
     };
     async function getData() {
       try {
-        const data = await getMessages(rid, cookies);
+        const data = await getMessages(host, rid, cookies);
         setMessages(data.messages);
       } catch (err) {
         console.log(err.message);
@@ -56,7 +59,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
     if (message.trim() === "") {
       return;
     }
-    const msg = await sendMessage(rid, message, cookies);
+    const msg = await sendMessage(host, rid, message, cookies);
     setMessages([...messages, msg.message]);
   };
 
@@ -67,7 +70,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       </div>
       <div className={styles.chatbox}>
         <Box>
-          {cookies.rc_token && cookies.rc_uid ? (
+          {isAuth ? (
             messagesSortedByDate(messages)?.map((m) => (
               <Message className="customclass" clickable key={m._id}>
                 <MessageContainer>
@@ -94,7 +97,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           ) : (
             <p>
               Please login into{" "}
-              <a href="https://open.rocket.chat" target="_blank">
+              <a href={host} target="_blank">
                 RocketChat
               </a>{" "}
               to chat!
