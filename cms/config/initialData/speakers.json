@@ -2,11 +2,11 @@
     {
         "id": 1,
         "name": "Rohan Lekhwani",
-        "picutre_url": "https://avatars.githubusercontent.com/u/28918901?v=4",
+        "picutre_url": "https://media-exp1.licdn.com/dms/image/C5103AQEfuswPxV6Gyw/profile-displayphoto-shrink_800_800/0/1559890882906?e=1654128000&v=beta&t=Vvuss_1J3PNLb0T-M9kCQ2emP_4KonboB16Yrnu1gB4",
         "bio": "I'm a software engineer at Gojek working on distributed systems and cloud infrastructure. I'll be mentoring two GSoC projects this season. Prior to this I've been involved with a multitude of projects at Rocket.Chat including the opensource leaderboard, RC4GitHub, RC4Community and have two published apps (Poll Plus and MemeBuddy) on the Rocket.Chat Marketplace.",
-        "short_bio": "Software Engineer at Gojek",
+        "short_bio": "Software engineer at Gojek, GSoC'22 mentor",
         "talk_topic": "Writing That Winning Proposal",
-        "talk_summary": "Talk Symmary Speaker1"
+        "talk_summary": "Ever wondered what's so special in an accepted proposal? Want to know what mentors look for in your proposal? Join in this fun conversation by a past GSoCer and a current GSoC mentor of two projects to know all you can do to make your proposal shine among others."
     },
     {
         "id": 2,
