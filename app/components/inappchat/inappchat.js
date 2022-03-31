@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Rocketchat } from "@rocket.chat/sdk";
+import Cookie from 'js-cookie';
 import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
 import { emojify, messagesSortedByDate } from "./helpers";
@@ -22,8 +23,9 @@ import InappchatTextInput from "./inappchattextinput";
 
 const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
 
-const InAppChat = ({ host, closeChat, cookies, rid }) => {
+const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
+  const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
   const isAuth = cookies.rc_token && cookies.rc_uid;
   const rcURL = new URL(host);
   const useSsl = !/http:\/\//.test(host);
@@ -97,7 +99,7 @@ const InAppChat = ({ host, closeChat, cookies, rid }) => {
           ) : (
             <p>
               Please login into{" "}
-              <a href={host} target="_blank">
+              <a href={host} rel="noopener noreferrer" target="_blank">
                 RocketChat
               </a>{" "}
               to chat!
@@ -105,7 +107,7 @@ const InAppChat = ({ host, closeChat, cookies, rid }) => {
           )}
         </Box>
       </div>
-      {cookies.rc_token && cookies.rc_uid && <InappchatTextInput sendMsg={sendMsg} />}
+      {isAuth && <InappchatTextInput sendMsg={sendMsg} />}
     </div>
   );
 };
