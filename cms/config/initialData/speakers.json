@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "name": "Rohan Lekhwani",
+        "picutre_url": "https://avatars.githubusercontent.com/u/28918901?v=4",
+        "bio": "I'm a software engineer at Gojek working on distributed systems and cloud infrastructure. I'll be mentoring two GSoC projects this season. Prior to this I've been involved with a multitude of projects at Rocket.Chat including the opensource leaderboard, RC4GitHub, RC4Community and have two published apps (Poll Plus and MemeBuddy) on the Rocket.Chat Marketplace.",
+        "short_bio": "Software Engineer at Gojek",
+        "talk_topic": "Writing That Winning Proposal",
+        "talk_summary": "Talk Symmary Speaker1"
+    },
+    {
+        "id": 2,
+        "name": "Priya Bihani",
+        "picutre_url": "https://avatars.githubusercontent.com/u/69837339?v=4",
+        "bio": "I'm a third year Computer science student &  full stack developer from New Delhi, India. I worked along with Rocket.Chat last year as a Sponsored Student for my GSOC project on Image manipulation under my mentors Gabriel Henriques and Tasso Evangelista which we completed in the due time. Alongwith that I've been a part of MLH Prep fellowship & MLH fellowship in 2022.",
+        "short_bio": "Sponsored student for GSOC Project with Rocket.Chat | MLH fellow 2022 | Open Source Contributor & Full stack developer",
+        "talk_topic": "How to create proposal for your Rocket.Chat Application",
+        "talk_summary": "Your application is the most important part of your Road to GSOC with Rocket.Chat. It reflects your commitment and dedication, it is the only way for you mentor to judge you. So you should know how to draft your proposal."
+    },
+    {
+        "id": 3,
+        "name": "Kartik Gupta",
+        "picutre_url": "https://open.rocket.chat/avatar/kartik.gupta",
+        "bio": "I'm Kartik Gupta from New Delhi India. I am a pre final year Computer's student and a full stack developer and Instructor, alongwith that i also like contributing to open source. I was a part of GSOC 2021@Rocket.Chat and got the opportunity to work under mentor Marcelo Schmidt on Speech To Text(Soon to be Live) and work along with such a great community of rocketters.",
+        "short_bio": "SHORT BIO: GSOC 2021 with Rocket.Chat | Open Source Contributor | Full stack developer & Instructor.",
+        "talk_topic": "How to get started with Rocket.Chat codebase!",
+        "talk_summary": "The road to GSOC with Rocket.Chat starts with your contributions to the project, The codebase is huge and it's easy to get overwhelmed, so you should know your way around the codebase."
+    },
+    {
+        "id": 4,
+        "name": "Govind Dixit",
+        "picutre_url": "https://avatars.githubusercontent.com/u/32304546?v=4",
+        "bio": "Building CRED, ex-Urban Company, Headout GSoC'21 Mentor, GSoC'20 & 19 Student @Rocket.Chat",
+        "short_bio": "Building CRED, ex-Urban Company, Headout GSoC'21 Mentor, GSoC'20 & 19 Student @Rocket.Chat",
+        "talk_topic": "Demystify GSoC: Tips & Tricks for a Successful Proposal",
+        "talk_summary": "I will share my experience as a two-time student with Rocket.Chat and will share tips on how to write a successful proposal!"
+    },
+    {
+        "id": 5,
+        "name": "Arthur Temporim",
+        "picutre_url": "https://avatars.githubusercontent.com/u/13789524?v=4",
+        "bio": "I graduated in 2019 from the software engineering course and am currently pursuing a master's degree in the same area. I have focused my career on the study and development of conversational agents, better known as chatbots. I currently work as a developer of chatbots and contribute to OSS projects and related communities.",
+        "short_bio": "A Software Engineer with experience with chatbot development and participation in OSS communities.",
+        "talk_topic": "What will happen after Rocket.Chat GSOC?",
+        "talk_summary": "I participated in the Rocket.Chat GSOC of the year 2018, I was at the end of the software engineering course and I was able to put into practice everything I had learned. But the experience gained during the months of the program was essential for me to become the engineer I am today. I hope to share with you some of the experiences I made with the knowledge gained in the program."
+    },
+    {
+        "id": 6,
+        "name": "Anant Bhasin",
+        "picutre_url": "https://avatars.githubusercontent.com/u/38764067?v=4",
+        "bio": "An engineering student graduating this summer, Anant worked on the React Native app for his project in 2021, extending the End to End tests to Android. Currently, he is working at Goldman Sachs as an Analyst Intern(Engineering).",
+        "short_bio": "Student, currently Analyst Intern (Engineering) at Goldman Sachs",
+        "talk_topic": "Communication in GSOC program",
+        "talk_summary": "Communication can make or break your contributions and application"
+    },
+    {
+        "id": 7,
+        "name": "Fongang Rodrique",
+        "picutre_url": "https://avatars.githubusercontent.com/u/39289653?v=4",
+        "bio": "A computer engineering graduate from the university of Buea, a Rocket.Chat GSoC alumni and currently a Technical writer at Rocket.Chat. Deeply interested in cyber security and also a creative photographer.",
+        "short_bio": "Technical Writer at Rocket.Chat",
+        "talk_topic": "Survive GSoC as a Newbie",
+        "talk_summary": "GSoC is often dominated by students with some programming experience. As a newbie in tech or someone with very little knowledge, how can you survive?"
+    }
+
+]
