@@ -1,14 +1,15 @@
-name: Build, Test, Deploy
+name: "Build, Test, Deploy"
 
 on:
   pull_request: #{ types: [ready_for_review] }
   push: { branches: [master] }
   #release: { types: [published] }
 
+env:
+  BUILD_PATH: /tmp/archive.tgz
 jobs:
   bat:
     runs-on: ubuntu-latest
-    if: false
     strategy:
       matrix: { node: [14] }
 
@@ -132,38 +133,56 @@ jobs:
           cd app
           echo $GITHUB_SHA > /tmp/.github_sha
           echo $GITHUB_REF > /tmp/.github_ref
-          tar zcvf /tmp/.next.tgz .next /tmp/.github_sha /tmp/.github.ref
+          tar zcvf ${{ env.BUILD_PATH }} \
+            .next \
+            ecosystem.config.js \
+            package.json \
+            /tmp/.github_sha \
+            /tmp/.github.ref
 
       - name: Upload archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build
-          path: /tmp/.next.tgz
+          path: ${{ env.BUILD_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
-    if: false
-    # if: github.event_name == "push" # don't wanna run on prs
+    if: github.event_name == "push" # don't wanna run on prs
     needs: [bat]
 
     steps:
-      - name: Get non-scalable build
-        uses: actions/download-artifact@v2
+      - name: Download build archive
+        uses: actions/download-artifact@v3
         with:
           name: build
-          path: /tmp/
+          path: ${{ env.BUILD_PATH }}
 
       - name: Push archive
-        uses: easingthemes/ssh-deploy
+        uses: easingthemes/ssh-deploy@master
         env:
-          SOURCE: /tmp/.next.tgz
+          SOURCE: ${{ env.BUILD_PATH }}
           TARGET: ${{ secrets.TARGET }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Start remote service
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          script: pm2 start rc4community.config.json
+          host: ${{ secrets.REMOTE_HOST }}
+          port: ${{ secrets.REMOTE_PORT }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            target=${{ secrets.TARGET }}
+            build_path=${{ secrets.BUILD_PATH }}
+            cd $target
+            tar zxf $build_path
+            rm -f $build_path
+            npm install --production
+            pm2 reload ecosystem.config.js
 
       # - name: Deploy
       #   uses: debdutdeb/rc4community.deploy.action@main
