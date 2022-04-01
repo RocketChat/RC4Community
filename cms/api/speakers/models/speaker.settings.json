@@ -14,12 +14,6 @@
     "name": {
       "type": "string"
     },
-    "content": {
-      "type": "string"
-    },
-    "bio": {
-      "type": "string"
-    },
     "imageUrl": {
       "type": "string"
     },
@@ -39,6 +33,18 @@
     },
     "duration_minutes": {
       "type": "integer"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "short_bio": {
+      "type": "string"
+    },
+    "talk_topic": {
+      "type": "string"
+    },
+    "talk_summary": {
+      "type": "string"
     }
   }
 }
