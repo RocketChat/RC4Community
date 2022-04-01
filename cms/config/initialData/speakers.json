@@ -45,7 +45,7 @@
         "bio": "Building CRED, ex-Urban Company, Headout GSoC'21 Mentor, GSoC'20 & 19 Student @Rocket.Chat",
         "short_bio": "Building CRED, ex-Urban Company, Headout GSoC'21 Mentor, GSoC'20 & 19 Student @Rocket.Chat",
         "talk_topic": "Demystify GSoC: Tips & Tricks for a Successful Proposal",
-        "talk_summary": "I will share my experience as a two-time student with Rocket.Chat and will share tips on how to write a successful proposal!",
+        "talk_summary": "In my talk, I will be sharing things that worked for me and had helped me in getting selected for GSoC two consecutive times. Things that someone should take care of while writing a GSoC proposal.I will also be sharing my experience as a GSoC mentor. What are the mentor's expectations from the students regarding the project idea, In the end, I will be sharing my GSoC proposal that can be used as a template by this year's GSoC aspiring students.",
         "date_time": "06 April 2022 11:50 UTC",
         "duration_minutes" : 20 ,
         "live": false,
