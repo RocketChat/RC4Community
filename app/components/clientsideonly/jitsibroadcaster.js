@@ -10,7 +10,7 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({room, disName}) => {
+const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
@@ -240,7 +240,7 @@ const Jitsibroadcaster = ({room, disName}) => {
     ref.current.executeCommand("setTileView", true);
   };
 
-  const renderStream = () => (
+  const renderStream = (key) => (
     <div style={{ margin: "15px 0" }}>
       <div
         style={{
@@ -255,7 +255,7 @@ const Jitsibroadcaster = ({room, disName}) => {
             onClick={() =>
               apiRef.current.executeCommand("startRecording", {
                 mode: "stream",
-                rtmpStreamKey: rtmp,
+                rtmpStreamKey: key,
                 youtubeStreamKey: "",
               })
             }
@@ -366,7 +366,7 @@ const Jitsibroadcaster = ({room, disName}) => {
           textAlign: "center",
         }}
       ></h1>
-            {rtmp && renderStream()}
+            {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
         <JitsiMeeting
           domain="meet.jit.si"
           roomName = {room}
