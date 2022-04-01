@@ -5,6 +5,10 @@ on:
   push: { branches: [master] }
   #release: { types: [published] }
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 env:
   BUILD_PATH: /tmp/archive.tgz
 jobs:
