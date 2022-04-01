@@ -1,10 +1,11 @@
-const { carousels, 
-  guides, 
-  persona, 
-  personaIcons, 
-  releaseNotes, 
+const { carousels,
+  guides,
+  persona,
+  personaIcons,
+  releaseNotes,
   subMenus,
   topNavItem,
+  speakers,
   forms } = require('../initialData');
 const { githubKit } = require('./github');
 
@@ -19,12 +20,34 @@ module.exports = async () => {
     var releaseNotesCount = await strapi.query("release-notes").count();
     var guidesCount = await strapi.query("guides").count();
     var formCount = await strapi.query("form").count();
-    var ghrepos =  await strapi.query("github-repositories").count({});
-    
+    var ghrepos = await strapi.query("github-repositories").count({});
+    var speakersCount = await strapi.query("speaker").count({});
+
     // initial fetch
-    
+
+    speakers.map(async (speaker, index) => {
+      if (index <= speakersCount - 1) {
+        await strapi.query("speaker").update(
+          { id: speaker.id },
+          {
+            name: speaker.name,
+            bio: speaker.bio,
+            imageUrl: speaker.picutre_url
+
+          }
+        );
+      } else {
+        await strapi.query("speaker").create({
+          name: speaker.name,
+          bio: speaker.bio,
+          content: speaker.talk_summary,
+          imageUrl: speaker.picutre_url
+        });
+      }
+    });
+
     if (!ghrepos) {
-      githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
+      githubKit('RocketChat', 'RC4Community', ['issues', 'contributors', 'pulls']);
     }
 
     forms.map(async (form, index) => {
@@ -32,8 +55,8 @@ module.exports = async () => {
         await strapi.query("form").update(
           { id: form.id },
           {
-           title: form.title,
-           formQs: form.formQs
+            title: form.title,
+            formQs: form.formQs
           }
         );
       } else {

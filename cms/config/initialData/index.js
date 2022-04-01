@@ -6,6 +6,7 @@ const releaseNotes = require("./release-notes.json");
 const subMenus = require("./sub-menus.json");
 const topNavItem = require("./top-nav-item.json");
 const forms = require("./forms.json")
+const speakers = require("./speakers.json")
 
 module.exports = {
     carousels,
@@ -15,5 +16,6 @@ module.exports = {
     releaseNotes,
     subMenus,
     topNavItem,
-    forms
+    forms,
+    speakers
 };

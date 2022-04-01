@@ -7,6 +7,7 @@ import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import styles from '../../../styles/Videostreamer.module.css';
 
 const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
 export default function ConfMainStage({ cookies }) {
   const [openChat, setOpenChat] = useState(true);
@@ -34,9 +35,9 @@ export default function ConfMainStage({ cookies }) {
           ></Videostreamer>
         </Container>
         {isSmallScreen ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+          <InAppChat closeChat={handleOpenChat} host={host} rid={rid} />
         ) : openChat ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+          <InAppChat closeChat={handleOpenChat} host={host} rid={rid} />
         ) : (
           <Button
             className={`${styles.chatButton} border border-danger`}
@@ -57,11 +58,3 @@ export default function ConfMainStage({ cookies }) {
     </>
   );
 }
-
-ConfMainStage.getInitialProps = ({ req }) => {
-  const cookies = req.cookies;
-
-  return {
-    cookies,
-  };
-};

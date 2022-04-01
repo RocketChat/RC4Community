@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { Rocketchat } from '@rocket.chat/sdk';
 import { getMessages, sendMessage } from './lib/api';
-import styles from '../../styles/Inappchat.module.css';
 import { emojify, messagesSortedByDate, rcURL, useSsl } from './helpers';
+import { Rocketchat } from "@rocket.chat/sdk";
+import Cookie from 'js-cookie';
+import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
   MessageBody,
@@ -23,11 +25,15 @@ import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 
 const rcClient = new Rocketchat({ logger: console, protocol: 'ddp' });
 
-const InAppChat = ({ closeChat, cookies, rid }) => {
+const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
   const emojiAnimationRef = useRef();
 
   const isSmallScreen = useMediaQuery("(max-width: 992px)");
+  const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
+  const isAuth = cookies.rc_token && cookies.rc_uid;
+  const rcURL = new URL(host);
+  const useSsl = !/http:\/\//.test(host);
 
   useEffect(() => {
     const runRealtime = async (token, rid) => {
@@ -45,8 +51,12 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       }
     };
     async function getData() {
-      const data = await getMessages(rid, cookies);
-      setMessages(data.messages);
+      try {
+        const data = await getMessages(host, rid, cookies);
+        setMessages(data.messages);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
     getData();
     runRealtime(cookies.rc_token, rid);
@@ -56,7 +66,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
     if (message.trim() === "") {
       return;
     }
-    const msg = await sendMessage(rid, message, cookies);
+    const msg = await sendMessage(host, rid, message, cookies);
     setMessages([...messages, msg.message]);
   };
 
@@ -71,7 +81,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       {/* chatbox component */}
       <div className={styles.chatbox}>
         <Box>
-          {cookies.rc_token && cookies.rc_uid ? (
+          {isAuth ? (
             messagesSortedByDate(messages)?.map((m) => (
               <Message className="customclass" clickable key={m._id}>
                 <MessageContainer>
@@ -97,8 +107,8 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
             ))
           ) : (
             <p className='mx-auto text-center'>
-              Please login into{' '}
-              <a href='https://open.rocket.chat' target='_blank'>
+              Please login into{" "}
+              <a href={host} rel="noopener noreferrer" target="_blank">
                 RocketChat
               </a>{' '}
               to chat!
@@ -106,10 +116,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           )}
         </Box>
       </div>
-      {cookies.rc_token && cookies.rc_uid &&  <InappchatTextInput
-        emojiAnimationRef={emojiAnimationRef}
-        sendMsg={sendMsg}
-      />}
+      {isAuth && <InappchatTextInput emojiAnimationRef={emojiAnimationRef} sendMsg={sendMsg} />}
     </div>
   );
 };
