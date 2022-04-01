@@ -7,8 +7,9 @@ import InAppChat from "../../../components/inappchat/inappchat";
 import { Button } from "react-bootstrap";
 
 const greenroom_rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RID;
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
-const Greenroom = ({ cookies }) => {
+const Greenroom = () => {
 	const [openChat, setOpenChat] = useState(false);
 
   	const handleOpenChat = () => {
@@ -23,7 +24,7 @@ const Greenroom = ({ cookies }) => {
 				<div className={styles.container}>
 				</div>
 				{openChat ? (
-          			<InAppChat closeChat={handleOpenChat} cookies={cookies} rid={greenroom_rid} />
+          			<InAppChat host={host} closeChat={handleOpenChat} rid={greenroom_rid} />
         			) : (
           			<Button style={{ float: 'right' }} onClick={handleOpenChat}>Open Chat</Button>
         		)}
@@ -41,11 +42,3 @@ const Greenroom = ({ cookies }) => {
 }
 
 export default Greenroom;
-
-Greenroom.getInitialProps = ({ req }) => {
-	const cookies = req.cookies;
-  
-	return {
-	  cookies,
-	};
-  };

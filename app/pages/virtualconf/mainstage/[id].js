@@ -5,8 +5,9 @@ import Videostreamer from "../../../components/clientsideonly/videostreamer";
 import InAppChat from '../../../components/inappchat/inappchat';
 
 const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage() {
   const [openChat, setOpenChat] = useState(false);
 
   const handleOpenChat = () => {
@@ -32,7 +33,7 @@ export default function ConfMainStage({ cookies }) {
             
         </Container>
         {openChat ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+          <InAppChat host={host} closeChat={handleOpenChat} rid={rid} />
         ) : (
           <Button onClick={handleOpenChat}>Open Chat</Button>
         )}
@@ -40,11 +41,3 @@ export default function ConfMainStage({ cookies }) {
     </>
   );
 }
-
-ConfMainStage.getInitialProps = ({ req }) => {
-  const cookies = req.cookies;
-
-  return {
-    cookies,
-  };
-};
