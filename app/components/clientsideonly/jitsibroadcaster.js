@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
+import { ImPhoneHangUp } from "react-icons/im";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -10,29 +11,35 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
-  const [name, setName] = useState(null)
-  const dataArr = [{speaker: "A", hour: "10"}, {speaker: "B", hour: "20"}, {speaker: "C", hour: "30"}, {speaker: "D", hour: "40"}, {speaker: "Z", hour: "50"}]
+  const [name, setName] = useState(null);
+  const dataArr = [
+    { speaker: "A", hour: "10" },
+    { speaker: "B", hour: "20" },
+    { speaker: "C", hour: "30" },
+    { speaker: "D", hour: "40" },
+    { speaker: "Z", hour: "50" },
+  ];
 
   const handleDisplayName = async (hr) => {
-    const tar = dataArr.find(o => o.hour === hr)
+    const tar = dataArr.find((o) => o.hour === hr);
     if (!tar || tar.speaker == name) {
-      return
+      return;
     }
-    setName(tar.speaker)
-    await apiRef.current.executeCommand("displayName", tar.speaker)
-  }
+    setName(tar.speaker);
+    await apiRef.current.executeCommand("displayName", tar.speaker);
+  };
 
   useEffect(() => {
     setInterval(() => {
-      const tada = new Date()
-      handleDisplayName(tada.getHours().toString())
-    }, 900000); 
-  }, [])
+      const tada = new Date();
+      handleDisplayName(tada.getHours().toString());
+    }, 900000);
+  }, []);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -82,8 +89,7 @@ const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
     iframeRef.style.height = "720px";
-    iframeRef.style.overflow = "auto";
-    iframeRef.style.resize = "both";
+    iframeRef.style.width = "100%";
   };
 
   const showDevices = async (ref) => {
@@ -230,10 +236,18 @@ const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
 
   // Multiple instances demo
   const showUsers = async (ref, which) => {
-    const pinfo = await ref.current.getParticipantsInfo();
-    updateLog((items) => [...items, "participantes " + JSON.stringify(pinfo)]);
-    await ref.current.executeCommand("setTileView", false);
-    await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
+    try {
+      const pinfo = await ref.current.getParticipantsInfo();
+      updateLog((items) => [
+        ...items,
+        "participantes " + JSON.stringify(pinfo),
+      ]);
+      await ref.current.executeCommand("setTileView", false);
+      await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
+    } catch (e) {
+      console.error("Participant not found!");
+      return;
+    }
   };
 
   const makeTile = (ref) => {
@@ -261,13 +275,6 @@ const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
             }
           >
             Go live!
-          </Button>
-          <Button
-            variant="danger"
-            title="Click to stop streaming"
-            onClick={() => apiRef.current.stopRecording("stream")}
-          >
-            End Stream!
           </Button>
         </ButtonGroup>
       </div>
@@ -313,6 +320,26 @@ const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
           >
             {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
           </Button>
+          <Dropdown className="m-auto">
+            <Dropdown.Toggle variant="danger" id="dropdown-basic">
+              End
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                as="button"
+                onClick={() => apiRef.current.executeCommand("hangup")}
+              >
+                Leave Meet
+              </Dropdown.Item>
+              <Dropdown.Item
+                variant="danger"
+                as="button"
+                onClick={() => apiRef.current.stopRecording("stream")}
+              >
+                End for everyone!
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </ButtonGroup>
 
         <ButtonGroup size="sm" className="m-auto">
@@ -366,41 +393,41 @@ const Jitsibroadcaster = ({room, disName, rtmpSrc}) => {
           textAlign: "center",
         }}
       ></h1>
-            {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
-        <JitsiMeeting
-          domain="meet.jit.si"
-          roomName = {room}
-          spinner={renderSpinner}
-          onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
-          getIFrameRef={handleJitsiIFrameRef1}
-          configOverwrite={{
-            startWithAudioMuted: true,
-            disableModeratorIndicator: true,
-            startScreenSharing: false,
-            enableEmailInStats: false,
-            toolbarButtons: [],
-            enableWelcomePage: false,
-            prejoinPageEnabled: false,
-            startWithVideoMuted: false,
-            liveStreamingEnabled: true,
-            disableSelfView: false,
-            disableSelfViewSettings: true,
-            disableShortcuts: true,
-            disable1On1Mode: true,
-            p2p: {
-              enabled: false,
-            },
-          }}
-          interfaceConfigOverwrite={{
-            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
-            FILM_STRIP_MAX_HEIGHT: 0,
-            TILE_VIEW_MAX_COLUMNS: 0,
-            VIDEO_QUALITY_LABEL_DISABLED: true,
-          }}
-          userInfo={{
-            displayName: disName,
-          }}
-        />
+      {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
+      <JitsiMeeting
+        domain="meet.jit.si"
+        roomName={room}
+        spinner={renderSpinner}
+        onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
+        getIFrameRef={handleJitsiIFrameRef1}
+        configOverwrite={{
+          startWithAudioMuted: true,
+          disableModeratorIndicator: true,
+          startScreenSharing: false,
+          enableEmailInStats: false,
+          toolbarButtons: [],
+          enableWelcomePage: false,
+          prejoinPageEnabled: false,
+          startWithVideoMuted: false,
+          liveStreamingEnabled: true,
+          disableSelfView: false,
+          disableSelfViewSettings: true,
+          disableShortcuts: true,
+          disable1On1Mode: true,
+          p2p: {
+            enabled: false,
+          },
+        }}
+        interfaceConfigOverwrite={{
+          DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+          FILM_STRIP_MAX_HEIGHT: 0,
+          TILE_VIEW_MAX_COLUMNS: 0,
+          VIDEO_QUALITY_LABEL_DISABLED: true,
+        }}
+        userInfo={{
+          displayName: disName,
+        }}
+      />
       {renderButtons()}
       <div style={{ display: "flex", flexDirection: "column-reverse" }}>
         {renderLog()}
