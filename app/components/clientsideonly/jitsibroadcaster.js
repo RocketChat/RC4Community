@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 
@@ -10,11 +10,29 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = () => {
+const Jitsibroadcaster = ({room, disName}) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
+  const [name, setName] = useState(null)
+  const dataArr = [{speaker: "A", hour: "10"}, {speaker: "B", hour: "20"}, {speaker: "C", hour: "30"}, {speaker: "D", hour: "40"}, {speaker: "Z", hour: "50"}]
+
+  const handleDisplayName = async (hr) => {
+    const tar = dataArr.find(o => o.hour === hr)
+    if (!tar || tar.speaker == name) {
+      return
+    }
+    setName(tar.speaker)
+    await apiRef.current.executeCommand("displayName", tar.speaker)
+  }
+
+  useEffect(() => {
+    setInterval(() => {
+      const tada = new Date()
+      handleDisplayName(tada.getHours().toString())
+    }, 900000); 
+  }, [])
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -351,7 +369,7 @@ const Jitsibroadcaster = () => {
             {rtmp && renderStream()}
         <JitsiMeeting
           domain="meet.jit.si"
-          roomName="whataroom987654321"
+          roomName = {room}
           spinner={renderSpinner}
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
           getIFrameRef={handleJitsiIFrameRef1}
@@ -380,7 +398,7 @@ const Jitsibroadcaster = () => {
             VIDEO_QUALITY_LABEL_DISABLED: true,
           }}
           userInfo={{
-            displayName: "Sing",
+            displayName: disName,
           }}
         />
       {renderButtons()}

@@ -31,7 +31,7 @@ const Greenroom = () => {
 				<Container>
 					<Row>
 						<Col>
-							<Jitsibroadcaster />
+							<Jitsibroadcaster room={"GSOC Alumnus Meet"} disName={"Speaker"} />
 						</Col>
 					</Row>
 				</Container>
