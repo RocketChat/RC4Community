@@ -1,13 +1,12 @@
-export const parseDateTime = (myDate) => {
+export const parseTime = (myDate) => {
   const time = new Date(myDate).toLocaleTimeString("en", {
     timeStyle: "short",
     hour12: true,
-    timeZone: "UTC",
   });
   return time;
 };
 
-export const moduleparseDate = (myDate) => {
+export const parseDate = (myDate) => {
   let date = new Date(myDate);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;

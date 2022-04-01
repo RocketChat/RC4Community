@@ -46,8 +46,16 @@
   }
   .talk_topic {
     font-size: clamp(0.95rem, 1.3vw, 1rem);
+    font-weight: 400;
+    color: black
+  }
+
+  .talk_topic_live {
+    font-size: clamp(0.95rem, 1.3vw, 1rem);
+    font-weight: 400;
     color: #F8445F;
   }
+
 
   .speaker_bio{
     font-size: clamp(0.85rem, 1.3vw, 1rem);
