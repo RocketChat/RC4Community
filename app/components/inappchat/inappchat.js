@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Rocketchat } from "@rocket.chat/sdk";
+import Cookie from 'js-cookie';
 import { getMessages, sendMessage } from "./lib/api";
 import styles from "../../styles/Inappchat.module.css";
-import { emojify, emojis, messagesSortedByDate, rcURL, useSsl } from "./helpers";
+import { emojify, messagesSortedByDate } from "./helpers";
 import {
   Message,
   MessageBody,
   MessageContainer,
-  TextInput,
   Icon,
   Box,
   MessageHeader,
@@ -19,28 +19,39 @@ import {
   MessageUsername,
 } from "./lib/fuselage";
 import MDPreview from "../mdpreview";
+import InappchatTextInput from "./inappchattextinput";
 
 const rcClient = new Rocketchat({ logger: console, protocol: "ddp" });
 
-const InAppChat = ({ closeChat, cookies, rid }) => {
-  const [message, setMessage] = useState("");
-  const [emojiClicked, setEmojiClicked] = useState(false);
+const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
+  const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
+  const isAuth = cookies.rc_token && cookies.rc_uid;
+  const rcURL = new URL(host);
+  const useSsl = !/http:\/\//.test(host);
 
   useEffect(() => {
     const runRealtime = async (token, rid) => {
-      await rcClient.connect({ host: rcURL.host, useSsl });
-      await rcClient.resume({ token });
-      await rcClient.subscribe("stream-room-messages", rid);
-      rcClient.onMessage(() => {
-        // TODO: add the animate function here,
-        // and check if that corresponds to any of the emoji that we want to animate then animate()
-        getData();
-      });
+      try {
+        await rcClient.connect({ host: rcURL.host, useSsl });
+        await rcClient.resume({ token });
+        await rcClient.subscribe("stream-room-messages", rid);
+        rcClient.onMessage(() => {
+          // TODO: add the animate function here,
+          // and check if that corresponds to any of the emoji that we want to animate then animate()
+          getData();
+        });
+      } catch(err) {
+        console.log(err.message);
+      }
     };
     async function getData() {
-      const data = await getMessages(rid, cookies);
-      setMessages(data.messages);
+      try {
+        const data = await getMessages(host, rid, cookies);
+        setMessages(data.messages);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
     getData();
     runRealtime(cookies.rc_token, rid);
@@ -50,8 +61,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
     if (message.trim() === "") {
       return;
     }
-    const msg = await sendMessage(rid, message, cookies);
-    setMessage("");
+    const msg = await sendMessage(host, rid, message, cookies);
     setMessages([...messages, msg.message]);
   };
 
@@ -62,7 +72,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
       </div>
       <div className={styles.chatbox}>
         <Box>
-          {cookies.rc_token && cookies.rc_uid ? (
+          {isAuth ? (
             messagesSortedByDate(messages)?.map((m) => (
               <Message className="customclass" clickable key={m._id}>
                 <MessageContainer>
@@ -89,7 +99,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           ) : (
             <p>
               Please login into{" "}
-              <a href="https://open.rocket.chat" target="_blank">
+              <a href={host} rel="noopener noreferrer" target="_blank">
                 RocketChat
               </a>{" "}
               to chat!
@@ -97,47 +107,7 @@ const InAppChat = ({ closeChat, cookies, rid }) => {
           )}
         </Box>
       </div>
-      {emojiClicked && (
-        <div className={styles.emojisHolder}>
-          {emojis.map((e) => (
-            <div
-              key={e.id}
-              className={styles.animatedEmoji}
-              dangerouslySetInnerHTML={{ __html: emojify(e.value) }}
-              onClick={() => {
-                setEmojiClicked((prevState) => !prevState);
-                sendMsg(e.value);
-              }}
-            />
-          ))}
-        </div>
-      )}
-      <TextInput
-        placeholder="Message"
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.keyCode === 13) {
-            sendMsg(message);
-          }
-        }}
-        addon={
-          <>
-            {message.trim() !== "" ? (
-              <Icon onClick={() => sendMsg(message)} name="send" size="x20" />
-            ) : (
-              <Icon
-                name="emoji"
-                size="x20"
-                onClick={(e) => setEmojiClicked((prevState) => !prevState)}
-              />
-            )}
-          </>
-        }
-        w={"400px"}
-      />
+      {isAuth && <InappchatTextInput sendMsg={sendMsg} />}
     </div>
   );
 };

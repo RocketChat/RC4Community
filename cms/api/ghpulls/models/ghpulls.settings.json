@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ghpulls",
+  "info": {
+    "name": "Ghpulls"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pulls": {
+      "type": "json"
+    },
+    "github_repository": {
+      "via": "pulls",
+      "model": "github-repositories"
+    }
+  }
+}

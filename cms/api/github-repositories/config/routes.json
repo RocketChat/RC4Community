@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/github-repositories",
+      "handler": "github-repositories.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/github-repositories/count",
+      "handler": "github-repositories.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/github-repositories/:id",
+      "handler": "github-repositories.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/github-repositories",
+      "handler": "github-repositories.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/github-repositories/:id",
+      "handler": "github-repositories.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/github-repositories/:id",
+      "handler": "github-repositories.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

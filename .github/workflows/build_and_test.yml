@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build, Test, Deploy
 
 on:
   pull_request: #{ types: [ready_for_review] }
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     if: false
     strategy:
-      matrix: { node: [12, 14] }
+      matrix: { node: [14] }
 
     steps:
       - name: Clone repo
@@ -29,7 +29,7 @@ jobs:
 
       - name: Start cms
         run: cd cms; npm run develop &> /tmp/cms.log &
-        env: { INITIALIZE_DATA: 'true' }
+        env: { INITIALIZE_DATA: "true" }
 
       - name: Check cms running
         uses: actions/github-script@v5
@@ -123,37 +123,54 @@ jobs:
       #     echo "app successfully started"
       #   env: { PORT: 3000 }
 
-      # - name: Build app (scalable)
-      #   run: cd app; npm run build
-      #   env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
+      - name: Build prod app
+        run: cd app; npm run build
+        env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337" }
 
-  #     - name: Build non-scalable app build archive
-  #       run: cd app; tar zcvf /tmp/site.tgz out
+      - name: Generate archive
+        run: |
+          cd app
+          echo $GITHUB_SHA > /tmp/.github_sha
+          echo $GITHUB_REF > /tmp/.github_ref
+          tar zcvf /tmp/.next.tgz .next /tmp/.github_sha /tmp/.github.ref
 
-  #     - name: Upload archive
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: non_scalable_build
-  #         path: /tmp/site.tgz
+      - name: Upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: /tmp/.next.tgz
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'release'
-  #   needs: [bat]
+  deploy:
+    runs-on: ubuntu-latest
+    if: false
+    # if: github.event_name == "push" # don't wanna run on prs
+    needs: [bat]
 
-  #   steps:
-  #     - name: Get non-scalable build
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: non_scalable_build
-  #         path: /tmp/
+    steps:
+      - name: Get non-scalable build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: /tmp/
 
-  #     - name: Deploy
-  #       uses: debdutdeb/rc4community.deploy.action@main
-  #       with:
-  #         remote_host: ${{ secrets.REMOTE_HOST }}
-  #         remote_host_port: ${{ secrets.REMOTE_PORT }}
-  #         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         remote_user: ${{ secrets.SSH_USER }}
-  #         source: /tmp/site.tgz
-  #         destination: ${{ secrets.DEPLOY_DESTINATION }}
+      - name: Push archive
+        uses: easingthemes/ssh-deploy
+        env:
+          SOURCE: /tmp/.next.tgz
+          TARGET: ${{ secrets.TARGET }}
+
+      - name: Start remote service
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          script: pm2 start rc4community.config.json
+
+      # - name: Deploy
+      #   uses: debdutdeb/rc4community.deploy.action@main
+      #   with:
+      #     remote_host: ${{ secrets.REMOTE_HOST }}
+      #     remote_host_port: ${{ secrets.REMOTE_PORT }}
+      #     ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     remote_user: ${{ secrets.SSH_USER }}
+      #     source: /tmp/site.tgz
+      #     destination: ${{ secrets.DEPLOY_DESTINATION }}
