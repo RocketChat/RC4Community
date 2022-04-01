@@ -157,3 +157,7 @@
     display: block !important;
   }
 }
+
+.timerText{
+  font-size: clamp(2rem, 1.8vw, 2rem);;
+}

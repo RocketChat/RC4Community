@@ -64,7 +64,7 @@ const Mainstage = ({ speakers }) => {
                   insights, and tips on how to get the most out of this amazing
                   program.
                 </span>
-                <p>{timer}</p>
+                <p className={styles.timerText}>{timer}</p>
               </Col>
               <Col md={6} xs={12} className={styles.imageHolders}>
                 <Image className={styles.rcgsoclogo} src={RCPlusGSocLogo} />
@@ -76,7 +76,7 @@ const Mainstage = ({ speakers }) => {
           <Row className={styles.liveNow}>
             <Col md={6} xs={12} className={styles.liveNowInnerCol}>
               {new Date().getTime() - countdown.getTime() < 0 ? <p className={styles.liveNowHeading}>
-                The date of the summit will be{" "}
+                Save the Date ! {" "}
                 <span className={styles.liveNowDate}>
                   April {countdown.getDate()}th starting at{" "}
                   {countdown.toLocaleString("en-US", {
