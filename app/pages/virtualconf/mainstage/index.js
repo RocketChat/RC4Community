@@ -8,7 +8,7 @@ import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
 import NowLive from "/public/now-live.png";
 import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
-import Infotiles from "../../../components/infotiles";
+import SpeakerInfotiles from "../../../components/speakerinfotile";
 import { fetchAPI } from "../../../lib/api";
 import { useEffect, useState } from "react";
 
@@ -64,7 +64,7 @@ const Mainstage = ({ speakers }) => {
                   insights, and tips on how to get the most out of this amazing
                   program.
                 </span>
-                <p>{timer}</p>
+                <p className={styles.timerText}>{timer}</p>
               </Col>
               <Col md={6} xs={12} className={styles.imageHolders}>
                 <Image className={styles.rcgsoclogo} src={RCPlusGSocLogo} />
@@ -76,7 +76,7 @@ const Mainstage = ({ speakers }) => {
           <Row className={styles.liveNow}>
             <Col md={6} xs={12} className={styles.liveNowInnerCol}>
               {new Date().getTime() - countdown.getTime() < 0 ? <p className={styles.liveNowHeading}>
-                The date of the summit will be{" "}
+                Save the Date ! {" "}
                 <span className={styles.liveNowDate}>
                   April {countdown.getDate()}th starting at{" "}
                   {countdown.toLocaleString("en-US", {
@@ -106,7 +106,7 @@ const Mainstage = ({ speakers }) => {
             Speakers
           </h2>
           <div className={styles.speakersContainer}>
-            <Infotiles data={speakers} />
+            <SpeakerInfotiles data={speakers} />
           </div>
         </Container>
       </main>

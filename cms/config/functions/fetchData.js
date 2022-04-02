@@ -24,27 +24,39 @@ module.exports = async () => {
     var speakersCount = await strapi.query("speaker").count({});
 
     // initial fetch
-
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
         await strapi.query("speaker").update(
           { id: speaker.id },
           {
             name: speaker.name,
+            imageUrl: speaker.imageUrl,
             bio: speaker.bio,
-            imageUrl: speaker.picutre_url
-
+            short_bio: speaker.short_bio,
+            talk_topic: speaker.talk_topic,
+            talk_summary: speaker.talk_summary,
+            date_time : (new Date(speaker.date_time)).toISOString(),
+            duration_minutes : speaker.duration_minutes,
+            live: speaker.live,
+            ended: speaker.ended
           }
         );
       } else {
         await strapi.query("speaker").create({
           name: speaker.name,
+          imageUrl: speaker.imageUrl,
           bio: speaker.bio,
-          content: speaker.talk_summary,
-          imageUrl: speaker.picutre_url
+          short_bio: speaker.short_bio,
+          talk_topic: speaker.talk_topic,
+          talk_summary: speaker.talk_summary,
+          date_time : (new Date(speaker.date_time)).toISOString(),
+          duration_minutes : speaker.duration_minutes,
+          live: speaker.live,
+          ended: speaker.ended
         });
       }
     });
+
 
     if (!ghrepos) {
       githubKit('RocketChat', 'RC4Community', ['issues', 'contributors', 'pulls']);
