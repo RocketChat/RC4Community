@@ -146,6 +146,7 @@ jobs:
             /tmp/.github_ref
 
       - name: Upload archive
+        if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v3
         with:
           name: build
