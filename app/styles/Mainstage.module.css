@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 
+.chatButton {
+  right: 40px;
+  bottom: 40px;
+  position: fixed;
+}
 .main {
   font-family: "Roboto", sans-serif;
 }
