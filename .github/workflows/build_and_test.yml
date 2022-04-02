@@ -142,7 +142,7 @@ jobs:
             ecosystem.config.js \
             package.json \
             /tmp/.github_sha \
-            /tmp/.github.ref
+            /tmp/.github_ref
 
       - name: Upload archive
         uses: actions/upload-artifact@v3
