@@ -163,7 +163,7 @@ jobs:
           path: ${{ env.BUILD_PATH }}
 
       - name: Push archive
-        uses: easingthemes/ssh-deploy@master
+        uses: easingthemes/ssh-deploy@main
         env:
           SOURCE: ${{ env.BUILD_PATH }}
           TARGET: ${{ secrets.TARGET }}
