@@ -140,6 +140,7 @@ jobs:
           tar zcvf ${{ env.BUILD_PATH }} \
             .next \
             ecosystem.config.js \
+            package-lock.json \
             package.json \
             /tmp/.github_sha \
             /tmp/.github_ref
@@ -192,8 +193,8 @@ jobs:
         uses: debdutdeb/rc4community.deploy.action@main
         with:
           remote_host: ${{ secrets.REMOTE_HOST }}
-          remote_host_port: ${{ secrets.REMOTE_PORT }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_port: ${{ secrets.REMOTE_PORT }}
           remote_user: ${{ secrets.REMOTE_USER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ${{ env.BUILD_PATH }}
-          destination: ${{ secrets.TARGET }}
+          target: ${{ secrets.TARGET }}
