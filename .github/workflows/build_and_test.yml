@@ -161,7 +161,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ${{ env.BUILD_PATH }}
+          path: /tmp/
 
       # - name: Push archive
       #   uses: easingthemes/ssh-deploy@main
