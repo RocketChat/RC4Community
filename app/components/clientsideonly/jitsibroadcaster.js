@@ -15,6 +15,8 @@ import { AiFillEye, AiFillSetting } from "react-icons/ai";
 import { BiUserPin } from "react-icons/bi";
 import { HiViewGridAdd } from "react-icons/hi";
 import styles from "../../styles/Jitsi.module.css";
+import { FaRocketchat } from "react-icons/fa";
+import { FiUsers } from "react-icons/fi";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -23,7 +25,7 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
@@ -354,7 +356,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
           overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
         >
           <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
-            <BiUserPin size={20} />
+            <FiUsers size={20} />
           </Button>
         </OverlayTrigger>
       </ButtonGroup>
@@ -389,6 +391,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
             End for everyone!
           </Dropdown.Item>
         </DropdownButton>
+        <Button color="#f5455c" onClick={handleChat}>
+          <FaRocketchat />
+        </Button>
       </ButtonGroup>
     </div>
   );
@@ -460,11 +465,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
         {toggleView()}
       </div>
       {toolButton()}
-      <div
-        className={styles.log}
-      >
-        {renderLog()}
-      </div>
+      <div className={styles.log}>{renderLog()}</div>
     </>
   );
 };
