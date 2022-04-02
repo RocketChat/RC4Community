@@ -1,8 +1,20 @@
 import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Dropdown,
+  DropdownButton,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
-import { ImPhoneHangUp } from "react-icons/im";
+import { RiMic2Line } from "react-icons/ri";
+import { MdCameraswitch, MdHeadset } from "react-icons/md";
+import { AiFillEye, AiFillSetting } from "react-icons/ai";
+import { BiUserPin } from "react-icons/bi";
+import { HiViewGridAdd } from "react-icons/hi";
+import styles from "../../styles/Jitsi.module.css"
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -88,8 +100,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
   const handleJitsiIFrameRef1 = (iframeRef) => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
-    iframeRef.style.height = "720px";
-    iframeRef.style.width = "100%";
+    iframeRef.style.height = "25em";
+    iframeRef.style.width = "75%";
   };
 
   const showDevices = async (ref) => {
@@ -281,83 +293,108 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
     </div>
   );
 
-  const renderButtons = () => (
-    <div style={{ margin: "15px 0" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ButtonGroup size="sm" className="m-auto">
+  const toggleDevice = () => (
+    <div className={styles.device}>
+      <Button disabled variant="light">
+        <AiFillSetting size={20} />
+      </Button>
+      <ButtonGroup vertical className="m-auto">
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">Microphone Device</Tooltip>}
+        >
           <Button
             title="Click to switch audio devices"
             onClick={() => showAudioDevice(apiRef)}
           >
-            Microphone Devices
+            <RiMic2Line size={20} />
           </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">Camera Device</Tooltip>}
+        >
           <Button
             title="Click to switch video devices"
             onClick={() => showDevices(apiRef)}
           >
-            Camera Devices
+            <MdCameraswitch size={20} />
           </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">Audio Device</Tooltip>}
+        >
           <Button
             title="Click to switch audio devices"
             onClick={() => showAudioOutDevices(apiRef)}
           >
-            Speaker Devices
+            <MdHeadset size={20} />
           </Button>
-        </ButtonGroup>
-        <ButtonGroup className="m-auto">
-          <Button
-            variant="success"
-            title="Click to toogle audio"
-            onClick={() => {
-              apiRef.current.executeCommand("toggleAudio");
-              setMute(!mute);
-            }}
-          >
-            {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
-          </Button>
-          <Dropdown className="m-auto">
-            <Dropdown.Toggle variant="danger" id="dropdown-basic">
-              End
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                as="button"
-                onClick={() => apiRef.current.executeCommand("hangup")}
-              >
-                Leave Meet
-              </Dropdown.Item>
-              <Dropdown.Item
-                variant="danger"
-                as="button"
-                onClick={() => apiRef.current.stopRecording("stream")}
-              >
-                End for everyone!
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </ButtonGroup>
+        </OverlayTrigger>
+      </ButtonGroup>
+    </div>
+  );
 
-        <ButtonGroup size="sm" className="m-auto">
+  const toggleView = () => (
+    <div className={styles.view}>
+      <Button variant="light" disabled><AiFillEye size={20} /></Button>
+      <ButtonGroup vertical className="m-auto">
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
+        >
           <Button
             variant="secondary"
             onClick={() => makeTile(apiRef)}
             title="Click to toggle tile view"
           >
-            Tile View
+            <HiViewGridAdd size={20} />
           </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">First User</Tooltip>}
+        >
           <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
-            First User
+            <BiUserPin size={20} />
           </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
+        >
           <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
-            Second User
+            <BiUserPin size={20} />
           </Button>
-        </ButtonGroup>
-      </div>
+        </OverlayTrigger>
+      </ButtonGroup>
+    </div>
+  );
+
+  const toolButton = () => (
+    <div style={{ display: "flex", marginTop: "10px" }}>
+      <ButtonGroup className="m-auto">
+        <Button
+          variant="success"
+          title="Click to toogle audio"
+          onClick={() => {
+            apiRef.current.executeCommand("toggleAudio");
+            setMute(!mute);
+          }}
+        >
+          {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
+        </Button>
+        <DropdownButton variant="danger" as={ButtonGroup} title="End">
+          <Dropdown.Item
+            as="button"
+            onClick={() => apiRef.current.executeCommand("hangup")}
+          >
+            Leave Meet
+          </Dropdown.Item>
+          <Dropdown.Item
+            variant="danger"
+            as="button"
+            onClick={() => apiRef.current.stopRecording("stream")}
+          >
+            End for everyone!
+          </Dropdown.Item>
+        </DropdownButton>
+      </ButtonGroup>
     </div>
   );
 
@@ -394,42 +431,54 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
         }}
       ></h1>
       {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
-      <JitsiMeeting
-        domain="meet.jit.si"
-        roomName={room}
-        spinner={renderSpinner}
-        onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
-        getIFrameRef={handleJitsiIFrameRef1}
-        configOverwrite={{
-          startWithAudioMuted: true,
-          disableModeratorIndicator: true,
-          startScreenSharing: false,
-          enableEmailInStats: false,
-          toolbarButtons: [],
-          enableWelcomePage: false,
-          prejoinPageEnabled: false,
-          startWithVideoMuted: false,
-          liveStreamingEnabled: true,
-          disableSelfView: false,
-          disableSelfViewSettings: true,
-          disableShortcuts: true,
-          disable1On1Mode: true,
-          p2p: {
-            enabled: false,
-          },
+      <div className="jitsi contain" style={{ display: "flex", width: "100%" }}>
+        {toggleDevice()}
+
+        <JitsiMeeting
+          domain="meet.jit.si"
+          roomName={room}
+          spinner={renderSpinner}
+          onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
+          getIFrameRef={handleJitsiIFrameRef1}
+          configOverwrite={{
+            startWithAudioMuted: true,
+            disableModeratorIndicator: true,
+            startScreenSharing: false,
+            enableEmailInStats: false,
+            toolbarButtons: [],
+            enableWelcomePage: false,
+            prejoinPageEnabled: false,
+            startWithVideoMuted: false,
+            liveStreamingEnabled: true,
+            disableSelfView: false,
+            disableSelfViewSettings: true,
+            disableShortcuts: true,
+            disable1On1Mode: true,
+            p2p: {
+              enabled: false,
+            },
+          }}
+          interfaceConfigOverwrite={{
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+            FILM_STRIP_MAX_HEIGHT: 0,
+            TILE_VIEW_MAX_COLUMNS: 0,
+            VIDEO_QUALITY_LABEL_DISABLED: true,
+          }}
+          userInfo={{
+            displayName: disName,
+          }}
+        />
+        {toggleView()}
+      </div>
+      {toolButton()}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column-reverse",
+          whiteSpace: "nowrap",
+          overflow: "auto",
         }}
-        interfaceConfigOverwrite={{
-          DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
-          FILM_STRIP_MAX_HEIGHT: 0,
-          TILE_VIEW_MAX_COLUMNS: 0,
-          VIDEO_QUALITY_LABEL_DISABLED: true,
-        }}
-        userInfo={{
-          displayName: disName,
-        }}
-      />
-      {renderButtons()}
-      <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+      >
         {renderLog()}
       </div>
     </>
