@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { Rocketchat } from '@rocket.chat/sdk';
 import { getMessages, sendMessage } from './lib/api';
 import { emojify, messagesSortedByDate, rcURL, useSsl } from './helpers';
-import { Rocketchat } from "@rocket.chat/sdk";
 import Cookie from 'js-cookie';
 import styles from "../../styles/Inappchat.module.css";
 import {
