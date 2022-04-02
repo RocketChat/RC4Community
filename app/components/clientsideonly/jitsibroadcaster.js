@@ -14,7 +14,7 @@ import { MdCameraswitch, MdHeadset } from "react-icons/md";
 import { AiFillEye, AiFillSetting } from "react-icons/ai";
 import { BiUserPin } from "react-icons/bi";
 import { HiViewGridAdd } from "react-icons/hi";
-import styles from "../../styles/Jitsi.module.css"
+import styles from "../../styles/Jitsi.module.css";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -267,29 +267,22 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
   };
 
   const renderStream = (key) => (
-    <div style={{ margin: "15px 0" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ButtonGroup className="m-auto">
-          <Button
-            variant="warning"
-            title="Click to start streaming"
-            onClick={() =>
-              apiRef.current.executeCommand("startRecording", {
-                mode: "stream",
-                rtmpStreamKey: key,
-                youtubeStreamKey: "",
-              })
-            }
-          >
-            Go live!
-          </Button>
-        </ButtonGroup>
-      </div>
+    <div className={styles.streamButton}>
+      <ButtonGroup className="m-auto">
+        <Button
+          variant="warning"
+          title="Click to start streaming"
+          onClick={() =>
+            apiRef.current.executeCommand("startRecording", {
+              mode: "stream",
+              rtmpStreamKey: key,
+              youtubeStreamKey: "",
+            })
+          }
+        >
+          Go live!
+        </Button>
+      </ButtonGroup>
     </div>
   );
 
@@ -335,7 +328,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
 
   const toggleView = () => (
     <div className={styles.view}>
-      <Button variant="light" disabled><AiFillEye size={20} /></Button>
+      <Button variant="light" disabled>
+        <AiFillEye size={20} />
+      </Button>
       <ButtonGroup vertical className="m-auto">
         <OverlayTrigger
           overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
@@ -367,7 +362,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
   );
 
   const toolButton = () => (
-    <div style={{ display: "flex", marginTop: "10px" }}>
+    <div className={styles.deviceButton}>
       <ButtonGroup className="m-auto">
         <Button
           variant="success"
@@ -424,14 +419,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
 
   return (
     <>
-      <h1
-        style={{
-          fontFamily: "sans-serif",
-          textAlign: "center",
-        }}
-      ></h1>
       {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
-      <div className="jitsi contain" style={{ display: "flex", width: "100%" }}>
+      <div className={styles.jitsiContainer}>
         {toggleDevice()}
 
         <JitsiMeeting
@@ -472,12 +461,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc }) => {
       </div>
       {toolButton()}
       <div
-        style={{
-          display: "flex",
-          flexDirection: "column-reverse",
-          whiteSpace: "nowrap",
-          overflow: "auto",
-        }}
+        className={styles.log}
       >
         {renderLog()}
       </div>

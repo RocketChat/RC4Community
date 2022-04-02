@@ -7,6 +7,30 @@
     margin-left: 17px;
 }
 
+.streamButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.deviceButton {
+    display: flex;
+    margin-top: 10px;
+}
+
+.jitsiContainer {
+    display: flex;
+    width: 100%;
+}
+
+.log {
+    display: flex;
+    flex-direction: column-reverse;
+    white-space: nowrap;
+    overflow: auto;
+}
+
 @media (min-width: 830px) {
     .device {
         margin: auto;
