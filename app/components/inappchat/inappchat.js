@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Rocketchat } from '@rocket.chat/sdk';
 import { getMessages, sendMessage } from './lib/api';
-import { emojify, messagesSortedByDate, rcURL, useSsl } from './helpers';
+import { emojify, emojis, messagesSortedByDate } from './helpers';
 import Cookie from 'js-cookie';
 import styles from "../../styles/Inappchat.module.css";
 import {
@@ -34,15 +34,75 @@ const InAppChat = ({ host, closeChat, rid }) => {
   const rcURL = new URL(host);
   const useSsl = !/http:\/\//.test(host);
 
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  const createEmojiInDOM = (emoji) => {
+    const innerHtml = emojify(emoji);
+    const child = document.createElement('div');
+    child.innerHTML = innerHtml;
+    child.setAttribute('id', `${emoji}`);
+    child.animate(
+      [
+        { bottom: '5px', scale: 0, opacity: 1 },
+        { scale: `${getRandomInt(9) * 0.1}`, opacity: 1 },
+        { opacity: 1 },
+        { bottom: '260px', scale: '1', opacity: 0 },
+      ],
+      {
+        duration: 2400,
+        iterations: 3,
+        easing: 'ease-in',
+        fill: 'forwards',
+      }
+    );
+    child.setAttribute(
+      'style',
+      `
+        position: absolute;
+        bottom: 0;
+        font-size: 2rem;
+        overflow: hidden;
+        transform: translate(${-getRandomInt(60)}px, ${getRandomInt(50)}px);
+        `
+    );
+    emojiAnimationRef.current.appendChild(child);
+  }
+
+  const onClickEmojiHandler = (emoji) => {
+    const { childNodes: childDiv } = emojiAnimationRef?.current;
+    const divCount = Object.keys(childDiv).reduce((acc, div) => {
+      if (childDiv[div] instanceof HTMLDivElement) acc += 1;
+      return acc;
+    }, 0);
+    if (divCount > 13) {
+      for (let i = 0; i < 2; i++) {
+        emojiAnimationRef.current.removeChild(
+          emojiAnimationRef.current.firstChild
+        );
+        createEmojiInDOM(emoji);
+      }
+    } else {
+      for (let i = 0; i < 2; i++) {
+        createEmojiInDOM(emoji);
+      }
+    }
+  };
+
   useEffect(() => {
     const runRealtime = async (token, rid) => {
       try {
         await rcClient.connect({ host: rcURL.host, useSsl });
         await rcClient.resume({ token });
         await rcClient.subscribe("stream-room-messages", rid);
-        rcClient.onMessage(() => {
-          // TODO: add the animate function here,
-          // and check if that corresponds to any of the emoji that we want to animate then animate()
+        rcClient.onMessage((data) => {
+          emojis.find(emoji => {
+            if (emoji.value === data.msg) {
+              onClickEmojiHandler(emoji.value);
+              return;
+            }
+          })
           getData();
         });
       } catch(err) {
@@ -115,7 +175,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
           )}
         </Box>
       </div>
-      {isAuth && <InappchatTextInput emojiAnimationRef={emojiAnimationRef} sendMsg={sendMsg} />}
+      {isAuth && <InappchatTextInput onClickEmojiHandler={onClickEmojiHandler} sendMsg={sendMsg} />}
     </div>
   );
 };
