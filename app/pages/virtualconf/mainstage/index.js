@@ -4,7 +4,6 @@ import Head from 'next/head';
 import RCPlusGSocLogo from '/public/rcandgsoclogo.png';
 import CirclesSVG from '/public/svg/circles.js';
 import RCPlusGSocCompactLogo from '/public/rcandgsoclogocompact.png';
-import NowLive from '/public/now-live.png';
 import styles from '../../../styles/Mainstage.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import SpeakerInfotiles from '../../../components/speakerinfotile';

@@ -4,7 +4,6 @@ import Menubar from './menubar';
 import BookmarkSVG from '/public/svg/bookmark.js';
 import styles from '../styles/Mainstage.module.css';
 import { useRouter } from 'next/router';
-useRouter;
 
 function Layout(props) {
   const { pathname } = useRouter();
