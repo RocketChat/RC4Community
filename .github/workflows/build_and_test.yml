@@ -140,6 +140,7 @@ jobs:
           tar zcvf ${{ env.BUILD_PATH }} \
             .next \
             ecosystem.config.js \
+            next.config.js \
             package-lock.json \
             package.json \
             /tmp/.github_sha \
