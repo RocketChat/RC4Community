@@ -1,9 +1,30 @@
-import { Col } from "react-bootstrap";
+import { Col, Toast, ToastContainer } from "react-bootstrap";
 import styles from "../../styles/Videostreamer.module.css";
 import Script from "next/script";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export default function Videostreamer(props) {
+  const [ping, setPing] = useState(false)
+  const pingStream = async () => {
+    const response = await fetch(props.src)
+    if (response.ok) {
+      setPing(true)
+    }
+    return;
+  }
+  useEffect(() => {
+    setInterval(() => {
+      pingStream().catch(e => {console.log("Stream error", e)
+      setPing(false)
+    })
+    }, 60000)
+    
+  }, [])
+
+  const handleToast = () => {
+    setPing(true)
+  }
   return (
     <>
       <Head>
@@ -28,6 +49,7 @@ export default function Videostreamer(props) {
           preload="auto"
           poster={props.poster}
           data-setup='{"fluid": true}'
+          onError={(w) => console.log("merror", w.target.value)}
         >
           <source src={props.src} type={props.type}></source>
           <p class="vjs-no-js">
@@ -38,7 +60,23 @@ export default function Videostreamer(props) {
             </a>
           </p>
         </video>
+        <Alert show={!ping} handleToast={handleToast}/>
+
       </Col>
     </>
   );
+}
+
+const Alert = ({handleToast, show}) => {
+  return (
+    <ToastContainer show={show} position="bottom-start" style={{zIndex: "10"}} className="p-3">
+    <Toast show={show} onClose={handleToast} bg="info">
+      <Toast.Header>
+        <strong className="me-auto">Stream Alert!</strong>
+        <small className="text-muted">just now</small>
+      </Toast.Header>
+      <Toast.Body>Thank you for tuning in! Looks like the streaming has stopped! Please stay tune!</Toast.Body>
+    </Toast>
+  </ToastContainer>
+  )
 }
