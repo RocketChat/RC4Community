@@ -23,7 +23,6 @@ module.exports = async () => {
     var formCount = await strapi.query("form").count();
     var ghrepos = await strapi.query("github-repositories").count({});
     var speakersCount = await strapi.query("speaker").count({});
-    var ghrepos =  await strapi.query("github-repositories").count({});
     var gitlabprojects = await strapi.query("gitlab-repositories").count({});
     
     // initial fetch
