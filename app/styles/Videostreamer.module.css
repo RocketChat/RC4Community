@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   background: black;
+  width: 79%;
 }
 .video {
   height: 100vh;
@@ -12,8 +13,6 @@
 }
 .chatButton {
   width: 4rem;
-  background-color: transparent;
-  color: white;
   position: absolute;
   z-index: 1;
   right: 1rem;
@@ -22,12 +21,15 @@
 }
 .chatButton:hover {
   background-color: transparent;
-  color: white;
+  color: #f5455c;
 }
 
 @media (max-width: 1200px) {
 }
 @media (max-width: 992px) {
+  .videoContainer {
+    border: 10px solid white;
+  }
 }
 @media (max-width: 768px) {
   .chatButton {
