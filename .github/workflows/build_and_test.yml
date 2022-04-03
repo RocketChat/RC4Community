@@ -140,11 +140,14 @@ jobs:
           tar zcvf ${{ env.BUILD_PATH }} \
             .next \
             ecosystem.config.js \
+            next.config.js \
+            package-lock.json \
             package.json \
             /tmp/.github_sha \
-            /tmp/.github.ref
+            /tmp/.github_ref
 
       - name: Upload archive
+        if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v3
         with:
           name: build
@@ -160,40 +163,40 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ${{ env.BUILD_PATH }}
+          path: /tmp/
 
-      - name: Push archive
-        uses: easingthemes/ssh-deploy@master
-        env:
-          SOURCE: ${{ env.BUILD_PATH }}
-          TARGET: ${{ secrets.TARGET }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Start remote service
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          port: ${{ secrets.REMOTE_PORT }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            target=${{ secrets.TARGET }}
-            build_path=${{ secrets.BUILD_PATH }}
-            cd $target
-            tar zxf $build_path
-            rm -f $build_path
-            npm install --production
-            pm2 reload ecosystem.config.js
-
-      # - name: Deploy
-      #   uses: debdutdeb/rc4community.deploy.action@main
+      # - name: Push archive
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     SOURCE: ${{ env.BUILD_PATH }}
+      #     TARGET: ${{ secrets.TARGET }}
+      #     REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+      #     REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      #     REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #
+      # - name: Start remote service
+      #   uses: appleboy/ssh-action@master
       #   with:
-      #     remote_host: ${{ secrets.REMOTE_HOST }}
-      #     remote_host_port: ${{ secrets.REMOTE_PORT }}
-      #     ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     remote_user: ${{ secrets.SSH_USER }}
-      #     source: /tmp/site.tgz
-      #     destination: ${{ secrets.DEPLOY_DESTINATION }}
+      #     host: ${{ secrets.REMOTE_HOST }}
+      #     port: ${{ secrets.REMOTE_PORT }}
+      #     username: ${{ secrets.REMOTE_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       target=${{ secrets.TARGET }}
+      #       build_path=${{ secrets.BUILD_PATH }}
+      #       cd $target
+      #       tar zxf $build_path
+      #       rm -f $build_path
+      #       npm install --production
+      #       pm2 reload ecosystem.config.js
+
+      - name: Push archive and start service
+        uses: debdutdeb/rc4community.deploy.action@main
+        with:
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_port: ${{ secrets.REMOTE_PORT }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ${{ env.BUILD_PATH }}
+          target: ${{ secrets.TARGET }}
