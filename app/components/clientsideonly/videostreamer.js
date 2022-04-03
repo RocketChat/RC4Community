@@ -49,7 +49,6 @@ export default function Videostreamer(props) {
           preload="auto"
           poster={props.poster}
           data-setup='{"fluid": true}'
-          onError={(w) => console.log("merror", w.target.value)}
         >
           <source src={props.src} type={props.type}></source>
           <p class="vjs-no-js">
