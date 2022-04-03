@@ -22,17 +22,15 @@ import MDPreview from '../mdpreview';
 import InappchatTextInput from './inappchattextinput';
 import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 
-const rcClient = new Rocketchat({ logger: console, protocol: 'ddp' });
 
 const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
   const emojiAnimationRef = useRef();
-
   const isSmallScreen = useMediaQuery("(max-width: 992px)");
   const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
   const isAuth = cookies.rc_token && cookies.rc_uid;
-  const rcURL = new URL(host);
   const useSsl = !/http:\/\//.test(host);
+  const rcClient = new Rocketchat({ logger: console, protocol: 'ddp', host, useSsl });
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -93,7 +91,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
   useEffect(() => {
     const runRealtime = async (token, rid) => {
       try {
-        await rcClient.connect({ host: rcURL.host, useSsl });
+        await rcClient.connect();
         await rcClient.resume({ token });
         await rcClient.subscribe("stream-room-messages", rid);
         rcClient.onMessage((data) => {

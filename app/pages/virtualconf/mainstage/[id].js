@@ -6,10 +6,10 @@ import InAppChat from '../../../components/inappchat/inappchat';
 import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import styles from '../../../styles/Videostreamer.module.css';
 
-const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
+const rid = "GENERAL";
 const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage() {
   const [openChat, setOpenChat] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width: 992px)');
 
@@ -46,7 +46,7 @@ export default function ConfMainStage({ cookies }) {
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
-              class='bi bi-chat-dots'
+              className='bi bi-chat-dots'
               viewBox='0 0 16 16'
             >
               <path d='M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z' />
