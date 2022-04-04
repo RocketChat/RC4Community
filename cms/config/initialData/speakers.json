@@ -153,7 +153,6 @@
         "id": 13,
         "name": "Q&A and Final Notes",
         "imageUrl": "",
-        "bio": "Murtaza Patrawala is a software engineer at Rocket.Chat. He started his journey with Rocket.Chat with a Google Summer of Code project where he built integrations with popular chatbot platforms like Dialogflow and Rasa. Within Rocket.Chat, he has contributed to expanding the Omnichannel product of Rocket.Chat by building various integrations with other channels like Facebook, WhatsApp, Twitter, etc",
         "short_bio": "Question and final notes.",
         "talk_topic": "Wrapping up",
         "date_time": "06 April 2022 14:20 UTC",
