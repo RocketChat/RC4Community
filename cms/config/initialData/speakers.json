@@ -3,7 +3,7 @@
         "id": 1,
         "name": "WELCOME!",
         "imageUrl": "",
-        "bio": "I'm a software engineer at Gojek working on distributed systems and cloud infrastructure. I'll be mentoring two GSoC projects this season. Prior to this I've been involved with a multitude of projects at Rocket.Chat including the opensource leaderboard, RC4GitHub, RC4Community and have two published apps (Poll Plus and MemeBuddy) on the Rocket.Chat Marketplace.",
+        "bio": "",
         "talk_topic": "Summit KickOff!",
         "short_bio": "Let's get it started!",
         "date_time": "06 April 2022 10:00 UTC",
