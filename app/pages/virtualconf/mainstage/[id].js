@@ -10,6 +10,8 @@ import { FaRocketchat } from "react-icons/fa";
 const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
 const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
+const videoStreamerSrc = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_VIDEOSTREAMER_SRC
+
 export default function ConfMainStage({ cookies }) {
   const [openChat, setOpenChat] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width: 992px)');
@@ -31,7 +33,7 @@ export default function ConfMainStage({ cookies }) {
         <Container fluid className={styles.videoContainer}>
           <Videostreamer
             poster='/gsocsmall.jpg'
-            src='https://{redacted}/hls/stream.m3u8'
+            src={videoStreamerSrc}
             type='application/vnd.apple.mpegurl'
           ></Videostreamer>
         </Container>
