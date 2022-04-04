@@ -1,6 +1,17 @@
 [
     {
         "id": 1,
+        "name": "WELCOME!",
+        "imageUrl": "",
+        "talk_topic": "Summit KickOff!",
+        "short_bio": "Let's get it started!",
+        "date_time": "06 April 2022 10:00 UTC",
+        "duration_minutes" : 20 ,
+        "live": false,
+        "ended": false
+    },
+    {
+        "id": 2,
         "name": "Rohan Lekhwani",
         "imageUrl": "https://media-exp1.licdn.com/dms/image/C5103AQEfuswPxV6Gyw/profile-displayphoto-shrink_800_800/0/1559890882906?e=1654128000&v=beta&t=Vvuss_1J3PNLb0T-M9kCQ2emP_4KonboB16Yrnu1gB4",
         "bio": "I'm a software engineer at Gojek working on distributed systems and cloud infrastructure. I'll be mentoring two GSoC projects this season. Prior to this I've been involved with a multitude of projects at Rocket.Chat including the opensource leaderboard, RC4GitHub, RC4Community and have two published apps (Poll Plus and MemeBuddy) on the Rocket.Chat Marketplace.",
@@ -13,7 +24,7 @@
         "ended": false
     },
     {   
-        "id": 2,
+        "id": 3,
         "name": "Priya Bihani",
         "imageUrl": "https://avatars.githubusercontent.com/u/69837339?v=4",
         "bio": "I'm a third year Computer science student &  full stack developer from New Delhi, India. I worked along with Rocket.Chat last year as a Sponsored Student for my GSOC project on Image manipulation under my mentors Gabriel Henriques and Tasso Evangelista which we completed in the due time. Alongwith that I've been a part of MLH Prep fellowship & MLH fellowship in 2022.",
@@ -26,11 +37,11 @@
         "ended": false
     },
     {
-        "id": 3,
+        "id": 4,
         "name": "Kartik Gupta",
         "imageUrl": "https://open.rocket.chat/avatar/kartik.gupta",
         "bio": "I'm Kartik Gupta from New Delhi India. I am a pre final year Computer's student and a full stack developer and Instructor, alongwith that i also like contributing to open source. I was a part of GSOC 2021@Rocket.Chat and got the opportunity to work under mentor Marcelo Schmidt on Speech To Text(Soon to be Live) and work along with such a great community of rocketters.",
-        "short_bio": "SHORT BIO: GSOC 2021 with Rocket.Chat | Open Source Contributor | Full stack developer & Instructor.",
+        "short_bio": "GSOC 2021 with Rocket.Chat | Open Source Contributor | Full stack developer & Instructor.",
         "talk_topic": "How to get started with Rocket.Chat codebase!",
         "talk_summary": "The road to GSOC with Rocket.Chat starts with your contributions to the project, The codebase is huge and it's easy to get overwhelmed, so you should know your way around the codebase.",
         "date_time": "06 April 2022 11:00 UTC",
@@ -39,7 +50,18 @@
         "ended": false
     },
     {
-        "id": 4,
+        "id": 5,
+        "name": "NETWORKING",
+        "imageUrl": "",
+        "short_bio": "Let's connect and share ideas!",
+        "talk_topic": "Let's talk!",
+        "date_time": "06 April 2022 12:50 UTC",
+        "duration_minutes" : 30 ,
+        "live": false,
+        "ended": false
+    },    
+    {
+        "id": 6,
         "name": "Govind Dixit",
         "imageUrl": "https://avatars.githubusercontent.com/u/32304546?v=4",
         "bio": "Building CRED, ex-Urban Company, Headout GSoC'21 Mentor, GSoC'20 & 19 Student @Rocket.Chat",
@@ -52,7 +74,7 @@
         "ended": false
     },
     {
-        "id": 5,
+        "id": 7,
         "name": "Arthur Temporim",
         "imageUrl": "https://avatars.githubusercontent.com/u/13789524?v=4",
         "bio": "I graduated in 2019 from the software engineering course and am currently pursuing a master's degree in the same area. I have focused my career on the study and development of conversational agents, better known as chatbots. I currently work as a developer of chatbots and contribute to OSS projects and related communities.",
@@ -65,7 +87,7 @@
         "ended": false
     },
     {
-        "id": 6,
+        "id": 8,
         "name": "Anant Bhasin",
         "imageUrl": "https://avatars.githubusercontent.com/u/38764067?v=4",
         "bio": "An engineering student graduating this summer, Anant worked on the React Native app for his project in 2021, extending the End to End tests to Android. Currently, he is working at Goldman Sachs as an Analyst Intern(Engineering).",
@@ -78,25 +100,36 @@
         "ended": false
     },
     {
-        "id": 7,
+        "id": 9,
+        "name": "NETWORKING",
+        "imageUrl": "",
+        "short_bio": "Let's connect and share ideas!",
+        "talk_topic": "Let's talk!",
+        "date_time": "06 April 2022 12:50 UTC",
+        "duration_minutes" : 30 ,
+        "live": false,
+        "ended": false
+    },    
+    {
+        "id": 10,
         "name": "Rahul Halder",
         "imageUrl": "https://media-exp1.licdn.com/dms/image/C5603AQGio-wOX6rWyA/profile-displayphoto-shrink_800_800/0/1599022697338?e=1654128000&v=beta&t=4eevWzts6GpDF_FELQuP1bD9HDx17cO1ChDL3fjOPl4",
         "bio": "SWE Intern @Headout, GSoC '21 @Rocket.Chat, pre-final year CS undergrad",
         "short_bio": "SWE Intern @Headout, GSoC '21 @Rocket.Chat, pre-final year CS undergrad",
-        "talk_topic": "Survive GSoC as a Newbie",
-        "talk_summary": "I will be talking about how Open Source actually works and the proper ways of reviewing code, opening issues and much more. I will also share tips on how you can connect with project mentors and start contributing to the projects in any form.",
+        "talk_topic": "Making the most out of GSoC",
+        "talk_summary": "In my talk, I will be sharing things that worked for me and had helped me in getting selected for GSoC two consecutive times. Things that someone should take care of while writing a GSoC proposal. I will be sharing my experience as a GSoC mentor. What are the mentor's expectations from the students regarding the project idea, In the end, I will be sharing my GSoC proposal that can be used as a template by this year's GSoC aspiring students.",
         "date_time": "06 April 2022 13:20 UTC",
         "duration_minutes" : 20 ,
         "live": false,
         "ended": false
     },
     {
-        "id": 8,
+        "id": 11,
         "name": "Fongang Rodrique",
         "imageUrl": "https://avatars.githubusercontent.com/u/39289653?v=4",
         "bio": "A computer engineering graduate from the university of Buea, a Rocket.Chat GSoC alumni and currently a Technical writer at Rocket.Chat. Deeply interested in cyber security and also a creative photographer.",
         "short_bio": "Technical Writer at Rocket.Chat",
-        "talk_topic": "Making the most out of GSoC",
+        "talk_topic": "Survive GSoC as a Newbie",
         "talk_summary": "GSoC is often dominated by students with some programming experience. As a newbie in tech or someone with very little knowledge, how can you survive?",
         "date_time": "06 April 2022 13:40 UTC",
         "duration_minutes" : 20 ,
@@ -104,18 +137,29 @@
         "ended": false
     },
     {
-        "id": 9,
+        "id": 12,
         "name": "Murtaza Patrawala",
         "imageUrl": "https://avatars.githubusercontent.com/u/34130764?v=4",
         "bio": "Murtaza Patrawala is a software engineer at Rocket.Chat. He started his journey with Rocket.Chat with a Google Summer of Code project where he built integrations with popular chatbot platforms like Dialogflow and Rasa. Within Rocket.Chat, he has contributed to expanding the Omnichannel product of Rocket.Chat by building various integrations with other channels like Facebook, WhatsApp, Twitter, etc",
         "short_bio": "Software Engineer at Rocket.Chat",
         "talk_topic": "Tips on writing your GSoC proposals",
         "talk_summary": "I'll be talking about my overall GSoC experience as a student back in 2020 and sharing some tips that helped me get my proposal accepted",
-        "date_time": "06 April 2022 14:40 UTC",
+        "date_time": "06 April 2022 14:00 UTC",
         "duration_minutes" : 20 ,
         "live": false,
         "ended": false
-    }
+    },
+    {
+        "id": 13,
+        "name": "Q&A and Final Notes",
+        "imageUrl": "",
+        "short_bio": "Question and final notes.",
+        "talk_topic": "Wrapping up",
+        "date_time": "06 April 2022 14:20 UTC",
+        "duration_minutes" : 20 ,
+        "live": false,
+        "ended": false
+    }    
 
 ]
 
