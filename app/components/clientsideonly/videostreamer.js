@@ -15,7 +15,8 @@ export default function Videostreamer(props) {
   }
   useEffect(() => {
     setInterval(() => {
-      pingStream().catch(e => {console.log("Stream error", e)
+      pingStream().catch(e => {
+        console.error("Stream error", e)
       setPing(false)
     })
     }, 60000)
