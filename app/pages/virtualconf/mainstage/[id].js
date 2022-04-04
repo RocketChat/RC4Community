@@ -1,24 +1,36 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import Videostreamer from '../../../components/clientsideonly/videostreamer';
 import InAppChat from '../../../components/inappchat/inappchat';
 import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import styles from '../../../styles/Videostreamer.module.css';
 import { FaRocketchat } from "react-icons/fa";
+import { getIPInfo } from '../../../lib/geoAPI';
 
 const rid = "GENERAL";
 const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
+const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
+const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
 
-const videoStreamerSrc = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_VIDEOSTREAMER_SRC
-
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage({ cookies, ipInfo }) {
   const [openChat, setOpenChat] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width: 992px)');
+  const [streamLink, setStreamLink] = useState("https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4")
 
   const handleOpenChat = () => {
     setOpenChat((prevState) => !prevState);
   };
+  
+  useEffect(() => {
+    if (ipInfo.timezone.split('/')[0] == "Asia") {
+      setStreamLink(asiaLink)
+    }
+    else {
+      setStreamLink(otherLink)
+    }
+  }, [])
+  
 
   return (
     <>
@@ -33,7 +45,7 @@ export default function ConfMainStage({ cookies }) {
         <Container fluid className={styles.videoContainer}>
           <Videostreamer
             poster='/gsocsmall.jpg'
-            src={videoStreamerSrc}
+            src={streamLink}
             type='application/vnd.apple.mpegurl'
           ></Videostreamer>
         </Container>
@@ -54,3 +66,10 @@ export default function ConfMainStage({ cookies }) {
     </>
   );
 }
+
+ConfMainStage.getInitialProps = async (ctx) => {
+  const res = await getIPInfo()
+  
+  return { ipInfo: res.data }
+}
+
