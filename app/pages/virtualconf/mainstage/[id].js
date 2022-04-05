@@ -1,40 +1,61 @@
-import Head from 'next/head';
-import { useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
-import Videostreamer from '../../../components/clientsideonly/videostreamer';
-import InAppChat from '../../../components/inappchat/inappchat';
-import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
-import styles from '../../../styles/Videostreamer.module.css';
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { Container, Button } from "react-bootstrap";
+import Videostreamer from "../../../components/clientsideonly/videostreamer";
+import InAppChat from "../../../components/inappchat/inappchat";
+import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import styles from "../../../styles/Videostreamer.module.css";
 import { FaRocketchat } from "react-icons/fa";
+import { getIPInfo } from "../../../lib/geoAPI";
 
 const rid = "GENERAL";
 const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
+const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
+const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
 
-const videoStreamerSrc = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_VIDEOSTREAMER_SRC
-
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage({ cookies, ipInfo }) {
   const [openChat, setOpenChat] = useState(true);
-  const isSmallScreen = useMediaQuery('(max-width: 992px)');
+  const isSmallScreen = useMediaQuery("(max-width: 992px)");
+  const [streamLink, setStreamLink] = useState(asiaLink);
 
   const handleOpenChat = () => {
     setOpenChat((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    try {
+      if (
+        ipInfo == null ||
+        ipInfo.timezone == undefined ||
+        ipInfo.timezone == null
+      ) {
+        return;
+      }
+      if (ipInfo.timezone.split("/")[0] == "Asia") {
+        setStreamLink(asiaLink);
+      } else {
+        setStreamLink(otherLink);
+      }
+    } catch {
+      return;
+    }
+  }, []);
+
   return (
     <>
-      <div className='d-flex flex-column flex-lg-row '>
+      <div className="d-flex flex-column flex-lg-row ">
         <Head>
           <title>Virtual Conference Main Stage</title>
           <meta
-            name='description'
-            content='Demonstration main stage for a virtual conference'
+            name="description"
+            content="Demonstration main stage for a virtual conference"
           />
         </Head>
         <Container fluid className={styles.videoContainer}>
           <Videostreamer
-            poster='/gsocsmall.jpg'
-            src={videoStreamerSrc}
-            type='application/vnd.apple.mpegurl'
+            poster="/gsocsmall.jpg"
+            src={streamLink}
+            type="application/vnd.apple.mpegurl"
           ></Videostreamer>
         </Container>
         {isSmallScreen ? (
@@ -54,3 +75,13 @@ export default function ConfMainStage({ cookies }) {
     </>
   );
 }
+
+ConfMainStage.getInitialProps = async (ctx) => {
+  try {
+    const res = await getIPInfo();
+
+    return { ipInfo: res.data };
+  } catch {
+    return { ipInfo: null };
+  }
+};
