@@ -465,7 +465,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {toggleView()}
       </div>
       {toolButton()}
-      <div className={styles.log}>{renderLog()}</div>
     </>
   );
 };
