@@ -401,7 +401,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     </div>
   );
 
-  const renderLog = () =>{
+  const renderLog = () =>
     logItems.map((item, index) => (
       <div
         style={{
@@ -413,7 +413,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {item}
       </div>
     ));
-  }
+  
   
   const renderSpinner = () => (
     <div
