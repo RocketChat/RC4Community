@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -8,7 +8,6 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 import { RiMic2Line } from "react-icons/ri";
 import { MdCameraswitch, MdHeadset } from "react-icons/md";
 import { AiFillSetting } from "react-icons/ai";
@@ -220,25 +219,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
     await ref.current.executeCommand("toggleFilmStrip");
   };
 
-  // Multiple instances demo
-  const showUsers = async (ref, which) => {
-    try {
-      const pinfo = await ref.current.getParticipantsInfo();
-      updateLog((items) => [
-        ...items,
-        "participantes " + JSON.stringify(pinfo),
-      ]);
-      await ref.current.executeCommand("setTileView", false);
-      await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
-    } catch (e) {
-      console.error("Participant not found!");
-      return;
-    }
-  };
-
-  const makeTile = (ref) => {
-    ref.current.executeCommand("setTileView", true);
-  };
 
   const renderStream = (key) => {
     if (!isAdmin) {
