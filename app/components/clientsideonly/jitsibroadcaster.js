@@ -39,6 +39,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     { speaker: "Z", hour: "50" },
   ];
 
+  //Set "showLogs" to true if you want to see logs for debugging
+  const showLogs = true;
+
   const handleDisplayName = async (hr) => {
     const tar = dataArr.find((o) => o.hour === hr);
     if (!tar || tar.speaker == name) {
@@ -398,7 +401,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     </div>
   );
 
-  const renderLog = () =>
+  const renderLog = () =>{
     logItems.map((item, index) => (
       <div
         style={{
@@ -410,7 +413,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {item}
       </div>
     ));
-
+  }
+  
   const renderSpinner = () => (
     <div
       style={{
@@ -465,6 +469,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {toggleView()}
       </div>
       {toolButton()}
+      {showLogs && <div className={styles.log}>{renderLog()}</div>}
     </>
   );
 };
