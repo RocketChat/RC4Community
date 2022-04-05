@@ -365,13 +365,21 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             p2p: {
               enabled: false,
             },
-            disableRemoteMute: true
+            disableRemoteMute: true,
+            remoteVideoMenu: {
+              disableKick: true
+            },
+            filmstrip: {
+              disableResizable: true,
+              disableStageFilmstrip: true
+            }
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 0,
             VIDEO_QUALITY_LABEL_DISABLED: true,
+            VERTICAL_FILMSTRIP: true
           }}
           userInfo={{
             displayName: disName,
