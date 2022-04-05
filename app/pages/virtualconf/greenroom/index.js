@@ -12,7 +12,7 @@ const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : 
 const adminArr = process.env.NEXT_PUBLIC_ADMIN_UIDS.split(", ");
 
 const Greenroom = () => {
-  const [openChat, setOpenChat] = useState(false);
+  const [openChat, setOpenChat] = useState(true);
 
   const cookies = {
     rc_uid: Cookie.get("rc_uid"),
