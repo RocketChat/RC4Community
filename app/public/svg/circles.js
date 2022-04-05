@@ -1,8 +1,6 @@
 export default function Circles() {
   return (
     <svg
-      width="375"
-      height="324"
       viewBox="0 0 375 324"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

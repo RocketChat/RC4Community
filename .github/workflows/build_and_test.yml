@@ -86,7 +86,10 @@ jobs:
         run: cd app && npm i --production
 
       - name: Start app
-        run: cd app; npm run dev &>/tmp/app.log &
+        run: |
+          cd app
+          npm run dev &>/tmp/app.log &
+          echo $! > /tmp/app.pid
 
       - name: Check app running
         uses: actions/github-script@v5
@@ -129,7 +132,9 @@ jobs:
       #   env: { PORT: 3000 }
 
       - name: Build prod app
-        run: cd app; npm run build
+        run: |
+          pkill -9 -F /tmp/app.pid
+          cd app; npm run build
         env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337" }
 
       - name: Generate archive
