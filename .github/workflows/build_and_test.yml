@@ -13,6 +13,7 @@ env:
   BUILD_PATH: /tmp/archive.tgz
 jobs:
   bat:
+    if: false
     runs-on: ubuntu-latest
     strategy:
       matrix: { node: [14] }
