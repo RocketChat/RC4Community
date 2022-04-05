@@ -23,9 +23,9 @@ const JitsiMeeting = dynamic(
   { ssr: false }
 );
 
-const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
+let rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
@@ -268,25 +268,31 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     ref.current.executeCommand("setTileView", true);
   };
 
-  const renderStream = (key) => (
-    <div className={styles.streamButton}>
-      <ButtonGroup className="m-auto">
-        <Button
-          variant="warning"
-          title="Click to start streaming"
-          onClick={() =>
-            apiRef.current.executeCommand("startRecording", {
-              mode: "stream",
-              rtmpStreamKey: key,
-              youtubeStreamKey: "",
-            })
-          }
-        >
-          Go live!
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
+  const renderStream = (key) => {
+    if (!isAdmin) {
+      return <div></div>;
+    }
+
+    return (
+      <div className={styles.streamButton}>
+        <ButtonGroup className="m-auto">
+          <Button
+            variant="warning"
+            title="Click to start streaming"
+            onClick={() =>
+              apiRef.current.executeCommand("startRecording", {
+                mode: "stream",
+                rtmpStreamKey: key,
+                youtubeStreamKey: "",
+              })
+            }
+          >
+            Go live!
+          </Button>
+        </ButtonGroup>
+      </div>
+    );
+  };
 
   const toggleDevice = () => (
     <div className={styles.device}>
@@ -387,6 +393,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             variant="danger"
             as="button"
             onClick={() => apiRef.current.stopRecording("stream")}
+            disabled={!isAdmin}
           >
             End for everyone!
           </Dropdown.Item>
