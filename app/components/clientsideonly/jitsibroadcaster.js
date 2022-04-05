@@ -40,7 +40,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   ];
 
   //Set "showLogs" to true if you want to see logs for debugging
-  const showLogs = true;
+  const showLogs = false;
 
   const handleDisplayName = async (hr) => {
     const tar = dataArr.find((o) => o.hour === hr);
