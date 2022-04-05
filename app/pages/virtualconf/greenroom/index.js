@@ -4,11 +4,9 @@ import styles from "../../../styles/Mainstage.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Jitsibroadcaster from "../../../components/clientsideonly/jitsibroadcaster";
 import InAppChat from "../../../components/inappchat/inappchat";
-const greenroom_rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RID;
-const host =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://community.liaison.rocketchat.digital";
+
+const greenroom_rid = "GENERAL";
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
 const Greenroom = () => {
   const [openChat, setOpenChat] = useState(false);

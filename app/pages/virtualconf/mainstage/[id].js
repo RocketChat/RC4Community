@@ -7,7 +7,7 @@ import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import styles from '../../../styles/Videostreamer.module.css';
 import { FaRocketchat } from "react-icons/fa";
 
-const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
+const rid = "GENERAL";
 const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
 
 const videoStreamerSrc = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_VIDEOSTREAMER_SRC

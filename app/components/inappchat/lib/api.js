@@ -1,18 +1,13 @@
+import axios from 'axios';
+
 export const getMessages = async (host, rid, cookies) => {
   try {
-    const messages = await fetch(
-      `${host}/api/v1/channels.messages?roomId=${rid}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
+    const messages = await axios.get(`${host}/api/v1/channels.messages?roomId=${rid}`, { headers: {
+      "Content-Type": "application/json",
           "X-Auth-Token": cookies.rc_token ?? "",
           "X-User-Id": cookies.rc_uid ?? "",
-        },
-        method: "GET",
-      }
-    );
-
-    return await messages.json();
+    } })
+    return messages.data;
   } catch (err) {
     console.log(err.message);
   }
