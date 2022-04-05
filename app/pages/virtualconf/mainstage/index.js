@@ -37,6 +37,8 @@ const Mainstage = ({ speakers }) => {
     <>
       <Head>
         <title>Conference Mainstage</title>
+        <meta name='description' content='Rocket.Chat Virtual GSOC Alumni Conference' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.main}>
         <div className={styles.hero}>
