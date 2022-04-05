@@ -349,7 +349,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
           getIFrameRef={handleJitsiIFrameRef1}
           configOverwrite={{
-            startWithAudioMuted: true,
+            startWithAudioMuted: false,
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
@@ -365,6 +365,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             p2p: {
               enabled: false,
             },
+            disableRemoteMute: true
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
