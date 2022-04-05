@@ -31,6 +31,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
   const [name, setName] = useState(null);
+  const [showLogs ,setShowLogs]  = useState(false);
   const dataArr = [
     { speaker: "A", hour: "10" },
     { speaker: "B", hour: "20" },
@@ -38,9 +39,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     { speaker: "D", hour: "40" },
     { speaker: "Z", hour: "50" },
   ];
-
-  //Set "showLogs" to true if you want to see logs for debugging
-  const showLogs = false;
 
   const handleDisplayName = async (hr) => {
     const tar = dataArr.find((o) => o.hour === hr);
@@ -397,6 +395,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         <Button color="#f5455c" onClick={handleChat}>
           <FaRocketchat />
         </Button>
+        <DropdownButton variant="light" as={ButtonGroup} title="">
+          <Dropdown.Item
+            as="button"
+            onClick={() => setShowLogs(!showLogs) }
+          >
+            {showLogs ? (<span>Hide Logs</span>) : (<span>Show Logs</span>) }
+          </Dropdown.Item>
+        </DropdownButton>
       </ButtonGroup>
     </div>
   );
