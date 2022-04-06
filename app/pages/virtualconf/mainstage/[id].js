@@ -27,7 +27,6 @@ export default function ConfMainStage({ cookies }) {
     try {
       const res = await getIPInfo();
       const ipInfo = res.data
-      console.log("insider", ipInfo)
       if (ipInfo.timezone.split("/")[0] == "Asia") {
         setStreamLink(asiaLink);
       } else {
