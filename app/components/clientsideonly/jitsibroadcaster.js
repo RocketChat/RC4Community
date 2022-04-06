@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -8,52 +8,26 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 import { RiMic2Line } from "react-icons/ri";
+import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
+
 import { MdCameraswitch, MdHeadset } from "react-icons/md";
-import { AiFillEye, AiFillSetting } from "react-icons/ai";
-import { BiUserPin } from "react-icons/bi";
-import { HiViewGridAdd } from "react-icons/hi";
+import { AiFillSetting } from "react-icons/ai";
 import styles from "../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
   { ssr: false }
 );
 
-const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
+let rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
-  const [mute, setMute] = useState(true);
-  const [name, setName] = useState(null);
-  const dataArr = [
-    { speaker: "A", hour: "10" },
-    { speaker: "B", hour: "20" },
-    { speaker: "C", hour: "30" },
-    { speaker: "D", hour: "40" },
-    { speaker: "Z", hour: "50" },
-  ];
-
-  const handleDisplayName = async (hr) => {
-    const tar = dataArr.find((o) => o.hour === hr);
-    if (!tar || tar.speaker == name) {
-      return;
-    }
-    setName(tar.speaker);
-    await apiRef.current.executeCommand("displayName", tar.speaker);
-  };
-
-  useEffect(() => {
-    setInterval(() => {
-      const tada = new Date();
-      handleDisplayName(tada.getHours().toString());
-    }, 900000);
-  }, []);
+  const [mute, setMute] = useState(false);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -62,8 +36,10 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const handleAudioStatusChange = (payload, feature) => {
     if (payload.muted) {
       updateLog((items) => [...items, `${feature} off`]);
+      setMute(true);
     } else {
       updateLog((items) => [...items, `${feature} on`]);
+      setMute(false);
     }
   };
 
@@ -248,45 +224,31 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     await ref.current.executeCommand("toggleFilmStrip");
   };
 
-  // Multiple instances demo
-  const showUsers = async (ref, which) => {
-    try {
-      const pinfo = await ref.current.getParticipantsInfo();
-      updateLog((items) => [
-        ...items,
-        "participantes " + JSON.stringify(pinfo),
-      ]);
-      await ref.current.executeCommand("setTileView", false);
-      await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
-    } catch (e) {
-      console.error("Participant not found!");
-      return;
+  const renderStream = (key) => {
+    if (!isAdmin) {
+      return <div></div>;
     }
-  };
 
-  const makeTile = (ref) => {
-    ref.current.executeCommand("setTileView", true);
+    return (
+      <div className={styles.streamButton}>
+        <ButtonGroup className="m-auto">
+          <Button
+            variant="warning"
+            title="Click to start streaming"
+            onClick={() =>
+              apiRef.current.executeCommand("startRecording", {
+                mode: "stream",
+                rtmpStreamKey: key,
+                youtubeStreamKey: "",
+              })
+            }
+          >
+            Go live!
+          </Button>
+        </ButtonGroup>
+      </div>
+    );
   };
-
-  const renderStream = (key) => (
-    <div className={styles.streamButton}>
-      <ButtonGroup className="m-auto">
-        <Button
-          variant="warning"
-          title="Click to start streaming"
-          onClick={() =>
-            apiRef.current.executeCommand("startRecording", {
-              mode: "stream",
-              rtmpStreamKey: key,
-              youtubeStreamKey: "",
-            })
-          }
-        >
-          Go live!
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
 
   const toggleDevice = () => (
     <div className={styles.device}>
@@ -328,41 +290,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     </div>
   );
 
-  const toggleView = () => (
-    <div className={styles.view}>
-      <Button variant="light" disabled>
-        <AiFillEye size={20} />
-      </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
-        >
-          <Button
-            variant="secondary"
-            onClick={() => makeTile(apiRef)}
-            title="Click to toggle tile view"
-          >
-            <HiViewGridAdd size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">First User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
-            <BiUserPin size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
-            <FiUsers size={20} />
-          </Button>
-        </OverlayTrigger>
-      </ButtonGroup>
-    </div>
-  );
-
   const toolButton = () => (
     <div className={styles.deviceButton}>
       <ButtonGroup className="m-auto">
@@ -371,7 +298,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           title="Click to toogle audio"
           onClick={() => {
             apiRef.current.executeCommand("toggleAudio");
-            setMute(!mute);
           }}
         >
           {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
@@ -387,6 +313,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             variant="danger"
             as="button"
             onClick={() => apiRef.current.stopRecording("stream")}
+            disabled={!isAdmin}
           >
             End for everyone!
           </Dropdown.Item>
@@ -435,7 +362,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
           getIFrameRef={handleJitsiIFrameRef1}
           configOverwrite={{
-            startWithAudioMuted: true,
+            startWithAudioMuted: false,
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
@@ -444,12 +371,19 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             prejoinPageEnabled: false,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: false,
-            disableSelfViewSettings: true,
+            disableTileView: false,
             disableShortcuts: true,
             disable1On1Mode: true,
             p2p: {
               enabled: false,
+            },
+            disableRemoteMute: true,
+            remoteVideoMenu: {
+              disableKick: true,
+            },
+            filmstrip: {
+              disableResizable: true,
+              disableStageFilmstrip: true,
             },
           }}
           interfaceConfigOverwrite={{
@@ -457,12 +391,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 0,
             VIDEO_QUALITY_LABEL_DISABLED: true,
+            VERTICAL_FILMSTRIP: true,
           }}
           userInfo={{
             displayName: disName,
           }}
         />
-        {toggleView()}
       </div>
       {toolButton()}
       <div className={styles.log}>{renderLog()}</div>
