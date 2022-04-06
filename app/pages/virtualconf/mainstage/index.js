@@ -27,7 +27,6 @@ const Mainstage = ({ speakers }) => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
       setTimer([days, hours, minutes, seconds]);
       if (distance < 0) {
-        clearInterval(x);
         setTimer("We are now live! ✨");
       }
     }, 1000);
@@ -71,26 +70,7 @@ const Mainstage = ({ speakers }) => {
                   program.
                 </p>
                 <p className={styles.hero__body__time}>
-                  <span className={styles.hero__body__timer}>Live In - </span>
-                  <span className={styles.hero__body__timer}>{timer[0]}</span>d
-                  <span className={styles.hero__body__timer_separation}>
-                    {" "}
-                    |{" "}
-                  </span>
-                  <span className={styles.hero__body__timer}>
-                    {timer[1]}
-                  </span>h{" "}
-                  <span className={styles.hero__body__timer_separation}>
-                    {" "}
-                    |{" "}
-                  </span>
-                  <span className={styles.hero__body__timer}>
-                    {timer[2]}
-                  </span>m{" "}
-                  <span className={styles.hero__body__timer_separation}>
-                    |{" "}
-                  </span>
-                  <span className={styles.hero__body__timer}>{timer[3]}</span>s{" "}
+                  <span className={styles.hero__body__timer}>Live!</span>
                 </p>
               </Col>
               <Col lg={6} md={0} xs={12} className={styles.hero__body__image}>
