@@ -104,13 +104,8 @@ const Mainstage = ({ speakers }) => {
             <Col md={8} xs={12} className={styles.hero__liveNow__col}>
               {new Date().getTime() - countdown.getTime() < 0 ? (
                 <p className={styles.hero__liveNow__col__heading}>
-                  Save the Date !{" "}
-                  <span className={styles.liveNowDate}>
-                    Join the Summit NOW,{" "}
-                    <a href="https://bbb.rocket.chat/b/sin-ur2-c72-cbv">
-                      https://bbb.rocket.chat/b/sin-ur2-c72-cbv
-                    </a>
-                  </span>
+                  JOIN THE SUMMIT NOW!
+                  Click  <Link href={"https://bbb.rocket.chat/b/sin-ur2-c72-cbv"}>https://bbb.rocket.chat/b/sin-ur2-c72-cbv</Link>
                 </p>
               ) : (
                 <p className={styles.hero__liveNow__col__heading}>
