@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import Styles from "../styles/SpeakerInfotiles.module.css";
 import { parseDate, parseTime } from "../lib/dateTime";
 
@@ -32,11 +31,6 @@ export default function SpeakerInfotiles({ data }) {
               {obj.talk_topic}
             </h6>
             <p className={Styles.speaker_bio}>{obj.short_bio}</p>
-            {obj.live && (
-              <Link href={obj.confHref}>
-                <button className={Styles.actionBtn}>Live</button>
-              </Link>
-            )}
           </div>
         </div>
       ))}
