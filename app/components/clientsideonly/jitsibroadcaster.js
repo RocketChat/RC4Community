@@ -25,13 +25,12 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, showLogs }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
   const [name, setName] = useState(null);
-  const [showLogs ,setShowLogs]  = useState(false);
   const dataArr = [
     { speaker: "A", hour: "10" },
     { speaker: "B", hour: "20" },
@@ -395,14 +394,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         <Button color="#f5455c" onClick={handleChat}>
           <FaRocketchat />
         </Button>
-        <DropdownButton variant="light" as={ButtonGroup} title="">
-          <Dropdown.Item
-            as="button"
-            onClick={() => setShowLogs(!showLogs) }
-          >
-            {showLogs ? (<span>Hide Logs</span>) : (<span>Show Logs</span>) }
-          </Dropdown.Item>
-        </DropdownButton>
       </ButtonGroup>
     </div>
   );

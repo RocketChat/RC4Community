@@ -29,6 +29,7 @@ const Greenroom = () => {
                 room={"GSOC Alumnus Meet"}
                 disName={"Speaker"}
                 handleChat={handleOpenChat}
+                showLogs={false}
               />
             </Col>
             {openChat && (
