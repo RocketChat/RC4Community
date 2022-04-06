@@ -31,6 +31,8 @@
 @media (min-width: 830px) {
   .device {
     margin: auto;
+    margin-left: 1em;
+    margin-right: 2em;
     display: flex;
     flex-direction: column;
   }

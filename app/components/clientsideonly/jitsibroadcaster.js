@@ -9,6 +9,8 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { RiMic2Line } from "react-icons/ri";
+import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
+
 import { MdCameraswitch, MdHeadset } from "react-icons/md";
 import { AiFillSetting } from "react-icons/ai";
 import styles from "../../styles/Jitsi.module.css";
@@ -25,6 +27,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
+  const [mute, setMute] = useState(false);
+
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -289,6 +293,16 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const toolButton = () => (
     <div className={styles.deviceButton}>
       <ButtonGroup className="m-auto">
+      <Button
+          variant="success"
+          title="Click to toogle audio"
+          onClick={() => {
+            apiRef.current.executeCommand("toggleAudio");
+            setMute(!mute);
+          }}
+        >
+          {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
+        </Button>
         <DropdownButton variant="danger" as={ButtonGroup} title="End">
           <Dropdown.Item
             as="button"
@@ -358,9 +372,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             prejoinPageEnabled: false,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: true,
             disableTileView: false,
-            disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: true,
             p2p: {
