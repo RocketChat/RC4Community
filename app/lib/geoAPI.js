@@ -1,5 +1,5 @@
 import axios from "axios";
-const ipToken = process.env.IPINFO_TOKEN;
+const ipToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
 
 export const getIPInfo = async () => {
   try {

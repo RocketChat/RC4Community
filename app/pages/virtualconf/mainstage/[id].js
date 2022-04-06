@@ -13,7 +13,7 @@ const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : 
 const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
 const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
 
-export default function ConfMainStage({ cookies, ipInfo }) {
+export default function ConfMainStage({ cookies }) {
   const [openChat, setOpenChat] = useState(true);
   const isSmallScreen = useMediaQuery("(max-width: 992px)");
   const [streamLink, setStreamLink] = useState(asiaLink);
@@ -22,22 +22,19 @@ export default function ConfMainStage({ cookies, ipInfo }) {
     setOpenChat((prevState) => !prevState);
   };
 
-  useEffect(() => {
+
+  useEffect(async () => {
     try {
-      if (
-        ipInfo == null ||
-        ipInfo.timezone == undefined ||
-        ipInfo.timezone == null
-      ) {
-        return;
-      }
+      const res = await getIPInfo();
+      const ipInfo = res.data
       if (ipInfo.timezone.split("/")[0] == "Asia") {
         setStreamLink(asiaLink);
       } else {
         setStreamLink(otherLink);
       }
-    } catch {
-      return;
+      
+    } catch (e) {
+      console.error("error in ip allocation switching to Asia server", e)
     }
   }, []);
 
@@ -76,12 +73,3 @@ export default function ConfMainStage({ cookies, ipInfo }) {
   );
 }
 
-ConfMainStage.getInitialProps = async (ctx) => {
-  try {
-    const res = await getIPInfo();
-
-    return { ipInfo: res.data };
-  } catch {
-    return { ipInfo: null };
-  }
-};
