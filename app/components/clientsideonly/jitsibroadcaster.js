@@ -216,7 +216,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
       knockingParticipant: handleKnockingParticipant,
     });
 
-    await ref.current.executeCommand("toggleTileView");
+    await ref.current.executeCommand("toggleFilmStrip");
   };
 
 
