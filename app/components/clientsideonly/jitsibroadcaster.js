@@ -216,7 +216,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
       knockingParticipant: handleKnockingParticipant,
     });
 
-    await ref.current.executeCommand("toggleFilmStrip");
+    await ref.current.executeCommand("toggleTileView");
   };
 
 
@@ -358,7 +358,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             prejoinPageEnabled: false,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: false,
+            disableSelfView: true,
+            disableTileView: false,
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: true,
