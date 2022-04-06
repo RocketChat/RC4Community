@@ -5,8 +5,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import Jitsibroadcaster from "../../../components/clientsideonly/jitsibroadcaster";
 import InAppChat from "../../../components/inappchat/inappchat";
 
-const greenroom_rid = "GENERAL";
-const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
+const greenroom_rid = "QEevFeokh4bkpX2mJ";
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat";
 
 const Greenroom = () => {
   const [openChat, setOpenChat] = useState(false);

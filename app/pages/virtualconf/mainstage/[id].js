@@ -8,12 +8,12 @@ import styles from "../../../styles/Videostreamer.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { getIPInfo } from "../../../lib/geoAPI";
 
-const rid = "GENERAL";
-const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://community.liaison.rocketchat.digital";
+const rid = "QEevFeokh4bkpX2mJ";
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat";
 const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
 const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
 
-export default function ConfMainStage({ cookies }) {
+export default function ConfMainStage() {
   const [openChat, setOpenChat] = useState(true);
   const isSmallScreen = useMediaQuery("(max-width: 992px)");
   const [streamLink, setStreamLink] = useState(asiaLink);
