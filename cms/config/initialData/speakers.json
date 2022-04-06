@@ -165,17 +165,29 @@
     },
     {
         "id": 14,
+        "name": "Karan Bedi",
+        "imageUrl": "https://media-exp1.licdn.com/dms/image/C5103AQF7LAGv0_LeBg/profile-displayphoto-shrink_800_800/0/1548759328186?e=1654732800&v=beta&t=P-k5uxD1J955b7eXjwE20_IGlABM0tR0158cdcVaSFE",
+        "bio": "",
+        "short_bio": "Ex. Co-founder & CTO Pibit.ai (YC W21), Ex. D. E. Shaw, Viasat, GSoC '19, Mentor, GSoC '18, Student, Currently transitioning into the Web3 space.",
+        "talk_topic": "Impact of GSoC on my life",
+        "talk_summary": "",
+        "date_time": "06 April 2022 14:40 UTC",
+        "duration_minutes" : 20 ,
+        "live": false,
+        "ended": false
+    },
+    {
+        "id": 15,
         "name": "Q&A and Final Notes",
         "imageUrl": "",
         "bio": "",
         "short_bio": "Question and final notes.",
         "talk_topic": "Wrapping up",
         "talk_summary": "",
-        "date_time": "06 April 2022 14:40 UTC",
+        "date_time": "06 April 2022 15:00 UTC",
         "duration_minutes" : 20 ,
         "live": false,
         "ended": false
-    }    
-
+    }
 ]
 
