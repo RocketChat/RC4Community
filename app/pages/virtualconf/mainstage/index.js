@@ -113,6 +113,8 @@ const Mainstage = ({ speakers }) => {
                   <span role="img" aria-label="sparkles">
                     ✨
                   </span>
+                  JOIN THE SUMMIT NOW!
+                  Click  <Link href={"https://bbb.rocket.chat/b/sin-ur2-c72-cbv"}>https://bbb.rocket.chat/b/sin-ur2-c72-cbv</Link>
                 </p>
               )}
               <p className={styles.hero__liveNow__col_text}>
