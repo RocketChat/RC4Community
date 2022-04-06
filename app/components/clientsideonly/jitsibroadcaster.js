@@ -29,7 +29,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(false);
 
-
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
   };
@@ -37,8 +36,10 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const handleAudioStatusChange = (payload, feature) => {
     if (payload.muted) {
       updateLog((items) => [...items, `${feature} off`]);
+      setMute(true);
     } else {
       updateLog((items) => [...items, `${feature} on`]);
+      setMute(false);
     }
   };
 
@@ -223,7 +224,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
     await ref.current.executeCommand("toggleFilmStrip");
   };
 
-
   const renderStream = (key) => {
     if (!isAdmin) {
       return <div></div>;
@@ -293,12 +293,11 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const toolButton = () => (
     <div className={styles.deviceButton}>
       <ButtonGroup className="m-auto">
-      <Button
+        <Button
           variant="success"
           title="Click to toogle audio"
           onClick={() => {
             apiRef.current.executeCommand("toggleAudio");
-            setMute(!mute);
           }}
         >
           {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
@@ -380,19 +379,19 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             },
             disableRemoteMute: true,
             remoteVideoMenu: {
-              disableKick: true
+              disableKick: true,
             },
             filmstrip: {
               disableResizable: true,
-              disableStageFilmstrip: true
-            }
+              disableStageFilmstrip: true,
+            },
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 0,
             VIDEO_QUALITY_LABEL_DISABLED: true,
-            VERTICAL_FILMSTRIP: true
+            VERTICAL_FILMSTRIP: true,
           }}
           userInfo={{
             displayName: disName,
