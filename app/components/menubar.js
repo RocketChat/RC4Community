@@ -45,24 +45,23 @@ export default function Menubar(props) {
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mx-auto'>
             {props.menu?.body?.map((item,index) => {
-              return item.sub_menus ? (
+              return item.sub_menus && item.sub_menus.length ? (
                 <NavDropdown
                   key = {item.id || item._id || `NavDropDown_${index}`}
                   title={item.label}
-                  className={`ml-4 fw-light ${styles.navbarItem}`}
+                  className={`ml-4 fw-normal ${styles.navbarItem}`}
                 >
                   {item.sub_menus.map((sub,index) => (
                     <NavDropdown.Item
                       key={sub.id || sub._id || `NavDropDownItem_${index}`}
                       href={sub.url}
-                      className={['dropdown-toggle']}
                     >
                       {sub.label}
                     </NavDropdown.Item>
                   ))}
                 </NavDropdown>
               ) : (
-                <Nav.Link href={item.url} className='fw-light' key={item.id || item._id || `NavLink_${index}`}>
+                <Nav.Link href={item.url} className='fw-normal' key={item.id || item._id || `NavLink_${index}`}>
                   {item.label}
                 </Nav.Link>
               );
@@ -72,7 +71,7 @@ export default function Menubar(props) {
             Click to Chat
           </RocketChatLinkButton>
         </Navbar.Collapse>
-        <div className="mx-1">
+        <div className="mx-2">
           <RocketChatAuthMenuButton/>
         </div>
       </Navbar>
