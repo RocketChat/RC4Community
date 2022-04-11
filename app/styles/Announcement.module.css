@@ -1,0 +1,31 @@
+
+.announcement {
+    background: rgb(255,255,255);
+    background: linear-gradient(45deg, rgb(255, 132, 132) 0%, rgba(255,0,0,1) 100%);
+}
+
+.announcement:hover{
+    background: rgb(255,61,61); 
+    background: linear-gradient(45deg, rgb(252, 24, 24) 0%, rgb(226, 18, 18) 100%);
+}
+
+.announcement_link{
+    width: inherit;
+    height: inherit;
+    text-decoration: none;
+    color: white;
+}
+
+.announcement_link:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.announcement_text {
+    font-size: clamp(16px, 2.4vw, 20px);;
+}
+
+
+
+
+  

@@ -10,6 +10,7 @@ import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
+import { getAnnouncementData } from '../lib/announcement';
 
 function Home(props) {
   return (
@@ -83,9 +84,10 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
+  const announcement = await getAnnouncementData('rc_alumini_conf');
  
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts, announcement},
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
