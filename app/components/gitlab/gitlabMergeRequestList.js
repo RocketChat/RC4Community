@@ -1,7 +1,7 @@
 import { Col, NavLink, Row } from "react-bootstrap";
 import styles from "../../styles/GitlabMergeList.module.css";
 import Image from "next/image";
-import PullsIcon from '../../public/svg/pull';
+import PullsIcon from "../../public/svg/pull";
 
 const GitlabMergeReqeust = ({ mergeRequest }) => {
   return (
@@ -43,17 +43,29 @@ const GitlabMergeReqeust = ({ mergeRequest }) => {
   );
 };
 const GitlabMergeRequestsList = (props) => {
-  const data =
-    props.data.merges.merges.length > 6
-      ? props.data.merges.merges.slice(0, 6)
-      : props.data.merges.merges;
+  let data = [];
+  if (
+    props.data &&
+    props.data.merges &&
+    Array.isArray(props.data.merges.merges)
+  ) {
+    data =
+      props.data.merges.merges.length > 6
+        ? props.data.merges.merges.slice(0, 6)
+        : props.data.merges.merges;
+  }
 
   return (
     <div
       className={`${styles.container} d-flex flex-wrap justify-content-center`}
     >
       {Array.isArray(data) ? (
-        data.map((mergeRequest) => <GitlabMergeReqeust key={mergeRequest.id} mergeRequest={mergeRequest} />)
+        data.map((mergeRequest) => (
+          <GitlabMergeReqeust
+            key={mergeRequest.id}
+            mergeRequest={mergeRequest}
+          />
+        ))
       ) : (
         <p className="text-danger"> ERROR </p>
       )}
