@@ -1,8 +1,14 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 const ContributorsList = (props) => {
-  
-  let contributors = props.data.contributors.Contributors;
+  let contributors = [];
+  if (
+    props.data &&
+    props.data.contributors &&
+    Array.isArray(props.data.contributors.Contributors)
+  ) {
+    contributors = props.data.contributors.Contributors;
+  }
 
   return (
     <div className="container">

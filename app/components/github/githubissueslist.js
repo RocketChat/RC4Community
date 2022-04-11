@@ -1,8 +1,8 @@
-import { Col, NavLink, Row } from 'react-bootstrap';
-import LikeIcon from '../../public/svg/like';
-import CommentIcon from '../../public/svg/comment';
-import IssueIcon from '../../public/svg/issue';
-import styles from '../../styles/GithubIssuesList.module.css';
+import { Col, NavLink, Row } from "react-bootstrap";
+import LikeIcon from "../../public/svg/like";
+import CommentIcon from "../../public/svg/comment";
+import IssueIcon from "../../public/svg/issue";
+import styles from "../../styles/GithubIssuesList.module.css";
 
 const GithubIssue = ({ issue }) => {
   return (
@@ -17,12 +17,14 @@ const GithubIssue = ({ issue }) => {
           </span>
           {issue.state}
         </Col>
-        <Col xs="auto" className={`${styles.numbers}`}>#{issue.number}</Col>
+        <Col xs="auto" className={`${styles.numbers}`}>
+          #{issue.number}
+        </Col>
         <Col xs="auto" className={`me-3 ${styles.numbers}`}>
           <span className="me-2">
             <LikeIcon />
           </span>
-          {issue.reactions['+1']}
+          {issue.reactions["+1"]}
         </Col>
         <Col xs="auto" className={`me-2 ${styles.numbers}`}>
           <span className="me-2">
@@ -36,10 +38,17 @@ const GithubIssue = ({ issue }) => {
 };
 
 const GithubIssuesList = (props) => {
-  const data =
-    props.data.issues.Issues.length > 10
-      ? props.data.issues.Issues.slice(0, 10)
-      : props.data.issues.Issues;
+  let data = [];
+  if (
+    props.data &&
+    props.data.issues &&
+    Array.isArray(props.data.issues.Issues)
+  ) {
+    data =
+      props.data.issues.Issues.length > 10
+        ? props.data.issues.Issues.slice(0, 10)
+        : props.data.issues.Issues;
+  }
   return (
     <div
       className={`${styles.container} d-flex flex-wrap justify-content-center`}

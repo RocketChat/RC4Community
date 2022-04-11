@@ -1,7 +1,7 @@
 import { Col, NavLink, Row } from "react-bootstrap";
 import styles from "../../styles/GithubPullRequest.module.css";
 import Image from "next/image";
-import PullsIcon from '../../public/svg/pull';
+import PullsIcon from "../../public/svg/pull";
 
 const GithubPullReqeust = ({ pull }) => {
   return (
@@ -41,10 +41,13 @@ const GithubPullReqeust = ({ pull }) => {
   );
 };
 const GithubPullRequestsList = (props) => {
-  const data =
-    props.data.pulls.pulls.length > 6
-      ? props.data.pulls.pulls.slice(0, 6)
-      : props.data.pulls.pulls;
+  let data = [];
+  if (props.data && props.data.pulls && Array.isArray(props.data.pulls.pulls)) {
+    data =
+      props.data.pulls.pulls.length > 6
+        ? props.data.pulls.pulls.slice(0, 6)
+        : props.data.pulls.pulls;
+  }
 
   return (
     <div
