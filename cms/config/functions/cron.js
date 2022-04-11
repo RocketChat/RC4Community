@@ -30,10 +30,10 @@ module.exports = {
     getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
     updateSpeakerData();
   },
-  '*/* 10 * * * *': () => {
+  '* */10 * * * *': () => {
     githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
   },
-  '*/* 30 * * * *': () => {
+  '* */30 * * * *': () => {
     gitlabKit(3472737,['issues','merges','members']);
   }
 };
