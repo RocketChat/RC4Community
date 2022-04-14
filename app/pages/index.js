@@ -11,7 +11,6 @@ import { fetchAPI } from '../lib/api';
 import { withFirebaseAuthUser } from '../components/auth/firebase';
 
 function Home(props) {
- console.log(props);
   return (
     <>
       <Head>
@@ -68,7 +67,7 @@ function Home(props) {
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Community Activity
           </h2>
-          <Discourserankedlist activities={props.communityActivities}></Discourserankedlist>
+          <Discourserankedlist activities={props.discourses}></Discourserankedlist>
         </div>
       </Container>
     </>
@@ -83,13 +82,13 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-notes');
   const infotiles=await fetchAPI('/infotiles');
   const counters=await fetchAPI('/counters');
-  const communityActivities=await fetchAPI('/community-activities');
+  const discourses=await fetchAPI('/discourses');
   const topNavItems = await fetchAPI('/top-nav-item');
 
  
   
   return {
-    props: { carousels, persons, guides, releaseNotes, topNavItems,infotiles,counters,communityActivities },
+    props: { carousels, persons, guides, releaseNotes, topNavItems,infotiles,counters,discourses },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discourses",
+  "info": {
+    "name": "discourse"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "time": {
+      "type": "string"
+    },
+    "upvotes": {
+      "type": "biginteger"
+    },
+    "comments": {
+      "type": "biginteger"
+    }
+  }
+}
