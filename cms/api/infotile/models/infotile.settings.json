@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "infotiles",
+  "info": {
+    "name": "infotile"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

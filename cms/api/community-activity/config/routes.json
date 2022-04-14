@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/persona-icons",
-      "handler": "persona-icons.find",
+      "path": "/community-activities",
+      "handler": "community-activity.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/persona-icons/count",
-      "handler": "persona-icons.count",
+      "path": "/community-activities/count",
+      "handler": "community-activity.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/persona-icons/:id",
-      "handler": "persona-icons.findOne",
+      "path": "/community-activities/:id",
+      "handler": "community-activity.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/persona-icons",
-      "handler": "persona-icons.create",
+      "path": "/community-activities",
+      "handler": "community-activity.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/persona-icons/:id",
-      "handler": "persona-icons.update",
+      "path": "/community-activities/:id",
+      "handler": "community-activity.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/persona-icons/:id",
-      "handler": "persona-icons.delete",
+      "path": "/community-activities/:id",
+      "handler": "community-activity.delete",
       "config": {
         "policies": []
       }

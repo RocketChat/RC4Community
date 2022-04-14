@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/infotiles",
+      "handler": "infotile.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/infotiles/count",
+      "handler": "infotile.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/infotiles/:id",
+      "handler": "infotile.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/infotiles",
+      "handler": "infotile.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/infotiles/:id",
+      "handler": "infotile.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/infotiles/:id",
+      "handler": "infotile.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

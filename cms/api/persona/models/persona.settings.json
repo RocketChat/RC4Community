@@ -2,8 +2,7 @@
   "kind": "collectionType",
   "collectionName": "personas",
   "info": {
-    "name": "Persona",
-    "description": ""
+    "name": "persona"
   },
   "options": {
     "increments": true,
@@ -15,8 +14,17 @@
     "name": {
       "type": "string"
     },
-    "persona_icon": {
-      "model": "persona-icons"
+    "avatar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
     }
   }
 }

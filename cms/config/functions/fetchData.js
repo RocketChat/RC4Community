@@ -13,7 +13,6 @@ module.exports = async () => {
 
   try {
     var carouselCount = await strapi.query("carousel").count();
-    var personaIconsCount = await strapi.query("persona-icons").count();
     var personaCount = await strapi.query("persona").count();
     var subMenuCount = await strapi.query("sub-menu").count();
     var topNavItemCount = await strapi.query("top-nav-item").count();
@@ -96,25 +95,6 @@ module.exports = async () => {
           description: carousel.description,
           url: carousel.url,
           imageUrl: carousel.imageUrl,
-        });
-      }
-    });
-
-    personaIcons.map(async (personaIcon, index) => {
-      if (index <= personaIconsCount - 1) {
-        await strapi.query("persona-icons").update(
-          { id: personaIcon.id },
-          {
-            icon: personaIcon.icon,
-            size: personaIcon.size,
-            color: personaIcon.color,
-          }
-        );
-      } else {
-        await strapi.query("persona-icons").create({
-          icon: personaIcon.icon,
-          size: personaIcon.size,
-          color: personaIcon.color,
         });
       }
     });
