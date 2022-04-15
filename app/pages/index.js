@@ -38,7 +38,7 @@ function Home(props) {
           </p>
         </Col>
         <Col className='mb-5 d-flex flex-column align-items-center'>
-          <h6 className='py-2 fs-6'> <a href="https://docs.rocket.chat/guides/user-guides" target="_blank">Read the Guides</a>  | <a href="https://github.com/RocketChat/Rocket.Chat/releases" target="_blank">Read Release Notes</a> </h6>
+          <h6 className='py-2 fs-6'> <a href={props?.guides?.location} target="_blank">Read the Guides</a>  | <a href={props?.releaseNotes?.location} target="_blank">Read Release Notes</a> </h6>
           <Searchbox></Searchbox>
         </Col>
         <Col>
