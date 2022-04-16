@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const Item = (props) => {
   return (
-    <div className='bg-white m-2 h-auto'>
+    <div className={`bg-white m-2 h-auto + ${styles.active_carousel}`}>
       <a
         href={props.item.url}
         target='_blank'
@@ -16,7 +16,7 @@ const Item = (props) => {
           className={styles['carousel-item-image']}
           src={props.item.imageUrl}
         />
-        <div className='p-2 p-md-3 h-auto'>
+        <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
           <h2 className={`${styles.heading}`}>{props.item.name}</h2>
           <p className={`${styles.description}`}>{props.item.description}</p>
         </div>
