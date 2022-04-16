@@ -7,13 +7,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 3rem;
   width: clamp(8rem, 14vw, 20rem);
   margin: 0.2rem;
   padding-bottom: 1rem;
 }
 .svg {
-  width: clamp(3rem, 4vw, 4rem);
+  text-align: center;
+  transform: scale(4);
+  color: #1D74F5;
 }
 .title {
   font-size: clamp(0.9rem, 2vw, 1.4rem);

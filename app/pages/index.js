@@ -41,11 +41,11 @@ function Home(props) {
           <Searchbox></Searchbox>
         </Col>
         <Col>
-          <Growthcounters counters={props.counters}></Growthcounters>
+          <Growthcounters counters={props.counters} />
         </Col>
         <Col className='my-5'>
         <div className={styles.infotiles}>
-          <Infotiles infotiles={props.infotiles}></Infotiles>
+          <Infotiles infotiles={props.infotiles} />
           </div>
         </Col>
 
@@ -55,19 +55,19 @@ function Home(props) {
           <h2 className={`mx-auto  w-auto pb-5 ${styles.title}`}>
             Latest Community News
           </h2>
-          <Newscarousel carousels={props.carousels}></Newscarousel>
+          <Newscarousel carousels={props.carousels} />
         </div>
 
         <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
           Get What You Need...
         </h2>
-        <Personacircle persons={props.persons}></Personacircle>
+        <Personacircle persons={props.persons} />
 
         <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Community Activity
           </h2>
-          <Discourserankedlist activities={props.discourses}></Discourserankedlist>
+          <Discourserankedlist activities={props.discourses} />
         </div>
       </Container>
     </>

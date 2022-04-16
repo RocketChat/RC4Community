@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/persona-icons",
+      "handler": "persona-icon.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/persona-icons/count",
+      "handler": "persona-icon.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/persona-icons/:id",
+      "handler": "persona-icon.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/persona-icons",
+      "handler": "persona-icon.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/persona-icons/:id",
+      "handler": "persona-icon.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/persona-icons/:id",
+      "handler": "persona-icon.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

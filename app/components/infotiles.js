@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Styles from "../styles/Infotiles.module.css";
 
-export default function Infotiles(data) {
+export default function Infotiles(props) {
 
   return (
     <>
-      {data && data.infotiles && data.infotiles.length && data.infotiles.map((obj) => (
+      {props?.infotiles?.map((obj) => (
         <div
           key={obj.id}
           className={obj.imageUrl ? Styles.cardWithImage : Styles.card}
