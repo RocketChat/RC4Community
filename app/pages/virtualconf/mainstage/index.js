@@ -1,17 +1,17 @@
-import Image from "next/image";
-import Link from "next/link";
-import Head from "next/head";
-import RCPlusGSocLogo from "/public/rcandgsoclogo.png";
-import CirclesSVG from "/public/svg/circles.js";
-import RCPlusGSocCompactLogo from "/public/rcandgsoclogocompact.png";
-import styles from "../../../styles/Mainstage.module.css";
-import { Container, Row, Col } from "react-bootstrap";
-import SpeakerInfotiles from "../../../components/speakerinfotile";
-import { fetchAPI } from "../../../lib/api";
-import { useEffect, useState } from "react";
-import Animation from "../../../components/animation";
+import Image from 'next/image';
+import Link from 'next/link';
+import Head from 'next/head';
+import RCPlusGSocLogo from '/public/rcandgsoclogo.png';
+import CirclesSVG from '/public/svg/circles.js';
+import RCPlusGSocCompactLogo from '/public/rcandgsoclogocompact.png';
+import styles from '../../../styles/Mainstage.module.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import SpeakerInfotiles from '../../../components/speakerinfotile';
+import { fetchAPI } from '../../../lib/api';
+import { useEffect, useState } from 'react';
+import Animation from '../../../components/animation';
 
-const countdown = new Date("04/06/2022 10:00:00 AM UTC");
+const countdown = new Date('04/06/2022 10:00:00 AM UTC');
 
 const Mainstage = ({ speakers }) => {
   const [timer, setTimer] = useState([0, 0, 0, 0]);
@@ -27,7 +27,7 @@ const Mainstage = ({ speakers }) => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
       setTimer([days, hours, minutes, seconds]);
       if (distance < 0) {
-        setTimer("We are now live! ✨");
+        setTimer('We are now live! ✨');
       }
     }, 1000);
   }, [timer]);
@@ -37,10 +37,10 @@ const Mainstage = ({ speakers }) => {
       <Head>
         <title>Conference Mainstage</title>
         <meta
-          name="description"
-          content="Rocket.Chat Virtual GSOC Alumni Conference"
+          name='description'
+          content='Rocket.Chat Virtual GSOC Alumni Conference'
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.main}>
         <div className={styles.hero}>
@@ -48,8 +48,8 @@ const Mainstage = ({ speakers }) => {
             <CirclesSVG />
           </div>
           <div className={styles.hero__topNav}>
-            <Link href="/">
-              <h3 as="h3">Rocket.Chat</h3>
+            <Link href='/'>
+              <h3 as='h3'>Rocket.Chat</h3>
             </Link>
             <Image
               src={RCPlusGSocCompactLogo}
@@ -57,7 +57,7 @@ const Mainstage = ({ speakers }) => {
             />
           </div>
           <Container className={styles.hero__body}>
-            <Row className="d-flex align-items-center ">
+            <Row className='d-flex align-items-center '>
               <Col lg={6} md={12} xs={12}>
                 <h2 className={styles.hero__body__heading}>
                   Rocket.Chat's GSOC Alumni Summit 2022
@@ -70,7 +70,9 @@ const Mainstage = ({ speakers }) => {
                   program.
                 </p>
                 <p className={styles.hero__body__time}>
-                  <span className={styles.hero__body__timer}>Live!</span>
+                  <span className={styles.hero__body__timer}>
+                    Live Stream ended
+                  </span>
                 </p>
               </Col>
               <Col lg={6} md={0} xs={12} className={styles.hero__body__image}>
@@ -84,17 +86,21 @@ const Mainstage = ({ speakers }) => {
             <Col md={8} xs={12} className={styles.hero__liveNow__col}>
               {new Date().getTime() - countdown.getTime() < 0 ? (
                 <p className={styles.hero__liveNow__col__heading}>
-                  JOIN THE SUMMIT NOW!
-                  Click  <Link href={"https://bbb.rocket.chat/b/sin-ur2-c72-cbv"}>https://bbb.rocket.chat/b/sin-ur2-c72-cbv</Link>
+                  Event Click{' '}
+                  <Link href={'https://bbb.rocket.chat/b/sin-ur2-c72-cbv'}>
+                    https://bbb.rocket.chat/b/sin-ur2-c72-cbv
+                  </Link>
                 </p>
               ) : (
                 <p className={styles.hero__liveNow__col__heading}>
-                  Event is live now!{" "}
-                  <span role="img" aria-label="sparkles">
-                    ✨
-                  </span>
-                  JOIN THE SUMMIT NOW!
-                  Click  <Link href={"https://bbb.rocket.chat/b/sin-ur2-c72-cbv"}>https://bbb.rocket.chat/b/sin-ur2-c72-cbv</Link>
+                  Recordings  are available on{' '}
+                  <Link
+                    href={
+                      'https://www.youtube.com/playlist?list=PLee3gqXJQrFW3dMG1P8qGzQ7E7Ea1SB80'
+                    }
+                  >
+                    Youtube
+                  </Link>
                 </p>
               )}
               <p className={styles.hero__liveNow__col_text}>
@@ -116,7 +122,7 @@ const Mainstage = ({ speakers }) => {
           <div className={styles.speakersContainer}>
             <SpeakerInfotiles data={speakers} />
           </div>
-        </Container>{" "}
+        </Container>{' '}
       </main>
     </>
   );
@@ -125,7 +131,7 @@ const Mainstage = ({ speakers }) => {
 export default Mainstage;
 
 export async function getStaticProps({ params }) {
-  const speakers = await fetchAPI("/speakers");
+  const speakers = await fetchAPI('/speakers');
   return {
     props: { speakers },
     revalidate: 1,
