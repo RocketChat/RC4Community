@@ -1,8 +1,6 @@
 import '../styles/Layout.module.css';
 import Footer from './footer';
 import Menubar from './menubar';
-import BookmarkSVG from '/public/svg/bookmark.js';
-import styles from '../styles/Mainstage.module.css';
 import { useRouter } from 'next/router';
 
 function Layout(props) {
@@ -12,7 +10,8 @@ function Layout(props) {
       <Menubar menu={props.menu.topNavItems} />
       {props.children}
       <Footer></Footer>
-      {pathname === '/virtualconf/mainstage' && (
+      {/* announcement component here*/}
+      {/* pathname === '/virtualconf/mainstage' && (
         <p className={styles.announcement}>
           <span className={styles.announcement__svg}>
             <BookmarkSVG />
@@ -21,7 +20,7 @@ function Layout(props) {
           <span className={styles.announcement__text}>April 6</span> for the
           LIVE conference
         </p>
-      )}
+      )*/}
     </>
   );
 }
