@@ -8,30 +8,8 @@ import styles from '../../../styles/Mainstage.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import SpeakerInfotiles from '../../../components/speakerinfotile';
 import { fetchAPI } from '../../../lib/api';
-import { useEffect, useState } from 'react';
 import Animation from '../../../components/animation';
-
-const countdown = new Date('04/06/2022 10:00:00 AM UTC');
-
 const Mainstage = ({ speakers }) => {
-  const [timer, setTimer] = useState([0, 0, 0, 0]);
-
-  useEffect(() => {
-    setInterval(() => {
-      const distance = countdown.getTime() - new Date().getTime();
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      setTimer([days, hours, minutes, seconds]);
-      if (distance < 0) {
-        setTimer('We are now live! ✨');
-      }
-    }, 1000);
-  }, [timer]);
-
   return (
     <>
       <Head>
@@ -84,25 +62,16 @@ const Mainstage = ({ speakers }) => {
         <Container>
           <Row className={styles.hero__liveNow}>
             <Col md={8} xs={12} className={styles.hero__liveNow__col}>
-              {new Date().getTime() - countdown.getTime() < 0 ? (
-                <p className={styles.hero__liveNow__col__heading}>
-                  Event Click{' '}
-                  <Link href={'https://bbb.rocket.chat/b/sin-ur2-c72-cbv'}>
-                    https://bbb.rocket.chat/b/sin-ur2-c72-cbv
-                  </Link>
-                </p>
-              ) : (
-                <p className={styles.hero__liveNow__col__heading}>
-                  Recordings  are available on{' '}
-                  <Link
-                    href={
-                      'https://www.youtube.com/playlist?list=PLee3gqXJQrFW3dMG1P8qGzQ7E7Ea1SB80'
-                    }
-                  >
-                    Youtube
-                  </Link>
-                </p>
-              )}
+              <p className={styles.hero__liveNow__col__heading}>
+                Recordings are available on{' '}
+                <Link
+                  href={
+                    'https://www.youtube.com/playlist?list=PLee3gqXJQrFW3dMG1P8qGzQ7E7Ea1SB80'
+                  }
+                >
+                  Youtube
+                </Link>
+              </p>
               <p className={styles.hero__liveNow__col_text}>
                 Open Source is not only about technology. It's about people too!
                 Human connections that will expand your network and enable you
