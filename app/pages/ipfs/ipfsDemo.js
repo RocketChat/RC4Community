@@ -7,6 +7,7 @@ import { useState } from "react";
 function IPFSdemo() {
 
     const [fileUrl, updateFileUrl] = useState(``)
+    const [cid, setCID] = useState('')
     
     const getIPFS = async (e) => {
         const file = e.target.files[0]
@@ -16,12 +17,12 @@ function IPFSdemo() {
         console.log("ipfs", ipfs)
         const { cid } = await ipfs.add(file)
         const url = `https://ipfs.io/ipfs/${cid.toString()}`
-      updateFileUrl(cid.toString())
+        updateFileUrl(url)
+
+        setCID(cid.toString())
         // const { cid } = await ipfs.add('Hello world')
 
-        console.info(cid.toString())
-        await ipfs.stop()
-    
+        console.info(file)    
       }
 
   return (
@@ -38,9 +39,13 @@ function IPFSdemo() {
         <Button onClick={getIPFS}>IPFS</Button>
         <input
         type="file"
+        accept="image/*"
+        capture="camera"
         onChange={getIPFS}
         />
-        {fileUrl && <div>The CID: {fileUrl}</div>}
+        {fileUrl && <div>The CID: <a href={fileUrl}>{cid}</a></div>}
+        {fileUrl && <div>The CID: <img src={fileUrl}></img></div>}
+
         
     </div>
   );
