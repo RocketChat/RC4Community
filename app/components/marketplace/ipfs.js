@@ -1,8 +1,8 @@
-import { Button, Card, Image, Stack } from "react-bootstrap";
+import { Button, Card, Image, Spinner, Stack } from "react-bootstrap";
 import * as IPFS from "ipfs-core";
 import { useRef, useState } from "react";
 
-const IpfsAdder = () => {
+const IpfsAdder = ({ showText }) => {
   const [fileUrl, updateFileUrl] = useState(``);
   const [cid, setCID] = useState("");
   const [adding, setAdding] = useState(false);
@@ -10,16 +10,23 @@ const IpfsAdder = () => {
   const hiddenInput = useRef(null);
 
   const getIPFS = async (e) => {
-    const file = e.target.files[0];
+    try {
+      setAdding(true);
+      const file = e.target.files[0];
 
-    const ipfs = await IPFS.create({ repo: "ok" + Math.random() });
+      const ipfs = await IPFS.create({ repo: "ok" + Math.random() });
 
-    console.log("ipfs", ipfs);
-    const { cid } = await ipfs.add(file);
-    const url = `https://ipfs.io/ipfs/${cid.toString()}`;
-    updateFileUrl(url);
+      console.log("ipfs", ipfs);
+      const { cid } = await ipfs.add(file);
+      const url = `https://ipfs.io/ipfs/${cid.toString()}`;
+      updateFileUrl(url);
 
-    setCID(cid.toString());
+      setCID(cid.toString());
+      setAdding(false);
+    } catch (e) {
+      setAdding(false);
+      console.error("An error occurred while uploading media", e);
+    }
   };
 
   const handleInputClick = (event) => {
@@ -27,10 +34,22 @@ const IpfsAdder = () => {
   };
 
   return (
-    <>
+    <div className="mx-auto">
       <Stack direction="vertical" gap={2}>
         <Stack direction="horizontal" gap={2}>
-          <Button onClick={handleInputClick}>IPFS</Button>
+          <Button disabled={adding} onClick={handleInputClick}>
+            {adding ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              showText
+            )}
+          </Button>
           <input
             type="file"
             style={{ display: "none" }}
@@ -44,7 +63,7 @@ const IpfsAdder = () => {
 
         {fileUrl && <PreviewImage srcUrl={fileUrl} />}
       </Stack>
-    </>
+    </div>
   );
 };
 
