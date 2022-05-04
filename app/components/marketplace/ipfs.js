@@ -1,4 +1,4 @@
-import { Button, Card, Image, Spinner, Stack } from "react-bootstrap";
+import { Button, Card, Spinner, Stack } from "react-bootstrap";
 import * as IPFS from "ipfs-core";
 import { useRef, useState } from "react";
 
