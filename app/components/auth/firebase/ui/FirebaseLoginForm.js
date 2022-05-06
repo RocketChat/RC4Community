@@ -13,13 +13,34 @@ import {getApp} from 'firebase/app';
 import { useState } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
 import {FB_APP_NAME} from '../lib/constants';
+import { useMutation, gql } from '@apollo/client'
+import Cookies from "js-cookie";
+
+
+const UPSERT_USER = gql`
+  mutation UpsertUser($uid: String!, $email: String!, $displayName: String!, $phoneNumber: String, $photoURL: String  ) {
+    upsertUser(uid: $uid, email: $email, displayName: $displayName, phoneNumber: $phoneNumber, photoURL: $photoURL) {
+      _id
+      uid
+      email
+      displayName
+      phoneNumber
+      photoURL
+    }
+  }
+`;
 
 export default function FirebaseLoginForm({onSignupClick}){
+    const [upsertUserFunc, { data, loading, error }] = useMutation(UPSERT_USER);
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [errorMessage,setError] = useState("");
     const [diffCredError,setDiffCredError] = useState(null);
     const [progress,setProgress] = useState(false);
+
+    if(error) console.log("Error Provider = ", error)
+    if(data) console.log("Data = ", data)
+    if(loading) console.log("Loading = ", loading)
 
     const doEmailPasswordLogin = async (e) => {
         e.preventDefault();
@@ -30,7 +51,7 @@ export default function FirebaseLoginForm({onSignupClick}){
         try {
             const fbApp = getApp(FB_APP_NAME);
             const userCred = await signInWithEmailAndPassword(getAuth(fbApp),email,password);
-
+            Cookies.set('user', userCred.user.uid);
             if(diffCredError?.oldProvider?.providerId === EmailAuthProvider.PROVIDER_ID){
                 // The signin was requested to link new credentials with the account 
                 await linkWithCredential(userCred.user,OAuthProvider.credentialFromError(diffCredError.error));
@@ -59,6 +80,16 @@ export default function FirebaseLoginForm({onSignupClick}){
         const auth = getAuth(fbApp);
         try {
             const userCred = await signInWithPopup(auth,provider);
+            Cookies.set('user', userCred.user.uid);
+            await upsertUserFunc({
+                variables: {
+                    uid: userCred.user.uid,
+                    email: userCred.user.email,
+                    displayName: userCred.user.displayName,
+                    phoneNumber: userCred.user.phoneNumber,
+                    photoURL: userCred.user.photoURL
+                },
+              })
             if(diffCredError){
                 // The signin was requested to link new credentials with the account 
                 await linkWithCredential(userCred.user,OAuthProvider.credentialFromError(diffCredError.error));

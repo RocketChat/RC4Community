@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import { useFirebaseAuthUser } from "../lib/functions";
@@ -6,6 +7,11 @@ export default function FirebaseUserInfo(){
     const user = useFirebaseAuthUser();
     if(!user.id)
         return <div/>;
+    
+    const doSignOut = () => {
+        user.signOut()
+        Cookies.remove('user')
+    }
 
     return (
         <>
@@ -34,7 +40,7 @@ export default function FirebaseUserInfo(){
                 </div>
             </div>
             <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">
-                <Button variant="secondary" onClick={()=>user.signOut()}>Sign Out</Button>
+                <Button variant="secondary" onClick={doSignOut}>Sign Out</Button>
             </div>
         </>
     )

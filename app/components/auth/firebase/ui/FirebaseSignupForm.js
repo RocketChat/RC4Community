@@ -1,17 +1,43 @@
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification} from "firebase/auth";
 import {getApp} from 'firebase/app';
 import {reload} from 'firebase/auth';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
 import {FB_APP_NAME} from '../lib/constants';
+import { useMutation, gql } from '@apollo/client'
+import Cookies from "js-cookie";
+
+const UPSERT_USER = gql`
+  mutation UpsertUser($uid: String!, $email: String!, $displayName: String!, $phoneNumber: String, $photoURL: String  ) {
+    upsertUser(uid: $uid, email: $email, displayName: $displayName, phoneNumber: $phoneNumber, photoURL: $photoURL) {
+      _id
+      uid
+      email
+      displayName
+      phoneNumber
+      photoURL
+    }
+  }
+`;
+
 
 export default function FirebaseSignupForm({onSignupComplete}){
+    const [upsertUserFunc, { data, loading, error }] = useMutation(UPSERT_USER);
     const [email,setEmail] = useState("");
     const [name,setName] = useState("");
     const [password1,setPassword1] = useState("");
     const [password2,setPassword2] = useState("");
     const [errorMessage,setError] = useState("");
     const [progress,setProgress] = useState(false);
+
+    useEffect(() => {
+        if(data) {
+          console.log(data);
+        }
+      }, [data])
+    
+    if(loading) console.log("Loading ", loading);
+    if(error) console.log("Error = ", error);
 
     const doEmailPasswordSignup = async (e) => {
         e.preventDefault();
@@ -44,6 +70,16 @@ export default function FirebaseSignupForm({onSignupComplete}){
             const userCred = await createUserWithEmailAndPassword(getAuth(fbApp),email,password1);
             await updateProfile(userCred.user,{displayName: name});
             await reload(userCred.user);
+            upsertUserFunc({
+                variables: {
+                    uid: userCred.user.uid,
+                    email: userCred.user.email,
+                    displayName: userCred.user.displayName,
+                    phoneNumber: userCred.user.phoneNumber,
+                    photoURL: userCred.user.photoURL
+                },
+              })
+            Cookies.set('user', userCred.user.uid);
             await sendEmailVerification(userCred.user);
             onSignupComplete && onSignupComplete();
         } catch(error){
