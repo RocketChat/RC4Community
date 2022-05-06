@@ -1,21 +1,46 @@
-import Head from 'next/head';
-import { useState } from "react";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Videostreamer from "../../../components/clientsideonly/videostreamer";
-import InAppChat from '../../../components/inappchat/inappchat';
+import InAppChat from "../../../components/inappchat/inappchat";
+import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import styles from "../../../styles/Videostreamer.module.css";
+import { FaRocketchat } from "react-icons/fa";
+import { getIPInfo } from "../../../lib/geoAPI";
 
-const rid = process.env.NEXT_PUBLIC_ROCKET_CHAT_CONF_RID;
+const rid = "QEevFeokh4bkpX2mJ";
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat";
+const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
+const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
 
-export default function ConfMainStage({ cookies }) {
-  const [openChat, setOpenChat] = useState(false);
+export default function ConfMainStage() {
+  const [openChat, setOpenChat] = useState(true);
+  const isSmallScreen = useMediaQuery("(max-width: 992px)");
+  const [streamLink, setStreamLink] = useState(asiaLink);
 
   const handleOpenChat = () => {
     setOpenChat((prevState) => !prevState);
   };
 
+
+  useEffect(async () => {
+    try {
+      const res = await getIPInfo();
+      const ipInfo = res.data
+      if (ipInfo.timezone.split("/")[0] == "Asia") {
+        setStreamLink(asiaLink);
+      } else {
+        setStreamLink(otherLink);
+      }
+      
+    } catch (e) {
+      console.error("error in ip allocation switching to Asia server", e)
+    }
+  }, []);
+
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex flex-column flex-lg-row ">
         <Head>
           <title>Virtual Conference Main Stage</title>
           <meta
@@ -23,28 +48,28 @@ export default function ConfMainStage({ cookies }) {
             content="Demonstration main stage for a virtual conference"
           />
         </Head>
-        <Container
-          fluid>
-            <Videostreamer poster="/gsocsmall.jpg"  
-            src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
-            type='video/mp4'> 
-            </Videostreamer> 
-            
+        <Container fluid className={styles.videoContainer}>
+          <Videostreamer
+            poster="/gsocsmall.jpg"
+            src={streamLink}
+            type="application/vnd.apple.mpegurl"
+          ></Videostreamer>
         </Container>
-        {openChat ? (
-          <InAppChat closeChat={handleOpenChat} cookies={cookies} rid={rid} />
+        {isSmallScreen ? (
+          <InAppChat closeChat={handleOpenChat} host={host} rid={rid} />
+        ) : openChat ? (
+          <InAppChat closeChat={handleOpenChat} host={host} rid={rid} />
         ) : (
-          <Button onClick={handleOpenChat}>Open Chat</Button>
+          <Button
+            className={`${styles.chatButton} border border-danger`}
+            onClick={handleOpenChat}
+            variant="danger"
+          >
+            <FaRocketchat size={25} />
+          </Button>
         )}
       </div>
     </>
   );
 }
 
-ConfMainStage.getInitialProps = ({ req }) => {
-  const cookies = req.cookies;
-
-  return {
-    cookies,
-  };
-};

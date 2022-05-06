@@ -1,28 +1,21 @@
-import { rcURL } from "../helpers";
+import axios from 'axios';
 
-export const getMessages = async (rid, cookies) => {
+export const getMessages = async (host, rid, cookies) => {
   try {
-    const messages = await fetch(
-      `${rcURL.origin}/api/v1/channels.messages?roomId=${rid}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
+    const messages = await axios.get(`${host}/api/v1/channels.messages?roomId=${rid}`, { headers: {
+      "Content-Type": "application/json",
           "X-Auth-Token": cookies.rc_token ?? "",
           "X-User-Id": cookies.rc_uid ?? "",
-        },
-        method: "GET",
-      }
-    );
-
-    return await messages.json();
+    } })
+    return messages.data;
   } catch (err) {
     console.log(err.message);
   }
 };
 
-export const sendMessage = async (rid, message, cookies) => {
+export const sendMessage = async (host, rid, message, cookies) => {
   try {
-    const msg = await fetch(`${rcURL.origin}/api/v1/chat.sendMessage`, {
+    const msg = await fetch(`${host}/api/v1/chat.sendMessage`, {
       body: `{"message": { "rid": "${rid}", "msg": "${message}" }}`,
       headers: {
         "Content-Type": "application/json",

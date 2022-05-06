@@ -1,7 +1,8 @@
 'use strict';
 const { getLatestCommunityActivity } = require("./fetchTopPosts");
 const { getCommunityContributors } = require("./fetchContributors")
-const { getGithubIssues, getGithubContributors } = require("./github");
+const { githubKit } = require("./github");
+const { updateSpeakerData } = require('./speaker')
 /**
  * Cron config that gives you an opportunity
  * to run scheduled jobs.
@@ -25,9 +26,9 @@ module.exports = {
   },
   '*/60 * * * * *': () => {
     getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
+    updateSpeakerData();
   },
-  '*/0 0 1 * * *': () => {
-    getGithubIssues('RocketChat', 'RC4Community');
-    getGithubContributors('RocketChat', 'RC4Community');
+  '*/* 10 * * * *': () => {
+    githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
   }
 };

@@ -1,55 +1,106 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Karla:wght@200;300;400;500;600;700;800&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .main {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-.topNav {
+.hero {
+  background: linear-gradient(to right, #030c1a, #03122c);
+  color: white;
+  padding-bottom: 0rem;
+}
+.hero__SVG {
+  position: absolute;
+  width: 65%;
+  max-width: 24rem;
+}
+
+.hero__topNav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2.2rem;
-  margin-left: 4.2rem;
+  max-width: 100rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero__topNav h3 {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 300;
+}
+.hero__topNav__image {
+  display: none !important;
 }
 
-.container {
-  background-color: #030c1a;
-  color: white;
-  padding-bottom: 4.2rem;
+.hero__body {
+  max-width: 100rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem 2.2rem;
+  padding-bottom: 6rem;
 }
 
-.container h2 {
-  margin-top: 3rem;
-  font-size: 2rem;
-  line-height: 42px;
+.hero__body__heading {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(32px, 7vw, 48px);
+  font-weight: 500;
+}
+.hero__body__text {
+  font-size: clamp(14px, 3vw, 18px);
+  font-weight: 400;
+  color: #cccccc;
+}
+.hero__body__time {
+  padding-top: 2rem;
+  font-size: clamp(12px, 4vw, 16px);
+  font-weight: 300;
 }
 
-.container p {
+.hero__body__timer {
+  font-size: clamp(16px, 10vw, 28px);
+  font-weight: 500;
+}
+.hero__body__timer_separation {
+  font-size: clamp(18px, 12vw, 32px);
+  font-weight: 200;
+}
+
+.hero p {
   margin-top: 2rem;
   line-height: 26px;
 }
 
-.container svg {
-  position: absolute;
-}
-
-.headerTitle {
-  font-weight: 300;
-  cursor: pointer;
-}
-
-.thinText {
-  font-weight: 200;
-}
-
-.liveNow {
+.hero__liveNow {
   border-width: 4px;
   border-style: solid;
-  border-image: linear-gradient(to right, #f5455c, #ffffff) 1;
+  border-image: linear-gradient(to right, #f5455c, #ffe9e9) 1;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 4.2rem 0;
   padding: 2rem;
+  text-align: start;
   background-color: white;
+}
+
+.hero__liveNow__col__heading {
+  font-size: clamp(10px, 6vw, 20px);
+  font-weight: 600;
+}
+
+.hero__liveNow__col__image {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hero__liveNow__col__text {
+  font-size: clamp(14px, 3vw, 18px);
+  font-weight: 400;
+}
+
+.liveNowDate {
+  color: #f8445f;
 }
 
 .heading {
@@ -61,11 +112,7 @@
   margin-bottom: 2.2rem;
 }
 
-.rcgsoccompactlogo {
-  display: none !important;
-}
-
-.liveNowInnerCol {
+.hero__liveNow_col {
   margin-top: 1rem;
 }
 
@@ -77,8 +124,26 @@
   border-radius: 3px;
 }
 
-.imageHolders {
+.hero__body__image,
+.hero__liveNow__image {
   text-align: right;
+}
+.arrow__left {
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid rgb(255, 255, 255);
+}
+
+.hero__liveNow__col__box {
+  width: 14rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #030c1a;
+  border-bottom: 2px solid #f5455c;
 }
 
 .speakersContainer {
@@ -89,48 +154,126 @@
 .footer {
   text-align: center;
   padding: 1rem;
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   color: #f8445f;
 }
 
 .footerText {
   cursor: pointer;
 }
+.announcement {
+  background-color: #030c1a;
+  color: whitesmoke;
+  text-align: center;
+  padding: 1.3rem 0;
+  position: sticky;
+  display: fixed;
+  bottom: 0;
+  margin-bottom: 0;
+  z-index: 10;
+}
 
-@media (max-width: 1200px) {
+.announcement__text {
+  font-weight: bold;
+  font-size: clamp(14px, 4vw, 1.1rem);
+}
+.announcement__svg {
+  display: inline-block;
+  width: clamp(24px, 4vw, 30px);
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+  height: clamp(24px, 4vw, 30px);
+}
+.track {
+  width: 6rem;
+  height: 14rem;
+  transform: translateX(4rem);
+  z-index: 2;
+  position: absolute;
+  animation: 2s all;
+}
+
+.emojiAnimationContainer {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  font-size: 1.2rem;
+  animation-iteration-count: 2;
+  animation: emojiAnimationXaxis 2.5s ease-in-out infinite;
+}
+
+@media (max-width: 990px) {
   .speakersContainer {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero__body__image {
+    text-align: center;
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .topNav {
-    margin: 0;
+  .hero__body {
+    padding: 3rem 2.2rem;
+    padding-bottom: 3rem;
   }
-  .container {
-    padding: 0;
-    margin: 0;
+
+  .hero__body__timer {
+    padding-top: 0;
+    font-size: clamp(16px, 6vw, 38px);
   }
-  .container h2 {
-    margin-top: 4rem;
-    margin-bottom: 2rem;
-    font-size: 2.7rem;
+  .hero__body__timer_separation {
+    padding-top: 0rem;
+    font-size: clamp(18px, 8vw, 44px);
+    font-weight: 300;
   }
-  .imageHolders {
-    text-align: center;
+  .hero__body__time {
+    font-size: clamp(14px, 4vw, 22px);
   }
+
   .speakersContainer {
     grid-template-columns: repeat(1, 1fr);
     place-items: center;
   }
-  .liveNowInnerCol {
+  .hero__liveNow {
+    padding: 2rem 1rem;
+    margin: 2rem 1rem;
+  }
+  .hero__liveNow_col {
     text-align: center;
     margin-bottom: 2.2rem;
+  }
+  .hero__liveNow__col__image {
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
   }
   .rcgsoclogo {
     display: none !important;
   }
-  .rcgsoccompactlogo {
+  .hero__topNav__image {
     display: block !important;
+  }
+  .track {
+    width: 3rem;
+    transform: translateX(6rem);
+  }
+}
+
+@keyframes emojiAnimationXaxis {
+  0% {
+    bottom: 5px;
+    opacity: 0;
+    scale: 0.3;
+  }
+  40% {
+    opacity: 1;
+    scale: 0.9;
+  }
+  100% {
+    bottom: 13rem;
+    opacity: 0;
+    scale: 1;
   }
 }

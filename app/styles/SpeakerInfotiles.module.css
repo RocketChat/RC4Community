@@ -1,0 +1,70 @@
+.card {
+    width: clamp(15rem, 24vw, 17rem);
+    height: clamp(8rem, 16vw, 11rem);
+    background-color: #f7f8fa;
+    border-radius: 6px;
+    margin: clamp(0.4rem, 2vw, 1rem);
+  }
+  
+  .card_content {
+    padding: clamp(1.1rem, 2vw, 1.8rem) clamp(1.4rem, 2vw, 1.8rem) ;
+  }
+  
+  .cardWithImage {
+    width: 17rem;
+    background-color: #f7f8fa;
+    border-radius: 6px;
+    margin: clamp(0.4rem, 2vw, 1rem);
+    padding-bottom: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .actionBtn {
+    background-color: #F8445F;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 0.3rem 1rem;
+    margin-right: 1rem;
+  }
+  
+  .card_heading {
+    font-size: clamp(1rem, 1.4vw, 1.4rem);
+    padding-bottom: 8px;
+  }
+  
+  .card_body {
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    font-weight: 300;
+  }
+  
+  .card:hover,
+  .card:active {
+    background: #1d74f5;
+    color: white;
+  }
+  .talk_topic {
+    font-size: clamp(0.95rem, 1.3vw, 1rem);
+    font-weight: 400;
+    color: black
+  }
+
+  .talk_topic_live {
+    font-size: clamp(0.95rem, 1.3vw, 1rem);
+    font-weight: 400;
+    color: #F8445F;
+  }
+
+
+  .speaker_bio{
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    font-weight: 300;
+    margin-bottom: clamp(0.85rem, 1.3vw, 1rem);
+  }
+
+  .talk_timing{
+    font-size: clamp(0.55rem, 1.3vw, 0.85rem);
+    font-weight: 300;
+    margin-bottom: clamp(0.55rem, 1.3vw, 1rem);
+  }

@@ -1,16 +1,21 @@
-name: Build and Test
+name: "Build, Test, Deploy"
 
 on:
   pull_request: #{ types: [ready_for_review] }
   push: { branches: [master] }
   #release: { types: [published] }
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  BUILD_PATH: /tmp/archive.tgz
 jobs:
   bat:
     runs-on: ubuntu-latest
-    if: false
     strategy:
-      matrix: { node: [12, 14] }
+      matrix: { node: [14] }
 
     steps:
       - name: Clone repo
@@ -29,7 +34,7 @@ jobs:
 
       - name: Start cms
         run: cd cms; npm run develop &> /tmp/cms.log &
-        env: { INITIALIZE_DATA: 'true' }
+        env: { INITIALIZE_DATA: "true" }
 
       - name: Check cms running
         uses: actions/github-script@v5
@@ -41,7 +46,7 @@ jobs:
             const http = require('http');
             const {readFileSync} = require('fs');
             core.info('waiting 1 minute for strapi data initialization to complete ..');
-            await new Promise(zzz => setTimeout(zzz, 60 * 1000));
+            await new Promise(zzz => setTimeout(zzz, 2 * 60 * 1000));
             http
               .request(`http://localhost:${process.env.PORT}/_health`, { method: 'HEAD' }, r => {
                 if (r.statusCode === 204 && r.headers.strapi === 'You are so French!')
@@ -81,7 +86,10 @@ jobs:
         run: cd app && npm i --production
 
       - name: Start app
-        run: cd app; npm run dev &>/tmp/app.log &
+        run: |
+          cd app
+          npm run dev &>/tmp/app.log &
+          echo $! > /tmp/app.pid
 
       - name: Check app running
         uses: actions/github-script@v5
@@ -123,37 +131,77 @@ jobs:
       #     echo "app successfully started"
       #   env: { PORT: 3000 }
 
-      # - name: Build app (scalable)
-      #   run: cd app; npm run build
-      #   env: { NEXT_PUBLIC_STRAPI_API_URL: 'http://localhost:1337' }
+      - name: Build prod app
+        run: |
+          pkill -9 -F /tmp/app.pid
+          cd app; npm run build
+        env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337" }
 
-  #     - name: Build non-scalable app build archive
-  #       run: cd app; tar zcvf /tmp/site.tgz out
+      - name: Generate archive
+        run: |
+          cd app
+          echo $GITHUB_SHA > /tmp/.github_sha
+          echo $GITHUB_REF > /tmp/.github_ref
+          tar zcvf ${{ env.BUILD_PATH }} \
+            .next \
+            ecosystem.config.js \
+            next.config.js \
+            package-lock.json \
+            package.json \
+            /tmp/.github_sha \
+            /tmp/.github_ref
 
-  #     - name: Upload archive
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: non_scalable_build
-  #         path: /tmp/site.tgz
+      - name: Upload archive
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: ${{ env.BUILD_PATH }}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'release'
-  #   needs: [bat]
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }} # don't wanna run on prs
+    needs: [bat]
 
-  #   steps:
-  #     - name: Get non-scalable build
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: non_scalable_build
-  #         path: /tmp/
+    steps:
+      - name: Download build archive
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: /tmp/
 
-  #     - name: Deploy
-  #       uses: debdutdeb/rc4community.deploy.action@main
-  #       with:
-  #         remote_host: ${{ secrets.REMOTE_HOST }}
-  #         remote_host_port: ${{ secrets.REMOTE_PORT }}
-  #         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         remote_user: ${{ secrets.SSH_USER }}
-  #         source: /tmp/site.tgz
-  #         destination: ${{ secrets.DEPLOY_DESTINATION }}
+      # - name: Push archive
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     SOURCE: ${{ env.BUILD_PATH }}
+      #     TARGET: ${{ secrets.TARGET }}
+      #     REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+      #     REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      #     REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #
+      # - name: Start remote service
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.REMOTE_HOST }}
+      #     port: ${{ secrets.REMOTE_PORT }}
+      #     username: ${{ secrets.REMOTE_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       target=${{ secrets.TARGET }}
+      #       build_path=${{ secrets.BUILD_PATH }}
+      #       cd $target
+      #       tar zxf $build_path
+      #       rm -f $build_path
+      #       npm install --production
+      #       pm2 reload ecosystem.config.js
+
+      - name: Push archive and start service
+        uses: debdutdeb/rc4community.deploy.action@main
+        with:
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_port: ${{ secrets.REMOTE_PORT }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ${{ env.BUILD_PATH }}
+          target: ${{ secrets.TARGET }}

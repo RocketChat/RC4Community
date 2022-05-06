@@ -1,0 +1,46 @@
+.device {
+  margin-top: 5em;
+}
+
+.view {
+  margin-top: 5em;
+  margin-left: 17px;
+}
+
+.streamButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.deviceButton {
+  display: flex;
+  margin-top: 10px;
+}
+
+.jitsiContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.log {
+  display: flex;
+  flex-direction: column-reverse;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+@media (min-width: 830px) {
+  .device {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .view {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
