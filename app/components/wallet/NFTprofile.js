@@ -39,7 +39,10 @@ const NFTProfile = ({ limit }) => {
       setBmess("Connecting Wallet...");
       const account = await connectAccount();
       setBmess("Fetching assets...");
-      const fessets = await fetchAssets(account, limit);
+      // before
+      // const fessets = await fetchAssets(account, limit);
+
+      const fessets = await fetchAssets('0xc361fc33b99f88612257ac8cc2d852a5cee0e217', limit);
       if (fessets.owner) {
         setErrMess(fessets.owner[0]);
         setShowErr(true);
@@ -69,7 +72,7 @@ const NFTProfile = ({ limit }) => {
 };
 
 const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
-    console.log("assets", assets[0])
+    console.log("assets", assets)
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -77,7 +80,7 @@ const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
           <Modal.Title>Select a NFT</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.selectNFT}>
-          {assets[0] ?
+          {assets ?
             assets.map(
               (a, i) =>
                 a.image_url && (
