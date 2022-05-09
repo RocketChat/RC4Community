@@ -42,7 +42,7 @@
 
 .selectNFT {
   overflow: auto;
-  height: 50vw;
+  height: 25vw;
   display: flex;
   flex-wrap: wrap;
 }

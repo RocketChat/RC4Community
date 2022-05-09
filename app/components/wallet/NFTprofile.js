@@ -39,10 +39,8 @@ const NFTProfile = ({ limit }) => {
       setBmess("Connecting Wallet...");
       const account = await connectAccount();
       setBmess("Fetching assets...");
-      // before
-      // const fessets = await fetchAssets(account, limit);
 
-      const fessets = await fetchAssets('0xc361fc33b99f88612257ac8cc2d852a5cee0e217', limit);
+      const fessets = await fetchAssets(account, limit);
       if (fessets.owner) {
         setErrMess(fessets.owner[0]);
         setShowErr(true);
