@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Image, Modal } from "react-bootstrap";
 import { connectAccount, fetchAssets } from "../../lib/walletAPI";
 import { ErrorModal } from "./connectMeta";
 import styles from "../../styles/meta.module.css";
+import { gql, useMutation } from "@apollo/client";
+import Cookies from "js-cookie";
+
+const UPSERT_NFT = gql`
+  mutation UpsertNFT($id: String!, $address: String!, $token: String!) {
+    upsertNFT(id: $id, address: $address, token: $token) {
+      _id
+      address
+      token
+    }
+  }
+`;
 
 const NFTProfile = ({ limit }) => {
   const [assets, setAssets] = useState(null);
@@ -57,7 +69,9 @@ const NFTProfile = ({ limit }) => {
   };
   return (
     <>
-      <Button variant="warning" onClick={handleButton}>{bmess}</Button>
+      <Button variant="warning" onClick={handleButton}>
+        {bmess}
+      </Button>
       <ErrorModal show={showErr} handleClose={handleClose} err={errMess} />
       <GalleryModal
         show={preview}
@@ -70,7 +84,22 @@ const NFTProfile = ({ limit }) => {
 };
 
 const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
-    console.log("assets", assets)
+  const uid = Cookies.get("user");
+  const [upsertNFT, { data, loading, error }] = useMutation(UPSERT_NFT);
+  useEffect(() => {
+    if (data) {
+      console.log("data is", data);
+    }
+  }, [data]);
+  if (loading) return "Submitting...";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    upsertNFT({ variables: { id: `${uid}`, address: "lc", token: "rest2" } });
+  };
+  if (error) {
+    console.log(`Submission error! ${error.message}`);
+  }
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -78,26 +107,27 @@ const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
           <Modal.Title>Select a NFT</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.selectNFT}>
-          {assets ?
-            assets.map(
-              (a, i) =>
-                a.image_url && (
-                  <div key={i} className={styles.asset}>
-                    <Image
-                      key={i}
-                      onClick={handleImage}
-                      className={`${styles.assetImage} nim_${i}`}
-                      src={a.image_url}
-                    />
-                  </div>
-                )
-            ) : "No assets available"}
+          {assets
+            ? assets.map(
+                (a, i) =>
+                  a.image_url && (
+                    <div key={i} className={styles.asset}>
+                      <Image
+                        key={i}
+                        onClick={handleImage}
+                        className={`${styles.assetImage} nim_${i}`}
+                        src={a.image_url}
+                      />
+                    </div>
+                  )
+              )
+            : "No assets available"}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
         </Modal.Footer>

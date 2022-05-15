@@ -9,6 +9,13 @@ type User {
     phoneNumber: String
     photoURL: String
     links: [Link] @relation
+    NFT: [NFT] @relation
+}
+
+type NFT {
+    address: String! @unique
+    token: String!
+    user: User! @unique
 }
 
 type Link {
@@ -24,6 +31,7 @@ type Query {
 }
 
 type Mutation {
+    upsertNFT(id: String!, address: String!, token: String!): NFT @resolver(name: "UpsertNFT")
     upsertUser(uid: String!, email: String!, displayName: String!, phoneNumber: String, photoURL: String): User @resolver(name: "UpsertUser")
 }
 
