@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Image, Modal } from "react-bootstrap";
+import { Alert, Button, Image, Modal, Spinner } from "react-bootstrap";
 import { connectAccount, fetchAssets } from "../../lib/walletAPI";
 import { ErrorModal } from "./connectMeta";
 import styles from "../../styles/meta.module.css";
@@ -23,6 +23,9 @@ const NFTProfile = ({ limit }) => {
   const [errMess, setErrMess] = useState("");
   const [preview, setPreview] = useState(false);
   const [select, setSelect] = useState(null);
+  const [load, setLoad] = useState(false);
+
+  const uid = Cookies.get("user");
 
   const handleClose = () => {
     setShowErr(false);
@@ -45,6 +48,11 @@ const NFTProfile = ({ limit }) => {
     if (typeof ethereum == "undefined") {
       setShowErr(true);
       setErrMess("Please Install MetaMask");
+      return;
+    }
+    if (!uid) {
+      setShowErr(true);
+      setErrMess("Please login or signup to use this feature");
       return;
     }
     try {
@@ -78,26 +86,59 @@ const NFTProfile = ({ limit }) => {
         assets={assets}
         handleClose={handlePreviewModal}
         handleImage={handleImage}
+        uid={uid}
+        select={select}
+        load={load}
+        setLoad={setLoad}
+        errMess={errMess}
+        setErrMess={setErrMess}
       />
     </>
   );
 };
 
-const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
-  const uid = Cookies.get("user");
-  const [upsertNFT, { data, loading, error }] = useMutation(UPSERT_NFT);
+const GalleryModal = ({
+  handleClose,
+  show,
+  assets,
+  handleImage,
+  uid,
+  select,
+  load,
+  setLoad,
+  errMess,
+  setErrMess,
+}) => {
+  const [upsertNFT, { data, loading, error, reset }] = useMutation(UPSERT_NFT);
   useEffect(() => {
     if (data) {
-      console.log("data is", data);
+      setLoad(false);
     }
   }, [data]);
-  if (loading) return "Submitting...";
+  if (loading) {
+    setLoad(true);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    upsertNFT({ variables: { id: `${uid}`, address: "lc", token: "rest2" } });
+    const assetSelected = assets[select.split("_")[1]];
+    const address = assetSelected.asset_contract.address;
+    const token = assetSelected.token_id;
+    upsertNFT({ variables: { id: uid, address: address, token: token } });
   };
+
   if (error) {
-    console.log(`Submission error! ${error.message}`);
+    if (error.graphQLErrors[0].extensions.code == "instance not found") {
+      setErrMess("User not found");
+    }
+    if (error.graphQLErrors[0].extensions.code == "instance not unique") {
+      setErrMess("NFT is owned by someone else");
+    } else {
+      setErrMess(error.message);
+    }
+    setTimeout(() => {
+      reset();
+      setLoad(false);
+    }, 5000);
   }
 
   return (
@@ -106,6 +147,9 @@ const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
         <Modal.Header closeButton>
           <Modal.Title>Select a NFT</Modal.Title>
         </Modal.Header>
+        {error && (
+          <Alert variant={"danger"}>{errMess} - Please try again!</Alert>
+        )}
         <Modal.Body className={styles.selectNFT}>
           {assets
             ? assets.map(
@@ -127,8 +171,18 @@ const GalleryModal = ({ handleClose, show, assets, handleImage }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
+          <Button variant="primary" disabled={load} onClick={handleSubmit}>
+            {!load ? (
+              "Save Changes"
+            ) : (
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
           </Button>
         </Modal.Footer>
       </Modal>
