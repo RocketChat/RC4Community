@@ -7,7 +7,7 @@ export const fetchOpenSea = async (address="0xb47e3cd837ddf8e4c57f05d70ab865de6e
     return data
 }
 
-export const fetchAssets = async (owner="0xc361Fc33b99F88612257ac8cC2d852A5CEe0E217", limit=5, offset=0) => {
+export const fetchAssets = async (owner, limit=5, offset=0) => {
     const options = {method: 'GET'};
 
     const response = await fetch(`https://testnets-api.opensea.io/api/v1/assets?owner=${owner}&order_direction=desc&offset=${offset}&limit=${limit}`, options)
