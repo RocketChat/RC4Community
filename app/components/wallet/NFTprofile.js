@@ -3,18 +3,8 @@ import { Alert, Button, Image, Modal, Spinner } from "react-bootstrap";
 import { connectAccount, fetchAssets } from "../../lib/walletAPI";
 import { ErrorModal } from "./connectMeta";
 import styles from "../../styles/meta.module.css";
-import { gql, useMutation } from "@apollo/client";
 import Cookies from "js-cookie";
-
-const UPSERT_NFT = gql`
-  mutation UpsertNFT($id: String!, $address: String!, $token: String!) {
-    upsertNFT(id: $id, address: $address, token: $token) {
-      _id
-      address
-      token
-    }
-  }
-`;
+import SuperProfileUpsertNFT, { mutationNFT } from "../superProfile/upsertNFT";
 
 const NFTProfile = ({ limit }) => {
   const [assets, setAssets] = useState(null);
@@ -109,37 +99,24 @@ const GalleryModal = ({
   errMess,
   setErrMess,
 }) => {
-  const [upsertNFT, { data, loading, error, reset }] = useMutation(UPSERT_NFT);
-  useEffect(() => {
-    if (data) {
-      setLoad(false);
-    }
-  }, [data]);
-  if (loading) {
-    setLoad(true);
+  const [mutate, setMutate] = useState(false);
+  try {
+    let assetSelected = assets[select.split("_")[1]] || undefined;
+
+    let address = assetSelected.asset_contract.address;
+    let token = assetSelected.token_id;
+  } catch {
+    let address = "";
+    let token = "";
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const assetSelected = assets[select.split("_")[1]];
-    const address = assetSelected.asset_contract.address;
-    const token = assetSelected.token_id;
-    upsertNFT({ variables: { id: uid, address: address, token: token } });
+    assetSelected = assets[select.split("_")[1]];
+    address = assetSelected.asset_contract.address;
+    token = assetSelected.token_id;
+    setMutate(true);
   };
-
-  if (error) {
-    if (error.graphQLErrors[0].extensions.code == "instance not found") {
-      setErrMess("User not found");
-    }
-    if (error.graphQLErrors[0].extensions.code == "instance not unique") {
-      setErrMess("NFT is owned by someone else");
-    } else {
-      setErrMess(error.message);
-    }
-    setTimeout(() => {
-      reset();
-      setLoad(false);
-    }, 5000);
-  }
 
   return (
     <>
@@ -147,8 +124,31 @@ const GalleryModal = ({
         <Modal.Header closeButton>
           <Modal.Title>Select a NFT</Modal.Title>
         </Modal.Header>
-        {error && (
+        {mutate === true && (
+          <SuperProfileUpsertNFT
+            setMutate={setMutate}
+            setErrMess={setErrMess}
+            setLoad={setLoad}
+            uid={uid}
+            address={address}
+            token={token}
+          />
+        )}
+
+        {mutate == "err" && (
           <Alert variant={"danger"}>{errMess} - Please try again!</Alert>
+        )}
+        {mutate == "yay" && (
+          <Alert
+            variant={"success"}
+            onClose={() => {
+              handleClose();
+              setMutate(false);
+            }}
+            dismissible
+          >
+            NFT set success!
+          </Alert>
         )}
         <Modal.Body className={styles.selectNFT}>
           {assets
