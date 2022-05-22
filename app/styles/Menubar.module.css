@@ -125,6 +125,7 @@
 .color {
   color: red;
 }
+
 .arrow {
   margin-left: 80%;
 }
@@ -141,3 +142,33 @@
 .dropdown {
   cursor: pointer;
 }
+
+.threedots:after {
+  content: "\2807";
+  font-size: 30px;
+  height: 100%;
+  padding-left: 7px;
+}
+
+.elipses:hover,
+.elipses { 
+    color: #87898d;
+    text-decoration-line: none !important; 
+   
+}
+
+.dropdown_menu {
+  display: flex;
+  justify-content: center;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.dropdown_menu_item:hover,
+.dropdown_menu_item {
+  color: black;
+  text-decoration: none;
+}
+

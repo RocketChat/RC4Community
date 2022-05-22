@@ -11,6 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.9",
     "@jitsi/react-sdk": "^1.0.0",
     "@jitsi/web-sdk": "^0.2.0",
     "@rocket.chat/fuselage": "^0.31.3",
@@ -23,6 +24,7 @@
     "dompurify": "^2.3.5",
     "emoji-toolkit": "^6.6.0",
     "firebase": "^9.6.3",
+    "graphql": "^16.3.0",
     "firebase-admin": "^10.0.2",
     "js-cookie": "^3.0.1",
     "marked": "^4.0.12",

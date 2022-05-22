@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT-0
+#
+# rc4community-schema.graphql
+
+type User {
+  uid: String! @unique
+  email: String! @unique
+  displayName: String!
+  phoneNumber: String
+  photoURL: String
+  links: [Link] @relation
+  NFT: [NFT] @relation
+}
+
+type NFT {
+  address: String!
+  token: String! @unique
+  user: User! @unique
+}
+
+type Link {
+  name: String!
+  url: String!
+  user: User!
+}
+
+type Query {
+  findUserByEmail(email: String): User @index(name: "getByEmail")
+  findUserByUid(uid: String): User @index(name: "getByUid")
+  listUsers: [User]
+}
+
+type Mutation {
+  upsertNFT(id: String!, address: String!, token: String!): NFT
+    @resolver(name: "UpsertNFT")
+  upsertUser(
+    uid: String!
+    email: String!
+    displayName: String!
+    phoneNumber: String
+    photoURL: String
+  ): User @resolver(name: "UpsertUser")
+}

@@ -1,0 +1,48 @@
+.demo {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15%;
+}
+
+.balanceButton {
+  display: flex;
+  align-items: flex-end;
+}
+
+.account {
+  margin-left: 0.5em;
+  background-color: #ff0000f5;
+  border-radius: 7px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1px 1.5px 0.5px 10px;
+}
+
+.pill {
+  background-color: #ff7373 !important;
+  margin-left: 10px;
+  border-radius: 5px !important;
+  padding: 0.25em 0.25em;
+  font-size: 0.9em;
+  color: #313131;
+  font-weight: 500;
+}
+
+.asset {
+  display: flex;
+  width: 7em;
+  height: 7em;
+  padding: 5px;
+}
+
+.assetImage {
+  max-width: 6em;
+}
+
+.selectNFT {
+  overflow: auto;
+  height: 25vw;
+  display: flex;
+  flex-wrap: wrap;
+}
