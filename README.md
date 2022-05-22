@@ -42,7 +42,7 @@ Start designing and customizing your community management system!
 
 During development, our data provider is a headless CMS, strapi.
 
-Use only nodeJS 14 and npm 6  LTS version to ensure compatibility.
+Nodejs versioning is managed by [volta](https://docs.volta.sh/guide/). You can install it by running `curl https://get.volta.sh | bash` in your terminal. This is needed to ensure that Nodejs 14.18.3LTS is used and packages don't undergo any breaking changes.
 
 Note that it is used only during development and build time, not during production.
 
