@@ -17,6 +17,9 @@
     },
     "url": {
       "type": "string"
+    },
+    "parent_id": {
+      "type": "integer"
     }
   }
 }

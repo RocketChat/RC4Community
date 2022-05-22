@@ -96,3 +96,48 @@
   margin-top: 10px;
   transform: rotate(0deg);
 }
+
+.rotate {
+  transform: rotate(-180deg);
+  transition: all 0.1s;
+}
+.navbar_subitems {
+  position: absolute;
+  transform: translate(-5rem, 30px);
+  background-color: white;
+  padding: 0rem;
+  max-width: 36rem;
+  z-index: 10;
+}
+
+.navbar_subitems_items {
+  padding: 1rem 1rem 1rem 2rem;
+  width: 18rem;
+}
+
+.subItemLinks {
+  cursor: pointer;
+
+  text-decoration: none;
+  color: black;
+}
+
+.color {
+  color: red;
+}
+.arrow {
+  margin-left: 80%;
+}
+
+.arrowRotate {
+  margin-left: 80%;
+  transform: rotate(180deg);
+}
+.navbar_item_hover:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.dropdown {
+  cursor: pointer;
+}
