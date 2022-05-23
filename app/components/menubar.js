@@ -1,11 +1,11 @@
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { Container, Dropdown, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import React, {useState } from 'react';
+import { Navbar, Nav, NavDropdown, Container, Dropdown } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
-import { RocketChatAuthMenuButton } from './auth/rocketchat';
+import {RocketChatAuthMenuButton} from './auth/rocketchat';
 import BrandLogo from "./brandlogo";
 import RocketChatLinkButton from './rocketchatlinkbutton';
+import Cookies from 'js-cookie';
+import Link from 'next/link'
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
