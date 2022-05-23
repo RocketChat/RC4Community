@@ -1,11 +1,11 @@
-import React, {useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container, Dropdown } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { Container, Dropdown, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import styles from '../styles/Menubar.module.css';
-import {RocketChatAuthMenuButton} from './auth/rocketchat';
+import { RocketChatAuthMenuButton } from './auth/rocketchat';
 import BrandLogo from "./brandlogo";
 import RocketChatLinkButton from './rocketchatlinkbutton';
-import Cookies from 'js-cookie';
-import Link from 'next/link'
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -49,14 +49,9 @@ export default function Menubar(props) {
           >
             <span
               className={`${styles.toggler_icon} ${
-                collapsed ? styles.top_bar_collapsed : styles.top_bar
+                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
               }`}
-            ></span>
-            <span
-              className={`${styles.toggler_icon} ${
-                collapsed ? styles.bottom_bar_collapsed : styles.bottom_bar
-              }`}
-            ></span>
+            />
           </button>
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
