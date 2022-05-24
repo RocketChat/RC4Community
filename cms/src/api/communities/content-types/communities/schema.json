@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "tableName": "communities",
+  "info": {
+    "displayName": "Communities",
+    "singularName": "communities",
+    "pluralName": "communities",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "communityId": {
+      "type": "uid",
+      "required": true
+    },
+    "communityName": {
+      "type": "string"
+    },
+    "contributors": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::g-so-c-contributor.g-so-c-contributor",
+      "inversedBy": "community"
+    }
+  }
+}

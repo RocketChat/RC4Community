@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "tableName": "personas",
+  "info": {
+    "name": "Persona",
+    "singularName": "persona",
+    "pluralName": "personas",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "persona_icon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "persona-icons"
+    }
+  }
+}

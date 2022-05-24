@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "tableName": "release_notes",
+  "info": {
+    "name": "release-notes",
+    "singularName": "release-notes",
+    "pluralName": "release-notes",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}

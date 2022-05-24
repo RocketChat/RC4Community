@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "tableName": "top_nav_items",
+  "info": {
+    "name": "TopNavItem",
+    "singularName": "top_nav_item",
+    "pluralName": "top_nav_items",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "menu.links",
+        "menu.dropdown"
+      ]
+    }
+  }
+}

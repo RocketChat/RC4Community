@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "tableName": "g_so_c_contributors",
+  "info": {
+    "name": "GSocContributor",
+    "singularName": "g-so-c-contributor",
+    "pluralName": "g-so-c-contributors",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "avatarUrl": {
+      "type": "string"
+    },
+    "profileUrl": {
+      "type": "string"
+    },
+    "mergedPRsNumber": {
+      "type": "integer"
+    },
+    "openPRsNumber": {
+      "type": "integer"
+    },
+    "issuesNumber": {
+      "type": "integer"
+    },
+    "mergedPRsLink": {
+      "type": "text"
+    },
+    "openPRsLink": {
+      "type": "text"
+    },
+    "issuesLink": {
+      "type": "text"
+    },
+    "community": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::communities.communities",
+      "mappedBy": "contributors"
+    }
+  }
+}

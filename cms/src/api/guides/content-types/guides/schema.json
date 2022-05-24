@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "tableName": "guides",
+  "info": {
+    "name": "Guides",
+    "singularName": "guides",
+    "pluralName": "guides",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}
