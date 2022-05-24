@@ -5,4 +5,7 @@
  * to customize this service
  */
 
-module.exports = {};
+const { createCoreService } = require('@strapi/strapi').factories;
+
+module.exports = createCoreService('api::g-so-c-contributor.g-so-c-contributor')
+ 
