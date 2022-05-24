@@ -5,24 +5,25 @@
  * to customize this controller
  */
 
-const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
+const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = {
-  /**
-   * Create a record.
-   *
-   * @return {Object}
-   */
 
+const { parseMultipartData } = require("@strapi/utils");
+
+module.exports = createCoreController('api::form.form', ({ strapi }) => ({
+  // wrap a core action, leaving core logic in place
   async create(ctx) {
     let entity;
+    let sanitizedEntity;
 
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
-      entity = await strapi.services.form.create(data, { files });
+      entity = await strapi.service('api::form.form').create(data, { files });
+      sanitizedEntity = await this.sanitizeOutput(entity, ctx);
     } else {
-      entity = await strapi.services.form.create(ctx.request.body);
+      entity = await strapi.service('api::form.form').create(ctx.request.body);
+      sanitizedEntity = await this.sanitizeOutput(entity, ctx);
     }
-    return sanitizeEntity(entity, { model: strapi.models.form });
+    return this.transformResponse(sanitizedEntity);
   },
-};
+}));
