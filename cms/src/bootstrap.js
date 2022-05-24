@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLatestCommunityActivity } = require("./fetchTopPosts");
+const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
 
 /**
  * An asynchronous bootstrap function that runs before
