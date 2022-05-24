@@ -12,11 +12,12 @@
   "devDependencies": {},
   "dependencies": {
     "@octokit/core": "^3.5.1",
-    "knex": "0.21.18",
-    "sqlite3": "^5.0.8",
+    "@strapi/plugin-i18n": "4.1.2",
+    "@strapi/plugin-users-permissions": "4.1.2",
     "@strapi/strapi": "4.1.2",
-    "@strapi/plugin-users-permissions": "4.1.2", 
-    "@strapi/plugin-i18n": "4.1.2"
+    "axios": "^0.27.2",
+    "knex": "0.21.18",
+    "sqlite3": "^5.0.8"
   },
   "author": {
     "name": "A Strapi developer"
@@ -30,6 +31,7 @@
   },
   "license": "MIT",
   "volta": {
-    "node": "16.4.0"
+    "node": "16.4.0",
+    "yarn": "1.22.18"
   }
 }
