@@ -1,7 +1,7 @@
 {
-  "tableName": "components_menu_dropdowns",
+  "collectionName": "components_menu_dropdowns",
   "info": {
-    "displayName": "dropdown",
+    "displayName": "Dropdown",
     "icon": "angle-down",
     "description": ""
   },
@@ -12,8 +12,8 @@
     },
     "sub_menus": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "sub-menu"
+      "relation": "oneToMany",
+      "target": "api::sub-menu.sub-menu"
     }
   }
 }

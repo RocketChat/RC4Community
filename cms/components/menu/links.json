@@ -1,7 +1,7 @@
 {
-  "tableName": "components_menu_links",
+  "collectionName": "components_menu_links",
   "info": {
-    "displayName": "links",
+    "displayName": "Links",
     "icon": "link"
   },
   "options": {},
