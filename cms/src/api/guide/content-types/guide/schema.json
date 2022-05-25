@@ -1,15 +1,12 @@
 {
   "kind": "singleType",
-  "tableName": "guides",
+  "collectionName": "guides",
   "info": {
-    "name": "Guides",
-    "singularName": "guides",
+    "singularName": "guide",
     "pluralName": "guides",
-    "description": ""
+    "displayName": "Guide"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
