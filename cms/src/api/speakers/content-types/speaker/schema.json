@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "tableName": "speakers",
   "info": {
-    "name": "Speaker",
+    "displayName": "Speaker",
     "singularName": "speaker",
     "pluralName": "speakers",
     "description": ""

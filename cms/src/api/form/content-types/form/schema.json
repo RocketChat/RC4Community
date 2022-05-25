@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "tableName": "forms",
   "info": {
-    "name": "form",
+    "displayName": "form",
     "singularName": "form",
     "pluralName": "forms",
     "description": ""
