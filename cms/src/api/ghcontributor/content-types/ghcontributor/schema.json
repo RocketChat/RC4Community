@@ -1,29 +1,25 @@
 {
   "kind": "collectionType",
-  "tableName": "ghcontributors",
+  "collectionName": "ghcontributors",
   "info": {
-    "name": "ghcontributor",
     "singularName": "ghcontributor",
     "pluralName": "ghcontributors",
+    "displayName": "ghcontributor",
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
     "Contributors": {
-      "type": "json",
-      "required": true,
-      "unique": false
+      "type": "json"
     },
     "github_repository": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "github-repositories",
-      "inversedBy": "contributors"
+      "target": "api::github-repository.github-repository",
+      "mappedBy": "contributors"
     }
   }
 }
