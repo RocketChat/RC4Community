@@ -1,15 +1,12 @@
 {
   "kind": "collectionType",
-  "tableName": "ghpulls",
+  "collectionName": "ghpulls",
   "info": {
-    "name": "Ghpulls",
-    "singularName": "ghpulls",
+    "singularName": "ghpull",
     "pluralName": "ghpulls",
-    "description": ""
+    "displayName": "Ghpull"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
@@ -20,8 +17,8 @@
     "github_repository": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "github-repositories",
-      "inversedBy": "pulls"
+      "target": "api::github-repository.github-repository",
+      "mappedBy": "pulls"
     }
   }
 }
