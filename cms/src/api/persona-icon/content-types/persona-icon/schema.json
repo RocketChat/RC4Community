@@ -1,15 +1,12 @@
 {
   "kind": "collectionType",
-  "tableName": "persona_icons",
+  "collectionName": "persona_icons",
   "info": {
-    "name": "PersonaIcons",
-    "singularName": "persona-icons",
+    "singularName": "persona-icon",
     "pluralName": "persona-icons",
-    "description": ""
+    "displayName": "PersonaIcon"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
