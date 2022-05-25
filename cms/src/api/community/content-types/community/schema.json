@@ -1,15 +1,13 @@
 {
   "kind": "collectionType",
-  "tableName": "communities",
+  "collectionName": "communities",
   "info": {
-    "displayName": "Communities",
-    "singularName": "communities",
+    "singularName": "community",
     "pluralName": "communities",
+    "displayName": "Community",
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
@@ -23,9 +21,9 @@
     },
     "contributors": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::g-so-c-contributor.g-so-c-contributor",
-      "inversedBy": "community"
+      "mappedBy": "community"
     }
   }
 }
