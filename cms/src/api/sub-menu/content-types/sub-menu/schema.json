@@ -1,15 +1,12 @@
 {
   "kind": "collectionType",
-  "tableName": "sub_menus",
+  "collectionName": "sub_menus",
   "info": {
-    "name": "SubMenuLinks",
     "singularName": "sub-menu",
     "pluralName": "sub-menus",
-    "description": ""
+    "displayName": "SubMenuLink"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},

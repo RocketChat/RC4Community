@@ -1,11 +1,9 @@
 'use strict';
 
 /**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
- * to customize this service
+ * top-nav-item service.
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::top-nav-item.top-nav-item')
- 
+module.exports = createCoreService('api::top-nav-item.top-nav-item');

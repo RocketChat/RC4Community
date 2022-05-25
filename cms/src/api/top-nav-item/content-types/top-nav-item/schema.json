@@ -1,15 +1,12 @@
 {
   "kind": "singleType",
-  "tableName": "top_nav_items",
+  "collectionName": "top_nav_items",
   "info": {
-    "name": "TopNavItem",
-    "singularName": "top_nav_item",
-    "pluralName": "top_nav_items",
-    "description": ""
+    "singularName": "top-nav-item",
+    "pluralName": "top-nav-items",
+    "displayName": "TopNavItem"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
@@ -17,8 +14,8 @@
     "body": {
       "type": "dynamiczone",
       "components": [
-        "menu.links",
-        "menu.dropdown"
+        "menu.dropdown",
+        "menu.links"
       ]
     }
   }

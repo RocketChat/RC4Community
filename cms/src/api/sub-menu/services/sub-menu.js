@@ -1,11 +1,9 @@
 'use strict';
 
 /**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
- * to customize this service
+ * sub-menu service.
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::sub-menu.sub-menu')
- 
+module.exports = createCoreService('api::sub-menu.sub-menu');
