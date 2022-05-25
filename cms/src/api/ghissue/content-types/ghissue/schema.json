@@ -1,29 +1,26 @@
 {
   "kind": "collectionType",
-  "tableName": "ghissues",
+  "collectionName": "ghissues",
   "info": {
-    "name": "ghissue",
     "singularName": "ghissue",
     "pluralName": "ghissues",
+    "displayName": "ghissue",
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
     "Issues": {
       "type": "json",
-      "required": true,
-      "unique": false
+      "required": true
     },
     "github_repository": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "github-repositories",
-      "inversedBy": "issues"
+      "target": "api::github-repository.github-repository",
+      "mappedBy": "issues"
     }
   }
 }
