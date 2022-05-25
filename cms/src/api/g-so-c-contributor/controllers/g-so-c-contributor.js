@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 /**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
+ *  g-so-c-contributor controller
  */
+
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::g-so-c-contributor.g-so-c-contributor');
