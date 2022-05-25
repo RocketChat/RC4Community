@@ -1,15 +1,12 @@
 {
   "kind": "singleType",
-  "tableName": "release_notes",
+  "collectionName": "release_notes",
   "info": {
-    "name": "release-notes",
-    "singularName": "release-notes",
+    "singularName": "release-note",
     "pluralName": "release-notes",
-    "description": ""
+    "displayName": "ReleaseNote"
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "pluginOptions": {},
