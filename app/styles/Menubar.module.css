@@ -69,33 +69,50 @@
   width: 100%;
   background: rgb(107, 107, 107);
   border-radius: 1px;
-  opacity: 1;
   left: 0;
-  transform: rotate(0deg);
-  transition: 0.25s ease-in-out;
+  top: 18px;
+}
+
+.toggler_icon::before, .toggler_icon::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  background-color: rgb(107, 107, 107);
+  transition: top 0.25s;
+}
+
+.toggler_icon::after {
+  top: 10px;
+}
+
+.toggler_icon::before{
+  top: -10px;
 }
 
 /* when navigation is clicked */
-.top_bar {
+.toggler_bar {
   margin-top: 0px;
-  transform: rotate(-135deg);
-}
-
-.bottom_bar {
-  margin-top: 0px;
-  transform: rotate(-45deg);
+  background-color: transparent;
 }
 
 /* state when the navbar is collapsed or collapsed==true */
-.top_bar_collapsed {
+.toggler_bar_collapsed {
   margin-top: -10px;
-  transform: rotate(0deg);
 }
 
-.bottom_bar_collapsed {
-  margin-top: 10px;
-  transform: rotate(0deg);
+.toggler_bar::after{
+  transform: rotate(-45deg);
+  top: 0;
 }
+
+.toggler_bar::before{
+  transform: rotate(45deg);
+  top: 0
+}
+
 
 .threedots:after {
   content: "\2807";

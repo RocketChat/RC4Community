@@ -49,14 +49,9 @@ export default function Menubar(props) {
           >
             <span
               className={`${styles.toggler_icon} ${
-                collapsed ? styles.top_bar_collapsed : styles.top_bar
+                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
               }`}
-            ></span>
-            <span
-              className={`${styles.toggler_icon} ${
-                collapsed ? styles.bottom_bar_collapsed : styles.bottom_bar
-              }`}
-            ></span>
+            />
           </button>
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
