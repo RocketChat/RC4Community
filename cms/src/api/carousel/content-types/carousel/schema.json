@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "tableName": "carousels",
+  "collectionName": "carousels",
   "info": {
     "displayName": "Carousel",
     "singularName": "carousel",

@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "tableName": "discourses",
+  "collectionName": "discourses",
   "info": {
     "displayName": "Discourse",
     "singularName": "discourse",

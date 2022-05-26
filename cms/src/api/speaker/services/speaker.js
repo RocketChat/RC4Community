@@ -1,11 +1,9 @@
 'use strict';
 
 /**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
- * to customize this service
+ * speaker service.
  */
 
-const { createCoreRouter } = require('@strapi/strapi').factories;
+const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::speakers.speakers')
- 
+module.exports = createCoreService('api::speaker.speaker');

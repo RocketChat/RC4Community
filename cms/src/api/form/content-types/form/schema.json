@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "tableName": "forms",
+  "collectionName": "forms",
   "info": {
     "displayName": "form",
     "singularName": "form",

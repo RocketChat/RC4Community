@@ -3,14 +3,6 @@ const bootstrap = require("./bootstrap");
 
 module.exports = {
   /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/*{ strapi }*/) {},
-
-  /**
    * An asynchronous bootstrap function that runs before
    * your application gets started.
    *
@@ -18,6 +10,6 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
    async bootstrap() {
-    await boostrap();
+    await bootstrap();
   },
 };

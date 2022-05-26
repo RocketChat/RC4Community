@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "tableName": "speakers",
+  "collectionName": "speakers",
   "info": {
     "displayName": "Speaker",
     "singularName": "speaker",
