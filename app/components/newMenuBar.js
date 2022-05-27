@@ -180,7 +180,7 @@ const DesktopNav = ({ nav_Items }) => {
         width={132}
       />
       <Nav className='w-full ' ref={clickRef}>
-        {nav_Items.map((nav_item, key) =>
+        {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.length > 1 ? (
             <span
               key={key}
@@ -266,8 +266,8 @@ const DesktopNav = ({ nav_Items }) => {
 export default function NewMenubar(props) {
   return (
     <Container fluid className='border-bottom'>
-      <MobileNav nav_Items={props.menu.body} />
-      <DesktopNav nav_Items={props.menu.body} />
+      <MobileNav nav_Items={props.menu?.body} />
+      <DesktopNav nav_Items={props.menu?.body} />
     </Container>
   );
 }
