@@ -181,35 +181,44 @@ module.exports.githubKit = async function (owner, name, needed) {
     }
 
     let repoData = await getRepoData(owner, name);
+    await strapi.db.query("api::github-repository.github-repository").count({});
 
-    let githubRepositoryCount = await strapi
-      .query("github-repositories")
+    let githubRepositoryCount = await strapi.db
+      .query("api::github-repository.github-repository")
       .count({
         owner: owner,
         name: name,
       });
-    let githubRepository = await strapi.query("github-repositories").findOne({
-      owner: owner,
-      name: name,
-    });
+    let githubRepository = await strapi.db
+      .query("api::github-repository.github-repository")
+      .findOne({
+        owner: owner,
+        name: name,
+      });
 
     if (repoData.success) {
       if (githubRepositoryCount === 0) {
-        githubRepository = await strapi.query("github-repositories").create({
-          owner: owner,
-          name: name,
-          repositoryData: repoData.data,
-          unqiueId: repoData.data.id,
-        });
+        githubRepository = await strapi.db
+          .query("api::github-repository.github-repository")
+          .create({
+            data: {
+              owner: owner,
+              name: name,
+              repositoryData: repoData.data,
+              unqiueId: repoData.data.id,
+            },
+          });
       } else {
         githubRepository.repositoryData = repoData.data;
         githubRepository.unqiueId = repoData.data.id;
-        await strapi.query("github-repositories").update(
-          {
-            id: githubRepository.id,
-          },
-          githubRepository
-        );
+        await strapi.db
+          .query("api::github-repository.github-repository")
+          .update({
+            where: {
+              id: githubRepository.id,
+            },
+            data: githubRepository,
+          });
       }
     }
 
@@ -217,25 +226,29 @@ module.exports.githubKit = async function (owner, name, needed) {
       const issuesData = await getRepoIssues(owner, name);
 
       if (issuesData.success) {
-        const issueCount = await strapi.query("ghissue").count({
+        const issueCount = await strapi.db.query("api::ghissue.ghissue").count({
           github_repository: githubRepository.id,
         });
         if (issueCount === 0) {
-          let newissueData = await strapi.query("ghissue").create({
-            github_repository: githubRepository.id,
-            Issues: issuesData.data,
-          });
+          let newissueData = await strapi.db
+            .query("api::ghissue.ghissue")
+            .create({
+              data: {
+                github_repository: githubRepository.id,
+                Issues: issuesData.data,
+              },
+            });
           issuesId = newissueData.id;
         } else {
-          await strapi.query("ghissue").update(
-            {
+          await strapi.db.query("api::ghissue.ghissue").update({
+            where: {
               github_repository: githubRepository.id,
             },
-            {
+            data: {
               github_repository: githubRepository.id,
               Issues: issuesData.data,
-            }
-          );
+            },
+          });
         }
       }
     }
@@ -243,25 +256,31 @@ module.exports.githubKit = async function (owner, name, needed) {
     if (getPulls) {
       const pullData = await getRepoPulls(owner, name);
       if (pullData.success) {
-        const contributorsDataCount = await strapi.query("ghpulls").count({
-          github_repository: githubRepository.id,
-        });
-        if (contributorsDataCount === 0) {
-          let newPullsData = await strapi.query("ghpulls").create({
+        const contributorsDataCount = await strapi.db
+          .query("api::ghpull.ghpull")
+          .count({
             github_repository: githubRepository.id,
-            pulls: pullData.data,
           });
+        if (contributorsDataCount === 0) {
+          let newPullsData = await strapi.db
+            .query("api::ghpull.ghpull")
+            .create({
+              data: {
+                github_repository: githubRepository.id,
+                pulls: pullData.data,
+              },
+            });
           pullsId = newPullsData.id;
         } else {
-          await strapi.query("ghpulls").update(
-            {
+          await strapi.db.query("api::ghpull.ghpull").update({
+            where: {
               github_repository: githubRepository.id,
             },
-            {
+            data: {
               github_repository: githubRepository.id,
               pulls: pullData.data,
-            }
-          );
+            },
+          });
         }
       }
     }
@@ -270,28 +289,28 @@ module.exports.githubKit = async function (owner, name, needed) {
       const contributorData = await getRepoContributors(owner, name);
       if (contributorData.success) {
         const contributorsDataCount = await strapi
-          .query("ghcontributor")
+          .query("api::ghcontributor.ghcontributor")
           .count({
             github_repository: githubRepository.id,
           });
 
         if (contributorsDataCount === 0) {
-          await strapi
-            .query("ghcontributor")
-            .create({
+          await strapi.query("api::ghcontributor.ghcontributor").create({
+            data: {
               github_repository: githubRepository.id,
               Contributors: contributorData.data,
-            });
+            },
+          });
         } else {
-          await strapi.query("ghcontributor").update(
-            {
+          await strapi.db.query("api::ghcontributor.ghcontributor").update({
+            where: {
               github_repository: githubRepository.id,
             },
-            {
+            data: {
               github_repository: githubRepository.id,
               Contributors: contributorData.data,
-            }
-          );
+            },
+          });
         }
       }
     }

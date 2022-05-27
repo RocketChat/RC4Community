@@ -1,6 +1,7 @@
 "use strict";
 
 const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
+const fetchData = require('./fetchData')
 
 
 /**
@@ -27,10 +28,10 @@ const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
 const setDefaultPermissions = async () => {
   const role = await findPublicRole();
   const permissions = await strapi
-  .query("plugin::users-permissions.permission")
-    .find({
-      where: { type: "application", role: role.id },
-    });
+  .db.query("plugin::users-permissions.permission")
+  .findMany({
+    where: { type: "application", role: role.id },
+  });
   await Promise.all(
     permissions.map(p =>
       strapi
@@ -50,7 +51,7 @@ const setDefaultPermissions = async () => {
 module.exports = async () => {
   // Fetches data and populates CMS from remote on server restart
   if (process.env.INITIALIZE_DATA) {
-    await strapi.config.functions.fetchData();
+    await fetchData();
     await getLatestCommunityActivity();
     await setDefaultPermissions();
   }
