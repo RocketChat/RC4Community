@@ -6,8 +6,8 @@ const { carousels,
   subMenus,
   topNavItem,
   speakers,
-  forms } = require('./initialData');
-const { githubKit } = require('./github');
+  forms } = require('../config/initialData');
+const { githubKit } = require('../config/github');
 
 module.exports = async () => {
 
