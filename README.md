@@ -42,9 +42,9 @@ Start designing and customizing your community management system!
 
 During development, our data provider is a headless CMS, strapi.
 
-Use only nodeJS 14 and npm 6  LTS version to ensure compatibility.
-
 Note that it is used only during development and build time, not during production.
+
+Nodejs versioning is managed by [volta](https://docs.volta.sh/guide/). You can install it by running `curl https://get.volta.sh | bash` in your terminal. This assures that appropriate versions of nodeJS and npm are used and ensures compatibility for all distributed development teams.
 
 By default, strapi listens on port 1337. If you're using WSL2 on Windows and also running Docker Desktop, port 1337 may not be available on your system. To use port 3000 instead, set the environment variable `PORT` to 3000.
 
