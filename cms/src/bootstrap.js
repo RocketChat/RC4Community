@@ -16,34 +16,31 @@ const fetchData = require('./fetchData')
 
  const findPublicRole = async () => {
   const result = await strapi
-  .query("plugin::users-permissions.role")
-  .findOne({
-    where: {
-      type: "public",
-    },
-  });
+  .service("plugin::users-permissions.role")
+  .find();
   return result;
 };
 
 const setDefaultPermissions = async () => {
-  const role = await findPublicRole();
-  const permissions = await strapi
-  .db.query("plugin::users-permissions.permission")
-  .findMany({
-    where: { type: "application", role: role.id },
-  });
-  await Promise.all(
-    permissions.map(p =>
-      strapi
-        .query("plugin::users-permissions.permission")
-        .update({
-          where: { id: p.id},
-          data: {
-            enabled: true,
-          },
-        })
-    )
-  );
+  const roles = await findPublicRole();
+
+  const _public = await strapi
+    .service("plugin::users-permissions.role")
+    .findOne(roles.filter((role) => role.type === "public")[0].id);
+  for (const permission of Object.keys(_public.permissions)) {
+    if (permission.startsWith("api")) {
+      for (const controller of Object.keys(
+        _public.permissions[permission].controllers
+      )) {
+        _public.permissions[permission].controllers[
+          controller
+        ].find.enabled = true;
+      }
+    }
+  }
+  await strapi
+    .service("plugin::users-permissions.role")
+    .updateRole(_public.id, _public);
 };
 
 
