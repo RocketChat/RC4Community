@@ -1,8 +1,7 @@
 "use strict";
 
 const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
-const fetchData = require('./fetchData')
-
+const fetchData = require("./fetchData");
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -14,10 +13,8 @@ const fetchData = require('./fetchData')
  * See more details here: https://strapi.io/documentation/developer-docs/latest/setup-deployment-guides/configurations.html#bootstrap
  */
 
- const findPublicRole = async () => {
-  const result = await strapi
-  .service("plugin::users-permissions.role")
-  .find();
+const findPublicRole = async () => {
+  const result = await strapi.service("plugin::users-permissions.role").find();
   return result;
 };
 
@@ -35,6 +32,13 @@ const setDefaultPermissions = async () => {
         _public.permissions[permission].controllers[
           controller
         ].find.enabled = true;
+        if (
+          _public.permissions[permission].controllers[controller].findOne
+        ) {
+          _public.permissions[permission].controllers[
+            controller
+          ].findOne.enabled = true;
+        }
       }
     }
   }
@@ -42,8 +46,6 @@ const setDefaultPermissions = async () => {
     .service("plugin::users-permissions.role")
     .updateRole(_public.id, _public);
 };
-
-
 
 module.exports = async () => {
   // Fetches data and populates CMS from remote on server restart
