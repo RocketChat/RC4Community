@@ -11,16 +11,16 @@ module.exports.getLatestCommunityActivity = async () => {
         "Api-Key": process.env.DISCOURSE_API_KEY,
       },
     });
-    let currentTopPost = await strapi.query("discourse").find();
+    let currentTopPost = await strapi.db.query("api::discourse.discourse").find();
     if (currentTopPost.length !== 0) {
-      await strapi.query("discourse").update(
+      await strapi.db.query("api::discourse.discourse").update(
         { id: currentTopPost[0].id },
         {
           TopPost: TopPost.data,
         }
       );
     } else {
-      await strapi.query("discourse").create({
+      await strapi.db.query("api::discourse.discourse").create({
         TopPost: TopPost.data,
       });
     }
