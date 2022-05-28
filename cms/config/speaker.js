@@ -1,6 +1,6 @@
 module.exports.updateSpeakerData = async function () {
   try {
-    let speakerList = await strapi.db.query("api::speaker.speaker").find({});
+    let speakerList = await strapi.query("api::speaker.speaker").find({});
     if (Array.isArray(speakerList)) {
       speakerList.forEach(async (speaker) => {
         const speakerTalkTime = new Date(speaker.date_time);
