@@ -7,16 +7,16 @@ module.exports.getCommunityContributors = async (
 ) => {
   try {
     let community = null;
-    let communityCount = await strapi
-      .query("communities")
+    let communityCount = await strapi.db
+      .query("api::community.community")
       .count({ communityId: communityId });
     if (communityCount === 0) {
-      community = await strapi.query("communities").create({
+      community = await strapi.db.query("api::community.community").create({
         communityId: communityId,
         communityName: communityName,
       });
     } else {
-      community = await strapi.query("communities").findOne({
+      community = await strapi.db.query("api::community.community").findOne({
         communityId: communityId,
       });
     }
@@ -44,14 +44,14 @@ module.exports.getCommunityContributors = async (
     });
 
     contributors.forEach(async (contributor) => {
-      let contributorCount = await strapi.query("g-so-c-contributor").count({
+      let contributorCount = await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").count({
         username: contributor.username,
         community: community.id,
       });
       if (contributorCount === 0) {
-        await strapi.query("g-so-c-contributor").create(contributor);
+        await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").create(contributor);
       } else {
-        await strapi.query("g-so-c-contributor").update(
+        await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").update(
           {
             username: contributor.username,
             community: community.id,
