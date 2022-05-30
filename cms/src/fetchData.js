@@ -51,7 +51,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::speaker.speaker").create({
+        await strapi.service("api::speaker.speaker").create({
           data: {
             name: speaker.name,
             imageUrl: speaker.imageUrl,
@@ -86,7 +86,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::form.form").create({
+        await strapi.service("api::form.form").create({
           data: {
             title: form.title,
             formQs: form.formQs,
@@ -107,7 +107,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::carousel.carousel").create({
+        await strapi.service("api::carousel.carousel").create({
           data: {
             name: carousel.name,
             description: carousel.description,
@@ -129,7 +129,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::persona-icon.persona-icon").create({
+        await strapi.service("api::persona-icon.persona-icon").create({
           data: {
             icon: personaIcon.icon,
             size: personaIcon.size,
@@ -154,7 +154,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::persona.persona").create({
+        await strapi.service("api::persona.persona").create({
           data: {
             name: persona.name,
             persona_icon: {
@@ -178,7 +178,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.db.query("api::sub-menu.sub-menu").create({
+        await strapi.service("api::sub-menu.sub-menu").create({
           data: {
             label: subMenu.label,
             url: subMenu.url,
@@ -200,6 +200,7 @@ module.exports = async () => {
         data: {
           label: releaseNotes.label,
           location: releaseNotes.location,
+          publishedAt: new Date()
         },
       });
     }
@@ -213,69 +214,73 @@ module.exports = async () => {
         },
       });
     } else {
-      await strapi.db.query("api::guide.guide").create({
+      await strapi.service("api::guide.guide").create({
         data: {
           label: guides.label,
           location: guides.location,
+          publishedAt: new Date()
         },
       });
     }
 
-    // if (topNavItemCount) {
-    //   await strapi.db.query("api::top-nav-item.top-nav-item").update({
+    if (topNavItemCount) {
+      await strapi.db.query("api::top-nav-item.top-nav-item").update({
         
-    //     where: { id: 1 },
-    //     data: {
-    //       body: topNavItem.body.map((topNavItem, index) => {
-    //         if (topNavItem.__component === "menu.links") {
-    //           return {
-    //             __component: "menu.links",
-    //             label: topNavItem.label,
-    //             url: topNavItem.url,
-    //           };
-    //         } else {
-    //           return {
-    //             __component: "menu.dropdown",
-    //             label: topNavItem.label,
-    //             sub_menus: topNavItem.sub_menus.map((subMenu) => {
-    //               return {
-    //                 id: subMenu.id,
-    //                 label: subMenu.label,
-    //                 url: subMenu.url,
-    //               };
-    //             }),
-    //           };
-    //         }
-    //       }),
-    //     },
-    //   });
-    // } else {
-    //   await strapi.db.query("api::top-nav-item.top-nav-item").create({
-    //     data: {
-    //       body: topNavItem.body.map((topNavItem, index) => {
-    //         if (topNavItem.__component === "menu.links") {
-    //           return {
-    //             __component: "menu.links",
-    //             label: topNavItem.label,
-    //             url: topNavItem.url,
-    //           };
-    //         } else {
-    //           return {
-    //             __component: "menu.dropdown",
-    //             label: topNavItem.label,
-    //             sub_menus: topNavItem.sub_menus.map((subMenu) => {
-    //               return {
-    //                 id: subMenu.id,
-    //                 label: subMenu.label,
-    //                 url: subMenu.url,
-    //               };
-    //             }),
-    //           };
-    //         }
-    //       }),
-    //     },
-    //   });
-    // }
+        where: { id: 1 },
+        data: {
+          body: topNavItem.body.map((topNavItem, index) => {
+            if (topNavItem.__component === "menu.links") {
+              return {
+                __component: "menu.links",
+                label: topNavItem.label,
+                url: topNavItem.url,
+                publishedAt: new Date()
+              };
+            } else {
+              return {
+                __component: "menu.dropdown",
+                label: topNavItem.label,
+                sub_menus: topNavItem.sub_menus.map((subMenu) => {
+                  return {
+                    id: subMenu.id,
+                    label: subMenu.label,
+                    url: subMenu.url,
+                    publishedAt: new Date()
+                  };
+                }),
+              };
+            }
+          }),
+        },
+      });
+    } else {
+      await strapi.service("api::top-nav-item.top-nav-item").create({
+        data: {
+          body: topNavItem.body.map((topNavItem, index) => {
+            if (topNavItem.__component === "menu.links") {
+              return {
+                __component: "menu.links",
+                label: topNavItem.label,
+                url: topNavItem.url,
+              };
+            } else {
+              return {
+                __component: "menu.dropdown",
+                label: topNavItem.label,
+                sub_menus: topNavItem.sub_menus.map((subMenu) => {
+                  return {
+                    id: subMenu.id,
+                    label: subMenu.label,
+                    url: subMenu.url,
+                  };
+                }),
+              };
+            }
+          }),
+          publishedAt: new Date() 
+        },
+      });
+    }
   } catch (error) {
     console.log("Error:= ", error);
   }

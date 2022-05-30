@@ -11,13 +11,15 @@ module.exports.getCommunityContributors = async (
       .query("api::community.community")
       .count({ communityId: communityId });
     if (communityCount === 0) {
-      community = await strapi.db.query("api::community.community").create({
-        communityId: communityId,
-        communityName: communityName,
+      community = await strapi.service("api::community.community").create({
+        data: {
+          communityId: communityId,
+          communityName: communityName,
+        },
       });
     } else {
       community = await strapi.db.query("api::community.community").findOne({
-        communityId: communityId,
+        where: { communityId: communityId }
       });
     }
 
@@ -44,20 +46,26 @@ module.exports.getCommunityContributors = async (
     });
 
     contributors.forEach(async (contributor) => {
-      let contributorCount = await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").count({
-        username: contributor.username,
-        community: community.id,
-      });
+      let contributorCount = await strapi.db
+        .query("api::g-so-c-contributor.g-so-c-contributor")
+        .count({
+          username: contributor.username,
+          community: community.id,
+        });
       if (contributorCount === 0) {
-        await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").create(contributor);
+        await strapi
+          .service("api::g-so-c-contributor.g-so-c-contributor")
+          .create({ data: { contributor } });
       } else {
-        await strapi.db.query("api::g-so-c-contributor.g-so-c-contributor").update(
-          {
-            username: contributor.username,
-            community: community.id,
-          },
-          contributor
-        );
+        await strapi
+          .db.query("api::g-so-c-contributor.g-so-c-contributor")
+          .update({
+            where: {
+              username: contributor.username,
+              community: community.id,
+            },
+            data: { contributor },
+          });
       }
     });
   } catch (err) {

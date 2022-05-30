@@ -240,7 +240,7 @@ module.exports.githubKit = async function (owner, name, needed) {
             });
           issuesId = newissueData.id;
         } else {
-          await strapi.db.query("api::ghissue.ghissue").update({
+          await strapi.service("api::ghissue.ghissue").update({
             where: {
               github_repository: githubRepository.id,
             },
@@ -272,7 +272,7 @@ module.exports.githubKit = async function (owner, name, needed) {
             });
           pullsId = newPullsData.id;
         } else {
-          await strapi.db.query("api::ghpull.ghpull").update({
+          await strapi.service("api::ghpull.ghpull").update({
             where: {
               github_repository: githubRepository.id,
             },
@@ -302,7 +302,7 @@ module.exports.githubKit = async function (owner, name, needed) {
             },
           });
         } else {
-          await strapi.db.query("api::ghcontributor.ghcontributor").update({
+          await strapi.service("api::ghcontributor.ghcontributor").update({
             where: {
               github_repository: githubRepository.id,
             },

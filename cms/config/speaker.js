@@ -1,6 +1,6 @@
 module.exports.updateSpeakerData = async function () {
   try {
-    let speakerList = await strapi.query("api::speaker.speaker").find({});
+    let speakerList = await strapi.service("api::speaker.speaker").find({});
     if (Array.isArray(speakerList)) {
       speakerList.forEach(async (speaker) => {
         const speakerTalkTime = new Date(speaker.date_time);
@@ -12,7 +12,7 @@ module.exports.updateSpeakerData = async function () {
           -1 * timeDifferene <= speaker.duration_minutes
         ) {
           if (!speaker.live) {
-            await strapi.db.query("api::speaker.speaker").update(
+            await strapi.service("api::speaker.speaker").update(
               {
                 id: speaker.id,
               },
@@ -27,7 +27,7 @@ module.exports.updateSpeakerData = async function () {
           -1 * timeDifferene > speaker.duration_minutes
         ) {
           if (!speaker.ended) {
-            await strapi.db.query("api::speaker.speaker").update(
+            await strapi.service("api::speaker.speaker").update(
               {
                 id: speaker.id,
               },
@@ -39,7 +39,7 @@ module.exports.updateSpeakerData = async function () {
           }
         } else {
           if (speaker.live || speaker.ended) {
-            await strapi.db.query("api::speaker.speaker").update(
+            await strapi.service("api::speaker.speaker").update(
               {
                 id: speaker.id,
               },
