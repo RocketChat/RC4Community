@@ -17,8 +17,8 @@ const Item = (props) => {
           src={props.item.imageUrl}
         />
         <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
-          <h2 className={`${styles.heading}`}>{props.item.name}</h2>
-          <p className={`${styles.description}`}>{props.item.description}</p>
+          <h2 className={`${styles.heading}`}>{props.item.attributes.name}</h2>
+          <p className={`${styles.description}`}>{props.item.attributes.description}</p>
         </div>
       </a>
     </div>

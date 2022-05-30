@@ -4,7 +4,8 @@
   "info": {
     "singularName": "top-nav-item",
     "pluralName": "top-nav-items",
-    "displayName": "TopNavItem"
+    "displayName": "TopNavItem",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

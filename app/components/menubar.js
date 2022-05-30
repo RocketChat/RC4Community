@@ -61,7 +61,7 @@ export default function Menubar(props) {
         </Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='mx-auto'>
-            {props.menu?.body?.map((item,index) => {
+            {props.menu?.data[0].attributes?.body?.map((item,index) => {
               return item.sub_menus && item?.sub_menus?.length ? (
                 <NavDropdown
                   key = {item.id || item._id || `NavDropDown_${index}`}

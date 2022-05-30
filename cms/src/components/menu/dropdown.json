@@ -10,6 +10,9 @@
     "label": {
       "type": "string"
     },
+    "url": {
+      "type": "string"
+    },
     "sub_menus": {
       "type": "relation",
       "relation": "oneToMany",
