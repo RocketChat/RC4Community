@@ -15,8 +15,8 @@
     "body": {
       "type": "dynamiczone",
       "components": [
-        "menu.dropdown",
-        "menu.links"
+        "menu.links",
+        "menu.dropdown"
       ]
     }
   }
