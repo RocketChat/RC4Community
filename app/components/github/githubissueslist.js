@@ -37,9 +37,9 @@ const GithubIssue = ({ issue }) => {
 
 const GithubIssuesList = (props) => {
   const data =
-    props.data.issues.Issues.length > 10
-      ? props.data.issues.Issues.slice(0, 10)
-      : props.data.issues.Issues;
+    props.data.issues.data.attributes.Issues.length > 10
+      ? props.data.issues.data.attributes.Issues.slice(0, 10)
+      : props.data.issues.data.attributes.Issues;
   return (
     <div
       className={`${styles.container} d-flex flex-wrap justify-content-center`}

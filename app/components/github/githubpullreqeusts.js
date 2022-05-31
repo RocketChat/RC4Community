@@ -42,9 +42,9 @@ const GithubPullReqeust = ({ pull }) => {
 };
 const GithubPullRequestsList = (props) => {
   const data =
-    props.data.pulls.pulls.length > 6
-      ? props.data.pulls.pulls.slice(0, 6)
-      : props.data.pulls.pulls;
+    props.data.pulls.data.attributes.pulls.length > 6
+      ? props.data.pulls.data.attributes.pulls.slice(0, 6)
+      : props.data.pulls.data.attributes.pulls;
 
   return (
     <div
