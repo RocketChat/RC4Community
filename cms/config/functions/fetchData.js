@@ -8,6 +8,7 @@ const { carousels,
   speakers,
   forms } = require('../initialData');
 const { githubKit } = require('./github');
+const { gitlabKit } = require('./gitlab')
 
 module.exports = async () => {
 
@@ -22,7 +23,8 @@ module.exports = async () => {
     var formCount = await strapi.query("form").count();
     var ghrepos = await strapi.query("github-repositories").count({});
     var speakersCount = await strapi.query("speaker").count({});
-
+    var gitlabprojects = await strapi.query("gitlab-repositories").count({});
+    
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
@@ -60,6 +62,10 @@ module.exports = async () => {
 
     if (!ghrepos) {
       githubKit('RocketChat', 'RC4Community', ['issues', 'contributors', 'pulls']);
+    }
+
+    if (!gitlabprojects) {
+      gitlabKit(3472737,['issues','merges','members']);
     }
 
     forms.map(async (form, index) => {

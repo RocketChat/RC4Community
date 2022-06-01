@@ -1,52 +1,58 @@
 import { Col, NavLink, Row } from "react-bootstrap";
-import styles from "../../styles/GithubPullRequest.module.css";
+import styles from "../../styles/GitlabMergeList.module.css";
 import Image from "next/image";
 import PullsIcon from "../../public/svg/pull";
 
-const GithubPullReqeust = ({ pull }) => {
+const GitlabMergeReqeust = ({ mergeRequest }) => {
   return (
     <Col className={`${styles.column} py-2 px-3 m-2 rounded`}>
       <Row className="d-flex align-items-center">
         <Col xs="auto" className={`${styles.numbers}`}>
-          <a href={pull.user.html_url}>
+          <a href={mergeRequest.author.web_url}>
             <Image
               className="rounded-circle"
-              src={pull.user.avatar_url}
+              src={mergeRequest.author.avatar_url}
               width={40}
               height={40}
             />
           </a>
         </Col>
         <Col xs="auto" className={`${styles.username}`}>
-          <a href={pull.user.html_url}>
-            <span>{pull.user.login}</span>
+          <a href={mergeRequest.author.web_url}>
+            <span>{mergeRequest.author.name}</span>
+            <span>{" | "}</span>
+            <span>{`@${mergeRequest.author.username}`}</span>
           </a>
         </Col>
       </Row>
       <Row className={`${styles.item_container}`}>
-        <NavLink href={pull.html_url}>{pull.title}</NavLink>
+        <NavLink href={mergeRequest.web_url}>{mergeRequest.title}</NavLink>
       </Row>
       <Row className="d-flex align-items-center">
         <Col xs="auto" className={`${styles.numbers}`}>
           <span className="me-2">
             <PullsIcon />
           </span>
-          {pull.state}
+          {mergeRequest.state}
         </Col>
         <Col xs="auto" className={`${styles.numbers}`}>
-          #{pull.number}
+          #{mergeRequest.iid}
         </Col>
       </Row>
     </Col>
   );
 };
-const GithubPullRequestsList = (props) => {
+const GitlabMergeRequestsList = (props) => {
   let data = [];
-  if (props.data && props.data.pulls && Array.isArray(props.data.pulls.pulls)) {
+  if (
+    props.data &&
+    props.data.merges &&
+    Array.isArray(props.data.merges.merges)
+  ) {
     data =
-      props.data.pulls.pulls.length > 6
-        ? props.data.pulls.pulls.slice(0, 6)
-        : props.data.pulls.pulls;
+      props.data.merges.merges.length > 6
+        ? props.data.merges.merges.slice(0, 6)
+        : props.data.merges.merges;
   }
 
   return (
@@ -54,7 +60,12 @@ const GithubPullRequestsList = (props) => {
       className={`${styles.container} d-flex flex-wrap justify-content-center`}
     >
       {Array.isArray(data) ? (
-        data.map((pull) => <GithubPullReqeust key={pull.id} pull={pull} />)
+        data.map((mergeRequest) => (
+          <GitlabMergeReqeust
+            key={mergeRequest.id}
+            mergeRequest={mergeRequest}
+          />
+        ))
       ) : (
         <p className="text-danger"> ERROR </p>
       )}
@@ -62,4 +73,4 @@ const GithubPullRequestsList = (props) => {
   );
 };
 
-export default GithubPullRequestsList;
+export default GitlabMergeRequestsList;

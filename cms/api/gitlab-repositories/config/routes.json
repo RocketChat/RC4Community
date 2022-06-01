@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gitlab-repositories",
+      "handler": "gitlab-repositories.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-repositories/count",
+      "handler": "gitlab-repositories.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-repositories/:id",
+      "handler": "gitlab-repositories.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gitlab-repositories",
+      "handler": "gitlab-repositories.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gitlab-repositories/:id",
+      "handler": "gitlab-repositories.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gitlab-repositories/:id",
+      "handler": "gitlab-repositories.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

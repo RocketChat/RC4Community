@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gitlab_repositories",
+  "info": {
+    "name": "GitlabRepositories"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "project_id": {
+      "type": "string"
+    },
+    "project_data": {
+      "type": "json"
+    },
+    "gitlab_issue": {
+      "via": "gitlab_repository",
+      "model": "gitlab-issues"
+    },
+    "gitlab_member": {
+      "via": "gitlab_repository",
+      "model": "gitlab-members"
+    },
+    "gitlab_merge_request": {
+      "via": "gitlab_repository",
+      "model": "gitlab-merge-requests"
+    }
+  }
+}

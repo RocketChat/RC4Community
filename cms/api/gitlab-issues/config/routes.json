@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gitlab-issues",
+      "handler": "gitlab-issues.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-issues/count",
+      "handler": "gitlab-issues.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gitlab-issues/:id",
+      "handler": "gitlab-issues.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gitlab-issues",
+      "handler": "gitlab-issues.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gitlab-issues/:id",
+      "handler": "gitlab-issues.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gitlab-issues/:id",
+      "handler": "gitlab-issues.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

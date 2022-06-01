@@ -1,20 +1,20 @@
 import Image from "next/image";
 
-const ContributorsList = (props) => {
+const MembersList = (props) => {
   let contributors = [];
   if (
     props.data &&
-    props.data.contributors &&
-    Array.isArray(props.data.contributors.Contributors)
+    props.data.members &&
+    Array.isArray(props.data.members.members)
   ) {
-    contributors = props.data.contributors.Contributors;
+    contributors = props.data.members.members;
   }
 
   return (
     <div className="container">
       {Array.isArray(contributors) &&
         contributors.map((contributor) => (
-          <a href={contributor.html_url} key={contributor.id}>
+          <a href={contributor.web_url} key={contributor.id}>
             <Image
               className="rounded-circle"
               src={contributor.avatar_url}
@@ -27,4 +27,4 @@ const ContributorsList = (props) => {
   );
 };
 
-export default ContributorsList;
+export default MembersList;

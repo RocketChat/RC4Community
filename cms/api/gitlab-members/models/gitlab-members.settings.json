@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gitlab_members",
+  "info": {
+    "name": "GitlabMembers"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "members": {
+      "type": "json"
+    },
+    "gitlab_repository": {
+      "model": "gitlab-repositories",
+      "via": "gitlab_member"
+    }
+  }
+}

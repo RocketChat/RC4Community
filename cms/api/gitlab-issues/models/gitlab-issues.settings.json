@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gitlab_issues",
+  "info": {
+    "name": "GitlabIssues"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gitlab_repository": {
+      "model": "gitlab-repositories",
+      "via": "gitlab_issue"
+    },
+    "issues": {
+      "type": "json"
+    }
+  }
+}
