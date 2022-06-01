@@ -33,3 +33,11 @@
 .carousel-item-title {
   font-size: 22.5px;
 }
+@media (max-width: 600px) {
+  .heading {
+    font-size: clamp(1.3rem, 1.7vw, 1.2rem);
+  }
+  .description {
+    font-size: clamp(0.8rem, 1.2vw, 0.8rem);
+  }
+}

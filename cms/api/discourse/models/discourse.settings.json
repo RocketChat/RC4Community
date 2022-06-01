@@ -2,8 +2,7 @@
   "kind": "collectionType",
   "collectionName": "discourses",
   "info": {
-    "name": "discourse",
-    "description": ""
+    "name": "discourse"
   },
   "options": {
     "increments": true,
@@ -12,10 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "TopPost": {
-      "type": "json",
-      "required": true,
-      "unique": false
+    "title": {
+      "type": "text"
+    },
+    "time": {
+      "type": "string"
+    },
+    "upvotes": {
+      "type": "biginteger"
+    },
+    "comments": {
+      "type": "biginteger"
     }
   }
 }

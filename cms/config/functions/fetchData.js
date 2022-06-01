@@ -6,14 +6,18 @@ const { carousels,
   subMenus,
   topNavItem,
   speakers,
-  forms } = require('../initialData');
+  forms, 
+  discourses,
+  counters,
+  infotiles
+ } = require('../initialData');
 const { githubKit } = require('./github');
 
 module.exports = async () => {
 
   try {
     var carouselCount = await strapi.query("carousel").count();
-    var personaIconsCount = await strapi.query("persona-icons").count();
+    var personaIconsCount = await strapi.query("persona-icon").count();
     var personaCount = await strapi.query("persona").count();
     var subMenuCount = await strapi.query("sub-menu").count();
     var topNavItemCount = await strapi.query("top-nav-item").count();
@@ -22,7 +26,9 @@ module.exports = async () => {
     var formCount = await strapi.query("form").count();
     var ghrepos = await strapi.query("github-repositories").count({});
     var speakersCount = await strapi.query("speaker").count({});
-
+    var discourseCount = await strapi.query("discourse").count();
+    var counterCount = await strapi.query("counter").count();
+    var infotileCounter=await strapi.query("infotile").count();
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
@@ -102,7 +108,7 @@ module.exports = async () => {
 
     personaIcons.map(async (personaIcon, index) => {
       if (index <= personaIconsCount - 1) {
-        await strapi.query("persona-icons").update(
+        await strapi.query("persona-icon").update(
           { id: personaIcon.id },
           {
             icon: personaIcon.icon,
@@ -111,7 +117,7 @@ module.exports = async () => {
           }
         );
       } else {
-        await strapi.query("persona-icons").create({
+        await strapi.query("persona-icon").create({
           icon: personaIcon.icon,
           size: personaIcon.size,
           color: personaIcon.color,
@@ -159,6 +165,64 @@ module.exports = async () => {
         await strapi.query("sub-menu").create({
           label: subMenu.label,
           url: subMenu.url,
+        });
+      }
+    });
+
+    discourses.map(async (discourse, index) => {
+      if (index <= discourseCount - 1) {
+        
+        await strapi.query("discourse").update(
+          { id: discourse.id },
+          {
+            title: discourse.title,
+            time: discourse.time,
+            upvotes: discourse.upvotes,
+            comments: discourse.comments,
+          }
+        );
+      } else {
+        await strapi.query("discourse").create({
+          title: discourse.title,
+            time: discourse.time,
+            upvotes: discourse.upvotes,
+            comments: discourse.comments,
+        });
+      }
+    });
+    
+    counters.map(async (counter, index) => {
+      if (index <= counterCount - 1) {
+        
+        await strapi.query("counter").update(
+          { id: counter.id },
+          {
+            count: counter.count,
+            title: counter.title,
+          }
+        );
+      } else {
+        await strapi.query("counter").create({
+          count: counter.count,
+          title: counter.title,
+        });
+      }
+    });
+
+    infotiles.map(async (infotile, index) => {
+      if (index <= infotileCounter - 1) {
+        
+        await strapi.query("infotile").update(
+          { id: infotile.id },
+          {
+            title: infotile.title,
+            description: infotile.description,
+          }
+        );
+      } else {
+        await strapi.query("infotile").create({
+          title: infotile.title,
+          description: infotile.description,
         });
       }
     });

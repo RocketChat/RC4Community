@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "personas",
+  "collectionName": "counters",
   "info": {
-    "name": "persona",
+    "name": "Counter",
     "description": ""
   },
   "options": {
@@ -12,11 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "count": {
+      "type": "integer"
     },
-    "persona_icon": {
-      "model": "persona-icon"
+    "title": {
+      "type": "string"
     }
   }
 }
