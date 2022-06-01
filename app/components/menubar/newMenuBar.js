@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navbar, Nav, Container, Col, Row, Offcanvas } from 'react-bootstrap';
-import styles from '../styles/Menubar.module.css';
-import { FirebaseAuthMenuButton } from './auth/firebase';
-import BrandLogo from './brandlogo';
+import styles from '../../styles/Menubar.module.css';
+import { FirebaseAuthMenuButton } from '../auth/firebase';
+import BrandLogo from '../brandlogo';
+import NFTProfilePicture from './nftProfilePicture';
 
 const ArrowIcon = () => {
   return (
@@ -18,7 +19,7 @@ const ArrowIcon = () => {
   );
 };
 
-const MobileNav = ({ nav_Items }) => {
+const MobileNav = ({ nav_Items, nft }) => {
   const [dropDown, setDropDown] = useState({ show: false, _id: 0 });
 
   return (
@@ -42,7 +43,21 @@ const MobileNav = ({ nav_Items }) => {
           placement='start'
         >
           <Offcanvas.Header closeButton>
-            <Navbar.Brand href='#'>Rocket Chat Community</Navbar.Brand>
+            <Navbar.Brand
+              href='#'
+              className='d-flex justify-content-center align-items-center '
+            >
+              <BrandLogo
+                brandLink={'/'}
+                logoLink={
+                  'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
+                }
+                imageTitle={'Rocket.Chat'}
+                brandName={'Rocket.Chat Community'}
+                height={30}
+                width={132}
+              />
+            </Navbar.Brand>
           </Offcanvas.Header>
           <Offcanvas.Body>
             {nav_Items?.map((nav_Item) =>
@@ -140,17 +155,15 @@ const MobileNav = ({ nav_Items }) => {
             )}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
-        <Navbar.Brand>
-          <div className='ms-2'>
-            <FirebaseAuthMenuButton />
-          </div>
+        <Navbar.Brand className={styles.brand}>
+          {nft ? <NFTProfilePicture id='img2' /> : <FirebaseAuthMenuButton />}
         </Navbar.Brand>
       </Container>
     </Navbar>
   );
 };
 
-const DesktopNav = ({ nav_Items }) => {
+const DesktopNav = ({ nav_Items, nft }) => {
   const [isShown, setIsShown] = useState(0);
   const clickRef = useRef(null);
 
@@ -256,18 +269,19 @@ const DesktopNav = ({ nav_Items }) => {
           )
         )}
       </Nav>
-      <div className='mx-1'>
-        <FirebaseAuthMenuButton />
+      <div>
+        {nft ? <NFTProfilePicture id='img1' /> : <FirebaseAuthMenuButton />}
       </div>
     </Navbar>
   );
 };
 
 export default function NewMenubar(props) {
+  const [pfpIsNFT, setPfpIsNFT] = useState(true);
   return (
-    <Container fluid className='border-bottom'>
-      <MobileNav nav_Items={props.menu?.body} />
-      <DesktopNav nav_Items={props.menu?.body} />
+    <Container fluid className=''>
+      <MobileNav nav_Items={props.menu?.body} nft={pfpIsNFT} />
+      <DesktopNav nav_Items={props.menu?.body} nft={pfpIsNFT} />
     </Container>
   );
 }
