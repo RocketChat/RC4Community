@@ -22,7 +22,7 @@ module.exports = {
   //
   // }
   '*/5 * * * *': () => {
-    getLatestCommunityActivity();
+    getLatestCommunityActivity(15);
   },
   '*/60 * * * * *': () => {
     getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
