@@ -21,9 +21,9 @@ Start strapi:
 ```
 git clone https://github.com/rocketchat/RC4Community
 cd cms
-yarn install
-yarn build
-INITIALIZE_DATA=true yarn develop
+npm i
+npm run build
+INITIALIZE_DATA=true npm run develop
 ```
 
 Note:
