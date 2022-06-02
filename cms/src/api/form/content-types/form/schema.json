@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "displayName": "form",
+    "singularName": "form",
+    "pluralName": "forms",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "formQs": {
+      "type": "json"
+    },
+    "title": {
+      "type": "string",
+      "default": "Preview Form",
+      "required": true
+    }
+  }
+}

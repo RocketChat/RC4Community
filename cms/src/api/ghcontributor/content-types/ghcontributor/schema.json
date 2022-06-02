@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ghcontributors",
+  "info": {
+    "singularName": "ghcontributor",
+    "pluralName": "ghcontributors",
+    "displayName": "ghcontributor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Contributors": {
+      "type": "json"
+    },
+    "github_repository": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::github-repository.github-repository",
+      "mappedBy": "contributors"
+    }
+  }
+}

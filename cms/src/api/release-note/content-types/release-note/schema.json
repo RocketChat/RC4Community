@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "release_notes",
+  "info": {
+    "singularName": "release-note",
+    "pluralName": "release-notes",
+    "displayName": "ReleaseNote"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}

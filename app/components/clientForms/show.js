@@ -19,7 +19,7 @@ function RCform({ formId, fw }) {
       <Card.Title className={styles.showTitle}>{form.title}</Card.Title>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
-          {form.formQs.map((ele, i) => (
+          {form.data?.attributes.formQs.map((ele, i) => (
             <Form.Group key={i} className="mb-3" controlId="formBasicEmail">
               <Form.Label>{ele.value}</Form.Label>
               {ele.type == "number" ? (

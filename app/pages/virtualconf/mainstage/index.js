@@ -89,7 +89,7 @@ const Mainstage = ({ speakers }) => {
         <Container>
           <h2 className={styles.heading}>Speakers</h2>
           <div className={styles.speakersContainer}>
-            <SpeakerInfotiles data={speakers} />
+            <SpeakerInfotiles data={speakers.data} />
           </div>
         </Container>{' '}
       </main>
