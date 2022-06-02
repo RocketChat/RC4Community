@@ -10,7 +10,6 @@ module.exports = createCoreService('api::top-nav-item.top-nav-item', ({ strapi }
 
     async create(...args) {  
       // Calling the default core controller
-      // console.log("arg", JSON.stringify(args))
       const { data, meta } = await super.createOrUpdate(...args);  
       // some custom logic
   
