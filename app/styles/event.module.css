@@ -1,0 +1,11 @@
+.signin_form {
+    margin: auto;
+    padding: 3%;
+    border: 1px solid;
+}
+
+.signin_form_foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
+import EventSignInForm from "../../components/conferences/auth/EveAccountSign";
 
 function EventHomeDemo() {
   return (
@@ -13,6 +14,7 @@ function EventHomeDemo() {
       <Stack className="mx-auto">
         <h1 className="mx-auto mt-3">Preview of Event Component</h1>
         <Stack direction="horizontal">
+          <EventSignInForm />
         </Stack>
       </Stack>
     </div>
