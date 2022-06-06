@@ -1,11 +1,13 @@
-.signin_form {
+.signin_card {
     margin: auto;
-    padding: 3%;
-    border: 1px solid;
 }
 
 .signin_form_foot {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.signin_card_foot {
+    cursor: pointer;
 }
