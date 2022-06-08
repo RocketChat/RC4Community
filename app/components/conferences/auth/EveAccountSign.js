@@ -94,13 +94,20 @@ const EventSignUpForm = ({ err, setErr }) => {
   const [form, setForm] = useState({
     formEmail: "",
     formPassword: "",
-    check: false,
+    formRePassword: "",
   });
 
   const [load, setLoad] = useState(false);
+  const [match, setMatch] = useState(true);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (form.formPassword !== form.formRePassword) {
+      setMatch(false);
+      e.stopPropagation();
+      return;
+    }
     const toPost = {
       email: form.formEmail,
       password: form.formPassword,
@@ -118,16 +125,10 @@ const EventSignUpForm = ({ err, setErr }) => {
     }
   };
 
-  const handleCheck = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      check: !form.check,
-    }));
-  };
-
   const handleChange = (e) => {
     const name = e.target.id;
     const value = e.target.value;
+    setMatch(true);
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -154,6 +155,19 @@ const EventSignUpForm = ({ err, setErr }) => {
           placeholder="Password"
         />
       </Form.Group>
+      <Form.Group className="mb-3" controlId="formRePassword">
+        <Form.Label>Re-Enter Password*</Form.Label>
+        <Form.Control
+          onChange={handleChange}
+          required
+          type="password"
+          placeholder="Password"
+          isInvalid={!match}
+        />
+        <Form.Control.Feedback type="invalid">
+          Entered Psswords does not Match!
+        </Form.Control.Feedback>
+      </Form.Group>
       <Button disabled={load} variant="primary" type="submit">
         {load ? (
           <Spinner
@@ -177,11 +191,6 @@ const EventAuth = () => {
     show: false,
     mess: "",
   });
-  // return login ? (
-  //   <EventSignInForm setLogin={setLogin} />
-  // ) : (
-  //   <EventSignUpForm setLogin={setLogin} />
-  // );
 
   return (
     <Card>
@@ -199,7 +208,7 @@ const EventAuth = () => {
         className={styles.signin_card_foot}
         onClick={() => setLogin(!login)}
       >
-        {login ? "Hey! I'm new here!" : "Back to Sign-In"}
+        {login ? "I'm new! Sign Up" : "Back to Sign In"}
       </Card.Footer>
     </Card>
   );
