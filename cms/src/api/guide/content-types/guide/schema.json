@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "guides",
+  "info": {
+    "singularName": "guide",
+    "pluralName": "guides",
+    "displayName": "Guide"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}

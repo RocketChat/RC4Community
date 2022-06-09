@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const ContributorsList = (props) => {
   
-  let contributors = props.data.contributors.Contributors;
+  let contributors = props.data.contributors.data.attributes.Contributors;
 
   return (
     <div className="container">

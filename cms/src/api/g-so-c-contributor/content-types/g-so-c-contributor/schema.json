@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "g_so_c_contributors",
+  "info": {
+    "singularName": "g-so-c-contributor",
+    "pluralName": "g-so-c-contributors",
+    "displayName": "GSocContributor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "community": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::community.community",
+      "inversedBy": "contributors"
+    },
+    "avatarUrl": {
+      "type": "string"
+    },
+    "profileUrl": {
+      "type": "string"
+    },
+    "mergedPRsLink": {
+      "type": "string"
+    },
+    "openPRsLink": {
+      "type": "string"
+    },
+    "issuesLink": {
+      "type": "string"
+    },
+    "mergedPRsNumber": {
+      "type": "integer"
+    },
+    "openPRsNumber": {
+      "type": "integer"
+    },
+    "issuesNumber": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "speakers",
+  "info": {
+    "displayName": "Speaker",
+    "singularName": "speaker",
+    "pluralName": "speakers",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "live": {
+      "type": "boolean",
+      "default": false
+    },
+    "ended": {
+      "type": "boolean",
+      "default": false
+    },
+    "confHref": {
+      "type": "string"
+    },
+    "date_time": {
+      "type": "datetime"
+    },
+    "duration_minutes": {
+      "type": "integer"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "short_bio": {
+      "type": "string"
+    },
+    "talk_topic": {
+      "type": "string"
+    },
+    "talk_summary": {
+      "type": "string"
+    }
+  }
+}

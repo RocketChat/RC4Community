@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ghissues",
+  "info": {
+    "singularName": "ghissue",
+    "pluralName": "ghissues",
+    "displayName": "ghissue",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Issues": {
+      "type": "json",
+      "required": true
+    },
+    "github_repository": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::github-repository.github-repository",
+      "mappedBy": "issues"
+    }
+  }
+}

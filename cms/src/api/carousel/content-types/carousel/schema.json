@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carousels",
+  "info": {
+    "displayName": "Carousel",
+    "singularName": "carousel",
+    "pluralName": "carousels",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}
