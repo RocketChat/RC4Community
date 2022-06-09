@@ -1,6 +1,19 @@
 import { useState } from "react";
-import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
-import { eventAuth, eventAuthSignUp } from "../../../lib/conferences/eventCall";
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  FormControl,
+  InputGroup,
+  Nav,
+  Spinner,
+} from "react-bootstrap";
+import {
+  eventAuth,
+  eventAuthSignIn,
+  eventAuthSignUp,
+} from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 
 const EventSignInForm = ({ err, setErr }) => {
@@ -20,7 +33,7 @@ const EventSignInForm = ({ err, setErr }) => {
     try {
       setErr({ show: false });
       setLoad(true);
-      const res = await eventAuth(toPost);
+      const res = await eventAuthSignIn(toPost);
       console.log("submi", res);
     } catch (e) {
       setErr({ show: true, mess: e.response.data.error });
@@ -38,7 +51,7 @@ const EventSignInForm = ({ err, setErr }) => {
   };
 
   const handleChange = (e) => {
-    const name = e.target.id;
+    const name = e.target.name;
     const value = e.target.value;
     setForm((prev) => ({
       ...prev,
@@ -47,26 +60,29 @@ const EventSignInForm = ({ err, setErr }) => {
   };
   return (
     <Form onSubmit={onSubmit}>
-      <Form.Group controlId="formEmail">
-        <Form.Label>Email*</Form.Label>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Email*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
           required
           type="email"
           placeholder="Enter email"
+          name="formEmail"
+          aria-label="Email"
         />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formPassword">
-        <Form.Label>Password*</Form.Label>
+      </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Password*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
           required
           type="password"
           placeholder="Password"
+          name="formPassword"
+          aria-label="Password"
         />
-      </Form.Group>
-      <Form.Group className={styles.signin_form_foot} controlId="formCheckbox">
+      </InputGroup>
+      <Form.Group className={styles.sign_form_foot} controlId="formCheckbox">
         <Form.Check
           onChange={handleCheck}
           type="checkbox"
@@ -95,6 +111,8 @@ const EventSignUpForm = ({ err, setErr }) => {
     formEmail: "",
     formPassword: "",
     formRePassword: "",
+    formfName: "",
+    formlName: "",
   });
 
   const [load, setLoad] = useState(false);
@@ -111,11 +129,13 @@ const EventSignUpForm = ({ err, setErr }) => {
     const toPost = {
       data: {
         attributes: {
+          "first-name": form.formfName,
+          "last-name": form.formlName,
           email: form.formEmail,
           password: form.formPassword,
         },
-      type: "user",
-      }
+        type: "user",
+      },
     };
     try {
       setErr({ show: false });
@@ -131,7 +151,7 @@ const EventSignUpForm = ({ err, setErr }) => {
   };
 
   const handleChange = (e) => {
-    const name = e.target.id;
+    const name = e.target.name;
     const value = e.target.value;
     setMatch(true);
     setForm((prev) => ({
@@ -141,38 +161,56 @@ const EventSignUpForm = ({ err, setErr }) => {
   };
   return (
     <Form onSubmit={onSubmit}>
-      <Form.Group controlId="formEmail">
-        <Form.Label>Email*</Form.Label>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>First & last name</InputGroup.Text>
+        <Form.Control
+          name="formfName"
+          onChange={handleChange}
+          aria-label="First name"
+        />
+        <Form.Control
+          name="formfName"
+          onChange={handleChange}
+          aria-label="Last name"
+        />
+      </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Email*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
           required
           type="email"
           placeholder="Enter email"
+          name="formEmail"
+          aria-label="Email"
         />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formPassword">
-        <Form.Label>Password*</Form.Label>
+      </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Password*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
           required
           type="password"
           placeholder="Password"
+          name="formPassword"
+          aria-label="Password"
         />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formRePassword">
-        <Form.Label>Re-Enter Password*</Form.Label>
+      </InputGroup>
+      <InputGroup className="mb-3" controlId="formRePassword">
+        <InputGroup.Text>Re-Enter Password*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
           required
           type="password"
           placeholder="Password"
           isInvalid={!match}
+          name="formRePassword"
+          aria-label="Re-Password"
         />
         <Form.Control.Feedback type="invalid">
-          Entered Psswords does not Match!
+          Entered Passwords does not Match!
         </Form.Control.Feedback>
-      </Form.Group>
+      </InputGroup>
       <Button disabled={load} variant="primary" type="submit">
         {load ? (
           <Spinner
@@ -191,14 +229,34 @@ const EventSignUpForm = ({ err, setErr }) => {
 };
 
 const EventAuth = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const [err, setErr] = useState({
     show: false,
     mess: "",
   });
 
   return (
-    <Card>
+    <Card className={styles.sign_card}>
+      <Card.Header>
+        <Nav
+          fill
+          className="justify-content-center"
+          variant="tabs"
+          activeKey={login}
+          defaultActiveKey="#signin"
+        >
+          <Nav.Item onClick={() => setLogin(true)}>
+            <Nav.Link eventKey="true" href="#signin">
+              Sign In
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item onClick={() => setLogin(false)}>
+            <Nav.Link eventKey="false" href="#signup">
+              Sign Up
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </Card.Header>
       <Card.Body>
         <Card.Subtitle>
           {err.show && <Alert variant="danger">{err.mess}</Alert>}
@@ -210,10 +268,12 @@ const EventAuth = () => {
         )}
       </Card.Body>
       <Card.Footer
-        className={styles.signin_card_foot}
-        onClick={() => setLogin(!login)}
+        className={styles.sign_card_foot}
+        onClick={() => {
+          setLogin(!login), setErr({ show: false });
+        }}
       >
-        {login ? "I'm new! Sign Up" : "Back to Sign In"}
+        {login ? "I'm new here! Sign Up" : "Back to Sign In"}
       </Card.Footer>
     </Card>
   );

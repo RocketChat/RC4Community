@@ -1,14 +1,15 @@
-.signin_card {
+.sign_card {
     margin: auto;
+    width: 60%;
 }
 
-.signin_form_foot {
+.sign_form_foot {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.signin_card_foot {
+.sign_card_foot {
     cursor: pointer;
     text-align: center;
 }
