@@ -1,20 +1,24 @@
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import {
   Alert,
   Button,
   Card,
   Form,
-  FormControl,
   InputGroup,
   Nav,
   Spinner,
 } from "react-bootstrap";
 import {
-  eventAuth,
   eventAuthSignIn,
   eventAuthSignUp,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+
+const setCookie = (res) => {
+  Cookies.set("event_authentication", JSON.stringify(res.data))
+} 
 
 const EventSignInForm = ({ err, setErr }) => {
   const [form, setForm] = useState({
@@ -23,6 +27,7 @@ const EventSignInForm = ({ err, setErr }) => {
     check: false,
   });
   const [load, setLoad] = useState(false);
+  const router = useRouter()
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +40,8 @@ const EventSignInForm = ({ err, setErr }) => {
       setLoad(true);
       const res = await eventAuthSignIn(toPost);
       console.log("submi", res);
+      setCookie(res)
+      router.push("/conferences")
     } catch (e) {
       setErr({ show: true, mess: e.response.data.error });
       console.log("catch", e);
@@ -142,6 +149,7 @@ const EventSignUpForm = ({ err, setErr }) => {
       setLoad(true);
       const res = await eventAuthSignUp(toPost);
       console.log("submi", res);
+      router.push("/conferences")
     } catch (e) {
       setErr({ show: true, mess: e.response.data?.errors[0].detail });
       console.log("catch", String(e));

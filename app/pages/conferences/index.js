@@ -1,6 +1,8 @@
+import Cookies from "js-cookie";
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import EventAuth from "../../components/conferences/auth/EveAccountSign";
+import EventHome from "../../components/conferences/EventHome";
 
 function EventHomeDemo() {
   return (
@@ -13,8 +15,9 @@ function EventHomeDemo() {
       </Head>
       <div className="mx-auto">
         <h1 className="mx-auto mt-3">Preview of Event Component</h1>
-        <Stack direction="horizontal">
-          <EventAuth />
+        <Stack direction="vertical">
+          <p>Find, Your Next!</p>
+          <EventHome />
         </Stack>
       </div>
     </div>
