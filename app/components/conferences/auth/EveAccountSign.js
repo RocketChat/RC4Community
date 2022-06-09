@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
-import { eventAuth } from "../../../lib/conferences/eventCall";
+import { eventAuth, eventAuthSignUp } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 
 const EventSignInForm = ({ err, setErr }) => {
@@ -109,17 +109,22 @@ const EventSignUpForm = ({ err, setErr }) => {
       return;
     }
     const toPost = {
-      email: form.formEmail,
-      password: form.formPassword,
+      data: {
+        attributes: {
+          email: form.formEmail,
+          password: form.formPassword,
+        },
+      type: "user",
+      }
     };
     try {
       setErr({ show: false });
       setLoad(true);
-      const res = await eventAuth(toPost);
+      const res = await eventAuthSignUp(toPost);
       console.log("submi", res);
     } catch (e) {
-      setErr({ show: true, mess: e.response.data.error });
-      console.log("catch", e);
+      setErr({ show: true, mess: e.response.data?.errors[0].detail });
+      console.log("catch", String(e));
     } finally {
       setLoad(false);
     }
