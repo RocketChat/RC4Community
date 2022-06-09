@@ -38,7 +38,7 @@ function Home(props) {
           </p>
         </Col>
         <Col className='mb-5 d-flex flex-column align-items-center'>
-          <h6 className='py-2 fs-6'> <a href={props?.guides?.location} target="_blank">Read the Guides</a>  | <a href={props?.releaseNotes?.location} target="_blank">Read Release Notes</a> </h6>
+          <h6 className='py-2 fs-6'> <a href={props?.guides?.data?.location} target="_blank">Read the Guides</a>  | <a href={props?.releaseNotes?.data?.location} target="_blank">Read Release Notes</a> </h6>
           <Searchbox></Searchbox>
         </Col>
         <Col>
@@ -56,19 +56,19 @@ function Home(props) {
           <h2 className={`mx-auto  w-auto pb-5 ${styles.title}`}>
             Latest Community News
           </h2>
-          <Newscarousel carousels={props.carousels}></Newscarousel>
+          <Newscarousel carousels={props.carousels.data}></Newscarousel>
         </div>
 
         <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
           Get What You Need...
         </h2>
-        <Personacircle personas={props.personas}></Personacircle>
+        <Personacircle personas={props.personas.data}></Personacircle>
 
         <div className={` d-flex flex-column py-5 align-items-center`}>
           <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
             Community Activity
           </h2>
-          <Discourserankedlist topposts={props.topPosts}></Discourserankedlist>
+          <Discourserankedlist topposts={props.topPosts.data}></Discourserankedlist>
         </div>
       </Container>
     </>
@@ -79,8 +79,8 @@ export default withFirebaseAuthUser()(Home);
 export async function getStaticProps({ params }) {
   const carousels = await fetchAPI('/carousels');
   const personas = await fetchAPI('/personas');
-  const guides = await fetchAPI('/guides');
-  const releaseNotes = await fetchAPI('/release-notes');
+  const guides = await fetchAPI('/guide');
+  const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
   const topPosts = await fetchAPI('/discourses');
  

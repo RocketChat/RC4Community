@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discourses",
+  "info": {
+    "displayName": "Discourse",
+    "singularName": "discourse",
+    "pluralName": "discourses",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "TopPost": {
+      "type": "json",
+      "required": true,
+      "unique": false
+    }
+  }
+}

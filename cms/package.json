@@ -12,18 +12,11 @@
   "devDependencies": {},
   "dependencies": {
     "@octokit/core": "^3.5.1",
-    "knex": "0.21.18",
-    "sqlite3": "^5.0.8",
-    "strapi": "3.6.10",
-    "strapi-admin": "3.6.10",
-    "strapi-connector-bookshelf": "3.6.10",
-    "strapi-plugin-content-manager": "3.6.10",
-    "strapi-plugin-content-type-builder": "3.6.10",
-    "strapi-plugin-email": "3.6.10",
-    "strapi-plugin-i18n": "3.6.10",
-    "strapi-plugin-upload": "3.6.10",
-    "strapi-plugin-users-permissions": "3.6.10",
-    "strapi-utils": "3.6.10"
+    "@strapi/plugin-i18n": "4.1.11",
+    "@strapi/plugin-users-permissions": "4.1.11",
+    "@strapi/strapi": "4.1.11",
+    "axios": "^0.27.2",
+    "sqlite3": "^5.0.8"
   },
   "author": {
     "name": "A Strapi developer"
@@ -32,11 +25,12 @@
     "uuid": "ef99e684-1769-4ada-9f4e-baeacde90a94"
   },
   "engines": {
-    "node": ">=10.16.0 <=14.x.x",
+    "node": ">=14.x.x <=16.x.x",
     "npm": "^6.0.0"
   },
   "license": "MIT",
   "volta": {
-    "node": "14.18.3"
+    "node": "16.4.0",
+    "yarn": "1.22.18"
   }
 }

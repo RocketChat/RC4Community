@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_menus",
+  "info": {
+    "singularName": "sub-menu",
+    "pluralName": "sub-menus",
+    "displayName": "SubMenuLink"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "integer"
+    }
+  }
+}
