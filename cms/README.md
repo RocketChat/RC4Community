@@ -10,7 +10,7 @@ By default, strapi listens on port 1337.   If you're using WSL2 on Windows and a
 
 > Delete the old `.tmp` and `build` folders (if exists).
 
-> Add the `APP_KEYS`, and `JWT_SECRET` environment variables. (For a quick start, you could use the same keys as in `.env.example`)
+> **Optional: Add the `APP_KEYS`, and `JWT_SECRET` environment variables. (For a quick start, you could use the same keys as in `.env.example`)
 
 ```
 export PORT=3000

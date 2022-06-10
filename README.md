@@ -48,6 +48,12 @@ Nodejs versioning is managed by [volta](https://docs.volta.sh/guide/). You can i
 
 By default, strapi listens on port 1337. If you're using WSL2 on Windows and also running Docker Desktop, port 1337 may not be available on your system. To use port 3000 instead, set the environment variable `PORT` to 3000.
 
+#### If migrating form Strapi v3 to v4, please -
+
+> Delete the old `.tmp` and `build` folders (if exists).
+
+> **Optional: Add the `APP_KEYS`, and `JWT_SECRET` environment variables. (For a quick start, you could use the same keys as in `.env.example`)
+
 ```
 export PORT=3000
 ```
