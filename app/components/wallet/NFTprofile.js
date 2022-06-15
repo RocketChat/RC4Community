@@ -3,18 +3,8 @@ import { Alert, Button, Image, Modal, Spinner } from "react-bootstrap";
 import { connectAccount, fetchAssets } from "../../lib/walletAPI";
 import { ErrorModal } from "./connectMeta";
 import styles from "../../styles/meta.module.css";
-import { gql, useMutation } from "@apollo/client";
 import Cookies from "js-cookie";
-
-const UPSERT_NFT = gql`
-  mutation UpsertNFT($id: String!, $address: String!, $token: String!) {
-    upsertNFT(id: $id, address: $address, token: $token) {
-      _id
-      address
-      token
-    }
-  }
-`;
+import { superProfile } from "../superprofile/nftSuperAbstract";
 
 const NFTProfile = ({ limit }) => {
   const [assets, setAssets] = useState(null);
@@ -109,21 +99,30 @@ const GalleryModal = ({
   errMess,
   setErrMess,
 }) => {
-  const [upsertNFT, { data, loading, error, reset }] = useMutation(UPSERT_NFT);
+  const { callSuper, data, loading, error, reset } = superProfile();
+
   useEffect(() => {
     if (data) {
       setLoad(false);
     }
   }, [data]);
+
   if (loading) {
     setLoad(true);
   }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const assetSelected = assets[select.split("_")[1]];
     const address = assetSelected.asset_contract.address;
     const token = assetSelected.token_id;
-    upsertNFT({ variables: { id: uid, address: address, token: token } });
+    const data = {
+      uid: uid,
+      address: address,
+      token: token,
+    };
+
+    callSuper("nft", data);
   };
 
   if (error) {
