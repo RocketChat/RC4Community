@@ -106,10 +106,10 @@ export async function getLeaderboardCompactProps(communityId,leaderboardSize){
   let communityName = null;
   let communities = await fetchAPI("/communities");
   
-  communities.forEach((community) => {
-    if (community.communityId === communityId) {
-      contributors = community.contributors;
-      communityName = community.communityName;
+  communities.data.forEach((community) => {
+    if (community.attributes.communityId === communityId) {
+      contributors = community.attributes.contributors;
+      communityName = community.attributes.communityName;
     }
   });
 
