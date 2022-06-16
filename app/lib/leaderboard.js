@@ -26,9 +26,9 @@ export const contributorList = (contributors) => {
 export const getCommunityIds = async () => {
     let communities = await fetchAPI("/communities");
     let paths = [];
-    communities.forEach((community) => {
+    communities.data.forEach((community) => {
         paths.push({
-            params: { id: community.communityId },
+            params: { id: community.attributes.communityId },
         });
     });
     return paths;
