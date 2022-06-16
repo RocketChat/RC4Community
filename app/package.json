@@ -49,6 +49,6 @@
     "eslint-config-next": "12.0.7"
   },
   "volta": {
-    "node": "14.18.3"
+    "node": "16.4.0"
   }
 }
