@@ -55,7 +55,7 @@ module.exports.getCommunityContributors = async (
       if (contributorCount === 0) {
         await strapi
           .service("api::g-so-c-contributor.g-so-c-contributor")
-          .create({ data: { contributor } });
+          .create({ data: contributor });
       } else {
         await strapi
           .db.query("api::g-so-c-contributor.g-so-c-contributor")
