@@ -64,7 +64,7 @@ module.exports.getCommunityContributors = async (
               username: contributor.username,
               community: community.id,
             },
-            data: { contributor },
+            data: contributor,
           });
       }
     });
