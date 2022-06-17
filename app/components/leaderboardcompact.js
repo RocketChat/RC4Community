@@ -40,56 +40,56 @@ export function LeaderboardCompact({ contributors, leaderboardSize }) {
               </td>
               <td scope="row" colSpan="1">
                 <Image
-                  src={contributor.avatarUrl}
-                  title={contributor.username}
-                  alt={contributor.username}
+                  src={contributor.attributes.avatarUrl}
+                  title={contributor.attributes.username}
+                  alt={contributor.attributes.username}
                   height={42}
                   width={42}
                 />
               </td>
               <td colSpan="2">
-                <a href={contributor.profileUrl}>
-                  <span>{contributor.username}</span>
+                <a href={contributor.attributes.profileUrl}>
+                  <span>{contributor.attributes.username}</span>
                 </a>
               </td>
               <td
                 className={
-                  contributor.openPRsNumber > 0
+                  contributor.attributes.openPRsNumber > 0
                     ? "d-none d-sm-table-cell"
                     : `${styles["disabled-link"]} d-none d-sm-table-cell`
                 }
                 colSpan="1"
               >
                 <a
-                  href={contributor.openPRsLink}
+                  href={contributor.attributes.openPRsLink}
                   target={"blank"}
                   className="leader-board-link"
                 >
-                  {contributor.openPRsNumber}
+                  {contributor.attributes.openPRsNumber}
                 </a>
               </td>
               <td
                 className={
-                  contributor.mergedPRsNumber > 0
+                  contributor.attributes.mergedPRsNumber > 0
                     ? "d-none d-sm-table-cell"
                     : `${styles["disabled-link"]} d-none d-sm-table-cell`
                 }
                 colSpan="1"
               >
-                <a href={contributor.mergedPRsLink} target={"blank"}>
-                  {contributor.mergedPRsNumber}
+                <a href={contributor.attributes.mergedPRsLink} target={"blank"}>
+                  {contributor.attributes.mergedPRsNumber}
                 </a>
               </td>
               <td
                 className={
-                  contributor.issuesNumber > 0
+                  contributor.attributes.issuesNumber > 0
                     ? "d-none d-sm-table-cell"
                     : `${styles["disabled-link"]} d-none d-sm-table-cell`
                 }
                 colSpan="1"
               >
-                <a href={contributor.issuesLink} target={"blank"}>
-                  {contributor.issuesNumber}
+                <a href={contributor.attributes.issuesLink} target={"blank"}>
+                  {contributor.attributes.issuesNumber}
                 </a>
               </td>
             </tr>
@@ -106,10 +106,10 @@ export async function getLeaderboardCompactProps(communityId,leaderboardSize){
   let communityName = null;
   let communities = await fetchAPI("/communities");
   
-  communities.forEach((community) => {
-    if (community.communityId === communityId) {
-      contributors = community.contributors;
-      communityName = community.communityName;
+  communities.data.forEach((community) => {
+    if (community.attributes.communityId === communityId) {
+      contributors = community.attributes.contributors;
+      communityName = community.attributes.communityName;
     }
   });
 
