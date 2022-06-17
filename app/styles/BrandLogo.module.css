@@ -1,6 +1,4 @@
 .brand {
-    font-size: clamp(16px, 2.4vw, 20px);;
+  padding-top: 0.5rem;
+  font-size: clamp(16px, 2.4vw, 20px);
 }
-
-
-  
