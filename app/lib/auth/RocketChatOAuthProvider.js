@@ -6,7 +6,7 @@ export function RocketChatOAuthProvider(options = {}) {
     type: "oauth",
     authorization: urlJoin(options.rocketChatUrl,'/oauth/authorize'),
     scope: "openid email profile",
-    token: urlJoin(process.env.NEXTAUTH_URL,'/api/auth/rocketchat-token-legacy'),
+    token: urlJoin(process.env.NEXTAUTH_URL ?? "http://localhost:3000",'/api/auth/rocketchat-token-legacy'),
     userinfo: urlJoin(options.rocketChatUrl,'/oauth/userinfo'),
 
     async profile(profile) {

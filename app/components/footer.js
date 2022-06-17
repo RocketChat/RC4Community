@@ -4,7 +4,7 @@ function Footer() {
   return (
     <>
       <footer>
-        <a className="d-flex align-item-center justify-content-center text-decoration-none text-black">
+        <div className="d-flex align-item-center justify-content-center text-decoration-none text-black">
           <span className="d-flex">Powered by </span>
           <span className="d-flex ps-2">
             <BrandLogo
@@ -18,7 +18,7 @@ function Footer() {
               width={98}
             />
           </span>
-        </a>
+        </div>
       </footer>
     </>
   );
