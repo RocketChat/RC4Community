@@ -26,6 +26,7 @@
     "firebase": "^9.6.3",
     "firebase-admin": "^10.0.2",
     "graphql": "^16.3.0",
+    "ipfs-core": "^0.14.2",
     "js-cookie": "^3.0.1",
     "marked": "^4.0.12",
     "next": "^12.1.6",
@@ -48,6 +49,6 @@
     "eslint-config-next": "12.0.7"
   },
   "volta": {
-    "node": "14.18.3"
+    "node": "16.4.0"
   }
 }
