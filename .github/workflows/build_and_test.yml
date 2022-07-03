@@ -25,6 +25,7 @@ jobs:
       - name: Setup nvm
         shell: bash
         run: |
+          mkdir -pv $NVM_DIR
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
       - name: Install cms dependencies
