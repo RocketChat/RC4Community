@@ -11,28 +11,31 @@ concurrency:
 
 env:
   BUILD_PATH: /tmp/archive.tgz
+  NVM_DIR: /opt/nvm
+  NODE_ENV: production
+
 jobs:
   bat:
     runs-on: ubuntu-latest
-    strategy:
-      matrix: { node: [14] }
 
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
 
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Check cms package-lock
-        run: cd cms; npx package-lock-check
+      - name: Setup nvm
+        shell: bash
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
       - name: Install cms dependencies
-        run: cd cms && npm install --production
+        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        run: |
+          cd cms
+          nvm install
+          npm install
 
       - name: Start cms
+        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
         run: cd cms; npm run develop &> /tmp/cms.log &
         env: { INITIALIZE_DATA: "true" }
 
@@ -79,13 +82,15 @@ jobs:
       #     echo "CMS successfully started"
       #   env: { PORT: 1337 }
 
-      - name: Check app package-lock
-        run: cd app; npx package-lock-check
-
       - name: Install app dependencies
-        run: cd app && npm i --production
+        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        run: |
+          cd app
+          nvm i
+          npm i
 
       - name: Start app
+        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
         run: |
           cd app
           npm run dev &>/tmp/app.log &
