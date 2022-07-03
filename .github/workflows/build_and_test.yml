@@ -37,7 +37,8 @@ jobs:
 
       - name: Start cms
         run: cd cms; npm run develop &> /tmp/cms.log &
-        env: { INITIALIZE_DATA: "true" }
+        env:
+          INITIALIZE_DATA: "true"
 
       - name: Check cms running
         uses: actions/github-script@v5
@@ -48,8 +49,8 @@ jobs:
           script: |
             const http = require('http');
             const {readFileSync} = require('fs');
-            core.info('waiting 3 minute for strapi data initialization to complete ..');
-            await new Promise(zzz => setTimeout(zzz, 3 * 60 * 1000));
+            core.info('waiting 1 minute for strapi data initialization to complete ..');
+            await new Promise(zzz => setTimeout(zzz, 1 * 60 * 1000));
             http
               .request(`http://localhost:${process.env.PORT}/_health`, { method: 'HEAD' }, r => {
                 if (r.statusCode === 204 && r.headers.strapi === 'You are so French!')
