@@ -28,14 +28,14 @@ jobs:
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
       - name: Install cms dependencies
-        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        shell: bash --rcfile /opt/nvm/nvm.sh --noprofile -eo pipefail {0}
         run: |
           cd cms
           nvm install
           npm install
 
       - name: Start cms
-        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        shell: bash --rcfile /opt/nvm/nvm.sh --noprofile -eo pipefail {0}
         run: cd cms; npm run develop &> /tmp/cms.log &
         env: { INITIALIZE_DATA: "true" }
 
@@ -83,14 +83,14 @@ jobs:
       #   env: { PORT: 1337 }
 
       - name: Install app dependencies
-        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        shell: bash --rcfile /opt/nvm/nvm.sh --noprofile -eo pipefail {0}
         run: |
           cd app
           nvm i
           npm i
 
       - name: Start app
-        shell: bash --rcfile ${{ env.NVM_DIR }}/nvm.sh --noprofile -eo pipefail {0}
+        shell: bash --rcfile /opt/nvm/nvm.sh --noprofile -eo pipefail {0}
         run: |
           cd app
           npm run dev &>/tmp/app.log &
