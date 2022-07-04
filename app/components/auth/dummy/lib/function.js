@@ -12,10 +12,5 @@ const createDummyUser = () => {
 };
 
 export const dummyUserLogin = () => {
-  let user = JSON.parse(sessionStorage.getItem("dummy_user"));
-  if (user) {
-    return user;
-  } else {
-    return createDummyUser();
-  }
+  return createDummyUser();
 };

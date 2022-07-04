@@ -20,9 +20,9 @@ export default async function handleAuth(req,res){
                 }
             }),
 			RocketChatOAuthProvider({
-				clientId: process.env.ROCKETCHAT_CLIENT_ID ?? "random",
-				clientSecret: process.env.ROCKETCHAT_CLIENT_SECRET ?? "random",
-				rocketChatUrl: process.env.ROCKETCHAT_URL ?? "http://localhost:3000"
+				clientId: process.env.ROCKETCHAT_CLIENT_ID,
+				clientSecret: process.env.ROCKETCHAT_CLIENT_SECRET,
+				rocketChatUrl: process.env.ROCKETCHAT_URL
 			})
         ],
         callbacks: {

@@ -4,7 +4,7 @@ import DummyLoginUI from "./DummyLoginUI";
 import styles from "../styles/DummyLoginButton.module.css";
 
 export default function DummyLoginButton() {
-  const [isOpen, setOpen] = useState(false);
+  const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function DummyLoginButton() {
         <button className={styles.avatarButton}>
           <span
             className="d-flex align-items-center"
-            onClick={() => setOpen((prev) => !prev)}
+            onClick={() => setIsLoginUiOpen((prev) => !prev)}
           >
             {user?.image ? (
               <img
@@ -36,7 +36,7 @@ export default function DummyLoginButton() {
           </span>
         </button>
       </div>
-      {isOpen && (
+      {isLoginUiOpen && (
         <div className={styles.authContainer}>
           <DummyLoginUI setUser={setUser} user={user} />
         </div>

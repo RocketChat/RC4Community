@@ -25,6 +25,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
+  const userCookie = Cookies.get("user");
   const hasAllRequiredCreds =
     process.env.NEXTAUTH_URL &&
     process.env.ROCKETCHAT_CLIENT_ID &&
@@ -98,13 +99,13 @@ export default function Menubar(props) {
           </RocketChatLinkButton>
         </Navbar.Collapse>
         <div className="mx-3">
-          {Cookies.get("user") ? (
+          {userCookie ? (
             <Dropdown align="end" className={styles.dropdown_menu}>
               <Dropdown.Toggle as={CustomToggle} />
               <Dropdown.Menu size="sm" title="">
                 <Dropdown.Header>RC4Community Profile</Dropdown.Header>
                 <Dropdown.Item>
-                  <Link href={`/profile/${Cookies.get("user")}`}>
+                  <Link href={`/profile/${userCookie}`}>
                     <a className={styles.dropdown_menu_item}>Profile</a>
                   </Link>
                 </Dropdown.Item>

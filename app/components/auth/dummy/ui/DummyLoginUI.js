@@ -3,19 +3,16 @@ import { NoUserAvatar } from "../../NoUserAvatar";
 import { dummyUserLogin } from "../lib/function";
 
 export default function DummyLoginUI({ user, setUser }) {
-  const login = () => {
+  const handleLogin = () => {
     const dummy_user = dummyUserLogin();
     setUser(dummy_user);
     sessionStorage.setItem("dummy_user", JSON.stringify(dummy_user));
-  }
-  const logout = () => {
+  };
+  const handleLogout = () => {
     setUser({});
     sessionStorage.removeItem("dummy_user");
-  }
-  return (
-      !user.id ? <div className="d-flex flex-column align-items-center my-3">
-        <Button onClick={login}>Login</Button>
-      </div> : 
+  };
+  return user.id ? (
     <>
       <div className="d-flex flex-column align-items-center mt-4 mb-3 ml-3 mr-3 border-bottom">
         <div className="mb-1">
@@ -39,8 +36,14 @@ export default function DummyLoginUI({ user, setUser }) {
         </div>
       </div>
       <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">
-        <Button variant="secondary" onClick={logout}>Sign Out</Button>
+        <Button variant="secondary" onClick={handleLogout}>
+          Sign Out
+        </Button>
       </div>
-      </>
+    </>
+  ) : (
+    <div className="d-flex flex-column align-items-center my-3">
+      <Button onClick={handleLogin}>Login</Button>
+    </div>
   );
 }
