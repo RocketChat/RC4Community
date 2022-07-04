@@ -3,7 +3,7 @@ import { Rocketchat } from '@rocket.chat/sdk';
 import { getMessages, sendMessage } from './lib/api';
 import { emojify, emojis, messagesSortedByDate } from './helpers';
 import Cookie from 'js-cookie';
-import styles from "../../styles/Inappchat.module.css";
+import styles from '../../styles/Inappchat.module.css';
 import {
   Message,
   MessageBody,
@@ -22,11 +22,10 @@ import MDPreview from '../mdpreview';
 import InappchatTextInput from './inappchattextinput';
 import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 
-
 const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
   const emojiAnimationRef = useRef();
-  const isSmallScreen = useMediaQuery("(max-width: 992px)");
+  const isSmallScreen = useMediaQuery('(max-width: 992px)');
   const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
   const isAuth = cookies.rc_token && cookies.rc_uid;
   const useSsl = !/http:\/\//.test(host);
@@ -66,7 +65,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
         `
     );
     emojiAnimationRef.current.appendChild(child);
-  }
+  };
 
   const onClickEmojiHandler = (emoji) => {
     const { childNodes: childDiv } = emojiAnimationRef?.current;
@@ -76,9 +75,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
     }, 0);
     if (divCount > 13) {
       for (let i = 0; i < 2; i++) {
-        emojiAnimationRef.current.removeChild(
-          emojiAnimationRef.current.firstChild
-        );
+        emojiAnimationRef.current.removeChild(emojiAnimationRef.current.firstChild);
         createEmojiInDOM(emoji);
       }
     } else {
@@ -93,17 +90,17 @@ const InAppChat = ({ host, closeChat, rid }) => {
       try {
         await rcClient.connect();
         await rcClient.resume({ token });
-        await rcClient.subscribe("stream-room-messages", rid);
+        await rcClient.subscribe('stream-room-messages', rid);
         rcClient.onMessage((data) => {
-          emojis.find(emoji => {
+          emojis.find((emoji) => {
             if (emoji.value === data.msg) {
               onClickEmojiHandler(emoji.value);
               return;
             }
-          })
+          });
           getData();
         });
-      } catch(err) {
+      } catch (err) {
         console.log(err.message);
       }
     };
@@ -120,7 +117,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
   }, []);
 
   const sendMsg = async (message) => {
-    if (message.trim() === "") {
+    if (message.trim() === '') {
       return;
     }
     const msg = await sendMessage(host, rid, message, cookies);
@@ -129,10 +126,19 @@ const InAppChat = ({ host, closeChat, rid }) => {
 
   return (
     <div className={styles.sidechat}>
-      <ul ref={emojiAnimationRef} className={styles.track}></ul>{' '}
+      <ul
+        ref={emojiAnimationRef}
+        className={styles.track}
+      ></ul>{' '}
       {!isSmallScreen && (
-        <div className={styles.cross} onClick={closeChat}>
-          <Icon name='cross' size={'x30'} />
+        <div
+          className={styles.cross}
+          onClick={closeChat}
+        >
+          <Icon
+            name='cross'
+            size={'x30'}
+          />
         </div>
       )}
       {/* chatbox component */}
@@ -140,14 +146,16 @@ const InAppChat = ({ host, closeChat, rid }) => {
         <Box>
           {isAuth ? (
             messagesSortedByDate(messages)?.map((m) => (
-              <Message className="customclass" clickable key={m._id}>
+              <Message
+                className='customclass'
+                clickable
+                key={m._id}
+              >
                 <MessageContainer>
                   <MessageHeader>
                     <MessageName>{m.u.name}</MessageName>
                     <MessageUsername>@{m.u.username}</MessageUsername>
-                    <MessageTimestamp>
-                      {new Date(m.ts).toDateString()}
-                    </MessageTimestamp>
+                    <MessageTimestamp>{new Date(m.ts).toDateString()}</MessageTimestamp>
                   </MessageHeader>
                   <MessageBody>
                     <MDPreview body={emojify(m.msg)} />
@@ -155,17 +163,21 @@ const InAppChat = ({ host, closeChat, rid }) => {
                 </MessageContainer>
                 <MessageToolboxWrapper>
                   <MessageToolbox>
-                    <MessageToolboxItem icon="quote" />
-                    <MessageToolboxItem icon="emoji" />
-                    <MessageToolboxItem icon="thread" />
+                    <MessageToolboxItem icon='quote' />
+                    <MessageToolboxItem icon='emoji' />
+                    <MessageToolboxItem icon='thread' />
                   </MessageToolbox>
                 </MessageToolboxWrapper>
               </Message>
             ))
           ) : (
             <p className='mx-auto text-center'>
-              Please login into{" "}
-              <a href={host} rel="noopener noreferrer" target="_blank">
+              Please login into{' '}
+              <a
+                href={host}
+                rel='noopener noreferrer'
+                target='_blank'
+              >
                 RocketChat
               </a>{' '}
               to chat!
@@ -173,7 +185,12 @@ const InAppChat = ({ host, closeChat, rid }) => {
           )}
         </Box>
       </div>
-      {isAuth && <InappchatTextInput onClickEmojiHandler={onClickEmojiHandler} sendMsg={sendMsg} />}
+      {isAuth && (
+        <InappchatTextInput
+          onClickEmojiHandler={onClickEmojiHandler}
+          sendMsg={sendMsg}
+        />
+      )}
     </div>
   );
 };

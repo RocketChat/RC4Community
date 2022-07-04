@@ -127,10 +127,8 @@ function Discourserankedlist(props) {
   //todo - add top posts array instead of Data array when discourse integration works
   return (
     <>
-      <Col
-        className={`${styles.container} d-flex flex-wrap justify-content-center`}
-      >
-        {Data.map(item => (
+      <Col className={`${styles.container} d-flex flex-wrap justify-content-center`}>
+        {Data.map((item) => (
           <Col
             key={item.id}
             href={item.link}
@@ -141,12 +139,8 @@ function Discourserankedlist(props) {
             }`}
           >
             <Row className={`${styles.item_container}`}>
-              <div className={`${styles.heading} text-truncate pb-2`}>
-                {item.title}
-              </div>
-              <div className={`fw-light fst-italic  pb-1 ${styles.time}`}>
-                {item.time}
-              </div>
+              <div className={`${styles.heading} text-truncate pb-2`}>{item.title}</div>
+              <div className={`fw-light fst-italic  pb-1 ${styles.time}`}>{item.time}</div>
               <span className=''>
                 <span className={`me-3 ${styles.numbers}`}>
                   <span className='me-2'>

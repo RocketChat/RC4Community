@@ -1,8 +1,6 @@
-import { fetchAPI } from "./api";
+import { fetchAPI } from './api';
 
-export const getNavItems = async ()=>{
-
-    const topNavItems = await fetchAPI("/top-nav-item");
-    return topNavItems;
-
-} 
+export const getNavItems = async () => {
+  const topNavItems = await fetchAPI('/top-nav-item');
+  return topNavItems;
+};

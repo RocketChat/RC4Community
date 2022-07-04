@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Styles from "../styles/SpeakerInfotiles.module.css";
-import { parseDate, parseTime } from "../lib/dateTime";
+import Image from 'next/image';
+import Styles from '../styles/SpeakerInfotiles.module.css';
+import { parseDate, parseTime } from '../lib/dateTime';
 
 export default function SpeakerInfotiles({ data }) {
   return (
@@ -15,7 +15,7 @@ export default function SpeakerInfotiles({ data }) {
               src={obj.attributes.imageUrl}
               width={271}
               height={174}
-              objectFit="cover"
+              objectFit='cover'
             />
           )}
           <div className={Styles.card_content}>
@@ -25,9 +25,7 @@ export default function SpeakerInfotiles({ data }) {
                 obj.attributes.date_time
               )} ${parseTime(obj.attributes.date_time)}`}</p>
             )}
-            <h6
-              className={obj.attributes.live ? Styles.talk_topic_live : Styles.talk_topic}
-            >
+            <h6 className={obj.attributes.live ? Styles.talk_topic_live : Styles.talk_topic}>
               {obj.attributes.talk_topic}
             </h6>
             <p className={Styles.speaker_bio}>{obj.attributes.short_bio}</p>

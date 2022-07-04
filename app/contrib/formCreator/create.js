@@ -1,25 +1,17 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  Button,
-  ButtonGroup,
-  Card,
-  Form,
-  FormControl,
-  Modal,
-} from "react-bootstrap";
-import styles from "../../styles/form.module.css";
-import InputGroup from "react-bootstrap/InputGroup";
-import { MdDeleteOutline } from "react-icons/md";
-import { getStrapiURL } from "../../lib/api";
+import React, { useState } from 'react';
+import { Alert, Button, ButtonGroup, Card, Form, FormControl, Modal } from 'react-bootstrap';
+import styles from '../../styles/form.module.css';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { MdDeleteOutline } from 'react-icons/md';
+import { getStrapiURL } from '../../lib/api';
 
 const RCreateForm = () => {
   const [formValues, setFormValues] = useState([
-    { label: "", value: "", type: "text", min: "", max: "", required: false },
+    { label: '', value: '', type: 'text', min: '', max: '', required: false },
   ]);
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("Form Title");
+  const [title, setTitle] = useState('Form Title');
 
   async function addForm() {
     const toPost = {
@@ -30,9 +22,9 @@ const RCreateForm = () => {
 
     try {
       const sendForm = await fetch(`${path}/forms`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(toPost),
       });
@@ -41,7 +33,7 @@ const RCreateForm = () => {
         return sendForm;
       }
     } catch (error) {
-      console.log("Error" + error);
+      console.log('Error' + error);
     }
   }
 
@@ -54,7 +46,7 @@ const RCreateForm = () => {
   let addFormFields = () => {
     setFormValues([
       ...formValues,
-      { label: "", value: "", type: "text", min: "", max: "", required: false },
+      { label: '', value: '', type: 'text', min: '', max: '', required: false },
     ]);
   };
 
@@ -85,9 +77,7 @@ const RCreateForm = () => {
 
   const handleClose = () => {
     setShow(false);
-    setFormValues([
-      { label: "", value: "", type: "text", min: "", max: "", required: false },
-    ]);
+    setFormValues([{ label: '', value: '', type: 'text', min: '', max: '', required: false }]);
   };
 
   const handleTitle = (e) => {
@@ -107,15 +97,18 @@ const RCreateForm = () => {
         </div>
       </Card.Title>
       <Card.Body>
-        <Card.Subtitle className="mb-2 text-muted">Required</Card.Subtitle>
+        <Card.Subtitle className='mb-2 text-muted'>Required</Card.Subtitle>
         <form onSubmit={handleSubmit}>
           {formValues.map((element, index) => (
-            <div className={styles.formRow} key={index}>
+            <div
+              className={styles.formRow}
+              key={index}
+            >
               <InputGroup>
                 <Form.Check
-                  type="switch"
-                  name="required"
-                  id="custom-switch"
+                  type='switch'
+                  name='required'
+                  id='custom-switch'
                   inline={true}
                   className={styles.radio}
                   onChange={(e) => handleSwitch(e, index)}
@@ -123,40 +116,40 @@ const RCreateForm = () => {
 
                 <Form.Select
                   className={styles.select}
-                  name="type"
+                  name='type'
                   onChange={(e) => handleSelect(e, index)}
                   value={element.type}
-                  aria-label="Default select example"
+                  aria-label='Default select example'
                 >
-                  <option value="text">Text</option>
-                  <option value="number">Number</option>
-                  <option value="email">E-mail</option>
+                  <option value='text'>Text</option>
+                  <option value='number'>Number</option>
+                  <option value='email'>E-mail</option>
                 </Form.Select>
                 <FormControl
                   required
-                  aria-label="Text input with dropdown button"
-                  name="value"
-                  type="text"
-                  placeholder="Enter the question"
+                  aria-label='Text input with dropdown button'
+                  name='value'
+                  type='text'
+                  placeholder='Enter the question'
                   onChange={(e) => handleChange(e, index)}
                 />
-                {element.type == "number" && (
+                {element.type == 'number' && (
                   <FormControl
                     required
-                    aria-label="Min. Value"
-                    name="min"
-                    type="number"
-                    placeholder="Min. Value"
+                    aria-label='Min. Value'
+                    name='min'
+                    type='number'
+                    placeholder='Min. Value'
                     onChange={(e) => handleChange(e, index)}
                   />
                 )}
-                {element.type == "number" && (
+                {element.type == 'number' && (
                   <FormControl
                     required
-                    aria-label="Max. Value"
-                    name="max"
-                    type="number"
-                    placeholder="Max. Value"
+                    aria-label='Max. Value'
+                    name='max'
+                    type='number'
+                    placeholder='Max. Value'
                     onChange={(e) => handleChange(e, index)}
                   />
                 )}
@@ -164,8 +157,8 @@ const RCreateForm = () => {
                 {index ? (
                   <Button
                     onClick={() => removeFormFields(index)}
-                    variant="danger"
-                    id="button-addon1"
+                    variant='danger'
+                    id='button-addon1'
                   >
                     <MdDeleteOutline />
                   </Button>
@@ -173,11 +166,21 @@ const RCreateForm = () => {
               </InputGroup>
             </div>
           ))}
-          <ButtonGroup className={styles.submitGroup} aria-label="Card buttons">
-            <Button variant="light" onClick={() => addFormFields()}>
+          <ButtonGroup
+            className={styles.submitGroup}
+            aria-label='Card buttons'
+          >
+            <Button
+              variant='light'
+              onClick={() => addFormFields()}
+            >
               Add
             </Button>
-            <Button color="#0083ffd4" variant="success" type="submit">
+            <Button
+              color='#0083ffd4'
+              variant='success'
+              type='submit'
+            >
               Generate
             </Button>
           </ButtonGroup>
@@ -199,19 +202,25 @@ const ShowForm = ({ show, handleClose, title }) => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Alert show={show} variant="success">
+          <Alert
+            show={show}
+            variant='success'
+          >
             <Alert.Heading>How's it going?!</Alert.Heading>
             <p>You have successfully created the form!</p>
             <hr />
-            <div className="d-flex justify-content-end">
-              <Button onClick={handleClose} variant="outline-success">
+            <div className='d-flex justify-content-end'>
+              <Button
+                onClick={handleClose}
+                variant='outline-success'
+              >
                 Close me y'all!
               </Button>
             </div>

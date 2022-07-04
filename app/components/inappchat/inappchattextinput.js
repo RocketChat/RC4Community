@@ -35,13 +35,7 @@ const InappchatTextInput = ({ sendMsg, onClickEmojiHandler }) => {
               />
             ) : (
               <>
-                <span
-                  className={
-                    emojiClicked
-                      ? styles.emojisHolderIsHidden
-                      : styles.emojisHolder
-                  }
-                >
+                <span className={emojiClicked ? styles.emojisHolderIsHidden : styles.emojisHolder}>
                   {emojis.map((e) => (
                     <span
                       key={e.id}

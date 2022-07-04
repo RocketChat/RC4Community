@@ -1,9 +1,9 @@
-import functions from "./lib/functions";
-import firebaseAuthMenuButtonModule from "./ui/FirebaseAuthMenuButton";
-import firebaseAuthUIModule from "./ui/FirebaseAuthUI";
-import firebaseLogimFormModule from "./ui/FirebaseLoginForm";
-import firebaseSignupFormModule from "./ui/FirebaseSignupForm";
-import firebaseUserInfoModule from "./ui/FirebaseUserInfo";
+import functions from './lib/functions';
+import firebaseAuthMenuButtonModule from './ui/FirebaseAuthMenuButton';
+import firebaseAuthUIModule from './ui/FirebaseAuthUI';
+import firebaseLogimFormModule from './ui/FirebaseLoginForm';
+import firebaseSignupFormModule from './ui/FirebaseSignupForm';
+import firebaseUserInfoModule from './ui/FirebaseUserInfo';
 
 export const withFirebaseAuthUser = functions.withFirebaseAuthUser;
 export const withFirebaseAuthUserSSR = functions.withFirebaseAuthUserSSR;

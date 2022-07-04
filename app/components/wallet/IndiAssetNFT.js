@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
-import { fetchOpenSea } from "../../lib/walletAPI";
+import { useState } from 'react';
+import { Button, Card, Form, Modal, Spinner } from 'react-bootstrap';
+import { fetchOpenSea } from '../../lib/walletAPI';
 
 const RequestNFT = () => {
   const [show, setShow] = useState(false);
@@ -10,20 +10,26 @@ const RequestNFT = () => {
 
   return (
     <div>
-      <Button variant="warning" onClick={handleShow}>
+      <Button
+        variant='warning'
+        onClick={handleShow}
+      >
         Request NFT
       </Button>
-      <NFTCard show={show} handleClose={handleClose} />
+      <NFTCard
+        show={show}
+        handleClose={handleClose}
+      />
     </div>
   );
 };
 
 const NFTCard = ({ show, handleClose }) => {
-  const [NFT, setNFT] = useState("");
+  const [NFT, setNFT] = useState('');
 
   const [nform, setNform] = useState({
-    nadd: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
-    token: "1",
+    nadd: '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
+    token: '1',
   });
 
   const [proc, setProc] = useState(false);
@@ -49,7 +55,10 @@ const NFTCard = ({ show, handleClose }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Retrieve a Single Asset</Modal.Title>
       </Modal.Header>
@@ -58,8 +67,8 @@ const NFTCard = ({ show, handleClose }) => {
           <Form.Group>
             <Form.Label>Address of the contract for this NFT</Form.Label>
             <Form.Control
-              name="nadd"
-              type="text"
+              name='nadd'
+              type='text'
               onChange={handleChange}
               required
               placeholder={nform.nadd}
@@ -70,34 +79,42 @@ const NFTCard = ({ show, handleClose }) => {
             <Form.Label>Token ID for this item</Form.Label>
             <Form.Control
               onChange={handleChange}
-              name="token"
-              type="text"
+              name='token'
+              type='text'
               required
               placeholder={nform.token}
             />
           </Form.Group>
           {NFT.image_url ? (
-            <Card style={{ width: "10em", marginTop: "1em" }}>
+            <Card style={{ width: '10em', marginTop: '1em' }}>
               <Card.Header>Preview Image</Card.Header>
               <Card.Img src={NFT.image_preview_url}></Card.Img>
             </Card>
           ) : null}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" disabled={proc} onClick={handleClose}>
+          <Button
+            variant='secondary'
+            disabled={proc}
+            onClick={handleClose}
+          >
             Close
           </Button>
-          <Button variant="primary" disabled={proc} type="submit">
+          <Button
+            variant='primary'
+            disabled={proc}
+            type='submit'
+          >
             {proc ? (
               <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
+                as='span'
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
               />
             ) : (
-              "Submit"
+              'Submit'
             )}
           </Button>
         </Modal.Footer>

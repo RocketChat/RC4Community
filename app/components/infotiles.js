@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import Styles from "../styles/Infotiles.module.css";
+import Image from 'next/image';
+import Link from 'next/link';
+import Styles from '../styles/Infotiles.module.css';
 
 export default function Infotiles({ data }) {
   return (
@@ -15,14 +15,18 @@ export default function Infotiles({ data }) {
               src={obj.imageUrl}
               width={288}
               height={288}
-              objectFit="contain"
+              objectFit='contain'
             />
           )}
           <div className={Styles.card_content}>
             <h5 className={Styles.card_heading}>{obj.name}</h5>
-            {obj.bio && <p className="fs-light">{obj.bio}</p>}
+            {obj.bio && <p className='fs-light'>{obj.bio}</p>}
             <p className={Styles.card_body}>{obj.content}</p>
-            {obj.live && <Link href={obj.confHref}><button className={Styles.actionBtn}>Live</button></Link>}
+            {obj.live && (
+              <Link href={obj.confHref}>
+                <button className={Styles.actionBtn}>Live</button>
+              </Link>
+            )}
           </div>
         </div>
       ))}

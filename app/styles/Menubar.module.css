@@ -73,7 +73,8 @@
   top: 18px;
 }
 
-.toggler_icon::before, .toggler_icon::after{
+.toggler_icon::before,
+.toggler_icon::after {
   content: '';
   position: absolute;
   left: 0;
@@ -88,7 +89,7 @@
   top: 10px;
 }
 
-.toggler_icon::before{
+.toggler_icon::before {
   top: -10px;
 }
 
@@ -103,29 +104,27 @@
   margin-top: -10px;
 }
 
-.toggler_bar::after{
+.toggler_bar::after {
   transform: rotate(-45deg);
   top: 0;
 }
 
-.toggler_bar::before{
+.toggler_bar::before {
   transform: rotate(45deg);
-  top: 0
+  top: 0;
 }
 
-
 .threedots:after {
-  content: "\2807";
+  content: '\2807';
   font-size: 30px;
   height: 100%;
   padding-left: 7px;
 }
 
 .elipses:hover,
-.elipses { 
-    color: #87898d;
-    text-decoration-line: none !important; 
-   
+.elipses {
+  color: #87898d;
+  text-decoration-line: none !important;
 }
 
 .dropdown_menu {

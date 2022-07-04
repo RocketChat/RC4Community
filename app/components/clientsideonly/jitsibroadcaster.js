@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
-import React, { useEffect, useRef, useState } from "react";
+import dynamic from 'next/dynamic';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -7,21 +7,20 @@ import {
   DropdownButton,
   OverlayTrigger,
   Tooltip,
-} from "react-bootstrap";
-import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
-import { RiMic2Line } from "react-icons/ri";
-import { MdCameraswitch, MdHeadset } from "react-icons/md";
-import { AiFillEye, AiFillSetting } from "react-icons/ai";
-import { BiUserPin } from "react-icons/bi";
-import { HiViewGridAdd } from "react-icons/hi";
-import styles from "../../styles/Jitsi.module.css";
-import { FaRocketchat } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi";
+} from 'react-bootstrap';
+import { BiMicrophone, BiMicrophoneOff } from 'react-icons/bi';
+import { RiMic2Line } from 'react-icons/ri';
+import { MdCameraswitch, MdHeadset } from 'react-icons/md';
+import { AiFillEye, AiFillSetting } from 'react-icons/ai';
+import { BiUserPin } from 'react-icons/bi';
+import { HiViewGridAdd } from 'react-icons/hi';
+import styles from '../../styles/Jitsi.module.css';
+import { FaRocketchat } from 'react-icons/fa';
+import { FiUsers } from 'react-icons/fi';
 
-const JitsiMeeting = dynamic(
-  () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
-  { ssr: false }
-);
+const JitsiMeeting = dynamic(() => import('@jitsi/react-sdk').then((mod) => mod.JitsiMeeting), {
+  ssr: false,
+});
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
@@ -32,11 +31,11 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const [mute, setMute] = useState(true);
   const [name, setName] = useState(null);
   const dataArr = [
-    { speaker: "A", hour: "10" },
-    { speaker: "B", hour: "20" },
-    { speaker: "C", hour: "30" },
-    { speaker: "D", hour: "40" },
-    { speaker: "Z", hour: "50" },
+    { speaker: 'A', hour: '10' },
+    { speaker: 'B', hour: '20' },
+    { speaker: 'C', hour: '30' },
+    { speaker: 'D', hour: '40' },
+    { speaker: 'Z', hour: '50' },
   ];
 
   const handleDisplayName = async (hr) => {
@@ -45,7 +44,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
       return;
     }
     setName(tar.speaker);
-    await apiRef.current.executeCommand("displayName", tar.speaker);
+    await apiRef.current.executeCommand('displayName', tar.speaker);
   };
 
   useEffect(() => {
@@ -71,25 +70,19 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     if (payload.isOpen || !payload.unreadCount) {
       return;
     }
-    ref.current.executeCommand("toggleChat");
-    updateLog((items) => [
-      ...items,
-      `you have ${payload.unreadCount} unread messages`,
-    ]);
+    ref.current.executeCommand('toggleChat');
+    updateLog((items) => [...items, `you have ${payload.unreadCount} unread messages`]);
   };
 
   const handleKnockingParticipant = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
-    updateKnockingParticipants((participants) => [
-      ...participants,
-      payload?.participant,
-    ]);
+    updateKnockingParticipants((participants) => [...participants, payload?.participant]);
   };
 
   const resolveKnockingParticipants = (ref, condition) => {
     knockingParticipants.forEach((participant) => {
       ref.current.executeCommand(
-        "answerKnockingParticipant",
+        'answerKnockingParticipant',
         participant?.id,
         condition(participant)
       );
@@ -100,10 +93,10 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   };
 
   const handleJitsiIFrameRef1 = (iframeRef) => {
-    iframeRef.style.border = "10px solid cadetblue";
-    iframeRef.style.background = "cadetblue";
-    iframeRef.style.height = "25em";
-    iframeRef.style.width = "75%";
+    iframeRef.style.border = '10px solid cadetblue';
+    iframeRef.style.background = 'cadetblue';
+    iframeRef.style.height = '25em';
+    iframeRef.style.width = '75%';
   };
 
   const showDevices = async (ref) => {
@@ -112,7 +105,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     const devices = await ref.current.getAvailableDevices();
 
     for (const [key, value] of Object.entries(devices)) {
-      if (key == "videoInput") {
+      if (key == 'videoInput') {
         value.forEach((vid) => {
           videoInputs.push(vid.label);
         });
@@ -121,12 +114,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     // log for debug
     updateLog((items) => [...items, JSON.stringify(videoInputs)]);
 
-    let nextDevice = "";
+    let nextDevice = '';
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
-      if (key == "videoInput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
+      if (key == 'videoInput') {
+        updateLog((items) => [...items, 'found ' + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         videoInputs.forEach((vid) => {
@@ -136,14 +129,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
               nextDevice = videoInputs[0];
             } else {
               nextDevice = videoInputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
+              updateLog((items) => [...items, 'next is ' + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
+    updateLog((items) => [...items, 'switching to ' + nextDevice]);
 
     await ref.current.setVideoInputDevice(nextDevice);
   };
@@ -154,7 +147,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     const devices = await ref.current.getAvailableDevices();
 
     for (const [key, value] of Object.entries(devices)) {
-      if (key == "audioOutput") {
+      if (key == 'audioOutput') {
         value.forEach((vid) => {
           audioOutputs.push(vid.label);
         });
@@ -163,12 +156,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     // log for debug
     updateLog((items) => [...items, JSON.stringify(audioOutputs)]);
 
-    let nextDevice = "";
+    let nextDevice = '';
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
-      if (key == "audioOutput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
+      if (key == 'audioOutput') {
+        updateLog((items) => [...items, 'found ' + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         audioOutputs.forEach((vid) => {
@@ -178,14 +171,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
               nextDevice = audioOutputs[0];
             } else {
               nextDevice = audioOutputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
+              updateLog((items) => [...items, 'next is ' + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
+    updateLog((items) => [...items, 'switching to ' + nextDevice]);
 
     await ref.current.setAudioOutputDevice(nextDevice);
   };
@@ -196,7 +189,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     const devices = await ref.current.getAvailableDevices();
 
     for (const [key, value] of Object.entries(devices)) {
-      if (key == "audioInput") {
+      if (key == 'audioInput') {
         value.forEach((vid) => {
           audioInputs.push(vid.label);
         });
@@ -205,12 +198,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     // log for debug
     updateLog((items) => [...items, JSON.stringify(audioInputs)]);
 
-    let nextDevice = "";
+    let nextDevice = '';
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
-      if (key == "audioInput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
+      if (key == 'audioInput') {
+        updateLog((items) => [...items, 'found ' + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         audioInputs.forEach((vid) => {
@@ -220,14 +213,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
               nextDevice = audioInputs[0];
             } else {
               nextDevice = audioInputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
+              updateLog((items) => [...items, 'next is ' + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
+    updateLog((items) => [...items, 'switching to ' + nextDevice]);
     await ref.current.setAudioInputDevice(nextDevice);
   };
 
@@ -235,50 +228,45 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     ref.current = apiObj;
     await ref.current.addEventListeners({
       // Listening to events from the external API
-      audioMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "audio"),
-      videoMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "video"),
+      audioMuteStatusChanged: (payload) => handleAudioStatusChange(payload, 'audio'),
+      videoMuteStatusChanged: (payload) => handleAudioStatusChange(payload, 'video'),
       raiseHandUpdated: printEventOutput,
       tileViewChanged: printEventOutput,
       chatUpdated: (payload) => handleChatUpdates(payload, ref),
       knockingParticipant: handleKnockingParticipant,
     });
 
-    await ref.current.executeCommand("toggleFilmStrip");
+    await ref.current.executeCommand('toggleFilmStrip');
   };
 
   // Multiple instances demo
   const showUsers = async (ref, which) => {
     try {
       const pinfo = await ref.current.getParticipantsInfo();
-      updateLog((items) => [
-        ...items,
-        "participantes " + JSON.stringify(pinfo),
-      ]);
-      await ref.current.executeCommand("setTileView", false);
+      updateLog((items) => [...items, 'participantes ' + JSON.stringify(pinfo)]);
+      await ref.current.executeCommand('setTileView', false);
       await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
     } catch (e) {
-      console.error("Participant not found!");
+      console.error('Participant not found!');
       return;
     }
   };
 
   const makeTile = (ref) => {
-    ref.current.executeCommand("setTileView", true);
+    ref.current.executeCommand('setTileView', true);
   };
 
   const renderStream = (key) => (
     <div className={styles.streamButton}>
-      <ButtonGroup className="m-auto">
+      <ButtonGroup className='m-auto'>
         <Button
-          variant="warning"
-          title="Click to start streaming"
+          variant='warning'
+          title='Click to start streaming'
           onClick={() =>
-            apiRef.current.executeCommand("startRecording", {
-              mode: "stream",
+            apiRef.current.executeCommand('startRecording', {
+              mode: 'stream',
               rtmpStreamKey: key,
-              youtubeStreamKey: "",
+              youtubeStreamKey: '',
             })
           }
         >
@@ -290,35 +278,35 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   const toggleDevice = () => (
     <div className={styles.device}>
-      <Button disabled variant="light">
+      <Button
+        disabled
+        variant='light'
+      >
         <AiFillSetting size={20} />
       </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Microphone Device</Tooltip>}
-        >
+      <ButtonGroup
+        vertical
+        className='m-auto'
+      >
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Microphone Device</Tooltip>}>
           <Button
-            title="Click to switch audio devices"
+            title='Click to switch audio devices'
             onClick={() => showAudioDevice(apiRef)}
           >
             <RiMic2Line size={20} />
           </Button>
         </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Camera Device</Tooltip>}
-        >
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Camera Device</Tooltip>}>
           <Button
-            title="Click to switch video devices"
+            title='Click to switch video devices'
             onClick={() => showDevices(apiRef)}
           >
             <MdCameraswitch size={20} />
           </Button>
         </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Audio Device</Tooltip>}
-        >
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Audio Device</Tooltip>}>
           <Button
-            title="Click to switch audio devices"
+            title='Click to switch audio devices'
             onClick={() => showAudioOutDevices(apiRef)}
           >
             <MdHeadset size={20} />
@@ -330,32 +318,38 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   const toggleView = () => (
     <div className={styles.view}>
-      <Button variant="light" disabled>
+      <Button
+        variant='light'
+        disabled
+      >
         <AiFillEye size={20} />
       </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
-        >
+      <ButtonGroup
+        vertical
+        className='m-auto'
+      >
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Tile View</Tooltip>}>
           <Button
-            variant="secondary"
+            variant='secondary'
             onClick={() => makeTile(apiRef)}
-            title="Click to toggle tile view"
+            title='Click to toggle tile view'
           >
             <HiViewGridAdd size={20} />
           </Button>
         </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">First User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>First User</Tooltip>}>
+          <Button
+            onClick={() => showUsers(apiRef, 0)}
+            variant='secondary'
+          >
             <BiUserPin size={20} />
           </Button>
         </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
+        <OverlayTrigger overlay={<Tooltip id='tooltip-disabled'>Second User</Tooltip>}>
+          <Button
+            onClick={() => showUsers(apiRef, 1)}
+            variant='secondary'
+          >
             <FiUsers size={20} />
           </Button>
         </OverlayTrigger>
@@ -365,33 +359,40 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   const toolButton = () => (
     <div className={styles.deviceButton}>
-      <ButtonGroup className="m-auto">
+      <ButtonGroup className='m-auto'>
         <Button
-          variant="success"
-          title="Click to toogle audio"
+          variant='success'
+          title='Click to toogle audio'
           onClick={() => {
-            apiRef.current.executeCommand("toggleAudio");
+            apiRef.current.executeCommand('toggleAudio');
             setMute(!mute);
           }}
         >
           {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
         </Button>
-        <DropdownButton variant="danger" as={ButtonGroup} title="End">
+        <DropdownButton
+          variant='danger'
+          as={ButtonGroup}
+          title='End'
+        >
           <Dropdown.Item
-            as="button"
-            onClick={() => apiRef.current.executeCommand("hangup")}
+            as='button'
+            onClick={() => apiRef.current.executeCommand('hangup')}
           >
             Leave Meet
           </Dropdown.Item>
           <Dropdown.Item
-            variant="danger"
-            as="button"
-            onClick={() => apiRef.current.stopRecording("stream")}
+            variant='danger'
+            as='button'
+            onClick={() => apiRef.current.stopRecording('stream')}
           >
             End for everyone!
           </Dropdown.Item>
         </DropdownButton>
-        <Button color="#f5455c" onClick={handleChat}>
+        <Button
+          color='#f5455c'
+          onClick={handleChat}
+        >
           <FaRocketchat />
         </Button>
       </ButtonGroup>
@@ -402,8 +403,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     logItems.map((item, index) => (
       <div
         style={{
-          fontFamily: "monospace",
-          padding: "5px",
+          fontFamily: 'monospace',
+          padding: '5px',
         }}
         key={index}
       >
@@ -414,8 +415,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const renderSpinner = () => (
     <div
       style={{
-        fontFamily: "sans-serif",
-        textAlign: "center",
+        fontFamily: 'sans-serif',
+        textAlign: 'center',
       }}
     >
       Loading..
@@ -429,7 +430,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {toggleDevice()}
 
         <JitsiMeeting
-          domain="meet.jit.si"
+          domain='meet.jit.si'
           roomName={room}
           spinner={renderSpinner}
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}

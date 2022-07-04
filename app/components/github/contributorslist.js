@@ -1,16 +1,18 @@
 import Image from 'next/image';
 
 const ContributorsList = (props) => {
-  
   let contributors = props.data.contributors.data.attributes.Contributors;
 
   return (
-    <div className="container">
+    <div className='container'>
       {Array.isArray(contributors) &&
         contributors.map((contributor) => (
-          <a href={contributor.html_url} key={contributor.id}>
+          <a
+            href={contributor.html_url}
+            key={contributor.id}
+          >
             <Image
-              className="rounded-circle"
+              className='rounded-circle'
               src={contributor.avatar_url}
               width={40}
               height={40}

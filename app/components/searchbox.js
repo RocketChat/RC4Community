@@ -3,11 +3,12 @@ import styles from '../styles/Searchbox.module.css';
 
 export default function Searchbox() {
   return (
-    <Form
-      className={`d-flex flex-column flex-md-row gap-2 align-items-center ${styles.form}`}
-    >
+    <Form className={`d-flex flex-column flex-md-row gap-2 align-items-center ${styles.form}`}>
       <Dropdown>
-        <Dropdown.Toggle className={styles.dropdown} id='searchbox-dropdown-toggle'>
+        <Dropdown.Toggle
+          className={styles.dropdown}
+          id='searchbox-dropdown-toggle'
+        >
           All Communities
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -37,7 +38,11 @@ export default function Searchbox() {
               </g>
               <defs>
                 <clipPath id='clip0_2_49'>
-                  <rect width='16' height='16' fill='white' />
+                  <rect
+                    width='16'
+                    height='16'
+                    fill='white'
+                  />
                 </clipPath>
               </defs>
             </svg>

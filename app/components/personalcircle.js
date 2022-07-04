@@ -4,9 +4,7 @@ import styles from '../styles/Personacircle.module.css';
 export default function Personacircle(props) {
   return (
     <>
-      <Col
-        className={`${styles.personas} d-flex flex-wrap justify-content-center`}
-      >
+      <Col className={`${styles.personas} d-flex flex-wrap justify-content-center`}>
         <span className={`${styles.persona}`}>
           <div className={styles.svg}>
             <svg

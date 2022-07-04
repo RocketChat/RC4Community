@@ -88,7 +88,10 @@ function Newscarousel(props) {
         }
       >
         {props.carousels.map((item, i) => (
-          <Item key={i} item={item} />
+          <Item
+            key={i}
+            item={item}
+          />
         ))}
       </Slider>
     </>

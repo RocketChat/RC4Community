@@ -1,6 +1,6 @@
 import fs from 'fs';
 export const getGoogleCredsFromFile = (path) => {
-  if(typeof window === 'undefined'){
+  if (typeof window === 'undefined') {
     const cert = fs.readFileSync(path);
     const dataFromFile = JSON.parse(cert);
     const returnData = {
@@ -13,9 +13,9 @@ export const getGoogleCredsFromFile = (path) => {
       authUri: dataFromFile.auth_uri,
       tokenUri: dataFromFile.token_uri,
       authProviderX509CertUrl: dataFromFile.auth_provider_x509_cert_url,
-      clientX509CertUrl: dataFromFile.client_x509_cert_url
-    }
+      clientX509CertUrl: dataFromFile.client_x509_cert_url,
+    };
     return returnData;
   }
-  throw new Error("This function can only be called from client side");
-}
+  throw new Error('This function can only be called from client side');
+};
