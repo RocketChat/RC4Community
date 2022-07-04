@@ -6,7 +6,7 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::guide.guide', ({ strapi }) =>  ({
+module.exports = createCoreService('api::guide.guide', () =>  ({
 
     // Method 2: Wrapping a core service (leaves core logic in place)
     async create(...args) {  

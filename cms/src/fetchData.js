@@ -228,7 +228,7 @@ module.exports = async () => {
         
         where: { id: 1 },
         data: {
-          body: topNavItem.body.map((topNavItem, index) => {
+          body: topNavItem.body.map((topNavItem) => {
             if (topNavItem.__component === "menu.links") {
               return {
                 __component: "menu.links",
@@ -256,7 +256,7 @@ module.exports = async () => {
     } else {
       await strapi.service("api::top-nav-item.top-nav-item").create({
         data: {
-          body: topNavItem.body.map((topNavItem, index) => {
+          body: topNavItem.body.map((topNavItem) => {
             if (topNavItem.__component === "menu.links") {
               return {
                 __component: "menu.links",

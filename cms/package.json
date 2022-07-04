@@ -7,9 +7,16 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "format": "prettier --write .",
+    "lint": "eslint '**/*.js' --fix"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.18.2",
+    "eslint": "^8.19.0",
+    "prettier": "^2.7.1"
+  },
   "dependencies": {
     "@octokit/core": "^3.5.1",
     "@strapi/plugin-i18n": "4.1.11",
