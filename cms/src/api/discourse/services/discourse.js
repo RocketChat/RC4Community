@@ -5,6 +5,6 @@
  * to customize this service
  */
 
- const { createCoreService } = require('@strapi/strapi').factories;
+const { createCoreService } = require('@strapi/strapi').factories;
 
- module.exports = createCoreService('api::discourse.discourse');
+module.exports = createCoreService('api::discourse.discourse');

@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
-const fetchData = require("./fetchData");
+const { getLatestCommunityActivity } = require('../config/fetchTopPosts');
+const fetchData = require('./fetchData');
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -14,7 +14,7 @@ const fetchData = require("./fetchData");
  */
 
 const findPublicRole = async () => {
-  const result = await strapi.service("plugin::users-permissions.role").find();
+  const result = await strapi.service('plugin::users-permissions.role').find();
   return result;
 };
 
@@ -22,29 +22,19 @@ const setDefaultPermissions = async () => {
   const roles = await findPublicRole();
 
   const _public = await strapi
-    .service("plugin::users-permissions.role")
-    .findOne(roles.filter((role) => role.type === "public")[0].id);
+    .service('plugin::users-permissions.role')
+    .findOne(roles.filter((role) => role.type === 'public')[0].id);
   for (const permission of Object.keys(_public.permissions)) {
-    if (permission.startsWith("api")) {
-      for (const controller of Object.keys(
-        _public.permissions[permission].controllers
-      )) {
-        _public.permissions[permission].controllers[
-          controller
-        ].find.enabled = true;
-        if (
-          _public.permissions[permission].controllers[controller].findOne
-        ) {
-          _public.permissions[permission].controllers[
-            controller
-          ].findOne.enabled = true;
+    if (permission.startsWith('api')) {
+      for (const controller of Object.keys(_public.permissions[permission].controllers)) {
+        _public.permissions[permission].controllers[controller].find.enabled = true;
+        if (_public.permissions[permission].controllers[controller].findOne) {
+          _public.permissions[permission].controllers[controller].findOne.enabled = true;
         }
       }
     }
   }
-  await strapi
-    .service("plugin::users-permissions.role")
-    .updateRole(_public.id, _public);
+  await strapi.service('plugin::users-permissions.role').updateRole(_public.id, _public);
 };
 
 module.exports = async () => {

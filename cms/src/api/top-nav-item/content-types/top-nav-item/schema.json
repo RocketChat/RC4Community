@@ -14,10 +14,7 @@
   "attributes": {
     "body": {
       "type": "dynamiczone",
-      "components": [
-        "menu.links",
-        "menu.dropdown"
-      ]
+      "components": ["menu.links", "menu.dropdown"]
     }
   }
 }

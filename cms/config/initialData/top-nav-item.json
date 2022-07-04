@@ -85,9 +85,7 @@
       "__component": "menu.dropdown",
       "id": 10,
       "label": "Product",
-      "sub_menus": [
-        
-      ]
+      "sub_menus": []
     },
     {
       "__component": "menu.dropdown",
@@ -132,17 +130,13 @@
       "__component": "menu.dropdown",
       "id": 9,
       "label": "Events",
-      "sub_menus": [
-        
-      ]
+      "sub_menus": []
     },
     {
       "__component": "menu.dropdown",
       "id": 7,
       "label": "Partners",
-      "sub_menus": [
-        
-      ]
+      "sub_menus": []
     }
   ]
 }

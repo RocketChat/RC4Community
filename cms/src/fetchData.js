@@ -8,34 +8,26 @@ const {
   topNavItem,
   speakers,
   forms,
-} = require("../config/initialData");
-const { githubKit } = require("../config/github");
+} = require('../config/initialData');
+const { githubKit } = require('../config/github');
 
 module.exports = async () => {
   try {
-    var carouselCount = await strapi.db.query("api::carousel.carousel").count();
-    var personaIconsCount = await strapi.db
-      .query("api::persona-icon.persona-icon")
-      .count();
-    var personaCount = await strapi.db.query("api::persona.persona").count();
-    var subMenuCount = await strapi.db.query("api::sub-menu.sub-menu").count();
-    var topNavItemCount = await strapi.db
-      .query("api::top-nav-item.top-nav-item")
-      .count();
-    var releaseNotesCount = await strapi.db
-      .query("api::release-note.release-note")
-      .count();
-    var guidesCount = await strapi.db.query("api::guide.guide").count();
-    var formCount = await strapi.db.query("api::form.form").count();
-    var ghrepos = await strapi.db
-      .query("api::github-repository.github-repository")
-      .count({});
-    var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
+    var carouselCount = await strapi.db.query('api::carousel.carousel').count();
+    var personaIconsCount = await strapi.db.query('api::persona-icon.persona-icon').count();
+    var personaCount = await strapi.db.query('api::persona.persona').count();
+    var subMenuCount = await strapi.db.query('api::sub-menu.sub-menu').count();
+    var topNavItemCount = await strapi.db.query('api::top-nav-item.top-nav-item').count();
+    var releaseNotesCount = await strapi.db.query('api::release-note.release-note').count();
+    var guidesCount = await strapi.db.query('api::guide.guide').count();
+    var formCount = await strapi.db.query('api::form.form').count();
+    var ghrepos = await strapi.db.query('api::github-repository.github-repository').count({});
+    var speakersCount = await strapi.db.query('api::speaker.speaker').count({});
 
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
-        await strapi.db.query("api::speaker.speaker").update({
+        await strapi.db.query('api::speaker.speaker').update({
           where: { id: speaker.id },
           data: {
             name: speaker.name,
@@ -51,7 +43,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::speaker.speaker").create({
+        await strapi.service('api::speaker.speaker').create({
           data: {
             name: speaker.name,
             imageUrl: speaker.imageUrl,
@@ -69,16 +61,12 @@ module.exports = async () => {
     });
 
     if (!ghrepos) {
-      githubKit("RocketChat", "RC4Community", [
-        "issues",
-        "contributors",
-        "pulls",
-      ]);
+      githubKit('RocketChat', 'RC4Community', ['issues', 'contributors', 'pulls']);
     }
 
     forms.map(async (form, index) => {
       if (index <= formCount - 1) {
-        await strapi.db.query("api::form.form").update({
+        await strapi.db.query('api::form.form').update({
           where: { id: form.id },
           data: {
             title: form.title,
@@ -86,7 +74,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::form.form").create({
+        await strapi.service('api::form.form').create({
           data: {
             title: form.title,
             formQs: form.formQs,
@@ -97,7 +85,7 @@ module.exports = async () => {
 
     carousels.map(async (carousel, index) => {
       if (index <= carouselCount - 1) {
-        await strapi.db.query("api::carousel.carousel").update({
+        await strapi.db.query('api::carousel.carousel').update({
           where: { id: carousel.id },
           data: {
             name: carousel.name,
@@ -107,7 +95,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::carousel.carousel").create({
+        await strapi.service('api::carousel.carousel').create({
           data: {
             name: carousel.name,
             description: carousel.description,
@@ -120,7 +108,7 @@ module.exports = async () => {
 
     personaIcons.map(async (personaIcon, index) => {
       if (index <= personaIconsCount - 1) {
-        await strapi.db.query("api::persona-icon.persona-icon").update({
+        await strapi.db.query('api::persona-icon.persona-icon').update({
           where: { id: personaIcon.id },
           data: {
             icon: personaIcon.icon,
@@ -129,7 +117,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::persona-icon.persona-icon").create({
+        await strapi.service('api::persona-icon.persona-icon').create({
           data: {
             icon: personaIcon.icon,
             size: personaIcon.size,
@@ -141,7 +129,7 @@ module.exports = async () => {
 
     persona.map(async (persona, index) => {
       if (index <= personaCount - 1) {
-        await strapi.db.query("api::persona.persona").update({
+        await strapi.db.query('api::persona.persona').update({
           where: { id: persona.id },
           data: {
             name: persona.name,
@@ -154,7 +142,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::persona.persona").create({
+        await strapi.service('api::persona.persona').create({
           data: {
             name: persona.name,
             persona_icon: {
@@ -170,7 +158,7 @@ module.exports = async () => {
 
     subMenus.map(async (subMenu, index) => {
       if (index <= subMenuCount - 1) {
-        await strapi.db.query("api::sub-menu.sub-menu").update({
+        await strapi.db.query('api::sub-menu.sub-menu').update({
           where: { id: subMenu.id },
           data: {
             label: subMenu.label,
@@ -178,7 +166,7 @@ module.exports = async () => {
           },
         });
       } else {
-        await strapi.service("api::sub-menu.sub-menu").create({
+        await strapi.service('api::sub-menu.sub-menu').create({
           data: {
             label: subMenu.label,
             url: subMenu.url,
@@ -188,7 +176,7 @@ module.exports = async () => {
     });
 
     if (releaseNotesCount) {
-      await strapi.db.query("api::release-note.release-note").update({
+      await strapi.db.query('api::release-note.release-note').update({
         where: { id: 1 },
         data: {
           label: releaseNotes.label,
@@ -196,17 +184,17 @@ module.exports = async () => {
         },
       });
     } else {
-      await strapi.db.query("api::release-note.release-note").create({
+      await strapi.db.query('api::release-note.release-note').create({
         data: {
           label: releaseNotes.label,
           location: releaseNotes.location,
-          publishedAt: new Date()
+          publishedAt: new Date(),
         },
       });
     }
 
     if (guidesCount) {
-      await strapi.db.query("api::guide.guide").update({
+      await strapi.db.query('api::guide.guide').update({
         where: { id: 1 },
         data: {
           label: guides.label,
@@ -214,38 +202,37 @@ module.exports = async () => {
         },
       });
     } else {
-      await strapi.service("api::guide.guide").create({
+      await strapi.service('api::guide.guide').create({
         data: {
           label: guides.label,
           location: guides.location,
-          publishedAt: new Date()
+          publishedAt: new Date(),
         },
       });
     }
 
     if (topNavItemCount) {
-      await strapi.db.query("api::top-nav-item.top-nav-item").update({
-        
+      await strapi.db.query('api::top-nav-item.top-nav-item').update({
         where: { id: 1 },
         data: {
           body: topNavItem.body.map((topNavItem) => {
-            if (topNavItem.__component === "menu.links") {
+            if (topNavItem.__component === 'menu.links') {
               return {
-                __component: "menu.links",
+                __component: 'menu.links',
                 label: topNavItem.label,
                 url: topNavItem.url,
-                publishedAt: new Date()
+                publishedAt: new Date(),
               };
             } else {
               return {
-                __component: "menu.dropdown",
+                __component: 'menu.dropdown',
                 label: topNavItem.label,
                 sub_menus: topNavItem.sub_menus.map((subMenu) => {
                   return {
                     id: subMenu.id,
                     label: subMenu.label,
                     url: subMenu.url,
-                    publishedAt: new Date()
+                    publishedAt: new Date(),
                   };
                 }),
               };
@@ -254,18 +241,18 @@ module.exports = async () => {
         },
       });
     } else {
-      await strapi.service("api::top-nav-item.top-nav-item").create({
+      await strapi.service('api::top-nav-item.top-nav-item').create({
         data: {
           body: topNavItem.body.map((topNavItem) => {
-            if (topNavItem.__component === "menu.links") {
+            if (topNavItem.__component === 'menu.links') {
               return {
-                __component: "menu.links",
+                __component: 'menu.links',
                 label: topNavItem.label,
                 url: topNavItem.url,
               };
             } else {
               return {
-                __component: "menu.dropdown",
+                __component: 'menu.dropdown',
                 label: topNavItem.label,
                 sub_menus: topNavItem.sub_menus.map((subMenu) => {
                   return {
@@ -277,11 +264,11 @@ module.exports = async () => {
               };
             }
           }),
-          publishedAt: new Date() 
+          publishedAt: new Date(),
         },
       });
     }
   } catch (error) {
-    console.log("Error:= ", error);
+    console.log('Error:= ', error);
   }
 };

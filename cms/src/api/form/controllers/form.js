@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -7,8 +7,7 @@
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-
-const { parseMultipartData } = require("@strapi/utils");
+const { parseMultipartData } = require('@strapi/utils');
 
 module.exports = createCoreController('api::form.form', ({ strapi }) => ({
   // wrap a core action, leaving core logic in place
@@ -16,7 +15,7 @@ module.exports = createCoreController('api::form.form', ({ strapi }) => ({
     let entity;
     let sanitizedEntity;
 
-    if (ctx.is("multipart")) {
+    if (ctx.is('multipart')) {
       const { data, files } = parseMultipartData(ctx);
       entity = await strapi.service('api::form.form').create(data, { files });
       sanitizedEntity = await this.sanitizeOutput(entity, ctx);

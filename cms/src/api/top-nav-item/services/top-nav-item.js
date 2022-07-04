@@ -6,13 +6,12 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::top-nav-item.top-nav-item', () =>  ({
+module.exports = createCoreService('api::top-nav-item.top-nav-item', () => ({
+  async create(...args) {
+    // Calling the default core controller
+    const { data, meta } = await super.createOrUpdate(...args);
+    // some custom logic
 
-    async create(...args) {  
-      // Calling the default core controller
-      const { data, meta } = await super.createOrUpdate(...args);  
-      // some custom logic
-  
-      return { data, meta };
-    },
-  }));
+    return { data, meta };
+  },
+}));
