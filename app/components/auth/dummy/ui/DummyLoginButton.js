@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NoUserAvatar } from "../../NoUserAvatar";
-import DummyLoginUI from "./DummyLoginUI";
+import { Button } from "react-bootstrap";
 import styles from "../styles/DummyLoginButton.module.css";
+import { useDummyAuth } from "../hooks/useDummyAuth";
 
 export default function DummyLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-      const isStoredInSession = JSON.parse(sessionStorage.getItem("dummy_user"));
-      if (isStoredInSession) {
-          setUser(isStoredInSession);
-      }
-  },[])
+  const { user, handleLogin, handleLogout } = useDummyAuth();
 
   return (
     <div className={styles.authDialogWrapper}>
@@ -38,7 +32,40 @@ export default function DummyLoginButton() {
       </div>
       {isLoginUiOpen && (
         <div className={styles.authContainer}>
-          <DummyLoginUI setUser={setUser} user={user} />
+          {user.id ? (
+            <>
+              <div className="d-flex flex-column align-items-center mt-4 mb-3 ml-3 mr-3 border-bottom">
+                <div className="mb-1">
+                  {user.image ? (
+                    <img
+                      src={user.image}
+                      alt={user.name}
+                      style={{
+                        borderRadius: "50%",
+                      }}
+                      height="64px"
+                      width="64px"
+                    />
+                  ) : (
+                    <NoUserAvatar size="64" name={user.name} />
+                  )}
+                </div>
+                <div className="font-weight-bold mb-1">{user.name}</div>
+                <div className="mb-1" style={{ color: "var(--bs-gray-700)" }}>
+                  {user.email}
+                </div>
+              </div>
+              <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">
+                <Button variant="secondary" onClick={handleLogout}>
+                  Sign Out
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="d-flex flex-column align-items-center my-3">
+              <Button onClick={handleLogin}>Login</Button>
+            </div>
+          )}
         </div>
       )}
     </div>

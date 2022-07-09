@@ -99,7 +99,7 @@ export default function Menubar(props) {
           </RocketChatLinkButton>
         </Navbar.Collapse>
         <div className="mx-3">
-          {userCookie ? (
+          {userCookie && (
             <Dropdown align="end" className={styles.dropdown_menu}>
               <Dropdown.Toggle as={CustomToggle} />
               <Dropdown.Menu size="sm" title="">
@@ -111,8 +111,6 @@ export default function Menubar(props) {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          ) : (
-            ""
           )}
         </div>
         <div className="mx-2">
