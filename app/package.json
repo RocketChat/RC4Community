@@ -9,7 +9,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write . --loglevel=silent"
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
