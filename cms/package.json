@@ -8,7 +8,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "format": "prettier --write .",
+    "format": "prettier --write . --loglevel=silent",
     "lint": "eslint '**/*.js' --fix"
   },
   "devDependencies": {
