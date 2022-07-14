@@ -4,7 +4,7 @@ import { connectAccount, fetchAssets } from "../../lib/walletAPI";
 import { ErrorModal } from "./connectMeta";
 import styles from "../../styles/meta.module.css";
 import Cookies from "js-cookie";
-import { superProfile } from "../superprofile/nftSuperAbstract";
+import { superProMutate } from "../superprofile/SuperMutate";
 
 const NFTProfile = ({ limit }) => {
   const [assets, setAssets] = useState(null);
@@ -99,7 +99,7 @@ const GalleryModal = ({
   errMess,
   setErrMess,
 }) => {
-  const { callSuper, data, loading, error, reset } = superProfile();
+  const [ superMutate, {data, loading, error, reset} ] = superProMutate("nft");
 
   useEffect(() => {
     if (data) {
@@ -122,7 +122,7 @@ const GalleryModal = ({
       token: token,
     };
 
-    callSuper("nft", data);
+    superMutate("nft", data);
   };
 
   if (error) {
