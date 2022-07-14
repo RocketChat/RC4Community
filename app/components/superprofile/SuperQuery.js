@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 
 const FIND_USER_UID = gql`
   query findbyUid($uid: String!) {
@@ -17,7 +17,7 @@ export const superProQuery = (target) => {
     //the different useMutation function goes here
     let querySchema = null;
     if (target === "user") {
-      querySchema = UPSERT_USER;
+      querySchema = FIND_USER_UID;
     }
     const callSuper = (key, prop) => {
       if (key === "user") {
