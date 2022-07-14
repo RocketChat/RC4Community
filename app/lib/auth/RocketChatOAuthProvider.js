@@ -4,10 +4,10 @@ export function RocketChatOAuthProvider(options = {}) {
     id: "rocket.chat",
     name: "Rocket.Chat",
     type: "oauth",
-    authorization: urlJoin(options.rocketChatUrl,'/oauth/authorize'),
+    authorization: urlJoin(options.rocketChatUrl || "http://localhost:3000",'/oauth/authorize'),
     scope: "openid email profile",
-    token: urlJoin(process.env.NEXTAUTH_URL,'/api/auth/rocketchat-token-legacy'),
-    userinfo: urlJoin(options.rocketChatUrl,'/oauth/userinfo'),
+    token: urlJoin(process.env.NEXTAUTH_URL || "http://localhost:3000",'/api/auth/rocketchat-token-legacy'),
+    userinfo: urlJoin(options.rocketChatUrl || "http://localhost:3000",'/oauth/userinfo'),
 
     async profile(profile) {
       return {
