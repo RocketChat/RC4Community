@@ -224,7 +224,7 @@ module.exports = async () => {
     }
 
     if (topNavItemCount) {
-      await strapi.db.query("api::top-nav-item.top-nav-item").update({
+      await strapi.service("api::top-nav-item.top-nav-item").createOrUpdate({
         
         where: { id: 1 },
         data: {
