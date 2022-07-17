@@ -18,12 +18,6 @@
     },
     "communityName": {
       "type": "string"
-    },
-    "contributors": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::g-so-c-contributor.g-so-c-contributor",
-      "mappedBy": "community"
     }
   }
 }
