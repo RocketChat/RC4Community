@@ -9,7 +9,6 @@ const {
   speakers,
   forms,
 } = require("../config/initialData");
-const { githubKit } = require("../config/github");
 
 module.exports = async () => {
   try {
@@ -67,14 +66,6 @@ module.exports = async () => {
         });
       }
     });
-
-    if (!ghrepos) {
-      githubKit("RocketChat", "RC4Community", [
-        "issues",
-        "contributors",
-        "pulls",
-      ]);
-    }
 
     forms.map(async (form, index) => {
       if (index <= formCount - 1) {
