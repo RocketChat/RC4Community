@@ -1,5 +1,6 @@
 'use strict';
 const { updateSpeakerData } = require('./speaker')
+const { getLatestCommunityActivity } = require('./fetchTopPosts')
 /**
  * Cron config that gives you an opportunity
  * to run scheduled jobs.
