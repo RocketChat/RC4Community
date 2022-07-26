@@ -26,9 +26,6 @@ module.exports = async () => {
       .count();
     var guidesCount = await strapi.db.query("api::guide.guide").count();
     var formCount = await strapi.db.query("api::form.form").count();
-    var ghrepos = await strapi.db
-      .query("api::github-repository.github-repository")
-      .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
 
     // initial fetch
