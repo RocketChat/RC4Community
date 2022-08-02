@@ -9,7 +9,6 @@ const {
   speakers,
   forms,
 } = require("../config/initialData");
-const { githubKit } = require("../config/github");
 
 module.exports = async () => {
   try {
@@ -27,9 +26,6 @@ module.exports = async () => {
       .count();
     var guidesCount = await strapi.db.query("api::guide.guide").count();
     var formCount = await strapi.db.query("api::form.form").count();
-    var ghrepos = await strapi.db
-      .query("api::github-repository.github-repository")
-      .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
 
     // initial fetch
@@ -67,14 +63,6 @@ module.exports = async () => {
         });
       }
     });
-
-    if (!ghrepos) {
-      githubKit("RocketChat", "RC4Community", [
-        "issues",
-        "contributors",
-        "pulls",
-      ]);
-    }
 
     forms.map(async (form, index) => {
       if (index <= formCount - 1) {
