@@ -25,7 +25,7 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, showLogs }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
@@ -410,7 +410,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {item}
       </div>
     ));
-
+  
+  
   const renderSpinner = () => (
     <div
       style={{
@@ -465,7 +466,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {toggleView()}
       </div>
       {toolButton()}
-      <div className={styles.log}>{renderLog()}</div>
+      {showLogs && <div className={styles.log}>{renderLog()}</div>}
     </>
   );
 };

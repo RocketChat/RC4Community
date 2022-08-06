@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import styles from "../../../styles/Mainstage.module.css";
+import styles from "../../../styles/Greenroom.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Jitsibroadcaster from "../../../components/clientsideonly/jitsibroadcaster";
 import InAppChat from "../../../components/inappchat/inappchat";
@@ -29,6 +29,7 @@ const Greenroom = () => {
                 room={"GSOC Alumnus Meet"}
                 disName={"Speaker"}
                 handleChat={handleOpenChat}
+                showLogs={false}
               />
             </Col>
             {openChat && (

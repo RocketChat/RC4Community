@@ -2,6 +2,8 @@
 
 .main {
   font-family: "Roboto", sans-serif;
+  min-height: 90vh;
+  max-height: fit-content;
 }
 
 .topNav {
