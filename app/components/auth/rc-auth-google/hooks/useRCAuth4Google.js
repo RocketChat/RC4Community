@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 
 import RocketChatInstance from "../gapi";
 import { useGoogleLogin } from "../useGoogleLogin";
-import { signCook } from "../../../../lib/conferences/eventCall";
 
 export const useRCAuth4Google = () => {
   const [user, setUser] = useState({});
@@ -33,10 +32,8 @@ export const useRCAuth4Google = () => {
     try {
       const res = await RCInstance.googleSSOLogin(signIn, acsCode);
       if (res?.me) {
-        const hashmail = await signCook({ mail: res.me.email });
         sessionStorage.setItem("grc_user", JSON.stringify(res.me));
         setUser(res.me);
-        Cookies.set("hashmail", hashmail.hash);
       }
       if (res.error === "totp-required") {
         setUserOrEmail(res.details.emailOrUsername);
@@ -57,8 +54,6 @@ export const useRCAuth4Google = () => {
     await RCInstance.logout(signOut);
 
     sessionStorage.removeItem("grc_user");
-    Cookies.remove("hashmail");
-    Cookies.remove("event_auth");
     router.reload();
   };
 
