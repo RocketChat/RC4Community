@@ -7,9 +7,9 @@ import { NoUserAvatar } from "../../NoUserAvatar";
 import styles from "../styles/DummyLoginButton.module.css";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 
-export default function RCAuthGoogleLoginButton() {
+export default function RCAuthGoogleLoginButton({ user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method }) {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
-  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } = useRCAuth4Google();
+
   const [accessCode, setAccessCode] = useState(null)
 
   return (

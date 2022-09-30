@@ -11,6 +11,7 @@ import BrandLogo from "./brandlogo";
 
 import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
 import styles from "../styles/Menubar.module.css";
+import { useRCAuth4Google } from "./auth/rc-auth-google/hooks/useRCAuth4Google";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -34,8 +35,10 @@ export default function Menubar(props) {
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
     process.env.NEXT_PUBLIC_RC_URL
 
+  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } = useRCAuth4Google();
+
   if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
-  
+
   return (
     <Container fluid className="border-bottom ">
       <Navbar expand="lg" className=" bg-white mx-4 my-2">
@@ -61,9 +64,8 @@ export default function Menubar(props) {
             type="button"
           >
             <span
-              className={`${styles.toggler_icon} ${
-                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
-              }`}
+              className={`${styles.toggler_icon} ${collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
+                }`}
             />
           </button>
         </Navbar.Toggle>
@@ -98,6 +100,7 @@ export default function Menubar(props) {
           </Nav>
           <RocketChatLinkButton
             className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
+            user={user}
           >
             Click to Chat
           </RocketChatLinkButton>
@@ -119,7 +122,9 @@ export default function Menubar(props) {
         </div>
         <div className="mx-2">
           {hasAllRequiredCreds ? (
-            <RCAuthGoogleLoginButton />
+            <RCAuthGoogleLoginButton
+              user={user} handleLogin={handleLogin} handleLogout={handleLogout} handleResend={handleResend} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} method={method}
+            />
           ) : (
             <DummyLoginButton />
           )}

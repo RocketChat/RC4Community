@@ -21,12 +21,16 @@ export default class RocketChatInstance {
     return {
       rc_token: Cookies.get("rc_token"),
       rc_uid: Cookies.get("rc_uid"),
+      g_accessToken: Cookies.get("g_accessToken"),
+      g_idToken: Cookies.get("g_idToken"),
     };
   }
 
   setCookies(cookies) {
     Cookies.set("rc_token", cookies.rc_token || "");
     Cookies.set("rc_uid", cookies.rc_uid || "");
+    Cookies.set("g_accessToken", cookies.g_accessToken || "");
+    Cookies.set("g_idToken", cookies.g_idToken || "");
   }
 
   async googleSSOLogin(signIn, acsCode) {
@@ -65,6 +69,8 @@ export default class RocketChatInstance {
 
       if (response.status === "success") {
         this.setCookies({
+          g_accessToken: tokens.access_token,
+          g_idToken: tokens.id_token,
           rc_token: response.data.authToken,
           rc_uid: response.data.userId,
         });
