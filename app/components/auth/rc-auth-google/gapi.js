@@ -19,18 +19,16 @@ export default class RocketChatInstance {
 
   getCookies() {
     return {
+      rc_authToken: Cookies.get("rc_authToken"),
       rc_token: Cookies.get("rc_token"),
       rc_uid: Cookies.get("rc_uid"),
-      g_accessToken: Cookies.get("g_accessToken"),
-      g_idToken: Cookies.get("g_idToken"),
     };
   }
 
   setCookies(cookies) {
+    Cookies.set("rc_authToken", cookies.rc_authToken || "");
     Cookies.set("rc_token", cookies.rc_token || "");
     Cookies.set("rc_uid", cookies.rc_uid || "");
-    Cookies.set("g_accessToken", cookies.g_accessToken || "");
-    Cookies.set("g_idToken", cookies.g_idToken || "");
   }
 
   async googleSSOLogin(signIn, acsCode) {
@@ -56,7 +54,9 @@ export default class RocketChatInstance {
         accessToken: tokens.access_token,
         idToken: tokens.id_token,
         expiresIn: 3600,
+        scope: "profile"
       });
+
     try {
       const req = await fetch(`${this.host}/api/v1/login`, {
         method: "POST",
@@ -69,8 +69,7 @@ export default class RocketChatInstance {
 
       if (response.status === "success") {
         this.setCookies({
-          g_accessToken: tokens.access_token,
-          g_idToken: tokens.id_token,
+          rc_authToken: response.data.authToken,
           rc_token: response.data.authToken,
           rc_uid: response.data.userId,
         });
@@ -86,6 +85,26 @@ export default class RocketChatInstance {
       if (response.error === "totp-required") {
         return response;
       }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  async resend2FA(emailOrUsername) {
+    try {
+      const response = await fetch(`${this.host}/api/v1/users.2fa.sendEmailCode`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": null,
+          "X-User-Id": null,
+        },
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify({
+          emailOrUsername: emailOrUsername,
+        })
+      });
+      return await response.json();
     } catch (err) {
       console.error(err.message);
     }

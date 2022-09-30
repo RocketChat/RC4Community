@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { useRCAuth4Google } from "../hooks/useRCAuth4Google";
-
 import { NoUserAvatar } from "../../NoUserAvatar";
 
 import styles from "../styles/DummyLoginButton.module.css";
