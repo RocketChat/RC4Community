@@ -98,12 +98,12 @@ export default function Menubar(props) {
               );
             })}
           </Nav>
-          <RocketChatLinkButton
+          {user._id && <RocketChatLinkButton
             className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
             user={user}
           >
             Click to Chat
-          </RocketChatLinkButton>
+          </RocketChatLinkButton>}
         </Navbar.Collapse>
         <div className="mx-3">
           {userCookie && (
