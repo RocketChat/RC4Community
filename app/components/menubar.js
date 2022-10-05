@@ -101,6 +101,7 @@ export default function Menubar(props) {
           {user._id && <RocketChatLinkButton
             className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
             user={user}
+            channel={"general"}
           >
             Click to Chat
           </RocketChatLinkButton>}
