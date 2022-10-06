@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+
+import Link from "next/link";
+import Cookies from "js-cookie";
+
+import RCAuthGoogleLoginButton from "./auth/rc-auth-google/ui/RCAuth4Google";
+import { DummyLoginButton } from "./auth/dummy";
+import RocketChatLinkButton from "./rocketchatlinkbutton";
+
+import BrandLogo from "./brandlogo";
+
 import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
 import styles from "../styles/Menubar.module.css";
-import { RocketChatAuthMenuButton } from "./auth/rocketchat";
-import BrandLogo from "./brandlogo";
-import RocketChatLinkButton from "./rocketchatlinkbutton";
-import Cookies from "js-cookie";
-import Link from "next/link";
-import { DummyLoginButton } from "./auth/dummy";
+import { useRCAuth4Google } from "./auth/rc-auth-google/hooks/useRCAuth4Google";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -27,11 +32,13 @@ export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
   const userCookie = Cookies.get("user");
   const hasAllRequiredCreds =
-    process.env.NEXTAUTH_URL &&
-    process.env.ROCKETCHAT_CLIENT_ID &&
-    process.env.ROCKETCHAT_CLIENT_SECRET &&
-    process.env.ROCKETCHAT_URL;
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
+    process.env.NEXT_PUBLIC_RC_URL
+
+  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } = useRCAuth4Google();
+
   if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
+
   return (
     <Container fluid className="border-bottom ">
       <Navbar expand="lg" className=" bg-white mx-4 my-2">
@@ -57,9 +64,8 @@ export default function Menubar(props) {
             type="button"
           >
             <span
-              className={`${styles.toggler_icon} ${
-                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
-              }`}
+              className={`${styles.toggler_icon} ${collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
+                }`}
             />
           </button>
         </Navbar.Toggle>
@@ -92,11 +98,13 @@ export default function Menubar(props) {
               );
             })}
           </Nav>
-          <RocketChatLinkButton
+          {user._id && <RocketChatLinkButton
             className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
+            user={user}
+            channel={"general"}
           >
             Click to Chat
-          </RocketChatLinkButton>
+          </RocketChatLinkButton>}
         </Navbar.Collapse>
         <div className="mx-3">
           {userCookie && (
@@ -115,7 +123,9 @@ export default function Menubar(props) {
         </div>
         <div className="mx-2">
           {hasAllRequiredCreds ? (
-            <RocketChatAuthMenuButton />
+            <RCAuthGoogleLoginButton
+              user={user} handleLogin={handleLogin} handleLogout={handleLogout} handleResend={handleResend} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} method={method}
+            />
           ) : (
             <DummyLoginButton />
           )}

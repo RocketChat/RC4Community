@@ -1,0 +1,54 @@
+.authDialogWrapper {
+    position: relative;
+}
+.authContainer {
+    display: block;
+    position: fixed;
+    right: 50%;
+    transform: translate(50%,0);
+    top: 62px;
+    width: 350px;
+    max-height: -webkit-calc(100vh - 62px - 100px);
+    max-height: calc(100vh - 62px - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 8px;
+    margin-left: 12px;
+    z-index: 991;
+    line-height: normal;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-color: rgba(0,0,0,.2);
+    color: #000;
+    -webkit-box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+    -webkit-user-select: text;
+    user-select: text;
+}
+@media(min-width: 570px) {
+    .authContainer {
+        position: absolute;
+        right: 8px;
+        top: 62px;
+        width: 354px;
+        transform: translateX(0);
+    }
+}
+.avatar {
+    background: var(--bs-gray-300);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatarButton {
+    background: none;
+    border: none;
+}
+
+.avatarButton:focus {
+    outline: none;
+}

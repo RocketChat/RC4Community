@@ -25,6 +25,7 @@
     "emoji-toolkit": "^6.6.0",
     "firebase": "^9.6.3",
     "firebase-admin": "^10.0.2",
+    "gapi-cjs": "^1.0.3",
     "graphql": "^16.3.0",
     "ipfs-core": "^0.14.2",
     "js-cookie": "^3.0.1",
