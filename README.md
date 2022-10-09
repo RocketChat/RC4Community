@@ -44,53 +44,23 @@ During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
 
+Pre-requisites:
+
+*volta*
 Nodejs versioning is managed by [volta](https://docs.volta.sh/guide/). You can install it by running `curl https://get.volta.sh | bash` in your terminal. This assures that appropriate versions of nodeJS and npm are used and ensures compatibility for all distributed development teams.
 
-By default, strapi listens on port 1337. If you're using WSL2 on Windows and also running Docker Desktop, port 1337 may not be available on your system. To use port 3000 instead, set the environment variable `PORT` to 3000.
-
-#### If migrating form Strapi v3 to v4, please -
-
-> Delete the old `.tmp` and `build` folders (if exists).
-
-> **Optional: Add the `APP_KEYS`, and `JWT_SECRET` environment variables. (For a quick start, you could use the same keys as in `.env.example`)
-
-```
-export PORT=3000
-```
-
-Start strapi:
+*docker*
+Your system should have docker available for superprofile we use a dockerized local flauna instance.
 
 ```
 git clone https://github.com/rocketchat/RC4Community
-cd cms
-npm i
-INITIALIZE_DATA=true npm run develop
+cd RC4Community
+sh startdevenv.sh
 ```
 
-Note:
+The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
 
-1. `INITIALIZE_DATA` environment variable is only needed the first time you start the cms for development. It will seed the cms with a default set of components for you to start your own customization. (see [fetch data](https://github.com/RonLek/RC4Community/blob/master/cms/config/functions/fetchData.js) for the actual default initialization code)
-2. On subsequent runs, if you want to activate Discourse integration, set the environment variables `DISCOURSE_DOMAIN`, `DISCOURSE_API_USERNAME`, `DISCOURSE_API_KEY`. These environment variables are required for the cron job to fetch the latest top activity on discourse with the time interval of 5 mins.
-
-The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
-
-```
-cd app
-npm i
-npm run dev
-```
-
-You can use the environment variable `NEXT_PUBLIC_STRAPI_API_URL` to override the location of strapi cms, if it is not running on the same host.
-
-```
-NEXT_PUBLIC_STRAPI_API_URL=http://127.0.0.1:1337  npm run dev
-```
-
-Now RC4Community should be accessible from http://localhost:3000
-
-You can now have designers and devs modify the portal content directly and independently from the dev and devOps folks working on the app.
-
-Devs can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
+Using strapi directly - you can now have designers and devs modify the portal content directly and independently from the dev and devOps folks working on the app.  While developers can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
 
 ## 🛠 Application build time
 
@@ -100,7 +70,7 @@ To build for deployment, first make sure cms (strapi) is up and running, then:
 
 ```
 cd app
-NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run build
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:<your strapi port>   npm run build
 ```
 
 Upon successful build, the cms (strapi) is no longer needed for deployemnt. For example, you may want to deploy to vercel via a `git push`.
@@ -109,7 +79,7 @@ For a workable but simple minded, non-scalable, never to be used in production d
 
 ```
 cd app
-NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337   npm run prod
+NEXT_PUBLIC_STRAPI_API_URL=http://localhost:<your strapi port>   npm run prod
 ```
 
 Again, note that cms/strapi is not required in production and should not be started.
