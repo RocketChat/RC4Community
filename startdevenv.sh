@@ -56,4 +56,4 @@ export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 npm i
 npm run dev
 
-
+sh showbrowser.sh  $NEXTJS_PORT
