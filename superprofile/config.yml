@@ -1,0 +1,5 @@
+---
+cluster_name: rocketchat
+storage_data_path: /var/lib/faunadb
+log_path: /var/log/faunadb
+shutdown_grace_period_seconds: 0

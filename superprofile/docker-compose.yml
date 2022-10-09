@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  fauna:
+    image: fauna/faunadb:4.15.0
+    container_name: faunadb
+    restart: unless-stopped
+    volumes:
+      - ./db:/var/lib/faunadb
+      - ./log:/var/log/faunadb
+      - ./config.yml:/etc/fauna.yml
+    command: --config /etc/fauna.yml
+    ports:
+      - "8443:8443"
+      - "8444:8444"
+      - "8084:8084"

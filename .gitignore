@@ -130,3 +130,4 @@ dist
 .pnp.*
 
 package-lock.json
+cms/package-lock.json
