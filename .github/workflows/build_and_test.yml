@@ -32,7 +32,7 @@ jobs:
       - name: Install cms dependencies
         run: |
           cd cms
-          nvm install
+          nvm install 16.13.0
           npm install
 
       - name: Start cms
@@ -86,7 +86,7 @@ jobs:
       - name: Install app dependencies
         run: |
           cd app
-          nvm i
+          nvm i 16.13.0
           npm i
 
       - name: Start app
