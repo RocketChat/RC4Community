@@ -13,7 +13,7 @@ env:
   BUILD_PATH: /tmp/archive.tgz
   NVM_DIR: /opt/nvm
   BASH_ENV: /opt/nvm/nvm.sh
-  NODE_ENV: production
+  NODE_ENV: development
 
 jobs:
   bat:
