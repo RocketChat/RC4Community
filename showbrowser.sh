@@ -4,7 +4,7 @@ echo "\n\n"
 
 echo "Please wait while we start the crm and app server and superprofile..."
 
-sleep 15   # pause for 15 seconds
+sleep 60   # pause for 1 minute
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
