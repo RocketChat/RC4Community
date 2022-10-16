@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Link from "next/link";
-import Cookies from "js-cookie";
+import Link from 'next/link';
+import Cookies from 'js-cookie';
 
-import RCAuthGoogleLoginButton from "./auth/rc-auth-google/ui/RCAuth4Google";
-import { DummyLoginButton } from "./auth/dummy";
-import RocketChatLinkButton from "./rocketchatlinkbutton";
+import RCAuthGoogleLoginButton from './auth/rc-auth-google/ui/RCAuth4Google';
+import RocketChatLinkButton from './rocketchatlinkbutton';
 
-import BrandLogo from "./brandlogo";
+import BrandLogo from './brandlogo';
 
-import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
-import styles from "../styles/Menubar.module.css";
-import { useRCAuth4Google } from "./auth/rc-auth-google/hooks/useRCAuth4Google";
+import { Navbar, Nav, NavDropdown, Container, Dropdown } from 'react-bootstrap';
+import styles from '../styles/Menubar.module.css';
+import { useRCAuth4Google } from './auth/rc-auth-google/hooks/useRCAuth4Google';
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
     className={styles.elipses}
-    href=""
+    href=''
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -30,47 +29,50 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
-  const userCookie = Cookies.get("user");
-  const hasAllRequiredCreds =
-    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
-    process.env.NEXT_PUBLIC_RC_URL
+  const userCookie = Cookies.get('user');
 
-  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } = useRCAuth4Google();
-
-  if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
+  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } =
+    useRCAuth4Google();
 
   return (
-    <Container fluid className="border-bottom ">
-      <Navbar expand="lg" className=" bg-white mx-4 my-2">
+    <Container
+      fluid
+      className='border-bottom '
+    >
+      <Navbar
+        expand='lg'
+        className=' bg-white mx-4 my-2'
+      >
         <BrandLogo
-          brandLink={"/"}
+          brandLink={'/'}
           logoLink={
-            "https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg"
+            'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
           }
-          imageTitle={"Rocket.Chat"}
-          brandName={"Rocket.Chat Community"}
+          imageTitle={'Rocket.Chat'}
+          brandName={'Rocket.Chat Community'}
           height={21}
           width={124}
         />
         <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          className={styles.default_toggler + " ms-auto"}
+          aria-controls='basic-navbar-nav'
+          className={styles.default_toggler + ' ms-auto'}
           onClick={() => {
             setCollapsed(!collapsed);
           }}
         >
           <button
             className={`${styles.navbar_toggler} navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around bg-white`}
-            type="button"
+            type='button'
           >
             <span
-              className={`${styles.toggler_icon} ${collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
-                }`}
+              className={`${styles.toggler_icon} ${
+                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
+              }`}
             />
           </button>
         </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mx-auto">
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='mx-auto'>
             {props.menu?.data?.attributes?.body?.map((item, index) => {
               return item.sub_menus && item?.sub_menus?.data?.length ? (
                 <NavDropdown
@@ -90,7 +92,7 @@ export default function Menubar(props) {
               ) : (
                 <Nav.Link
                   href={item.url}
-                  className="fw-normal"
+                  className='fw-normal'
                   key={item.id || item._id || `NavLink_${index}`}
                 >
                   {item.label}
@@ -98,19 +100,27 @@ export default function Menubar(props) {
               );
             })}
           </Nav>
-          {user._id && <RocketChatLinkButton
-            className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
-            user={user}
-            channel={"general"}
-          >
-            Click to Chat
-          </RocketChatLinkButton>}
+          {user._id && (
+            <RocketChatLinkButton
+              className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
+              user={user}
+              channel={'general'}
+            >
+              Click to Chat
+            </RocketChatLinkButton>
+          )}
         </Navbar.Collapse>
-        <div className="mx-3">
+        <div className='mx-3'>
           {userCookie && (
-            <Dropdown align="end" className={styles.dropdown_menu}>
+            <Dropdown
+              align='end'
+              className={styles.dropdown_menu}
+            >
               <Dropdown.Toggle as={CustomToggle} />
-              <Dropdown.Menu size="sm" title="">
+              <Dropdown.Menu
+                size='sm'
+                title=''
+              >
                 <Dropdown.Header>RC4Community Profile</Dropdown.Header>
                 <Dropdown.Item>
                   <Link href={`/profile/${userCookie}`}>
@@ -121,14 +131,16 @@ export default function Menubar(props) {
             </Dropdown>
           )}
         </div>
-        <div className="mx-2">
-          {hasAllRequiredCreds ? (
-            <RCAuthGoogleLoginButton
-              user={user} handleLogin={handleLogin} handleLogout={handleLogout} handleResend={handleResend} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} method={method}
-            />
-          ) : (
-            <DummyLoginButton />
-          )}
+        <div className='mx-2'>
+          <RCAuthGoogleLoginButton
+            user={user}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            handleResend={handleResend}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            method={method}
+          />
         </div>
       </Navbar>
     </Container>
