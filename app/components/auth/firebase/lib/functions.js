@@ -124,9 +124,9 @@ export const withFirebaseAuthUser = (options) => (ChildComponent) => {
 
 export const useFirebaseAuthUser = () => {
   if(initAuthHelper.getInitAuthResult().success){
-    return useAuthUser();
+    return useAuthUser;
   } else {
-    return createEmptyAuthUser();
+    return createEmptyAuthUser;
   }
 }
 
