@@ -5,12 +5,13 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-const Animation = React.memo(() => {
+const Animation = () => {
   console.log('animation rerendered');
   return (
     <span className={styles.track}>
-      {Array.apply(null, { length: 4 }).map(() => (
+      {Array.apply(null, { length: 4 }).map((e, index) => (
         <p
+          key={index}
           className={styles.emojiAnimationContainer}
           style={{
             color: 'red',
@@ -22,8 +23,9 @@ const Animation = React.memo(() => {
           ❤
         </p>
       ))}
-      {Array.apply(null, { length: 4 }).map(() => (
+      {Array.apply(null, { length: 4 }).map((e, index) => (
         <p
+          key={index}
           className={styles.emojiAnimationContainer}
           style={{
             overflow: 'hidden',
@@ -36,6 +38,6 @@ const Animation = React.memo(() => {
       ))}
     </span>
   );
-});
+};
 
-export default Animation;
+export default React.memo(Animation);

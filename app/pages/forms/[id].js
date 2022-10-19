@@ -1,6 +1,6 @@
 import Head from "next/head";
 import RCform from "../../components/clientForms/show";
-import { getFormData } from "../../lib/formAPI";
+import { GetFormData } from "../../lib/formAPI";
 
 export default function FormPage({ formFields }) {
   return (
@@ -17,6 +17,6 @@ export default function FormPage({ formFields }) {
 }
 
 FormPage.getInitialProps = async (ctx) => {
-  const res = await getFormData(ctx.query.id);
+  const res = GetFormData(ctx.query.id);
   return { formFields: res };
 };

@@ -12,7 +12,7 @@ export default function Videostreamer(props) {
     if (response.ok) {
       setPing(true)
     }
-    
+
     return response;
   };
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Videostreamer(props) {
           setPing(false);
           return
         });
-      
+
     }, 30000);
   }, []);
 
@@ -57,10 +57,10 @@ export default function Videostreamer(props) {
           data-setup='{"fluid": true}'
         >
           <source src={props.src} type={props.type}></source>
-          <p class="vjs-no-js">
+          <p className="vjs-no-js">
             To view this video please enable JavaScript, and consider upgrading
             to a web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">
+            <a href="https://videojs.com/html5-video-support/" target="_blank" rel="noreferrer">
               supports HTML5 video
             </a>
           </p>
