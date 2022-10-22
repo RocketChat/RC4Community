@@ -15,6 +15,7 @@ export default function Infotiles({ data }) {
               src={obj.imageUrl}
               width={288}
               height={288}
+              alt={obj.name}
               objectFit="contain"
             />
           )}

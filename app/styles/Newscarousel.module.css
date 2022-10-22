@@ -3,7 +3,10 @@
   max-width: 90rem;
   align-self: center;
 }
-.active_carousel:hover{
+.active_carousel {
+  position: relative;
+}
+.active_carousel:hover {
   transform: scale(1.04);
   transition: 0.5s all;
 }
@@ -12,7 +15,7 @@
   color: #000000;
   outline: none;
 }
-.active_carousel:hover .content{
+.active_carousel:hover .content {
   background-color: #1d74f5;
   color: white;
   transition: 0.5s all;

@@ -153,18 +153,19 @@ const GalleryModal = ({
         <Modal.Body className={styles.selectNFT}>
           {assets
             ? assets.map(
-                (a, i) =>
-                  a.image_url && (
-                    <div key={i} className={styles.asset}>
-                      <Image
-                        key={i}
-                        onClick={handleImage}
-                        className={`${styles.assetImage} nim_${i}`}
-                        src={a.image_url}
-                      />
-                    </div>
-                  )
-              )
+              (a, i) =>
+                a.image_url && (
+                  <div key={i} className={styles.asset}>
+                    <Image
+                      key={i}
+                      onClick={handleImage}
+                      className={`${styles.assetImage} nim_${i}`}
+                      alt={`nim_${i}`}
+                      src={a.image_url}
+                    />
+                  </div>
+                )
+            )
             : "No assets available"}
         </Modal.Body>
         <Modal.Footer>

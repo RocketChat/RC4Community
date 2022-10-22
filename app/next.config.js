@@ -6,7 +6,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com']
+    domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com', 'user-images.githubusercontent.com']
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module

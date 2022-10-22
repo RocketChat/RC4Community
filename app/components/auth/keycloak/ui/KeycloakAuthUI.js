@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Image from "next/future/image";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
 import { NoUserAvatar } from "../../NoUserAvatar";
@@ -15,13 +16,13 @@ export default function KeycloakUserInfo() {
                 <div className="mb-1">
                     {
                         user.image ?
-                            <img src={user.image}
+                            <Image src={user.image}
                                 alt={user.name}
                                 style={{
                                     borderRadius: "50%"
                                 }}
-                                height="64px"
-                                width="64px" />
+                                height={64}
+                                width={64} />
                             :
                             <NoUserAvatar size="64" name={user.name} />
                     }
