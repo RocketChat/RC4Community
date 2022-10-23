@@ -110,11 +110,13 @@ const GalleryModal = ({
   setErrMess,
 }) => {
   const [upsertNFT, { data, loading, error, reset }] = useMutation(UPSERT_NFT);
+
   useEffect(() => {
     if (data) {
       setLoad(false);
     }
-  }, [data]);
+  }, [data, setLoad]);
+
   if (loading) {
     setLoad(true);
   }

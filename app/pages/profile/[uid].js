@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { NoUserAvatar } from '../../components/auth/NoUserAvatar';
 import Image from 'next/future/image';
+import { useCookies } from 'react-cookie';
 
 const FindUserByUid = gql`
   query findbyUid($uid: String!) {
@@ -21,7 +22,7 @@ const FindUserByUid = gql`
 const Profile = () => {
   const router = useRouter();
   const { uid } = router.query;
-  const cookies = Cookies.get('user');
+  const [cookies] = useCookies(['user']);
   const [getCurrentUser, { data, error, loading }] = useLazyQuery(FindUserByUid);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Profile = () => {
         uid: uid,
       },
     });
-  }, []);
+  }, [router, uid, getCurrentUser, cookies]);
 
   if (error) console.log(error);
 

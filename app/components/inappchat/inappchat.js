@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { Rocketchat } from '@rocket.chat/sdk';
 import { getMessages, sendMessage } from './lib/api';
 import { emojify, emojis, messagesSortedByDate } from './helpers';
-import Cookie from 'js-cookie';
+import { useCookies } from 'react-cookie';
 import styles from "../../styles/Inappchat.module.css";
 import {
   Message,
@@ -27,16 +27,14 @@ const InAppChat = ({ host, closeChat, rid }) => {
   const [messages, setMessages] = useState([]);
   const emojiAnimationRef = useRef();
   const isSmallScreen = useMediaQuery("(max-width: 992px)");
-  const cookies = { rc_token: Cookie.get('rc_token'), rc_uid: Cookie.get('rc_uid') };
+  const [cookies] = useCookies(['rc_token', 'rc_uid']);
   const isAuth = cookies.rc_token && cookies.rc_uid;
-  const useSsl = !/http:\/\//.test(host);
-  const rcClient = new Rocketchat({ logger: console, protocol: 'ddp', host, useSsl });
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  const createEmojiInDOM = (emoji) => {
+  const createEmojiInDOM = useCallback((emoji) => {
     const innerHtml = emojify(emoji);
     const child = document.createElement('div');
     child.innerHTML = innerHtml;
@@ -66,9 +64,9 @@ const InAppChat = ({ host, closeChat, rid }) => {
         `
     );
     emojiAnimationRef.current.appendChild(child);
-  }
+  }, [])
 
-  const onClickEmojiHandler = (emoji) => {
+  const onClickEmojiHandler = useCallback((emoji) => {
     const { childNodes: childDiv } = emojiAnimationRef?.current;
     const divCount = Object.keys(childDiv).reduce((acc, div) => {
       if (childDiv[div] instanceof HTMLDivElement) acc += 1;
@@ -86,9 +84,12 @@ const InAppChat = ({ host, closeChat, rid }) => {
         createEmojiInDOM(emoji);
       }
     }
-  };
+  }, [createEmojiInDOM]);
 
   useEffect(() => {
+    const useSsl = !/http:\/\//.test(host);
+    const rcClient = new Rocketchat({ logger: console, protocol: 'ddp', host, useSsl });
+
     const runRealtime = async (token, rid) => {
       try {
         await rcClient.connect();
@@ -103,7 +104,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
           })
           getData();
         });
-      } catch(err) {
+      } catch (err) {
         console.log(err.message);
       }
     };
@@ -117,7 +118,7 @@ const InAppChat = ({ host, closeChat, rid }) => {
     }
     getData();
     runRealtime(cookies.rc_token, rid);
-  }, []);
+  }, [cookies, host, onClickEmojiHandler, rid]);
 
   const sendMsg = async (message) => {
     if (message.trim() === "") {

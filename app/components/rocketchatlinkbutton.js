@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Cookies from "js-cookie";
-
+import { useCookies } from 'react-cookie';
 import { NavLink } from 'react-bootstrap';
 
 const RocketChatLinkButton = ({
@@ -10,11 +9,13 @@ const RocketChatLinkButton = ({
 }) => {
   const [href, setHref] = useState(`${process.env.NEXT_PUBLIC_RC_URL}/home`)
 
+  const [cookies] = useCookies(['rc_authToken']);
+
   useEffect(() => {
-    if (Cookies.get("rc_authToken")) {
-      setHref(`${process.env.NEXT_PUBLIC_RC_URL}/channel/${channel}?resumeToken=${Cookies.get("rc_authToken")}`)
+    if (cookies.rc_authToken) {
+      setHref(`${process.env.NEXT_PUBLIC_RC_URL}/channel/${channel}?resumeToken=${cookies.rc_authToken}`)
     }
-  }, [Cookies.get("rc_authToken"), channel])
+  }, [cookies.rc_authToken, channel])
 
   return (
     <NavLink target="_blank" href={href} {...props}>

@@ -17,6 +17,7 @@ export default function KeycloakAuthMenuButton({ }) {
             signIn("keycloak", null, { prompt: "login" });
         }
     }
+
     useEffect(() => {
         const clickListener = (e) => {
             if (!e.target.closest('.' + styles.authDialogWrapper)) {
@@ -25,7 +26,8 @@ export default function KeycloakAuthMenuButton({ }) {
         }
         document.body.addEventListener('click', clickListener);
         return () => document.body.removeEventListener('click', clickListener);
-    }, [dialogRef.current]);
+    }, []);
+
     return (
         <div className={styles.authDialogWrapper} ref={dialogRef}>
             <div className={styles.avatar}>

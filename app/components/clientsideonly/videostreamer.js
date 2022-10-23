@@ -7,15 +7,15 @@ import { useEffect, useState } from "react";
 export default function Videostreamer(props) {
   const [ping, setPing] = useState(false);
 
-  const pingStream = async () => {
-    const response = await fetch(props.src);
-    if (response.ok) {
-      setPing(true)
-    }
-
-    return response;
-  };
   useEffect(() => {
+    const pingStream = async () => {
+      const response = await fetch(props.src);
+      if (response.ok) {
+        setPing(true)
+      }
+      return response;
+    };
+
     setInterval(async () => {
       pingStream()
         .catch((e) => {
@@ -25,7 +25,7 @@ export default function Videostreamer(props) {
         });
 
     }, 30000);
-  }, []);
+  }, [props.src]);
 
   const handleToast = () => {
     setPing(true);
