@@ -4,22 +4,27 @@ export const useGoogleLogin = (GOOGLE_CLIENT_ID) => {
   const [user, setUser] = useState(null);
   const [gapi, setGapi] = useState({})
 
-  useEffect(async () => {
-    const {gapi} = await import('gapi-cjs');
-    setGapi(gapi)
+  useEffect(() => {
+    if (GOOGLE_CLIENT_ID) {
+      const initGapiClient = async () => {
+        const { gapi } = await import('gapi-cjs');
+        setGapi(gapi)
 
-    gapi.load('client:auth2', () => {
-      gapi.client
-        .init({
-          clientId: GOOGLE_CLIENT_ID,
-          scope: 'openid', 
-        })
-        .then(async() => {
-          const auth = gapi.auth2.getAuthInstance();
-          setUser(await auth.currentUser.get().getBasicProfile());
+        gapi.load('client:auth2', () => {
+          gapi.client
+            .init({
+              clientId: GOOGLE_CLIENT_ID,
+              scope: 'openid',
+            })
+            .then(async () => {
+              const auth = gapi.auth2.getAuthInstance();
+              setUser(await auth.currentUser.get().getBasicProfile());
+            });
         });
-    });
-  }, []);
+      }
+      initGapiClient();
+    }
+  }, [GOOGLE_CLIENT_ID]);
 
   const signIn = async () => {
     const auth = await gapi.auth2.getAuthInstance();

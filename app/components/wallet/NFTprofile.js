@@ -110,11 +110,13 @@ const GalleryModal = ({
   setErrMess,
 }) => {
   const [upsertNFT, { data, loading, error, reset }] = useMutation(UPSERT_NFT);
+
   useEffect(() => {
     if (data) {
       setLoad(false);
     }
-  }, [data]);
+  }, [data, setLoad]);
+
   if (loading) {
     setLoad(true);
   }
@@ -153,18 +155,19 @@ const GalleryModal = ({
         <Modal.Body className={styles.selectNFT}>
           {assets
             ? assets.map(
-                (a, i) =>
-                  a.image_url && (
-                    <div key={i} className={styles.asset}>
-                      <Image
-                        key={i}
-                        onClick={handleImage}
-                        className={`${styles.assetImage} nim_${i}`}
-                        src={a.image_url}
-                      />
-                    </div>
-                  )
-              )
+              (a, i) =>
+                a.image_url && (
+                  <div key={i} className={styles.asset}>
+                    <Image
+                      key={i}
+                      onClick={handleImage}
+                      className={`${styles.assetImage} nim_${i}`}
+                      alt={`nim_${i}`}
+                      src={a.image_url}
+                    />
+                  </div>
+                )
+            )
             : "No assets available"}
         </Modal.Body>
         <Modal.Footer>

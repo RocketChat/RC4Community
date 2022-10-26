@@ -3,6 +3,7 @@ import { NoUserAvatar } from "../../NoUserAvatar";
 import { Button } from "react-bootstrap";
 import styles from "../styles/DummyLoginButton.module.css";
 import { useDummyAuth } from "../hooks/useDummyAuth";
+import Image from 'next/future/image';
 
 export default function DummyLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
@@ -17,12 +18,11 @@ export default function DummyLoginButton() {
             onClick={() => setIsLoginUiOpen((prev) => !prev)}
           >
             {user?.image ? (
-              <img
+              <Image
                 src={user.image}
                 alt={user.name}
-                className="rounded-circle"
-                height="42px"
-                width="42px"
+                height={42}
+                width={42}
               />
             ) : (
               <NoUserAvatar name={user?.name} size="42" />
@@ -37,14 +37,11 @@ export default function DummyLoginButton() {
               <div className="d-flex flex-column align-items-center mt-4 mb-3 ml-3 mr-3 border-bottom">
                 <div className="mb-1">
                   {user.image ? (
-                    <img
+                    <Image
                       src={user.image}
                       alt={user.name}
-                      style={{
-                        borderRadius: "50%",
-                      }}
-                      height="64px"
-                      width="64px"
+                      height={64}
+                      width={64}
                     />
                   ) : (
                     <NoUserAvatar size="64" name={user.name} />

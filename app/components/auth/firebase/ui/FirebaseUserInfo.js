@@ -1,13 +1,14 @@
 import Cookies from "js-cookie";
+import Image from "next/future/image";
 import { Button } from "react-bootstrap";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import { useFirebaseAuthUser } from "../lib/functions";
 
-export default function FirebaseUserInfo(){
+export default function FirebaseUserInfo() {
     const user = useFirebaseAuthUser();
-    if(!user.id)
-        return <div/>;
-    
+    if (!user.id)
+        return <div />;
+
     const doSignOut = () => {
         user.signOut()
         Cookies.remove('user')
@@ -19,15 +20,15 @@ export default function FirebaseUserInfo(){
                 <div className="mb-1">
                     {
                         user.photoURL ?
-                            <img src={user.photoURL}
+                            <Image src={user.photoURL}
                                 alt={user.displayName}
                                 style={{
                                     borderRadius: "50%"
                                 }}
-                                height="64px"
-                                width="64px" />
+                                height={64}
+                                width={64} />
                             :
-                        <NoUserAvatar size="64" name={user.displayName}/>
+                            <NoUserAvatar size="64" name={user.displayName} />
                     }
                 </div>
                 <div className="font-weight-bold mb-1">
@@ -35,8 +36,8 @@ export default function FirebaseUserInfo(){
                 </div>
                 <div
                     className="mb-1"
-                    style={{color: "var(--bs-gray-700)"}}>
-                        {user.email}
+                    style={{ color: "var(--bs-gray-700)" }}>
+                    {user.email}
                 </div>
             </div>
             <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">

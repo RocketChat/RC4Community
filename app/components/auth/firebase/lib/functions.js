@@ -1,16 +1,16 @@
-import { init, useAuthUser, withAuthUser, withAuthUserSSR, withAuthUserTokenSSR} from 'next-firebase-auth'
+import { init, useAuthUser, withAuthUser, withAuthUserSSR, withAuthUserTokenSSR } from 'next-firebase-auth'
 import { getGoogleCredsFromFile } from './getGoogleCredsFromFile';
 
 
-const initAuthHelper = (function(){
-  let initAuthResult = {success: false, error: new Error('Firebase auth is not yet initialised')};
+const initAuthHelper = (function () {
+  let initAuthResult = { success: false, error: new Error('Firebase auth is not yet initialised') };
   const getInitAuthResult = () => {
     return initAuthResult;
   }
-  const setInitAuthResult = ({success,error}) => {
-    initAuthResult = {success,error};
+  const setInitAuthResult = ({ success, error }) => {
+    initAuthResult = { success, error };
   }
-  return {getInitAuthResult, setInitAuthResult};
+  return { getInitAuthResult, setInitAuthResult };
 })();
 
 export const getInitAuthResult = initAuthHelper.getInitAuthResult;
@@ -50,11 +50,11 @@ export const initAuth = () => {
     // The private key must not be accessible on the client side.
     privateKey: process.env.FIREBASE_PRIVATE_KEY || null,
   }
-  if(typeof window === 'undefined' && process.env.GOOGLE_CREDS_PATH){
+  if (typeof window === 'undefined' && process.env.GOOGLE_CREDS_PATH) {
     // firebase admin has to be initialized using service acccount json file.
     googleCreds = getGoogleCredsFromFile(process.env.GOOGLE_CREDS_PATH);
   }
-  
+
   try {
     init({
       loginAPIEndpoint: '/api/fb/login', // required
@@ -99,23 +99,23 @@ export const initAuth = () => {
         console.error(err)
       },
     });
-    initAuthHelper.setInitAuthResult({error: null, success: true});
+    initAuthHelper.setInitAuthResult({ error: null, success: true });
   } catch (e) {
     console.error(e)
-    initAuthHelper.setInitAuthResult({error: e, success: false});
+    initAuthHelper.setInitAuthResult({ error: e, success: false });
   }
   return initAuthHelper.getInitAuthResult();
 }
 
 export const withFirebaseAuthUser = (options) => (ChildComponent) => {
   const WithFirebaseAuthUserHOC = props => {
-    if(initAuthHelper.getInitAuthResult().success){
-      const Component =  withAuthUser(options)(ChildComponent);
-      return <Component {...props}/>
+    if (initAuthHelper.getInitAuthResult().success) {
+      const Component = withAuthUser(options)(ChildComponent);
+      return <Component {...props} />
     } else {
       console.error(initAuthHelper.getInitAuthResult().error);
       console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/master/app/components/auth/firebase/README.md");
-      return <ChildComponent {...props} initAuthResult={initAuthHelper.getInitAuthResult()}/> 
+      return <ChildComponent {...props} initAuthResult={initAuthHelper.getInitAuthResult()} />
     }
   }
   WithFirebaseAuthUserHOC.displayName = "WithFirebaseAuthUserHOC";
@@ -123,35 +123,35 @@ export const withFirebaseAuthUser = (options) => (ChildComponent) => {
 }
 
 export const useFirebaseAuthUser = () => {
-  if(initAuthHelper.getInitAuthResult().success){
-    return useAuthUser();
+  if (initAuthHelper.getInitAuthResult().success) {
+    return useAuthUser;
   } else {
-    return createEmptyAuthUser();
+    return createEmptyAuthUser;
   }
 }
 
-const handleFBNotInitError = async (context,getServerSidePropsFunc) => {
+const handleFBNotInitError = async (context, getServerSidePropsFunc) => {
   console.error(initAuthHelper.getInitAuthResult().error);
   console.error("You must configure firebase auth before using firebase auth. See https://github.com/RocketChat/RC4Community/blob/master/app/components/auth/firebase/README.md");
 
   const AuthUser = createEmptyAuthUser();
   context.AuthUser = AuthUser;
-  
+
   const AuthUserSerialized = AuthUser.serialize();
-  let returnData = {props: {AuthUserSerialized}};
-  
-  if(getServerSidePropsFunc) {  
+  let returnData = { props: { AuthUserSerialized } };
+
+  if (getServerSidePropsFunc) {
     // a getServerSideProps function is passed
     const composedProps = (await getServerSidePropsFunc(context)) || {};
-    if(composedProps){
-      if(composedProps.props){
+    if (composedProps) {
+      if (composedProps.props) {
         returnData = { ...composedProps }
         returnData.props.AuthUserSerialized = AuthUserSerialized
-      } else if(composedProps.notFound || composedProps.redirect) {
+      } else if (composedProps.notFound || composedProps.redirect) {
         // If composedProps returned a 'notFound' or 'redirect' key
         // (as per official doc: https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props)
         // it means it contains a custom dynamic routing logic that should not be overwritten
-        returnData = {...composedProps}
+        returnData = { ...composedProps }
       }
     }
   }
@@ -159,24 +159,24 @@ const handleFBNotInitError = async (context,getServerSidePropsFunc) => {
 }
 
 export const withFirebaseAuthUserSSR = (options) => (getServerSidePropsFunc) => async (context) => {
-  if(initAuthHelper.getInitAuthResult().success){
+  if (initAuthHelper.getInitAuthResult().success) {
     return withAuthUserSSR(options)(getServerSidePropsFunc)(context);
   } else {
     // firebase is uninitialised due to some error
-    return (await handleFBNotInitError(context,getServerSidePropsFunc));
+    return (await handleFBNotInitError(context, getServerSidePropsFunc));
   }
 }
 
 export const withFirebaseAuthUserTokenSSR = (options) => (getServerSidePropsFunc) => async (context) => {
-  if(initAuthHelper.getInitAuthResult().success){
+  if (initAuthHelper.getInitAuthResult().success) {
     return withAuthUserTokenSSR(options)(getServerSidePropsFunc)(context);
   } else {
     // firebase is uninitialised due to some error
-    return (await handleFBNotInitError(context,getServerSidePropsFunc));
+    return (await handleFBNotInitError(context, getServerSidePropsFunc));
   }
 }
 
-export default {
+const firebaseAuthFunctions = {
   getInitAuthResult,
   createEmptyAuthUser,
   initAuth,
@@ -185,3 +185,5 @@ export default {
   withFirebaseAuthUserSSR,
   withFirebaseAuthUserTokenSSR
 };
+
+export default firebaseAuthFunctions;

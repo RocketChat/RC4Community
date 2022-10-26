@@ -1,10 +1,10 @@
 import Error from "next/error";
 import { Button, Card, Form, Spinner } from "react-bootstrap";
-import { getFormData } from "../../lib/formAPI";
+import { GetFormData } from "../../lib/formAPI";
 import styles from "../../styles/form.module.css";
 
 function RCform({ formId, fw }) {
-  const { form, isLoading, isError } = getFormData(formId);
+  const { form, isLoading, isError } = GetFormData(formId);
 
   if (isLoading) return <Spinner />;
   if (isError) return <Error />;

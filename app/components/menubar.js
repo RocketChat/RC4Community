@@ -27,6 +27,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   </a>
 ));
 
+CustomToggle.displayName = "CustomToggle"
+
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
   const userCookie = Cookies.get('user');

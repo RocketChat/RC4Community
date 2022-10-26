@@ -15,6 +15,7 @@ export default function Infotiles({ data }) {
               src={obj.imageUrl}
               width={288}
               height={288}
+              alt={obj.name}
               objectFit="contain"
             />
           )}
@@ -22,7 +23,7 @@ export default function Infotiles({ data }) {
             <h5 className={Styles.card_heading}>{obj.name}</h5>
             {obj.bio && <p className="fs-light">{obj.bio}</p>}
             <p className={Styles.card_body}>{obj.content}</p>
-            {obj.live && <Link href={obj.confHref}><button className={Styles.actionBtn}>Live</button></Link>}
+            {obj.live && <Link href={obj.confHref} passHref><button className={Styles.actionBtn}>Live</button></Link>}
           </div>
         </div>
       ))}

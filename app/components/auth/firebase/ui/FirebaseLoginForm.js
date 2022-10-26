@@ -1,18 +1,18 @@
-import { 
-    EmailAuthProvider, 
-    FacebookAuthProvider, 
-    fetchSignInMethodsForEmail, 
-    getAuth, 
-    GoogleAuthProvider, 
-    linkWithCredential, 
-    OAuthProvider, 
-    signInWithEmailAndPassword, 
-    signInWithPopup 
+import {
+    EmailAuthProvider,
+    FacebookAuthProvider,
+    fetchSignInMethodsForEmail,
+    getAuth,
+    GoogleAuthProvider,
+    linkWithCredential,
+    OAuthProvider,
+    signInWithEmailAndPassword,
+    signInWithPopup
 } from "firebase/auth";
-import {getApp} from 'firebase/app';
+import { getApp } from 'firebase/app';
 import { useState } from "react";
 import { FormControl, Alert, Button } from "react-bootstrap";
-import {FB_APP_NAME} from '../lib/constants';
+import { FB_APP_NAME } from '../lib/constants';
 import { useMutation, gql } from '@apollo/client'
 import Cookies from "js-cookie";
 
@@ -30,35 +30,35 @@ const UPSERT_USER = gql`
   }
 `;
 
-export default function FirebaseLoginForm({onSignupClick}){
+export default function FirebaseLoginForm({ onSignupClick }) {
     const [upsertUserFunc, { data, loading, error }] = useMutation(UPSERT_USER);
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const [errorMessage,setError] = useState("");
-    const [diffCredError,setDiffCredError] = useState(null);
-    const [progress,setProgress] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setError] = useState("");
+    const [diffCredError, setDiffCredError] = useState(null);
+    const [progress, setProgress] = useState(false);
 
-    if(error) console.log("Error Provider = ", error)
-    if(data) console.log("Data = ", data)
-    if(loading) console.log("Loading = ", loading)
+    if (error) console.log("Error Provider = ", error)
+    if (data) console.log("Data = ", data)
+    if (loading) console.log("Loading = ", loading)
 
     const doEmailPasswordLogin = async (e) => {
         e.preventDefault();
-        if(progress){
+        if (progress) {
             return true;
         }
         setProgress(true);
         try {
             const fbApp = getApp(FB_APP_NAME);
-            const userCred = await signInWithEmailAndPassword(getAuth(fbApp),email,password);
+            const userCred = await signInWithEmailAndPassword(getAuth(fbApp), email, password);
             Cookies.set('user', userCred.user.uid);
-            if(diffCredError?.oldProvider?.providerId === EmailAuthProvider.PROVIDER_ID){
+            if (diffCredError?.oldProvider?.providerId === EmailAuthProvider.PROVIDER_ID) {
                 // The signin was requested to link new credentials with the account 
-                await linkWithCredential(userCred.user,OAuthProvider.credentialFromError(diffCredError.error));
+                await linkWithCredential(userCred.user, OAuthProvider.credentialFromError(diffCredError.error));
             }
 
-        } catch(error){
-            switch(error.code){
+        } catch (error) {
+            switch (error.code) {
                 case 'auth/user-not-found':
                     setError("User not found");
                     break;
@@ -73,13 +73,13 @@ export default function FirebaseLoginForm({onSignupClick}){
         }
     }
     const handleProviderSignIn = async provider => {
-        if(progress){
+        if (progress) {
             return;
         }
         const fbApp = getApp(FB_APP_NAME);
         const auth = getAuth(fbApp);
         try {
-            const userCred = await signInWithPopup(auth,provider);
+            const userCred = await signInWithPopup(auth, provider);
             Cookies.set('user', userCred.user.uid);
             await upsertUserFunc({
                 variables: {
@@ -89,13 +89,13 @@ export default function FirebaseLoginForm({onSignupClick}){
                     phoneNumber: userCred.user.phoneNumber,
                     photoURL: userCred.user.photoURL
                 },
-              })
-            if(diffCredError){
+            })
+            if (diffCredError) {
                 // The signin was requested to link new credentials with the account 
-                await linkWithCredential(userCred.user,OAuthProvider.credentialFromError(diffCredError.error));
+                await linkWithCredential(userCred.user, OAuthProvider.credentialFromError(diffCredError.error));
             }
-        } catch (e){
-            switch(e.code){
+        } catch (e) {
+            switch (e.code) {
                 case 'auth/popup-closed-by-user':
                 case 'auth/cancelled-popup-request':
                     break;
@@ -103,8 +103,8 @@ export default function FirebaseLoginForm({onSignupClick}){
                     setError("Popup blocked by your browser.")
                     break;
                 case 'auth/account-exists-with-different-credential':
-                    const methods = await fetchSignInMethodsForEmail(auth,e.customData.email);;
-                    setDiffCredError({error: e, newProviderId: provider.providerId ,oldProviderId: methods[0]});
+                    const methods = await fetchSignInMethodsForEmail(auth, e.customData.email);;
+                    setDiffCredError({ error: e, newProviderId: provider.providerId, oldProviderId: methods[0] });
                     break;
                 default:
                     setError("Unknown error occurred");
@@ -112,18 +112,18 @@ export default function FirebaseLoginForm({onSignupClick}){
             setProgress(false);
         }
     }
-    
+
     const onGoogleBtnClick = () => {
-        if(progress){
+        if (progress) {
             return;
         }
         setProgress(true);
         const provider = new GoogleAuthProvider();
         handleProviderSignIn(provider);
     }
-    
+
     const onFacebookBtnClick = () => {
-        if(progress){
+        if (progress) {
             return;
         }
         setProgress(true);
@@ -135,30 +135,30 @@ export default function FirebaseLoginForm({onSignupClick}){
         <div className="container-fluid p-1">
             <form className="container-fluid" onSubmit={doEmailPasswordLogin}>
                 <FormControl
-                    type="text" 
-                    placeholder="email" 
-                    className="mb-1" 
-                    disabled={progress}
-                    onChange={e=> setEmail(e.target.value)}/>
-                <FormControl 
-                    type="password" 
-                    placeholder="password" 
+                    type="text"
+                    placeholder="email"
                     className="mb-1"
                     disabled={progress}
-                    onChange={e => setPassword(e.target.value)}/>
+                    onChange={e => setEmail(e.target.value)} />
+                <FormControl
+                    type="password"
+                    placeholder="password"
+                    className="mb-1"
+                    disabled={progress}
+                    onChange={e => setPassword(e.target.value)} />
                 {
                     errorMessage &&
                     <Alert variant="danger" className="mb-1">{errorMessage}</Alert>
                 }
                 <div className="d-flex justify-content-between">
-                    <Button 
-                        type="submit" 
-                        className="mb-1" 
+                    <Button
+                        type="submit"
+                        className="mb-1"
                         disabled={progress}>
-                            Login
+                        Login
                     </Button>
-                    <Button 
-                        className="mb-1" 
+                    <Button
+                        className="mb-1"
                         variant="light"
                         disabled={progress}
                         onClick={onSignupClick}>
@@ -167,25 +167,25 @@ export default function FirebaseLoginForm({onSignupClick}){
                 </div>
             </form>
             <div className="container-fluid d-flex flex-column">
-                <Button 
-                    variant="danger" 
+                <Button
+                    variant="danger"
                     className="mb-1"
-                    onClick={onGoogleBtnClick} 
+                    onClick={onGoogleBtnClick}
                     disabled={progress}>
-                        Sign in with Google
+                    Sign in with Google
                 </Button>
-                <Button 
+                <Button
                     className="mb-1"
-                    onClick={onFacebookBtnClick}  
+                    onClick={onFacebookBtnClick}
                     disabled={progress}>
-                        Sign in with Facebook
+                    Sign in with Facebook
                 </Button>
             </div>
             {
                 diffCredError &&
                 <div className="p-1 mb-1">
                     <Alert variant="danger" className="mb-1">
-                        User's email already exists. Sign in with {diffCredError.oldProviderId} to link your {diffCredError.newProviderId} account.
+                        User&apos;s email already exists. Sign in with {diffCredError.oldProviderId} to link your {diffCredError.newProviderId} account.
                     </Alert>
                 </div>
             }
