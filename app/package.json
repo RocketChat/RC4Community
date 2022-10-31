@@ -13,7 +13,6 @@
   "dependencies": {
     "@apollo/client": "^3.5.9",
     "@jitsi/react-sdk": "^1.0.0",
-    "@jitsi/web-sdk": "^0.2.0",
     "@rocket.chat/fuselage": "^0.31.3",
     "@rocket.chat/fuselage-hooks": "^0.31.3",
     "@rocket.chat/fuselage-polyfills": "^0.31.3",
