@@ -10,7 +10,7 @@ import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
 
-function Home(props) {
+export default function Home(props) {
   return (
     <>
       <Head>
@@ -73,7 +73,6 @@ function Home(props) {
     </>
   );
 }
-export default Home;
 
 export async function getStaticProps({ params }) {
   const carousels = await fetchAPI('/carousels');
