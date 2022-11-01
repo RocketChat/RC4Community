@@ -125,8 +125,8 @@ export default function Menubar(props) {
               >
                 <Dropdown.Header>RC4Community Profile</Dropdown.Header>
                 <Dropdown.Item>
-                  <Link href={`/profile/${userCookie}`}>
-                    <a className={styles.dropdown_menu_item}>Profile</a>
+                  <Link href={`/profile/${userCookie}`} className={styles.dropdown_menu_item}>
+                    Profile
                   </Link>
                 </Dropdown.Item>
               </Dropdown.Menu>
