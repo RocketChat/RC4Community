@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
 import { NoUserAvatar } from "../../NoUserAvatar";

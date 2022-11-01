@@ -3,7 +3,7 @@ import RocketChatAuthUI from "./RocketChatAuthUI";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import styles from "../styles/RocketChatAuthMenuButton.module.css";
 import { signIn, useSession } from "next-auth/react";
-import Image from "next/future/image";
+import Image from "next/image";
 
 export default function RocketChatAuthMenuButton({ }) {
     const { data: session } = useSession();

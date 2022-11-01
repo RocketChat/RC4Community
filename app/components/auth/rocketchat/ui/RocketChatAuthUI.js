@@ -1,5 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/future/image";
+import Image from "next/image";
 import { Button } from "react-bootstrap";
 import { NoUserAvatar } from "../../NoUserAvatar";
 

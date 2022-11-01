@@ -3,7 +3,7 @@ import { NoUserAvatar } from "../../NoUserAvatar";
 import { Button } from "react-bootstrap";
 import styles from "../styles/DummyLoginButton.module.css";
 import { useDummyAuth } from "../hooks/useDummyAuth";
-import Image from 'next/future/image';
+import Image from "next/image";
 
 export default function DummyLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
