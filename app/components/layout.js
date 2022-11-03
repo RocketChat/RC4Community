@@ -1,5 +1,6 @@
 import '../styles/Layout.module.css';
 import Footer from './footer';
+import NewMenubar from './menubar/newMenuBar';
 import Menubar from './menubar';
 import { useRouter } from 'next/router';
 
@@ -7,7 +8,8 @@ function Layout(props) {
   const { pathname } = useRouter();
   return (
     <>
-      <Menubar menu={props.menu.topNavItems} />
+      {/*<Menubar menu={props.menu.topNavItems} />*/}
+      <NewMenubar menu={props.menu.topNavItems} />
       {props.children}
       <Footer></Footer>
       {/* announcement component here*/}
