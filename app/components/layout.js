@@ -1,7 +1,6 @@
 import '../styles/Layout.module.css';
 import Footer from './footer';
 import NewMenubar from './menubar/newMenuBar';
-import Menubar from './menubar';
 import { useRouter } from 'next/router';
 
 function Layout(props) {

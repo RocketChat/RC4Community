@@ -277,7 +277,7 @@ const DesktopNav = ({ nav_Items, nft }) => {
 };
 
 export default function NewMenubar(props) {
-  const [pfpIsNFT, setPfpIsNFT] = useState(false);
+  let pfpIsNFT = false
   return (
     <Container fluid>
       <MobileNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} />
