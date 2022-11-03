@@ -14,7 +14,7 @@ const ArrowIcon = () => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <path d='M1.5 1.5L15.5 15.5L31 1.5' stroke='black' stroke-width='2' />
+      <path d='M1.5 1.5L15.5 15.5L31 1.5' stroke='black' strokeWidth='2' />
     </svg>
   );
 };
