@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navbar, Nav, Container, Col, Row, Offcanvas } from 'react-bootstrap';
 import styles from '../../styles/Menubar.module.css';
-import { FirebaseAuthMenuButton } from '../auth/firebase';
+import { DummyLoginButton } from '../auth/dummy';
 import BrandLogo from '../brandlogo';
 import NFTProfilePicture from './nftProfilePicture';
 
@@ -101,7 +101,7 @@ const MobileNav = ({ nav_Items, nft }) => {
                       {nav_Item.label}
                     </Col>
                     <Col>
-                      {nav_Item.sub_menus?.length > 1 && (
+                      {nav_Item.sub_menus?.data?.length > 1 && (
                         <span
                           className={
                             dropDown.show
@@ -117,27 +117,27 @@ const MobileNav = ({ nav_Items, nft }) => {
                   {dropDown._id === nav_Item.id && dropDown.show ? (
                     <div>
                       <div>
-                        {nav_Item.sub_menus.map(
+                        {nav_Item.sub_menus.data.map(
                           (item) =>
-                            item.parent_id === null && (
+                            item.attributes.parent_id === null && (
                               <>
-                                <div className='p-2 fw-medium'>
+                                <div className='p-2 fw-medium' key={item.id}>
                                   <a
-                                    href={item.url}
+                                    href={item.attributes.url}
                                     className={styles.subItemLinks}
                                   >
-                                    {item.label}
+                                    {item.attributes.label}
                                   </a>
                                 </div>
-                                {nav_Item.sub_menus.map(
+                                {nav_Item.sub_menus.data.map(
                                   (subItem) =>
-                                    subItem.parent_id === item.id && (
-                                      <div className='px-4 py-1 fw-light'>
+                                    subItem.attributes.parent_id === item.attributes.id && (
+                                      <div className='px-4 py-1 fw-light' key={subItem.id}>
                                         <a
-                                          href={subItem.url}
+                                          href={subItem.attributes.url}
                                           className={styles.subItemLinks}
                                         >
-                                          {subItem.label}
+                                          {subItem.attributes.label}
                                         </a>
                                       </div>
                                     )
@@ -156,7 +156,7 @@ const MobileNav = ({ nav_Items, nft }) => {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         <Navbar.Brand className={styles.brand}>
-          {nft ? <NFTProfilePicture id='img2' /> : <FirebaseAuthMenuButton />}
+          {nft ? <NFTProfilePicture id='img2' /> : <DummyLoginButton />}
         </Navbar.Brand>
       </Container>
     </Navbar>
@@ -194,7 +194,7 @@ const DesktopNav = ({ nav_Items, nft }) => {
       />
       <Nav className='w-full ' ref={clickRef}>
         {nav_Items?.map((nav_item, key) =>
-          nav_item.sub_menus?.length > 1 ? (
+          nav_item.sub_menus?.data?.length > 1 ? (
             <span
               key={key}
               className='p-2 d-flex flex-column mx-3 '
@@ -220,34 +220,34 @@ const DesktopNav = ({ nav_Items, nft }) => {
                 {isShown === nav_item.id && (
                   <div
                     className={
-                      nav_item.sub_menus?.length > 10
+                      nav_item.sub_menus.data?.length > 10
                         ? 'd-flex flex-row '
                         : 'd-flex flex-column '
                     }
                   >
                     {/* iterate over sub menus like omnichannels, devops, GSoC, GSoD */}
-                    {nav_item.sub_menus.map(
+                    {nav_item.sub_menus.data.map(
                       (item) =>
-                        item.parent_id < 1 && (
+                        item.attributes.parent_id < 1 && (
                           <div className={`${styles.navbar_subitems_items}`}>
                             <div>
                               <a
-                                href={item.url}
+                                href={item.attributes.url}
                                 className={styles.subItemLinks}
                               >
-                                {item.label}
+                                {item.attributes.label}
                               </a>
                             </div>
                             {/*if submenus contain more sub menus */}
-                            {nav_item.sub_menus.map(
+                            {nav_item.sub_menus.data.map(
                               (subItem) =>
-                                subItem.parent_id === item.id && (
+                                subItem.attributes.parent_id === item.attributes.id && (
                                   <div className='px-4 pt-3 fw-light'>
                                     <a
-                                      href={subItem.url}
+                                      href={subItem.attributes.url}
                                       className={styles.subItemLinks}
                                     >
-                                      {subItem.label}
+                                      {subItem.attributes.label}
                                     </a>
                                   </div>
                                 )
@@ -270,18 +270,18 @@ const DesktopNav = ({ nav_Items, nft }) => {
         )}
       </Nav>
       <div>
-        {nft ? <NFTProfilePicture id='img1' /> : <FirebaseAuthMenuButton />}
+        {nft ? <NFTProfilePicture id='img1' /> : <DummyLoginButton />}
       </div>
     </Navbar>
   );
 };
 
 export default function NewMenubar(props) {
-  const [pfpIsNFT, setPfpIsNFT] = useState(true);
+  const [pfpIsNFT, setPfpIsNFT] = useState(false);
   return (
-    <Container fluid className=''>
-      <MobileNav nav_Items={props.menu?.body} nft={pfpIsNFT} />
-      <DesktopNav nav_Items={props.menu?.body} nft={pfpIsNFT} />
+    <Container fluid>
+      <MobileNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} />
+      <DesktopNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} />
     </Container>
   );
 }

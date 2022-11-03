@@ -12,7 +12,7 @@ const NFTProfilePicture = ({ id }) => {
         height='100%'
       >
         <defs>
-          <pattern id={id} patternUnits='percent' width='100%' height='100%'>
+          <pattern id={id}  width='100%' height='100%'>
             {/* replace the href with the nft link */}
             <image
               preserveAspectRatio='xMidYMid slice'
