@@ -60,7 +60,7 @@ const MobileNav = ({ nav_Items, nft }) => {
             </Navbar.Brand>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {nav_Items?.map((nav_Item, key) =>
+            {nav_Items?.map((nav_Item) =>
               nav_Item.url ? (
                 <div key={nav_Item.id}>
                   <Row
