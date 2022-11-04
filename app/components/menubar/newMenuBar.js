@@ -60,7 +60,7 @@ const MobileNav = ({ nav_Items, nft }) => {
             </Navbar.Brand>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {nav_Items?.map((nav_Item) =>
+            {nav_Items?.map((nav_Item, key) =>
               nav_Item.url ? (
                 <div key={nav_Item.id}>
                   <Row
@@ -121,7 +121,7 @@ const MobileNav = ({ nav_Items, nft }) => {
                           (item) =>
                             item.attributes.parent_id === null && (
                               <>
-                                <div className='p-2 fw-medium' key={item.id}>
+                                <div className='p-2 fw-medium'>
                                   <a
                                     href={item.attributes.url}
                                     className={styles.subItemLinks}
@@ -132,7 +132,7 @@ const MobileNav = ({ nav_Items, nft }) => {
                                 {nav_Item.sub_menus.data.map(
                                   (subItem) =>
                                     subItem.attributes.parent_id === item.attributes.id && (
-                                      <div className='px-4 py-1 fw-light' key={subItem.id}>
+                                      <div className='px-4 py-1 fw-light'>
                                         <a
                                           href={subItem.attributes.url}
                                           className={styles.subItemLinks}
