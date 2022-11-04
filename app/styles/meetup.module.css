@@ -1,0 +1,44 @@
+/* Mainstage Style Begins */
+.mainstage_chattool {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
+.mainstage_chatwindow {
+  margin-top: 15px;
+  right: 25px;
+  overflow: auto;
+  margin: 1em;
+  max-height: 80vh;
+  max-width: 30vw;
+}
+
+.mainstage_root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mainstage_button_text {
+  font-size: small;
+}
+
+.mainstage_chat_container {
+  overflow: auto;
+}
+
+@media (max-width: 790px) {
+  .mainstage_chatwindow {
+    height: 40vh;
+    width: 90%;
+    overflow: initial;
+    max-width: 80vw;
+  }
+  .mainstage_root {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Mainstage Style Ends */
