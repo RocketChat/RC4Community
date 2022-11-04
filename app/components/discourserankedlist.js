@@ -136,8 +136,8 @@ function Discourserankedlist(props) {
             href={item.link}
             className={`${
               styles.coloumn
-            } p-2 m-2 mx-md-3  ps-4 col-md-5 d-flex justify-content-between border-start border-4 ${
-              color[Math.floor(Math.random() * color.length)]
+            } p-2 m-2 mx-md-3 ps-4 col-md-5 d-flex justify-content-between border-start border-4 ${
+              color[Math.floor(item.id * color.length)]
             }`}
           >
             <Row className={`${styles.item_container}`}>
