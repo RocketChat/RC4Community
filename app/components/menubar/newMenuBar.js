@@ -44,7 +44,7 @@ const MobileNav = ({ nav_Items, nft }) => {
         >
           <Offcanvas.Header closeButton>
             <Navbar.Brand
-              href='#'
+              href='/'
               className='d-flex justify-content-center align-items-center '
             >
               <BrandLogo
