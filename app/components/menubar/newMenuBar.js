@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navbar, Nav, Container, Col, Row, Offcanvas } from 'react-bootstrap';
 import styles from '../../styles/Menubar.module.css';
-import { DummyLoginButton } from '../auth/dummy';
 import BrandLogo from '../brandlogo';
+import { useRCAuth4Google } from '../auth/rc-auth-google/hooks/useRCAuth4Google';
+import RCAuthGoogleLoginButton from '../auth/rc-auth-google/ui/RCAuth4Google';
 import NFTProfilePicture from './nftProfilePicture';
 
 const ArrowIcon = () => {
@@ -21,7 +22,8 @@ const ArrowIcon = () => {
 
 const MobileNav = ({ nav_Items, nft }) => {
   const [dropDown, setDropDown] = useState({ show: false, _id: 0 });
-
+  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } =
+    useRCAuth4Google();
   return (
     <Navbar className='d-lg-none' expand={false}>
       <Container fluid>
@@ -156,7 +158,16 @@ const MobileNav = ({ nav_Items, nft }) => {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         <Navbar.Brand className={styles.brand}>
-          {nft ? <NFTProfilePicture id='img2' /> : <DummyLoginButton />}
+          {nft ? <NFTProfilePicture id='img2' /> :
+            <RCAuthGoogleLoginButton
+              user={user}
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              handleResend={handleResend}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              method={method}
+            />}
         </Navbar.Brand>
       </Container>
     </Navbar>
@@ -166,6 +177,9 @@ const MobileNav = ({ nav_Items, nft }) => {
 const DesktopNav = ({ nav_Items, nft }) => {
   const [isShown, setIsShown] = useState(0);
   const clickRef = useRef(null);
+
+  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } =
+    useRCAuth4Google();
 
   const handleClickOutside = (event) => {
     if (clickRef.current && !clickRef.current.contains(event.target)) {
@@ -270,7 +284,16 @@ const DesktopNav = ({ nav_Items, nft }) => {
         )}
       </Nav>
       <div>
-        {nft ? <NFTProfilePicture id='img1' /> : <DummyLoginButton />}
+        {nft ? <NFTProfilePicture id='img1' /> :
+          <RCAuthGoogleLoginButton
+            user={user}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            handleResend={handleResend}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            method={method}
+          />}
       </div>
     </Navbar>
   );
