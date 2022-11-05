@@ -3,7 +3,7 @@ import KeycloakAuthUI from "./KeycloakAuthUI";
 import { NoUserAvatar } from "../../NoUserAvatar";
 import styles from "../styles/KeycloakAuthMenuButton.module.css";
 import { signIn, useSession } from "next-auth/react";
-import Image from "next/future/image";
+import Image from "next/image";
 
 export default function KeycloakAuthMenuButton({ }) {
     const { data: session } = useSession();

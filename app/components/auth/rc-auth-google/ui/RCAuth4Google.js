@@ -4,7 +4,7 @@ import { NoUserAvatar } from '../../NoUserAvatar';
 
 import styles from '../styles/DummyLoginButton.module.css';
 import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
-import Image from 'next/future/image';
+import Image from "next/image";
 
 export default function RCAuthGoogleLoginButton({
   user,

@@ -15,5 +15,5 @@ export default  function Countup(props) {
       setValue(props.end.toString());
     }
   });
-  return <> <span className={props.className}>{value || count }</span> </>;
+  return <span className={props.className}>{value || count }</span>;
 }

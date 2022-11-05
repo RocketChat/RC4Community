@@ -1,10 +1,8 @@
-import Image from 'next/image'
-import styles from "../styles/BrandLogo.module.css";
+import Image from "next/legacy/image";
 
 export default function BrandLogo(props) {
   return (
     <>
-      <a href={props.brandLink} className={styles.brand}>
         <Image
           src={props.logoLink}
           title={props.imageTitle}
@@ -12,7 +10,6 @@ export default function BrandLogo(props) {
           height={props.height}
           width={props.width}
         />
-      </a>
     </>
   );
 }

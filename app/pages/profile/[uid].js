@@ -3,7 +3,7 @@ import { useLazyQuery, gql } from '@apollo/client';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { NoUserAvatar } from '../../components/auth/NoUserAvatar';
-import Image from 'next/future/image';
+import Image from "next/image";
 import { useCookies } from 'react-cookie';
 
 const FindUserByUid = gql`

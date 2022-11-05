@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Styles from "../styles/SpeakerInfotiles.module.css";
 import { parseDate, parseTime } from "../lib/dateTime";
 

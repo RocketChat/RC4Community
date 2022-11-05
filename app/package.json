@@ -13,10 +13,6 @@
   "dependencies": {
     "@apollo/client": "^3.5.9",
     "@jitsi/react-sdk": "^1.0.0",
-    "@jitsi/web-sdk": "^0.2.0",
-    "@rocket.chat/fuselage": "^0.31.3",
-    "@rocket.chat/fuselage-hooks": "^0.31.3",
-    "@rocket.chat/fuselage-polyfills": "^0.31.3",
     "@rocket.chat/icons": "^0.31.3",
     "@rocket.chat/sdk": "^1.0.0-alpha.42",
     "axios": "^0.26.1",
@@ -28,24 +24,29 @@
     "ipfs-core": "^0.14.2",
     "js-cookie": "^3.0.1",
     "marked": "^4.0.12",
-    "next": "^12.3.0",
+    "next": "^13.0.1",
     "next-auth": "^4.2.1",
     "node-sass": "^7.0.1",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.1.0",
     "react-cookie": "^4.1.1",
-    "react-dom": "17.0.2",
+    "react-dom": "^18.2.0",
     "react-i18next": "^11.15.3",
     "react-icons": "^4.3.1",
-    "react-slick": "^0.28.1",
+    "react-slick": "^0.29.0",
     "react-virtuoso": "^1.2.4",
     "slick-carousel": "^1.8.1",
     "swr": "^1.2.2",
     "url-join": "^5.0.0"
   },
+  "overrides": {
+    "next-auth": {
+      "next": "13.0.1"
+    }
+  },
   "devDependencies": {
     "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "^13.0.1"
   },
   "volta": {
     "node": "16.13.0"
