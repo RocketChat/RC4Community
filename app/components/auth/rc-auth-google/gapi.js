@@ -19,14 +19,12 @@ export default class RocketChatInstance {
 
   getCookies() {
     return {
-      rc_authToken: Cookies.get("rc_authToken"),
       rc_token: Cookies.get("rc_token"),
       rc_uid: Cookies.get("rc_uid"),
     };
   }
 
   setCookies(cookies) {
-    Cookies.set("rc_authToken", cookies.rc_authToken || "");
     Cookies.set("rc_token", cookies.rc_token || "");
     Cookies.set("rc_uid", cookies.rc_uid || "");
   }
@@ -69,7 +67,6 @@ export default class RocketChatInstance {
 
       if (response.status === "success") {
         this.setCookies({
-          rc_authToken: response.data.authToken,
           rc_token: response.data.authToken,
           rc_uid: response.data.userId,
         });

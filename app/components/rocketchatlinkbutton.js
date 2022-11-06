@@ -9,13 +9,13 @@ const RocketChatLinkButton = ({
 }) => {
   const [href, setHref] = useState(`${process.env.NEXT_PUBLIC_RC_URL}/home`)
 
-  const [cookies] = useCookies(['rc_authToken']);
+  const [cookies] = useCookies(['rc_token']);
 
   useEffect(() => {
-    if (cookies.rc_authToken) {
-      setHref(`${process.env.NEXT_PUBLIC_RC_URL}/channel/${channel}?resumeToken=${cookies.rc_authToken}`)
+    if (cookies.rc_token) {
+      setHref(`${process.env.NEXT_PUBLIC_RC_URL}/channel/${channel}?resumeToken=${cookies.rc_token}`)
     }
-  }, [cookies.rc_authToken, channel])
+  }, [cookies.rc_token, channel])
 
   return (
     <NavLink target="_blank" href={href} {...props}>

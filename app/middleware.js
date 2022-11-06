@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-  const authToken = request.cookies.get("rc_authToken")
+  const authToken = request.cookies.get("rc_token")
 
   if (!authToken) {
     return NextResponse.redirect(new URL("/", request.url))

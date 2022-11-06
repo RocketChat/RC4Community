@@ -5,6 +5,7 @@ import BrandLogo from '../brandlogo';
 import { useRCAuth4Google } from '../auth/rc-auth-google/hooks/useRCAuth4Google';
 import RCAuthGoogleLoginButton from '../auth/rc-auth-google/ui/RCAuth4Google';
 import NFTProfilePicture from './nftProfilePicture';
+import RocketChatLinkButton from '../rocketchatlinkbutton';
 
 const ArrowIcon = () => {
   return (
@@ -283,6 +284,19 @@ const DesktopNav = ({ nav_Items, nft }) => {
           )
         )}
       </Nav>
+
+      <div className={styles["clickToChat_button"]}>
+        {user._id && (
+          <RocketChatLinkButton
+            className={`bg-danger bg-gradient p-2 text-white ${styles.chat}`}
+            user={user}
+            channel={'general'}
+          >
+            Click to Chat
+          </RocketChatLinkButton>
+        )}
+      </div>
+      
       <div>
         {nft ? <NFTProfilePicture id='img1' /> :
           <RCAuthGoogleLoginButton
@@ -295,7 +309,7 @@ const DesktopNav = ({ nav_Items, nft }) => {
             method={method}
           />}
       </div>
-    </Navbar>
+    </Navbar >
   );
 };
 
