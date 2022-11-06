@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 import styles from '../../../styles/meetup.module.css';
 import dynamic from 'next/dynamic';
-import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
+import useWindowSize from '../../hooks/useWindowSize';
 import { ChatToolBar } from './Toolbar';
 import { YoutubeVideoComponent } from './VideoEmbedComponent';
 
@@ -11,8 +11,14 @@ const RCComponent = dynamic(() => import('rc-component-react').then((mod) => mod
 });
 
 export const MeetupMainstage = () => {
-  const isSmallScreen = useMediaQuery('(max-width: 790px)');
-  const [open, setOpen] = useState(isSmallScreen);
+  const { width } = useWindowSize()
+
+  const [open, setOpen] = useState();
+  useEffect(() => {
+    if (width < 790 && open === undefined) {
+      setOpen(true)
+    }
+  }, [width, open])
 
   return (
     <div className={styles.mainstage_root}>
@@ -26,8 +32,8 @@ export const MeetupMainstage = () => {
             moreOpts={true}
             isClosable={true}
             setClosableState={setOpen}
-            width={isSmallScreen ? '100%' : 'auto'}
-            height={isSmallScreen ? '30vh' : '80vh'}
+            width={width < 790 ? '100%' : 'auto'}
+            height={width < 790 ? '30vh' : '80vh'}
             GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
             host={process.env.NEXT_PUBLIC_RC_URL}
             roomId={
