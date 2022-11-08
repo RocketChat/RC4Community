@@ -7,10 +7,9 @@ function Layout(props) {
   const { pathname } = useRouter();
   return (
     <>
-      {/*<Menubar menu={props.menu.topNavItems} />*/}
-      <NewMenubar menu={props.menu.topNavItems} />
+      <NewMenubar menu={props.menu.topNavItems} brandInfo={props.brandInfo} />
       {props.children}
-      <Footer></Footer>
+      <Footer />
       {/* announcement component here*/}
       {/* pathname === '/virtualconf/mainstage' && (
         <p className={styles.announcement}>

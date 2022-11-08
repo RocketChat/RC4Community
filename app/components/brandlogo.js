@@ -4,7 +4,7 @@ export default function BrandLogo(props) {
   return (
     <>
         <Image
-          src={props.logoLink}
+          src={props.brandLogoSrc}
           title={props.imageTitle}
           alt={props.brandName}
           height={props.height}

@@ -46,12 +46,10 @@ export default function Menubar(props) {
         className=' bg-white mx-4 my-2'
       >
         <BrandLogo
-          brandLink={'/'}
-          logoLink={
-            'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
-          }
-          imageTitle={'Rocket.Chat'}
-          brandName={'Rocket.Chat Community'}
+          brandLink={props.brandLink}
+          brandLogoSrc={props.brandLogoSrc}
+          imageTitle={props.imageTitle}
+          brandName={props.brandName}
           height={21}
           width={124}
         />
@@ -67,9 +65,8 @@ export default function Menubar(props) {
             type='button'
           >
             <span
-              className={`${styles.toggler_icon} ${
-                collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
-              }`}
+              className={`${styles.toggler_icon} ${collapsed ? styles.toggler_bar_collapsed : styles.toggler_bar
+                }`}
             />
           </button>
         </Navbar.Toggle>

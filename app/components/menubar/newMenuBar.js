@@ -19,7 +19,7 @@ const ArrowIcon = () => {
   );
 };
 
-const MobileNav = ({ nav_Items, nft }) => {
+const MobileNav = ({ nav_Items, nft, brandInfo }) => {
   const [dropDown, setDropDown] = useState({ show: false, _id: 0 });
 
   return (
@@ -48,12 +48,10 @@ const MobileNav = ({ nav_Items, nft }) => {
               className='d-flex justify-content-center align-items-center '
             >
               <BrandLogo
-                brandLink={'/'}
-                logoLink={
-                  'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
-                }
-                imageTitle={'Rocket.Chat'}
-                brandName={'Rocket.Chat Community'}
+                brandLink={brandInfo.brandLink}
+                brandLogoSrc={brandInfo.brandLogoSrc}
+                imageTitle={brandInfo.imageTitle}
+                brandName={brandInfo.brandName}
                 height={30}
                 width={132}
               />
@@ -163,7 +161,7 @@ const MobileNav = ({ nav_Items, nft }) => {
   );
 };
 
-const DesktopNav = ({ nav_Items, nft }) => {
+const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
   const [isShown, setIsShown] = useState(0);
   const clickRef = useRef(null);
 
@@ -183,12 +181,10 @@ const DesktopNav = ({ nav_Items, nft }) => {
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
       <BrandLogo
-        brandLink={'/'}
-        logoLink={
-          'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
-        }
-        imageTitle={'Rocket.Chat'}
-        brandName={'Rocket.Chat Community'}
+        brandLink={brandInfo.brandLink}
+        brandLogoSrc={brandInfo.brandLogoSrc}
+        imageTitle={brandInfo.imageTitle}
+        brandName={brandInfo.brandName}
         height={32}
         width={132}
       />
@@ -280,8 +276,8 @@ export default function NewMenubar(props) {
   let pfpIsNFT = false
   return (
     <Container fluid>
-      <MobileNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} />
-      <DesktopNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} />
+      <MobileNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} brandInfo={props.brandInfo} />
+      <DesktopNav nav_Items={props.menu?.data?.attributes?.body} nft={pfpIsNFT} brandInfo={props.brandInfo} />
     </Container>
   );
 }
