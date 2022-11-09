@@ -5,6 +5,11 @@
   display: none !important;
 }
 
+.clickToChat_button {
+  position: absolute;
+  right: 100px;
+}
+
 .navbarItem::after {
   position: absolute;
   bottom: 0;

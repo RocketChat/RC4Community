@@ -23,6 +23,7 @@
     "graphql": "^16.3.0",
     "ipfs-core": "^0.14.2",
     "js-cookie": "^3.0.1",
+    "rc-component-react": "github:RocketChat/EmbeddedChat",
     "marked": "^4.0.12",
     "next": "^13.0.1",
     "next-auth": "^4.2.1",
