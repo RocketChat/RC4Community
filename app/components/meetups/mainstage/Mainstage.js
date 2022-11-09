@@ -10,7 +10,7 @@ const RCComponent = dynamic(() => import('rc-component-react').then((mod) => mod
   ssr: false,
 });
 
-export const MeetupMainstage = () => {
+export const MeetupMainstage = ({ youtubeVideoId, videoTitle, rcChatChannelName }) => {
   const { width } = useWindowSize()
 
   const [open, setOpen] = useState();
@@ -23,8 +23,8 @@ export const MeetupMainstage = () => {
   return (
     <div className={styles.mainstage_root}>
       <YoutubeVideoComponent
-        videoId={'E7wJTI-1dvQ'}
-        videoTitle={'Some Awesome Video'}
+        videoId={youtubeVideoId}
+        videoTitle={videoTitle}
       />
       <Collapse in={open}>
         <div className={styles.mainstage_chatwindow}>
@@ -39,7 +39,7 @@ export const MeetupMainstage = () => {
             roomId={
               process.env.NEXT_PUBLIC_RC_ROOM_ID ? process.env.NEXT_PUBLIC_RC_ROOM_ID : 'GENERAL'
             }
-            channelName='General'
+            channelName={rcChatChannelName}
             anonymousMode={true}
             isFullScreenFromStart={false}
           />

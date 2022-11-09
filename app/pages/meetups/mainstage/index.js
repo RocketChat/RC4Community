@@ -14,7 +14,7 @@ const MeetupMainstagePage = () => {
       </Head>
       <div>
         <Stack direction='vertical'>
-          <MeetupMainstage />
+          <MeetupMainstage youtubeVideoId={'E7wJTI-1dvQ'} videoTitle="React Tutorial Video" rcChatChannelName={"General"} />
         </Stack>
       </div>
     </div>
