@@ -1,17 +1,31 @@
 tasks:
-  - env: 
-      INITIALIZE_DATA: true
-    init: |
-      cd cms
-      npm install
-    command: |
-      cd cms
-      npm run develop
-  - init: |
-      cd app
-      npm install
-    command: |
-      gp await-port 1337    
-      cd app
-      npm run dev 
-    openMode: split-right
+  - name: Setup & Build RC4Community
+    command: startdevenv.sh
+
+# Ports to expose on workspace startup
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: RC4Community
+    description: Next.js app for RC4Community
+  - port: 1337
+    onOpen: open-preview
+    name: Strapi
+    description: Strapi Dashboard
+# tasks:
+#   - env: 
+#       INITIALIZE_DATA: true
+#     init: |
+#       cd cms
+#       npm install
+#     command: |
+#       cd cms
+#       npm run develop
+#   - init: |
+#       cd app
+#       npm install
+#     command: |
+#       gp await-port 1337    
+#       cd app
+#       npm run dev 
+#     openMode: split-right
