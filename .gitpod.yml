@@ -1,6 +1,6 @@
 tasks:
   - name: Setup & Build RC4Community
-    command: startdevenv.sh
+    command: sh startdevenv.sh
 
 # Ports to expose on workspace startup
 ports:
