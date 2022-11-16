@@ -4,8 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from "next/image";
 
-const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
-  const { onClick } = props
+const PrevArrow = ({ currentSlide, slideCount, onClick, ...props }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -24,8 +23,7 @@ const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
   );
 };
 
-const NextArrow = ({ currentSlide, slideCount, ...props }) => {
-  const { onClick } = props
+const NextArrow = ({ currentSlide, slideCount, onClick, ...props }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
