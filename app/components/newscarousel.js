@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from "next/image";
 
 const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
+  const { onClick } = props
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -13,6 +14,7 @@ const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
       fill='#000'
       className='bi bi-arrow-left-short align-self-center'
       viewBox='0 0 16 16'
+      onClick={onClick}
     >
       <path
         fillRule='evenodd'
@@ -23,6 +25,7 @@ const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
 };
 
 const NextArrow = ({ currentSlide, slideCount, ...props }) => {
+  const { onClick } = props
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -31,6 +34,7 @@ const NextArrow = ({ currentSlide, slideCount, ...props }) => {
       fill='#000'
       className='bi bi-arrow-left-short align-self-center'
       viewBox='0 0 16 16'
+      onClick={onClick}
     >
       <path
         fillRule='evenodd'
