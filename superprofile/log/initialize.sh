@@ -11,7 +11,7 @@ if [ ! -e $ALREADY_INITIALIZED ]; then
    fauna upload-graphql-schema /var/log/faunadb/schema.gql --domain="$DOMAIN" --port="8443" --scheme="http"  --secret=`cat dbkey` --graphqlHost=$DOMAIN --graphqlPort=8084 --mode=replace
    echo "-- schema uploaded successfully... --"
    echo "-- initializing fauna collection User... --"
-   fauna eval RC4Conference --file=/var/log/faunadb/initUser.fql
+   fauna eval RC4Community --file=/var/log/faunadb/initUser.fql
 else
    echo "-- already initialized, do nothing --"
 fi
