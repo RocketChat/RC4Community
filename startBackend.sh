@@ -4,7 +4,7 @@ FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
 echo "--Starting Superprofile Backend--"
 cd superprofile
-sh initFaunaOnce.sh
+sh initFaunaOnce.sh $1
 cd ..
 
 if [ -z $FAUNA_CONTAINER_ID ]; then
