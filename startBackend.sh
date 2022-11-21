@@ -7,6 +7,8 @@ cd superprofile
 sh initFaunaOnce.sh $1
 cd ..
 
+echo fauna container name $FAUNA_CONTAINER_ID
+
 if [ -z $FAUNA_CONTAINER_ID ]; then
     echo $FAUNA_CONTAINER_ID
     echo "\033[31m***FaunaDB container was unable to install and start, please rerun the script***\e[0m"
