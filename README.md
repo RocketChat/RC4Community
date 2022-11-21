@@ -56,8 +56,9 @@ Your system should have docker available for superprofile we use a dockerized lo
 ```
 git clone https://github.com/rocketchat/RC4Community
 cd RC4Community
-sh startdevenv.sh
+sh startdevenv.sh localhost
 ```
+> Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
 
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
 

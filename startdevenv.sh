@@ -37,7 +37,7 @@ check_and_set_next_port() {
     fi
 }
 
-sh startBackend.sh
+sh startBackend.sh $1
 
 check_and_set_strapi_port
 counter=0

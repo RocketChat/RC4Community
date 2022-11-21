@@ -1,0 +1,10 @@
+Create(
+  Ref(Collection('User'), '1'),
+  {
+    data: {
+        uid: "1",
+        email: "acat0@rocket.chat",
+        displayName: "Evan.Shu",
+    },
+  },
+)
