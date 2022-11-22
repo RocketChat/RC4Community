@@ -1,6 +1,6 @@
-FROM gitpod/workspace-full as base
+FROM gitpod/workspace-full
 
-FROM fauna/faunadb:4.15.0 as build
+FROM fauna/faunadb:4.15.0
 
 
 
