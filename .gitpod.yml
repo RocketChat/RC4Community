@@ -2,22 +2,23 @@ tasks:
   - name: Install Faunadb
     init: |
       docker pull fauna/faunadb:4.15.0
-      gp sync-done build1
+    command: gp sync-done images_pulled
   
   - name: Init Next.js App
     init: |
       cd app
       npm i
-      gp sync-done build2
+    command: gp sync-done next_packages_initialized
 
   - name: Init Strapi App
     init: |
       cd cms
       npm i
-      gp sync-done build3
+    command: gp sync-done strapi_packages_initialized
+
   
   - name: Start build
-    command: gp sync-await build1 && gp sync-await build2 && gp sync-await build3 && sh gitpod-scripts/startCloudDevEnv.sh
+    command: gp sync-await images_pulled && gp sync-await build2 && gp sync-await build3 && sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
   - port: 3000
