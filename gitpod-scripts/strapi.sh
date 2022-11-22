@@ -1,3 +1,5 @@
+#!/bin/sh
+
 cd cms
 export PORT=$1
 npm run build

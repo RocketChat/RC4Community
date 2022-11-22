@@ -1,4 +1,5 @@
 #!/bin/sh
+
 echo "--Starting Superprofile Backend--"
 cd superprofile
 sh initFaunaOnce.sh $1

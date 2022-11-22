@@ -1,19 +1,23 @@
 tasks:
-  - name: Install necessary images
-    init: docker pull fauna/faunadb:4.15.0
+  - name: Install Faunadb
+    init: |
+      docker pull fauna/faunadb:4.15.0
+      gp sync-done build1
   
-  - name: Init next app
+  - name: Init Next.js App
     init: |
       cd app
       npm i
+      gp sync-done build2
 
-  - name: Init strapi
+  - name: Init Strapi App
     init: |
       cd cms
       npm i
+      gp sync-done build3
   
   - name: Start build
-    command: sh gitpod-scripts/startclouddevenv.sh
+    command: gp sync-await build1 && gp sync-await build2 && gp sync-await build && sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
   - port: 3000
