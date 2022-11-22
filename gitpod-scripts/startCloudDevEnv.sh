@@ -53,4 +53,4 @@ sh strapi.sh $STRAPI_PORT > /dev/null 2>/dev/null  &
 cd app
 export PORT=$NEXTJS_PORT
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
-npm run dev
+gp await-port 3000 && npm run dev
