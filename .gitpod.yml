@@ -17,7 +17,7 @@ tasks:
       gp sync-done build3
   
   - name: Start build
-    command: gp sync-await build1 && gp sync-await build2 && gp sync-await build && sh gitpod-scripts/startCloudDevEnv.sh
+    command: gp sync-await build1 && gp sync-await build2 && gp sync-await build3 && sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
   - port: 3000
