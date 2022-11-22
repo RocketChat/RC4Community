@@ -1,8 +1,4 @@
-FROM gitpod/workspace-full:latest
+FROM gitpod/workspace-full:2022-05-08-14-31-53
 
-FROM node:v16.13.0
-
-FROM fauna/faunadb:4.15.0
-
-
-
+# Install custom tools, runtime, etc.
+RUN brew install fzf
