@@ -1,6 +1,6 @@
-tasks:
-  - name: Setup & Build RC4Community
-    command: sh startdevenv.sh
+# tasks:
+#   - name: Setup & Build RC4Community
+#     command: sh startdevenv.sh
 
 ports:
   - port: 3000
@@ -11,3 +11,5 @@ ports:
     onOpen: notify
     name: Strapi
     description: Strapi Dashboard
+
+# image: fauna/faunadb
