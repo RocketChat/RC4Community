@@ -12,4 +12,4 @@ ports:
     name: Strapi
     description: Strapi Dashboard
 
-# image: fauna/faunadb
+image: fauna/faunadb
