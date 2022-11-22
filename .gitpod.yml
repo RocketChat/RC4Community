@@ -1,6 +1,6 @@
 tasks:
   - name: Setup & Build RC4Community
-    init: docker pull fauna/faunadb:4.15.0
+    init: sh gitpod-scripts/initgp.sh
     command: sh gitpod-scripts/startclouddevenv.sh
 
 ports:
