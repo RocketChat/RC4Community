@@ -53,6 +53,5 @@ sh strapi.sh $STRAPI_PORT > /dev/null 2>/dev/null  &
 cd app
 export PORT=$NEXTJS_PORT
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
-npm i
 sh ../showbrowser.sh  $NEXTJS_PORT 2>/dev/null  &
 npm run dev

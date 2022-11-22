@@ -1,7 +1,7 @@
 tasks:
   - name: Setup & Build RC4Community
     init: docker pull fauna/faunadb:4.15.0
-    command: sh startdevenv.sh
+    command: sh gitpod-scripts/startclouddevenv.sh
 
 ports:
   - port: 3000
@@ -29,5 +29,3 @@ github:
     addComment: true
     # add a "Review in Gitpod" button to the pull request's description (defaults to false)
     addBadge: true
-# image:
-#   file: .gitpod.Dockerfile
