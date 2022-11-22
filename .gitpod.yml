@@ -1,9 +1,8 @@
 tasks:
   - name: Install necessary images
-    init: |
-      docker pull fauna/faunadb:4.15.0
+    init: docker pull fauna/faunadb:4.15.0
   
-  - name: Init 
+  - name: Init next app
     init: |
       cd app
       npm i
