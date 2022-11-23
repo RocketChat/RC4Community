@@ -24,6 +24,7 @@ check_and_set_strapi_port
 
 printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://127.0.0.1:$STRAPI_PORT" >> app/.env
 
+
 cd cms
 INITIALIZE_DATA=true npm run develop 
 export PORT=STRAPI_PORT
