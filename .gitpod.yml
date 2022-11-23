@@ -19,7 +19,11 @@ tasks:
     command: gp sync-done strapi_packages_initialized && sh gitpod-scripts/strapi.sh
   
   - name: Start build
-    command: gp sync-await images_pulled && gp sync-await next_packages_initialized && gp sync-await strapi_packages_initialized && sh gitpod-scripts/startCloudDevEnv.sh
+    command: |
+      gp sync-await images_pulled && 
+      gp sync-await next_packages_initialized && 
+      gp sync-await strapi_packages_initialized && 
+      sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
   - port: 3000
