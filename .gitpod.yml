@@ -17,7 +17,6 @@ tasks:
       npm run build
       cd ..
     command: gp sync-done strapi_packages_initialized && sh gitpod-scripts/strapi.sh
-
   
   - name: Start build
     command: gp sync-await images_pulled && gp sync-await next_packages_initialized && gp sync-await strapi_packages_initialized && sh gitpod-scripts/startCloudDevEnv.sh
@@ -31,6 +30,12 @@ ports:
     onOpen: notify
     name: Strapi
     description: Strapi Dashboard
+  - port: 8084
+    onOpen: ignore
+  - port: 8444
+    onOpen: ignore
+  - port: 8443
+    onOpen: ignore
 
 github:
   prebuilds:
