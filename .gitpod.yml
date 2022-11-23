@@ -15,7 +15,8 @@ tasks:
       cd cms
       npm i
       npm run build
-    command: gp sync-done strapi_packages_initialized && sh strapi.sh
+      cd ..
+    command: gp sync-done strapi_packages_initialized && sh gitpod-scripts/strapi.sh
 
   
   - name: Start build
