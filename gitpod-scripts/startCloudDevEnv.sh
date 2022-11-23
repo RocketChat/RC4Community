@@ -48,7 +48,7 @@ export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://127.0.0.1:$STRAPI_PORT" >> app/.env
 printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
 
-sh strapi.sh $STRAPI_PORT > /dev/null 2>/dev/null  &
+# sh strapi.sh $STRAPI_PORT > /dev/null 2>/dev/null  &
 
 cd app
 export PORT=$NEXTJS_PORT

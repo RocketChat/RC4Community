@@ -15,7 +15,7 @@ tasks:
       cd cms
       npm i
       npm run build
-    command: gp sync-done strapi_packages_initialized
+    command: gp sync-done strapi_packages_initialized && sh strapi.sh 1337
 
   
   - name: Start build
