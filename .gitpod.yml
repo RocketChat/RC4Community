@@ -1,9 +1,4 @@
 tasks:
-  - name: Install Faunadb
-    init: |
-      docker pull fauna/faunadb:4.15.0
-    command: gp sync-done images_pulled
-  
   - name: Init Next.js App
     init: |
       cd app
@@ -50,3 +45,6 @@ github:
     addCheck: true
     addComment: true
     addBadge: true
+
+image:
+  file: .gitpod.Dockerfile
