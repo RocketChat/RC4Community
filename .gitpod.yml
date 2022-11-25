@@ -50,6 +50,3 @@ github:
     addCheck: true
     addComment: true
     addBadge: true
-
-image:
-  file: .gitpod.Dockerfile
