@@ -32,7 +32,7 @@
 
 Start developing and make changes to your code via a single click **Anytime-Anywhere**!
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](gitpod.io/#https://github.com/RocketChat/RC4Community)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Community)
 
 Start **designing and customizing your community** management system by opening the **already setup and ready to code developer environment** using Gitpod!
 
