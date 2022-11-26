@@ -4,7 +4,7 @@ waittime=30
 ALREADY_INITIALIZED="log/init_key_flag"
 
 counter=0
-watchdog=5
+watchdog=6
 
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
@@ -28,7 +28,8 @@ check_and_start_fauna_container() {
         if [ "$counter" -lt $watchdog ]; then
             counter=$((counter+1))
             waittime=$((waittime+5))
-            sleep $waittime
+            echo "Increased wait time to $waittime seconds..."
+            sleep 5
             check_and_start_fauna_container
         elif [ "$counter" -ge $watchdog ]; then
             echo "Docker container needs extra startup time, please increase the \$waittlist value in initFaunaOnce.sh"
