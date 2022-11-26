@@ -20,8 +20,6 @@ check_and_set_next_port() {
     fi
 }
 
-sh startBackend.sh $1
-
 check_and_set_next_port
 
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
