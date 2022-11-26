@@ -1,6 +1,6 @@
 #!/bin/sh
 
-waittime=30
+waittime=40
 ALREADY_INITIALIZED="log/init_key_flag"
 
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
