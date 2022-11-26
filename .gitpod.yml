@@ -2,7 +2,9 @@ tasks:
   - name: Install Faunadb
     init: |
       docker pull fauna/faunadb:4.15.0
-    command: sh gitpod-scripts/startCloudDevBackend.sh
+    command: |
+      sh gitpod-scripts/startCloudDevBackend.sh
+      gp sync-done backend_started
 
   - name: Init Next.js App
     init: |

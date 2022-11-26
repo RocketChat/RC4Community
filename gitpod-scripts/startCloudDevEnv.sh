@@ -29,4 +29,4 @@ printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
 cd app
 export PORT=$NEXTJS_PORT
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
-gp ports await 1337 && npm run dev
+gp ports await 1337 && gp sync-await backend_started && npm run dev
