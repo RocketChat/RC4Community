@@ -1,7 +1,10 @@
 #!/bin/sh
 
-waittime=40
+waittime=30
 ALREADY_INITIALIZED="log/init_key_flag"
+
+counter=0
+watchdog=5
 
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
@@ -17,20 +20,32 @@ sleep $waittime
 DBF="log/init_key_flag"
 container_name="faunadb"
 healthy="healthy"
-container_state="$( docker inspect -f '{{ .State.Health.Status }}' ${container_name} )"
 
-if [ "$container_state" != $healthy ]; then
-    echo "Docker container needs extra startup time, please increase the \$waittlist value in initFaunaOnce.sh"
-    echo "Process ended with health status of Container: $container_state"
-else
-    docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh $1
-    if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
-        echo "Copying over secrets to ../app/.env"
-        printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env &&
-        printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://localhost:8084/graphql" >> ../app/.env
-        touch $DBF &&
-        echo "-- All set, superprofile launch 🚀"
+check_and_start_fauna_container() {
+    container_state="$( docker inspect -f '{{ .State.Health.Status }}' ${container_name} )"
+
+    if [ "$container_state" != $healthy ]; then
+        if [ "$counter" -lt $watchdog ]; then
+            counter=$((counter+1))
+            waittime=$((waittime+5))
+            sleep $waittime
+            check_and_start_fauna_container
+        elif [ "$counter" -ge $watchdog ]; then
+            echo "Docker container needs extra startup time, please increase the \$waittlist value in initFaunaOnce.sh"
+            echo "Process ended with health status of Container: $container_state"
+        fi
     else
-        echo "-- Env variables are already copied, no need to copy over twice 😉 --" 
+        docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh $1
+        if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
+            echo "Copying over secrets to ../app/.env"
+            printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env &&
+            printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://localhost:8084/graphql" >> ../app/.env
+            touch $DBF &&
+            echo "-- All set, superprofile launch 🚀"
+        else
+            echo "-- Env variables are already copied, no need to copy over twice 😉 --" 
+        fi
     fi
-fi
+}
+
+check_and_start_fauna_container
