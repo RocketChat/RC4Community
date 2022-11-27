@@ -6,6 +6,9 @@ ALREADY_INITIALIZED="log/init_key_flag"
 counter=0
 watchdog=6
 
+DOMAIN="localhost"
+if [ ! -z "$1" ]; then DOMAIN="$1"; fi
+
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
 if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
@@ -40,7 +43,7 @@ check_and_start_fauna_container() {
         if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
             echo "Copying over secrets to ../app/.env"
             printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env &&
-            printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://localhost:8084/graphql" >> ../app/.env
+            printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$DOMAIN:8084/graphql" >> ../app/.env
             touch $DBF &&
             echo "-- All set, superprofile launch 🚀"
         else
