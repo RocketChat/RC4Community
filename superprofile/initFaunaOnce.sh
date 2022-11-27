@@ -22,12 +22,12 @@ sleep $waittime
 
 DBF="log/init_key_flag"
 container_name="faunadb"
-healthy="healthy"
+constainer_health_status="starting"
 
 check_and_start_fauna_container() {
     container_state="$( docker inspect -f '{{ .State.Health.Status }}' ${container_name} )"
 
-    if [ "$container_state" != $healthy ]; then
+    if [ "$container_state" == $constainer_health_status ]; then
         if [ "$counter" -lt $watchdog ]; then
             counter=$((counter+1))
             waittime=$((waittime+5))
