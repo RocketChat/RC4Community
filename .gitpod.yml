@@ -27,7 +27,7 @@ tasks:
 
 ports:
   - port: 3000
-    onOpen: open-browser
+    onOpen: open-preview
     name: RC4Community
     description: Next.js app for RC4Community
   - port: 1337
