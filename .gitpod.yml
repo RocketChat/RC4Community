@@ -10,7 +10,9 @@ tasks:
     init: |
       cd app
       npm i
-    command: gp sync-done next_packages_initialized
+    command: |
+      gp sync-done next_packages_initialized
+      gp open app/components/brandlogo.js
 
   - name: Init Strapi App
     init: |
