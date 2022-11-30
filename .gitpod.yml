@@ -1,21 +1,21 @@
 tasks:
-  - name: Install Faunadb
+  - name: Initialize Backend
     init: |
       docker pull fauna/faunadb:4.15.0
     command: |
       sh gitpod-scripts/startCloudDevBackend.sh
-      gp sync-done backend_started
+      gp sync-done Initialization_of_Backend
 
-  - name: Init Next.js App
+  - name: Initiliaze Next.js App
     init: |
       cd app
       npm i
       cd ..
     command: |
-      gp sync-done next_packages_initialized
+      gp sync-done Initialization_of_NextJS_Packages
       gp ports await 1337 && gp open app/components/brandlogo.js
 
-  - name: Init Strapi App
+  - name: Initiliaze Strapi App
     init: |
       cd cms
       npm i
@@ -25,9 +25,9 @@ tasks:
   
   - name: Start build
     command: |
-      echo "Please wait while we're initiliazing these tasks for you⚡️"
+      printf "⚡️ Please wait while we're initiliazing these tasks for you... ⚡️\n\n"
       gp tasks list
-      gp sync-await next_packages_initialized && 
+      gp sync-await Initialization_of_NextJS_Packages && 
       sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
