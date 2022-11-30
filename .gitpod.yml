@@ -6,7 +6,7 @@ tasks:
       sh gitpod-scripts/startCloudDevBackend.sh
       gp sync-done Initialization_of_Backend
 
-  - name: Initiliaze Next.js App
+  - name: Initialize Next.js App
     init: |
       cd app
       npm i
@@ -15,18 +15,20 @@ tasks:
       gp sync-done Initialization_of_NextJS_Packages
       gp ports await 1337 && gp open app/components/brandlogo.js
 
-  - name: Initiliaze Strapi App
+  - name: Initialize Strapi App
     init: |
       cd cms
       npm i
       npm run build
       cd ..
     command: sh gitpod-scripts/startCloudDevStrapi.sh
+    openMode: split-right
   
   - name: Start build
     command: |
-      printf "⚡️ Please wait while we're initiliazing these tasks for you... ⚡️\n\n"
+      printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
       gp tasks list
+      printf "\n"
       gp sync-await Initialization_of_NextJS_Packages && 
       sh gitpod-scripts/startCloudDevEnv.sh
 

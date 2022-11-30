@@ -16,7 +16,7 @@ check_and_set_next_port() {
         echo "After changes re-run the script"
         exit 1
     else
-        printf "🚀 An empty port found for NextJS 🚀 \n\n"
+        printf "🚀 An empty port found for NextJS 🚀 \n"
     fi
 }
 
@@ -29,7 +29,7 @@ printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
 cd app
 export PORT=$NEXTJS_PORT
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
-printf "\nPlease wait while we initialize strapi for development....🚀"
+printf "\nPlease wait while we initialize strapi for development....🚀\n"
 gp ports await 1337 
-printf "\nPlease wait while we initialize the backend....🚀"
+printf "\nPlease wait while we initialize the backend....🚀\n"
 gp sync-await Initialization_of_Backend && npm run dev
