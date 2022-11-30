@@ -25,6 +25,7 @@ tasks:
   
   - name: Start build
     command: |
+      echo "Please wait while we're initiliazing these tasks for you⚡️"
       gp tasks list
       gp sync-await next_packages_initialized && 
       sh gitpod-scripts/startCloudDevEnv.sh
