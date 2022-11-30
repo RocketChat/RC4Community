@@ -14,15 +14,6 @@ tasks:
     command: |
       gp sync-done Initialization_of_NextJS_Packages
       gp ports await 1337 && gp open app/components/brandlogo.js
-
-  - name: Initialize Strapi App
-    init: |
-      cd cms
-      npm i
-      npm run build
-      cd ..
-    command: sh gitpod-scripts/startCloudDevStrapi.sh
-    openMode: split-right
   
   - name: Start build
     command: |
@@ -31,6 +22,15 @@ tasks:
       printf "\n"
       gp sync-await Initialization_of_NextJS_Packages && 
       sh gitpod-scripts/startCloudDevEnv.sh
+  
+  - name: Initialize Strapi App
+    init: |
+      cd cms
+      npm i
+      npm run build
+      cd ..
+    command: sh gitpod-scripts/startCloudDevStrapi.sh
+    openMode: split-right
 
 ports:
   - port: 3000
