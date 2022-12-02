@@ -15,14 +15,6 @@ tasks:
       gp sync-done Initialization_of_NextJS_Packages
       gp ports await 1337 && gp open app/components/brandlogo.js
   
-  - name: Start build
-    command: |
-      printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
-      gp tasks list
-      printf "\n"
-      gp sync-await Initialization_of_NextJS_Packages && 
-      sh gitpod-scripts/startCloudDevEnv.sh
-  
   - name: Initialize Strapi App
     init: |
       cd cms
@@ -30,7 +22,13 @@ tasks:
       npm run build
       cd ..
     command: sh gitpod-scripts/startCloudDevStrapi.sh
-
+  - name: Start build
+    command: |
+      printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
+      gp tasks list
+      printf "\n"
+      gp sync-await Initialization_of_NextJS_Packages && 
+      sh gitpod-scripts/startCloudDevEnv.sh
 ports:
   - port: 3000
     onOpen: open-preview
