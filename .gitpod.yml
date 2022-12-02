@@ -1,17 +1,56 @@
 tasks:
-  - env: 
-      INITIALIZE_DATA: true
+  - name: Initialize Backend
+    init: |
+      docker pull fauna/faunadb:4.15.0
+    command: |
+      sh gitpod-scripts/startCloudDevBackend.sh
+      gp sync-done Initialization_of_Backend
+
+  - name: Initialize Next.js App
+    init: |
+      cd app
+      npm i
+      cd ..
+    command: |
+      gp sync-done Initialization_of_NextJS_Packages
+      gp ports await 1337 && gp open app/components/brandlogo.js
+  
+  - name: Initialize Strapi App
     init: |
       cd cms
-      npm install
+      npm i
+      npm run build
+      cd ..
+    command: sh gitpod-scripts/startCloudDevStrapi.sh
+  - name: Start build
     command: |
-      cd cms
-      npm run develop
-  - init: |
-      cd app
-      npm install
-    command: |
-      gp await-port 1337    
-      cd app
-      npm run dev 
-    openMode: split-right
+      printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
+      gp tasks list
+      printf "\n"
+      gp sync-await Initialization_of_NextJS_Packages && 
+      sh gitpod-scripts/startCloudDevEnv.sh
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: RC4Community
+    description: Next.js app for RC4Community
+  - port: 1337
+    onOpen: notify
+    name: Strapi
+    description: Strapi Dashboard
+  - port: 8084
+    onOpen: ignore
+  - port: 8444
+    onOpen: ignore
+  - port: 8443
+    onOpen: ignore
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true
+    addBadge: true
