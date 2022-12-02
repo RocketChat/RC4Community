@@ -5,10 +5,13 @@
 }
 .active_carousel {
   position: relative;
+  width: fit-content;
+  padding: 0 8px;
 }
 .active_carousel:hover {
   transform: scale(1.04);
   transition: 0.5s all;
+  z-index: 2;
 }
 .carousel-item-link {
   text-decoration: none;
