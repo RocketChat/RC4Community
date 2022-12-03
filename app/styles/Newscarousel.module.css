@@ -3,26 +3,32 @@
   max-width: 90rem;
   align-self: center;
 }
+
 .active_carousel {
   position: relative;
-  width: fit-content;
-  padding: 0 8px;
+  width: min-content;
+  height: 300px;
+  margin: 24px 12px;
 }
+
 .active_carousel:hover {
   transform: scale(1.04);
   transition: 0.5s all;
   z-index: 2;
 }
+
 .carousel-item-link {
   text-decoration: none;
   color: #000000;
   outline: none;
 }
+
 .active_carousel:hover .content {
   background-color: #1d74f5;
   color: white;
   transition: 0.5s all;
 }
+
 .carousel-item-image {
   width: 100%;
   height: 100%;

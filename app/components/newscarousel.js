@@ -45,7 +45,7 @@ const NextArrow = ({ currentSlide, slideCount, onClick, ...props }) => {
 const Item = (props) => {
   return (
     <div
-      className={`bg-white m-2 h-auto + ${styles.active_carousel}`}
+      className={`bg-white + ${styles.active_carousel}`}
     >
       <a
         href={props.item.attributes.url}
@@ -54,8 +54,9 @@ const Item = (props) => {
         className='text-decoration-none text-black :hover'
       >
         <Image
-          width={200}
-          height={140}
+         className='news-image'
+         width={209}
+         height={134.44}
           src={props.item.attributes.imageUrl}
           alt={props.item.attributes.name}
         />
