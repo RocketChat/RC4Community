@@ -54,9 +54,8 @@ const Item = (props) => {
         className='text-decoration-none text-black :hover'
       >
         <Image
-         className='news-image'
-         width={209}
-         height={134.44}
+         width={200}
+         height={140}
           src={props.item.attributes.imageUrl}
           alt={props.item.attributes.name}
         />
