@@ -4,6 +4,8 @@
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
 
+---
+
 <h2 align='center'>🚀 Features 🚀</h2>
 <ul>
   <li>every part of the system scalable to handle from one to over a million online community members</li>
@@ -21,21 +23,26 @@
   <li>ultra-light-weight and re-imagined UX for next generation community builder / developer experience</li>
 </uL>
 
+---
+
 <h2 align='center'>🚀 Community Builder quick start 🚀</h2>
 <p align='center'> Customize - Deploy - Manage </p>
 
-## 💻 Work from any browser or Chromebook
+## 💻 Develop your Community from any browser or Chromebook
 
+Start developing and make changes to your code via a single click **Anytime-Anywhere**!
 
-Paste the following into your browser:
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Community)
 
-```
-gitpod.io/#https://github.com/RocketChat/RC4Community
-```
+Start **designing and customizing your community** management system by opening the **already setup and ready to code developer environment** using Gitpod!
 
-Start designing and customizing your community management system!
+Some *Recommendations* while using **Gitpod**:
 
- 
+- Download the [gitpod browser extension](https://www.gitpod.io/docs/configure/user-settings/browser-extension) to start working on any branch,issue or PR via a single click in under a minute!
+- To enjoy *BLAZINGLY FAST* startup times while developing on your forked branches, consider [enabling prebuilds by installing Gitpod's GitHub App](https://www.gitpod.io/docs/configure/projects/prebuilds/#configuring-prebuilds-manually)
+
+---
+
 <h2 align='center'>🚀 Developer quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
 
@@ -44,6 +51,8 @@ Start designing and customizing your community management system!
 During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
+
+> **_NOTE:_**  You can follow the below instructions to setup your developer environment in your `local machine` or use the `gitpod` method to code on the cloud ⚡️ as suggested above as well!
 
 Pre-requisites:
 
