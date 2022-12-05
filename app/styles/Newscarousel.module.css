@@ -46,7 +46,7 @@
   height: 120px !important;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 300px) {
   .content{
     height: 80px !important;
   }

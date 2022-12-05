@@ -100,7 +100,7 @@ function Newscarousel(props) {
             },
           },
           {
-            breakpoint: 400,
+            breakpoint: 300,
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1
