@@ -99,6 +99,13 @@ function Newscarousel(props) {
               initialSlide: 2,
             },
           },
+          {
+            breakpoint: 400,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            },
+          }
         ]}
         prevArrow={<PrevArrow />}
         nextArrow={<NextArrow />}
