@@ -1,14 +1,12 @@
 .slider {
-  width: 95%;
+  width: 90%;
   max-width: 90rem;
   align-self: center;
 }
 
 .active_carousel {
   position: relative;
-  width: min-content;
-  height: 300px;
-  margin: 24px 12px;
+  align-self: center;
 }
 
 .active_carousel:hover {
@@ -44,4 +42,7 @@
 
 .carousel-item-title {
   font-size: 22.5px;
+}
+.imgItems{
+  width: 100%;
 }
