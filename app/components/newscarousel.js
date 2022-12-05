@@ -45,7 +45,7 @@ const NextArrow = ({ currentSlide, slideCount, onClick, ...props }) => {
 const Item = (props) => {
   return (
     <div
-      className={`bg-white + ${styles.active_carousel}`}
+      className={`bg-white m-2 h-auto + ${styles.active_carousel}`}
     >
       <a
         href={props.item.attributes.url}
@@ -54,8 +54,8 @@ const Item = (props) => {
         className='text-decoration-none text-black :hover'
       >
         <Image
-         width={200}
-         height={140}
+          width={200}
+          height={140}
           src={props.item.attributes.imageUrl}
           alt={props.item.attributes.name}
         />
@@ -77,10 +77,19 @@ function Newscarousel(props) {
         arrows={true}
         infinite={true}
         speed={500}
-        slidesToShow={4}
-        slidesToScroll={4}
+        slidesToShow={5}
+        slidesToScroll={5}
         pauseOnHover={true}
         responsive={[
+          {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+              infinite: true,
+              dots: true,
+            },
+          },
           {
             breakpoint: 1024,
             settings: {
@@ -91,11 +100,20 @@ function Newscarousel(props) {
             },
           },
           {
-            breakpoint: 600,
+            breakpoint: 720,
             settings: {
               slidesToShow: 2,
               slidesToScroll: 2,
-              initialSlide: 2,
+              infinite: true,
+              dots: true,
+            },
+          },
+          {
+            breakpoint: 430,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              initialSlide: 1,
             },
           },
         ]}
