@@ -58,7 +58,7 @@ const Item = (props) => {
           height={140}
           src={props.item.attributes.imageUrl}
           alt={props.item.attributes.name}
-          className={`${styles.imgItm}`}
+          className={styles.imgItm}
         />
         <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
           <h2 className={`${styles.heading}`}>{props.item.attributes.name}</h2>
