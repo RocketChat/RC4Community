@@ -1,91 +1,43 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Infotiles from '../components/infotiles';
-import Newscarousel from '../components/newscarousel';
-import Personacircle from '../components/personalcircle';
-import Discourserankedlist from '../components/discourserankedlist';
-import Searchbox from '../components/searchbox';
-import Growthcounters from '../components/growthcounters';
-import { Container, Col } from 'react-bootstrap';
-import { fetchAPI } from '../lib/api';
-import { INFOTILES_DATA } from '../lib/const/infotiles';
 
-export default function Home(props) {
+import Hero from "../components/Hero/Hero";
+import Nav from "../components/Hero/Nav";
+
+
+
+let imgUrl = "bgdevops.gif";
+const gifStyle = {
+  position: "absolute",
+  width: "90%",
+  height: "90%",
+  background: `url(${imgUrl})`,
+  backgroundSize: "cover",
+  backgroundPosition: "left center",
+  backgroundRepeat: "no-repeat",
+  zIndex: 1,
+  opacity: 0.1,
+  mixBlendMode: "screen",
+};
+export default function Home() {
   return (
     <>
-      <Head>
-        <title>Rocket.Chat: Communications Platform You Can Fully Trust</title>
-        <meta name='description' content='Rocket.Chat is a Communications Platform You Can Fully Trust' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
-      <Container
-        fluid
-        className='d-flex flex-column align-items-center gap-3 gap-md-5'
-      >
-        <Col className='d-flex flex-column align-items-center gap-2 py-5 mt-2'>
-          <h1
-            className={`display-4 fw-bold text-center ${styles.hero_heading}`}
-          >
-            Welcome to our <span className={styles.redText}>community</span>
-          </h1>
-          <p
-            className={`fw-regular col-10 col-md-8 text-center ${styles.hero_subheading}`}
-          >
-            Let&apos;s dream, share, and collaborate in shaping the future of the
-            Rocket.Chat ecosystem together
-          </p>
-        </Col>
-        <Col className='mb-5 d-flex flex-column align-items-center'>
-          <h6 className='py-2 fs-6'> <a href={props?.guides?.data?.location} target="_blank" rel="noreferrer">Read the Guides</a>  | <a href={props?.releaseNotes?.data?.location} target="_blank" rel="noreferrer">Read Release Notes</a> </h6>
-          <Searchbox></Searchbox>
-        </Col>
-        <Col>
-          <Growthcounters></Growthcounters>
-        </Col>
-        <Col className='my-5'>
-          <div className={styles.infotiles}>
-            <Infotiles data={INFOTILES_DATA} />
-          </div>
-        </Col>
-
-        <div
-          className={`d-flex flex-column py-5 ${styles.community_news}  `}
-        >
-          <h2 className={`mx-auto  w-auto pb-5 ${styles.title}`}>
-            Latest Community News
-          </h2>
-          <Newscarousel carousels={props.carousels.data}></Newscarousel>
+      <div className="bg-black">
+        <div className="py-6 px-5 sm:px-16 bg-[url('/elipses.png')] bg-no-repeat bg-contain relative">
+          <div
+            style={gifStyle}
+            //     style="position: absolute;
+            // width: 90%;
+            // height:90%;
+            // background: url('https://media.giphy.com/media/DNvcUc3t3ThFTC65M7/giphy.gif') left center no-repeat;
+            // background-size: cover;
+            // z-index: 1;
+            // mix-blend-mode: screen;
+            // opacity: .1;"
+          ></div>
+          <Nav></Nav>
+          <Hero></Hero>
         </div>
-
-        <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-          Get What You Need...
-        </h2>
-        <Personacircle personas={props.personas.data}></Personacircle>
-
-        <div className={` d-flex flex-column py-5 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            Community Activity
-          </h2>
-          <Discourserankedlist topposts={props.topPosts.data}></Discourserankedlist>
-        </div>
-      </Container>
+      </div>
+      {/* <Tweettimeline /> */}
     </>
   );
-}
-
-export async function getStaticProps({ params }) {
-  const carousels = await fetchAPI('/carousels');
-  const personas = await fetchAPI('/personas');
-  const guides = await fetchAPI('/guide');
-  const releaseNotes = await fetchAPI('/release-note');
-  const topNavItems = await fetchAPI('/top-nav-item');
-  const topPosts = await fetchAPI('/discourses');
-
-  return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 1 second
-  };
 }

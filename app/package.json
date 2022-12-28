@@ -23,11 +23,11 @@
     "graphql": "^16.3.0",
     "ipfs-core": "^0.14.2",
     "js-cookie": "^3.0.1",
-    "rc-component-react": "github:RocketChat/EmbeddedChat",
     "marked": "^4.0.12",
     "next": "^13.0.1",
     "next-auth": "^4.2.1",
     "node-sass": "^7.0.1",
+    "rc-component-react": "github:RocketChat/EmbeddedChat",
     "react": "^18.2.0",
     "react-bootstrap": "^2.1.0",
     "react-cookie": "^4.1.1",
@@ -46,8 +46,11 @@
     }
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.13",
     "eslint": "8.6.0",
-    "eslint-config-next": "^13.0.1"
+    "eslint-config-next": "^13.0.1",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
   },
   "volta": {
     "node": "16.13.0"
