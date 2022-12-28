@@ -1,5 +1,5 @@
 import '/styles/globals.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../components/layout';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { SessionProvider } from 'next-auth/react';
@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <SSRProvider>
       <ApolloProvider client={client}>
         <SessionProvider session={session}>
-          <Layout menu={pageProps} brandInfo={brandInfo}>
+          {/* <Layout menu={pageProps} brandInfo={brandInfo}> */}
             <Component {...pageProps} />
-          </Layout>
+          {/* </Layout> */}
         </SessionProvider>
       </ApolloProvider>
     </SSRProvider>
