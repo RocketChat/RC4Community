@@ -6,16 +6,8 @@ import Nav from "../components/Hero/Nav";
 
 let imgUrl = "bgdevops.gif";
 const gifStyle = {
-  position: "absolute",
-  width: "90%",
-  height: "90%",
-  background: `url(${imgUrl})`,
-  backgroundSize: "cover",
-  backgroundPosition: "left center",
-  backgroundRepeat: "no-repeat",
-  zIndex: 1,
-  opacity: 0.1,
-  mixBlendMode: "screen",
+  backgroundImage: `url(${imgUrl})`,
+  opacity: 0.3,
 };
 export default function Home() {
   return (
@@ -23,15 +15,8 @@ export default function Home() {
       <div className="bg-black">
         <div className="py-6 px-5 sm:px-16 bg-[url('/elipses.png')] bg-no-repeat bg-contain relative">
           <div
+            className="absolute w-[90%] h-[90%] bg-contain sm:bg-cover bg-[center_top_20vh] sm:bg-[left_center] bg-no-repeat z-1 opacity-10 sm:opacity-10 mix-blend-screen"
             style={gifStyle}
-            //     style="position: absolute;
-            // width: 90%;
-            // height:90%;
-            // background: url('https://media.giphy.com/media/DNvcUc3t3ThFTC65M7/giphy.gif') left center no-repeat;
-            // background-size: cover;
-            // z-index: 1;
-            // mix-blend-mode: screen;
-            // opacity: .1;"
           ></div>
           <Nav></Nav>
           <Hero></Hero>
