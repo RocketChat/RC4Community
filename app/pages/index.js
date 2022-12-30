@@ -7,6 +7,7 @@ import Nav from "../components/Hero/Nav";
 let imgUrl = "bgdevops.gif";
 const gifStyle = {
   backgroundImage: `url(${imgUrl})`,
+  opacity: 0.3,
 };
 export default function Home() {
   return (
