@@ -13,7 +13,7 @@ function Filter({ resources, setActiveOption, setFiltered, activeOption }) {
   }, [activeOption]);
 
   return (
-    <div className="text-white flex mb-5">
+    <div className="text-white flex mb-5 md:mt-16">
       <h1 className="text-white text-lg ml-10 sm:ml-16 md:text-2xl md:mx-20">
         Filter:
       </h1>
@@ -54,3 +54,4 @@ function Filter({ resources, setActiveOption, setFiltered, activeOption }) {
 }
 
 export default Filter;
+

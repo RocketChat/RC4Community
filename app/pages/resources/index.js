@@ -1,10 +1,10 @@
-import AllCards from "../../components/filtered-search-bar/AllCards";
-import Filter from "../../components/filtered-search-bar/Filter";
-import { useState } from "react";
+import AllCards from "../components/AllCards";
+import Filter from "../components/Filter";
 
+import { useState, useEffect } from "react";
 
 export default function Home() {
-
+  
   const resources = {
     hits: [
       {
@@ -289,6 +289,7 @@ export default function Home() {
   const [activeOption, setActiveOption] = useState("all");
 
   const [q, setQ] = useState("");
+  const [trigger, setTrigger] = useState(true);
   const [searchParam] = useState(["name"]);
 
   function search(items) {
@@ -306,19 +307,38 @@ export default function Home() {
       <h1 className="text-white text-2xl sm:text-5xl mx-20 font-bold pt-10">
         ALL RESOURCES
       </h1>
-      <div className=" m-auto ">
-        <div className="flex">
-          <h1 className="text-white  mt-5 mr-2 ml-10 sm:ml-16 text-lg  md:mx-20 md:my-10 md:text-2xl">Search:</h1>
+      <div className=" m-auto">
+        <div className="flex md:h-12 md:mb-[1.8rem]">
+          <h1 className="text-white  mt-5 mr-2 ml-10 sm:ml-16 text-lg  md:mx-20 md:my-10 md:text-2xl">
+            Search:
+          </h1>
 
           <input
             type="search"
             name="search-form"
             id="search-form"
-            className="mt-5 mb-5 w-64 mr-40 h-8 md:mt-9 pl-2 md:w-11/12 md:h-10 sm:w-6/12"
+            className="mt-5 ml-[2px] w-64 mr-40 h-8 md:mt-9 pl-2 md:w-11/12 md:h-10 sm:w-6/12"
             placeholder="Search for..."
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e) => {
+              setQ(e.target.value)
+              setTrigger(true)
+            }}
           />
+        </div>
+        <div>
+          <div className="mb-5">
+          {trigger && search(filtered).map((x) => {
+            
+            return q && <div onClick={() => {
+              setQ(x.name);
+              setTrigger(false)
+            }} className=" bg-white w-60 p-1 border border-grey-600 mr-40 min-h-10 ml-28 pr-2 md:ml-[15.25rem] md:pl-2 md:w-2/3 lg:w-[93.8rem] md:h-8">
+              {x.name}</div>;
+          })}
+          </div>
+          
+         
         </div>
 
         <Filter
