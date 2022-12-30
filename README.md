@@ -1,35 +1,21 @@
-<h1 align='center'>Rocket.Chat for Communities </h1>
+<h1 align='center'> DevOpsCommunity x Rocket.Chat  </h1>
 
-![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
-
-![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
-
----
-
-<h2 align='center'>🚀 Features 🚀</h2>
-<ul>
-  <li>every part of the system scalable to handle from one to over a million online community members</li>
-  <li>engage your community at Rocket.Chat, Github, Discourse, Discord - wherever they may be</li>
-  <li>innovative reactJS components enhanced with fullstack behaviors</li>
-  <li>choice of Identity Management - popular SaaS (auth0, firebase) and open source (gluu, keycloak OpenID Connect)</li>
-  <li>full virtual conference handling</li>
-  <li>modern profile and superprofile factoring</li>
-  <li>supports flauna for scaled persistence</li>
-  <li>fine-grained full-stack optimization control - static, server side generation, per-request</li>
-  <li>designed for world-scale computing at the edge from day one</li>
-  <li>JAMStack and beyond, "no compromises" design</li>
-  <li>supports NextJS and Vercel pay-as-you-grow scaled deployments</li>
-  <li>easy assembly of reusable components for flexible adaptive systems</li>
-  <li>ultra-light-weight and re-imagined UX for next generation community builder / developer experience</li>
-</uL>
+<img src="https://github.com/rohitg00/DevOpsCommunity/raw/main/assets/cover.png" />
+DevOps/SRE community is for those folks who are trying to learn or explore DevOps with the help of experienced professionals. Opportunities are open to share. 
 
 ---
 
-<h2 align='center'>🚀 Community Builder quick start 🚀</h2>
-<p align='center'> Customize - Deploy - Manage </p>
+Initially created by [Rohit Ghumare](https://github.com/rohitg00/) on [Twitter](https://twitter.com/ghumare64).
 
-## 💻 Develop your Community from any browser or Chromebook
+---
 
+
+# Open - Source Contribution
+
+* If you want to contribute, This repository is in build. Feel free to do.
+* Help needed for Alignment of Resources, and Readme.md creation with proper contributing guidelines.
+
+## ☁️ Contribute on the Cloud 
 Start developing and make changes to your code via a single click **Anytime-Anywhere**!
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Community)
@@ -41,13 +27,9 @@ Some *Recommendations* while using **Gitpod**:
 - Download the [gitpod browser extension](https://www.gitpod.io/docs/configure/user-settings/browser-extension) to start working on any branch,issue or PR via a single click in under a minute!
 - To enjoy *BLAZINGLY FAST* startup times while developing on your forked branches, consider [enabling prebuilds by installing Gitpod's GitHub App](https://www.gitpod.io/docs/configure/projects/prebuilds/#configuring-prebuilds-manually)
 
----
+## 💻 Contribute Locally
 
-<h2 align='center'>🚀 Developer quick start 🚀</h2>
-<p align='center'> Development - Build - Production </p>
-
-## 💻 Design and Development Time
-
+**No prior setup needed**
 During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
@@ -95,32 +77,20 @@ NEXT_PUBLIC_STRAPI_API_URL=http://localhost:<your strapi port>   npm run prod
 
 Again, note that cms/strapi is not required in production and should not be started.
 
-## 🗄 Deployment time (production deployment)
-
-Production should be deployed as a statically generated website (with associated microservices and/or serverless execution support).
-
-Make sure you have built the bundle (with the cms running):
-
-```
-cd app
-npm i
-NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337  npm run build
-```
-
-Once you have finshed the build, the optimized files are ready in the `out` folder. You will no no longer need the CMS running and can stop strapi. This is key, deployment does not depend on the cms, in fact the same `tgz` can be immediately deployed to 1000s of smart edge nginx PoP as in modern CDNs.
-
-Take a look at `deploy/deploy.sh` to see how to zip up the `out` content into a `site.tgz` file and transfer to your web server (such as nginx in this example) for deployment.
+---
 
 <h3 align='center'>✨ About the repository ✨</h3>
+
+![build and grow massive online communities with rocket.chat](./assets/readme-banner.png)
 
 Since 2015, [Rocket.Chat](https://rocket.chat) has been used globally by groups and organizations to create and build online communities of all shapes and sizes. Today, with millions of end users and hundreds of thousands of deployed servers, Rocket.Chat has uniquely become a networked community of community builders - a community of communities.
 
 With its upcoming decentralized federation refactor, Rocket.Chat stands to become the next level Internet fabric that will loosely unite all on-line communities in a decentralized yet consistent manner.
 
-This project is an extension to Rocket.Chat that aims to satisfy the immediate demands of today's community builders. Those who are intentionally building massive on-line communities (membership into the millions) centered around Rocket.Chat's core functionalities (sharing of information, collaboration, video and audio meet-ups, virtual conferences, and so on).
+This project is an extension to Rocket.Chat tailored for [**DevOpsCommunity**](https://github.com/rohitg00/DevOpsCommunity).
 
 Unlike the team chat heritage of Rocket.Chat, this area is a trending but nascent field where major innovations are yet to be imagined. Participants in both open source and closed source space are diligently working on scalability of their platforms and systems. Rocket.Chat for Communities uniquely features an already proven scalable collaboration engine right from day number one.
 
-If you are involved in some ways in the creation, building, and growth of massive communities online - we invite you to participate in this project; help us steer its direction and ensure its long term success.
+If you are involved in some ways in the creation, building, and growth of massive communities online - we invite you to participate in [this](https://github.com/RocketChat/RC4Community) project and help us steer its direction and ensure its long term success.
 
 
