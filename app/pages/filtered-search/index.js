@@ -1,6 +1,6 @@
 import AllCards from "../../components/filtered-search-bar/AllCards";
 import Filter from "../../components/filtered-search-bar/Filter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 
 export default function Home() {
@@ -318,9 +318,9 @@ export default function Home() {
             placeholder="Search for..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            />
+          />
         </div>
-        
+
         <Filter
           resources={resources.hits}
           setFiltered={setFiltered}
