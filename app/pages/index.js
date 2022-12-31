@@ -1,6 +1,8 @@
 
 import Hero from "../components/Hero/Hero";
 import Nav from "../components/Hero/Nav";
+import Timeline from "../components/Timeline";
+
 
 
 
@@ -22,7 +24,7 @@ export default function Home() {
           <Hero></Hero>
         </div>
       </div>
-      {/* <Tweettimeline /> */}
+    <Timeline/>
     </>
   );
 }
