@@ -52,7 +52,7 @@ During development, our data provider is a headless CMS, strapi.
 
 Note that it is used only during development and build time, not during production.
 
-> **_NOTE:_**  You can follow the below instructions to setup your developer environment in your `local machine` or use the `gitpod` method to code on the cloud ⚡️ as suggested above as well!
+> ***NOTE:***  You can follow the below instructions to setup your developer environment in your `local machine` or use the `gitpod` method to code on the cloud ⚡️ as suggested above as well!
 
 Pre-requisites:
 
@@ -62,16 +62,33 @@ Nodejs versioning is managed by [volta](https://docs.volta.sh/guide/). You can i
 *docker*
 Your system should have docker available for superprofile we use a dockerized local flauna instance.
 
-```
+```sh
 git clone https://github.com/rocketchat/RC4Community
 cd RC4Community
 sh startdevenv.sh localhost
 ```
-> Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
 
-The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. 
+> ***NOTE:*** Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+
+> ***NOTE:*** Please refer to [this reference](app/components/auth/rc-auth-google/Readme.md) for setting up **Rocket Chat + Google Auth** with RC4Community!
+
+The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms.
 
 Using strapi directly - you can now have designers and devs modify the portal content directly and independently from the dev and devOps folks working on the app.  While developers can now enjoy the hot refresh and rapid iterations of the nextjs dev environment.
+
+## Embedded Chat Component
+
+RC4Community integrates the [RC Embedded Chat Component](https://github.com/RocketChat/EmbeddedChat) to enable smooth and real-time communication within your platform!
+
+For trying out the Embedded Chat in **RC4Community**, please setup the Embedded Chat by following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) from the steps mentioned in there note down the Google Cloud Client ID and the Rocket Chat instance url. Now after getting the Google Cloud Client ID and the Rocket Chat instance url paste them in the **`app/.env`** with the following key name,
+
+```dosini
+NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
+NEXT_PUBLIC_RC_URL="your url of the RC instance"
+NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
+```
+
+**The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL".**
 
 ## 🛠 Application build time
 
@@ -79,7 +96,7 @@ This app is deployable on all nextjs compatible CDN + microservices and scaled d
 
 To build for deployment, first make sure cms (strapi) is up and running, then:
 
-```
+```sh
 cd app
 NEXT_PUBLIC_STRAPI_API_URL=http://localhost:<your strapi port>   npm run build
 ```
@@ -88,7 +105,7 @@ Upon successful build, the cms (strapi) is no longer needed for deployemnt. For 
 
 For a workable but simple minded, non-scalable, never to be used in production deployment:
 
-```
+```sh
 cd app
 NEXT_PUBLIC_STRAPI_API_URL=http://localhost:<your strapi port>   npm run prod
 ```
@@ -101,7 +118,7 @@ Production should be deployed as a statically generated website (with associated
 
 Make sure you have built the bundle (with the cms running):
 
-```
+```sh
 cd app
 npm i
 NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337  npm run build
@@ -122,5 +139,3 @@ This project is an extension to Rocket.Chat that aims to satisfy the immediate d
 Unlike the team chat heritage of Rocket.Chat, this area is a trending but nascent field where major innovations are yet to be imagined. Participants in both open source and closed source space are diligently working on scalability of their platforms and systems. Rocket.Chat for Communities uniquely features an already proven scalable collaboration engine right from day number one.
 
 If you are involved in some ways in the creation, building, and growth of massive communities online - we invite you to participate in this project; help us steer its direction and ensure its long term success.
-
-
