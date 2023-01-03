@@ -36,3 +36,18 @@
 .carousel-item-title {
   font-size: 22.5px;
 }
+
+.imgItm{
+  width: 100%;
+  height: 100%;
+}
+
+.content{
+  height: 120px !important;
+}
+
+@media only screen and (max-width: 300px) {
+  .content{
+    height: 80px !important;
+  }
+}
