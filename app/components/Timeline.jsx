@@ -35,7 +35,7 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--left"
         contentStyle={{
-          border: "1px dotted  rgb(255, 255, 255)",
+          border: "5px dotted  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
@@ -60,7 +60,7 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--right"
         contentStyle={{
-          border: "1px groove rgb(255, 255, 255)",
+          border: "5px dotted rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
@@ -84,7 +84,7 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--left"
         contentStyle={{
-          border: "1px dotted  rgb(255, 255, 255)",
+          border: "5px dotted  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
@@ -108,7 +108,7 @@ export default function Timeline() {
       return( <VerticalTimelineElement
         className="vertical-timeline-element--right"
         contentStyle={{
-          border: "1px dotted  rgb(255, 255, 255)",
+          border: "5px dotted  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
@@ -135,7 +135,7 @@ export default function Timeline() {
       return(<VerticalTimelineElement
                   className="vertical-timeline-element--left"
                   contentStyle={{
-                    border: "1px dotted  rgb(255, 255, 255)",
+                    border: "5px dotted  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
@@ -159,7 +159,7 @@ export default function Timeline() {
           return( <VerticalTimelineElement
                   className="vertical-timeline-element--right"
                   contentStyle={{
-                    border: "1px groove rgb(255, 255, 255)",
+                    border: "5px dotted rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
@@ -185,7 +185,7 @@ export default function Timeline() {
                 <VerticalTimelineElement
                   className="vertical-timeline-element--left"
                   contentStyle={{
-                    border: "1px dotted  rgb(255, 255, 255)",
+                    border: "5px dotted  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
@@ -210,7 +210,7 @@ export default function Timeline() {
           return(<VerticalTimelineElement
                   className="vertical-timeline-element--work"
                   contentStyle={{
-                    border: "1px dotted  rgb(255, 255, 255)",
+                    border: "5px dotted  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
