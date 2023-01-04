@@ -6,6 +6,7 @@ import { useRCAuth4Google } from '../auth/rc-auth-google/hooks/useRCAuth4Google'
 import RCAuthGoogleLoginButton from '../auth/rc-auth-google/ui/RCAuth4Google';
 import NFTProfilePicture from './nftProfilePicture';
 import RocketChatLinkButton from '../rocketchatlinkbutton';
+import Link from 'next/link'
 
 const ArrowIcon = () => {
   return (
@@ -195,14 +196,19 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
 
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
-      <BrandLogo
-        brandLink={brandInfo.brandLink}
-        brandLogoSrc={brandInfo.brandLogoSrc}
-        imageTitle={brandInfo.imageTitle}
-        brandName={brandInfo.brandName}
-        height={32}
-        width={132}
-      />
+      <Navbar.Brand
+        href='/'
+        as={Link}
+      >
+        <BrandLogo
+          brandLink={brandInfo.brandLink}
+          brandLogoSrc={brandInfo.brandLogoSrc}
+          imageTitle={brandInfo.imageTitle}
+          brandName={brandInfo.brandName}
+          height={32}
+          width={132}
+        />
+      </Navbar.Brand>
       <Nav className='w-full ' ref={clickRef}>
         {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.data?.length > 1 ? (
@@ -292,7 +298,7 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
           </RocketChatLinkButton>
         )}
       </div>
-      
+
       <div>
         {nft ? <NFTProfilePicture id='img1' /> :
           <RCAuthGoogleLoginButton
