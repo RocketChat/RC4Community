@@ -1,0 +1,1 @@
+git config -f .gitconfig core.hooksPath .githooks

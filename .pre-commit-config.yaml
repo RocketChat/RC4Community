@@ -1,0 +1,11 @@
+repos:
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.17.0
+    hooks:
+      - id: gitlint
+        args: [--ignore, body-is-missing, --contrib=CT1, --msg-filename]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.5.1
+    hooks:
+      - id: prettier
+        stages: [commit]
