@@ -9,7 +9,7 @@ function Filter({ resources, setActiveOption, setFiltered, activeOption }) {
     }
     const filtered = resources.filter((card) => card.genre === activeOption);
     setFiltered(filtered);
-    console.log(filtered);
+    // console.log(filtered);
   }, [activeOption]);
 
   return (
@@ -37,7 +37,7 @@ function Filter({ resources, setActiveOption, setFiltered, activeOption }) {
           Twitter
         </button>
         <button
-          onClick={() => setActiveOption("project")}
+          onClick={() => setActiveOption("projects")}
           className="bg-red px-8 border-4 ml-5 mb-2 sm:ml-10"
         >
           Projects
