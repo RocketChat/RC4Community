@@ -110,9 +110,14 @@ export default function Home() {
 
   function search(items) {
     return items?.filter((item) => {
-      return searchParam.some((newItem) => {
-        return item[newItem]?.toString().toLowerCase().indexOf(q.toLowerCase()) > -1;
-      });
+      if(item.id>7){
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem]?.toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+          );
+        });
+      }
+      
     });
   }
   if (resource) {
