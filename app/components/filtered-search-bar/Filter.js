@@ -13,38 +13,38 @@ function Filter({ resources, setActiveOption, setFiltered, activeOption }) {
   }, [activeOption]);
 
   return (
-    <div className="text-white flex mb-5 md:mt-16">
-      <h1 className="text-white text-lg ml-10 sm:ml-16 md:text-2xl md:mx-20">
+    <div className="text-white flex mb-5 md:mt-16 align-center">
+      <h1 className="text-white text-lg ml-2 md:text-3xl md:mt-3 font-bold ">
         Filter:
       </h1>
-      <div>
+      <div className="flex flex-wrap flex-col sm:flex-row	">
         <button
           onClick={() => setActiveOption("all")}
-          className="bg-red px-8 border-4 ml-5 mb-2 md:ml-10"
+          className="bg-red px-8 md:px-14 md:py-3 border-2 ml-5 mb-2 lg:ml-10 "
         >
           All
         </button>
         <button
           onClick={() => setActiveOption("github")}
-          className="bg-red px-8 border-4 ml-5 mb-2 sm:ml-10"
+          className="bg-red px-8 md:px-14 md:py-3 border-2 ml-5 mb-2 sm:ml-10"
         >
           Github repo
         </button>
         <button
           onClick={() => setActiveOption("twitter")}
-          className="bg-red px-8 border-4 ml-5 mb-2 sm:ml-10"
+          className="bg-red px-8 md:px-14 md:py-3 border-2 ml-5 mb-2 sm:ml-10"
         >
           Twitter
         </button>
         <button
           onClick={() => setActiveOption("projects")}
-          className="bg-red px-8 border-4 ml-5 mb-2 sm:ml-10"
+          className="bg-red px-8 md:px-14 md:py-3 border-2 ml-5 mb-2 sm:ml-10"
         >
           Projects
         </button>
         <button
           onClick={() => setActiveOption("resources")}
-          className="bg-red px-8 border-4 ml-5 mb-2 sm:ml-10"
+          className="bg-red px-8 md:px-14 md:py-3 border-2 ml-5 mb-2 sm:ml-10"
         >
           Resources
         </button>
