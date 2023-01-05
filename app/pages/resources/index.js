@@ -126,7 +126,7 @@ export default function Home() {
   if (resource) {
     return (
       <div className="bg-[#070707] min-h-screen">
-        <Nav/>
+        <Nav />
         <h1 className="flex text-white text-2xl justify-center sm:text-5xl font-bold pt-10">
           ALL RESOURCES
         </h1>
@@ -145,7 +145,7 @@ export default function Home() {
               }}
             />
           </div>
-          <div>
+          <div className="sm:mt-9 flex flex-col ml-[3.8rem] sm:ml-[29.8rem]">
             <div className="mb-5">
               {trigger &&
                 search(filtered)?.map((x) => {
@@ -156,7 +156,7 @@ export default function Home() {
                           setQ(x.name);
                           setTrigger(false);
                         }}
-                        className=" bg-white w-60 p-1 border border-grey-600 mr-40 min-h-10 ml-28 pr-2 md:ml-[15.25rem] md:pl-2 md:w-2/3 lg:w-[93.8rem] md:h-8"
+                        className=" bg-white w-[16rem] p-1 border border-grey-600 mr-40 min-h-10  sm:w-[59.6rem] md:h-8"
                       >
                         {x.name}
                       </div>
