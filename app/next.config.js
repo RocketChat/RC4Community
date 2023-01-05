@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   reactStrictMode: true,
@@ -7,15 +7,22 @@ module.exports = {
   },
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com', 'user-images.githubusercontent.com']
+    domains: [
+      'global-uploads.webflow.com',
+      'avatars.githubusercontent.com',
+      'open.rocket.chat',
+      'media-exp1.licdn.com',
+      'localhost',
+      'user-images.githubusercontent.com',
+    ],
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       config.resolve.fallback = {
-        fs: false
-      }
+        fs: false,
+      };
     }
-    return config
-  }
-}
+    return config;
+  },
+};
