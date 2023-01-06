@@ -1,11 +1,11 @@
 
 import React from 'react';
 
-const resources = () => {
+const notresources = () => {
     return (
       <> <div className='text-sky-600'>Resources</div></>
    
   )
 }
 
-export default resources
+export default notresources

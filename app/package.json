@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@jitsi/react-sdk": "^1.0.0",
+    "@mui/material": "^5.11.3",
+    "@mui/styled-engine-sc": "^5.11.0",
     "@rocket.chat/icons": "^0.31.3",
     "@rocket.chat/sdk": "^1.0.0-alpha.42",
     "axios": "^0.26.1",
@@ -40,6 +44,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "react-virtuoso": "^1.2.4",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.6",
     "swr": "^1.2.2",
     "url-join": "^5.0.0"
   },

@@ -10,3 +10,26 @@
     border: 10px white;
   }
   
+  .button{
+    color: white;
+    border:5px groove white;
+    margin-left:33%;
+    width:30%;
+    justify-content: center;
+  }
+
+    
+  .button1{
+  text-align: center;
+  font-size: large;
+    color: white;
+    border:5px groove white;
+    width:30%;
+    margin-left: 35%;
+    align-self: center;
+    justify-content: center;
+  }
+ 
+  .height{
+    max-width: 100%;
+  }
