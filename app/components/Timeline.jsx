@@ -5,6 +5,9 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import styles from "../styles/Timeline.module.css";
+import { useRouter } from "next/router.js";
+import Link from "next/link";
+
 
 import {
   TwitterTimelineEmbed,
@@ -20,13 +23,16 @@ import {
 } from "react-twitter-embed";
 
 export default function Timeline() {
+  const router = useRouter();
+
   const [tweets, setTweets] = useState([]);
   const size = useWindowSize();
 
   useEffect(() => {
-    setTweets(["1599777601777979394", "1608460785826791425","1609366996944293889", "1604857867609075712","1602542190684536832", "1599824127019614208","1593189634846363648", "1597944893934301186"]);
+    setTweets(["1609858655389876225", "1608799196081160195","1606092417710465024", "1605768766918467584","1602540813338423296", "1598537486283984897","1599454084381442049", "1602253569335255045"]);
     // console.log(size.width);
   });
+
 
   function render(tweet){
     console.log(tweets.indexOf(tweet));
@@ -35,21 +41,23 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--left"
         contentStyle={{
-          border: "5px dotted  rgb(255, 255, 255)",
+          border: "5px groove  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
         contentArrowStyle={{
           borderRight: "20px solid  rgb(255, 255, 255)",
-          marginTop: "20%",
+          marginTop: "25%",
+          marginLeft:"1.5%",
+
         }}
         iconStyle={{
           maxHeight: "30px",
           maxWidth: "30px",
-          marginLeft: "-1%",
+          marginLeft: "-1.25%",
           background: "rgb(255,20,147)",
           color: "#fff",
-          marginTop: "10%",
+          marginTop: "12.5%",
         }}
       >
                           <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
@@ -60,21 +68,23 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--right"
         contentStyle={{
-          border: "5px dotted rgb(255, 255, 255)",
+          border: "5px groove rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
         contentArrowStyle={{
           borderRight: "20px solid  rgb(255, 255, 255)",
-          marginTop: "20%",
+          marginTop: "40%",
+          marginRight:"1.5%",
+
         }}
         iconStyle={{
           maxHeight: "30px",
           maxWidth: "30px",
-          marginLeft: "-1%",
+          marginLeft: "-1.25%",
           background: "rgb(138,43,226)",
           color: "#fff",
-          marginTop: "10%",
+          marginTop: "19%",
         }}
       >
                           <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
@@ -84,21 +94,23 @@ export default function Timeline() {
       return(<VerticalTimelineElement
         className="vertical-timeline-element--left"
         contentStyle={{
-          border: "5px dotted  rgb(255, 255, 255)",
+          border: "5px groove  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
         contentArrowStyle={{
           borderRight: "20px solid  rgb(255, 255, 255)",
-          marginTop: "20%",
+          marginTop: "35%",
+          marginLeft:"1.5%",
+
         }}
         iconStyle={{
           maxHeight: "30px",
           maxWidth: "30px",
-          marginLeft: "-1%",
+          marginLeft: "-1.25%",
           background: "	rgb(255,69,0)",
           color: "#fff",
-          marginTop: "10%",
+          marginTop: "17%",
         }}
       >
                           <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
@@ -108,21 +120,22 @@ export default function Timeline() {
       return( <VerticalTimelineElement
         className="vertical-timeline-element--right"
         contentStyle={{
-          border: "5px dotted  rgb(255, 255, 255)",
+          border: "5px groove  rgb(255, 255, 255)",
           background: "rgb(7, 7, 7)",
           color: "#fff",
         }}
         contentArrowStyle={{
           borderRight: "20px solid  rgb(255, 255, 255)",
-          marginTop: "20%",
+          marginTop: "44%",
+          marginRight:"1.5%",
         }}
         iconStyle={{
           maxHeight: "30px",
           maxWidth: "30px",
-          marginLeft: "-1%",
+          marginLeft: "-1.25%",
           background: "rgb(147,112,219)",
           color: "#fff",
-          marginTop: "10%",
+          marginTop: "21%",
         }}
       >
                           <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
@@ -135,45 +148,50 @@ export default function Timeline() {
       return(<VerticalTimelineElement
                   className="vertical-timeline-element--left"
                   contentStyle={{
-                    border: "5px dotted  rgb(255, 255, 255)",
+                    
+                    marginTop:"30px",
+                    border: "5px groove  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
                   contentArrowStyle={{
                     borderRight: "20px solid  rgb(255, 255, 255)",
                     marginTop: "20%",
+                    marginRight:"1%",
                   }}
                   iconStyle={{
                     maxHeight: "30px",
                     maxWidth: "30px",
-                    marginLeft: "0.5%",
+                    marginLeft: "0.7%",
                     background: "rgb(255,20,147)",
                     color: "#fff",
                     marginTop: "20%",
                   }}
                 >
-                          <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
+                          <TwitterTweetEmbed  tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
                 </VerticalTimelineElement>);
 }
     if(tweets.indexOf(tweet)%4===1){
           return( <VerticalTimelineElement
                   className="vertical-timeline-element--right"
                   contentStyle={{
-                    border: "5px dotted rgb(255, 255, 255)",
+                    marginTop:"30px",
+                    border: "5px groove rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
                   contentArrowStyle={{
                     borderRight: "20px solid  rgb(255, 255, 255)",
-                    marginTop: "20%",
+                    marginTop: "33%",
+                    marginRight:"1%",
                   }}
                   iconStyle={{
                     maxHeight: "30px",
                     maxWidth: "30px",
-                    marginLeft: "0.5%",
+                    marginLeft: "0.7%",
                     background: "rgb(138,43,226)",
                     color: "#fff",
-                    marginTop: "20%",
+                    marginTop: "32%",
                   }}
                 >
                           <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
@@ -185,18 +203,20 @@ export default function Timeline() {
                 <VerticalTimelineElement
                   className="vertical-timeline-element--left"
                   contentStyle={{
-                    border: "5px dotted  rgb(255, 255, 255)",
+                    marginTop:"30px",
+                    border: "5px groove  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
                   contentArrowStyle={{
                     borderRight: "20px solid  rgb(255, 255, 255)",
                     marginTop: "20%",
+                    marginRight:"1%",
                   }}
                   iconStyle={{
                     maxHeight: "30px",
                     maxWidth: "30px",
-                    marginLeft: "0.5%",
+                    marginLeft: "0.7%",
                     background: "	rgb(255,69,0)",
                     color: "#fff",
                     marginTop: "20%",
@@ -210,24 +230,27 @@ export default function Timeline() {
           return(<VerticalTimelineElement
                   className="vertical-timeline-element--work"
                   contentStyle={{
-                    border: "5px dotted  rgb(255, 255, 255)",
+                    maxWidth:"100%",
+                    marginTop:"30px",
+                    border: "5px groove  rgb(255, 255, 255)",
                     background: "rgb(7, 7, 7)",
                     color: "#fff",
                   }}
                   contentArrowStyle={{
                     borderRight: "20px solid  rgb(255, 255, 255)",
-                    marginTop: "20%",
+                    marginTop: "40%",
+                    marginRight:"1%",
                   }}
                   iconStyle={{
                     maxHeight: "30px",
                     maxWidth: "30px",
-                    marginLeft: "0.5%",
+                    marginLeft: "0.7%",
                     background: "rgb(147,112,219)",
                     color: "#fff",
-                    marginTop: "20%",
+                    marginTop: "38%",
                   }}
                 >
-                          <TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/>
+                         <div className={styles.height}><TwitterTweetEmbed tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/></div> 
                 </VerticalTimelineElement>);
 
 }
@@ -235,7 +258,7 @@ export default function Timeline() {
   }
  
 
-  if (size.width > 1023) {
+  if (size.width > 1169) {
   
 
     return (
@@ -257,11 +280,13 @@ export default function Timeline() {
               maxHeight: "30px",
               maxWidth: "30px",
               background: "rgb(16, 204, 82)",
-              marginLeft: "-1%",
+              marginLeft: "-1.25%",
               color: "#fff",
             }}
-          />
+          >
+          </VerticalTimelineElement>
         </VerticalTimeline>
+        <button className={styles.button1} onClick={()=>{router.push("/resources")} } >See All</button>
       </div>
     );
   } else {
@@ -279,15 +304,29 @@ export default function Timeline() {
           })}
 
           <VerticalTimelineElement
+           contentStyle={{
+            marginTop:"30px",
+            border: "5px groove  rgb(255, 255, 255)",
+            background: "rgb(7, 7, 7)",
+            color: "#fff",
+          }}
+          contentArrowStyle={{
+            borderRight: "20px solid  rgb(255, 255, 255)",
+            marginTop: "1%",
+            marginRight:"1%",
+          }}
             iconStyle={{
               maxHeight: "30px",
               maxWidth: "30px",
               background: "rgb(16, 204, 82)",
               marginLeft: "0.5%",
+              marginTop:"2.75%",
               color: "#fff",
             }}
-          />
+          >     <button className={styles.button} onClick={()=>{router.push("/resources")} } >See All</button>
+          </VerticalTimelineElement>
         </VerticalTimeline>
+
       </div>
     );
   }
