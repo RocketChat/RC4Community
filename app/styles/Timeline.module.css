@@ -7,6 +7,9 @@
     background-image: url("/elipses.png");
     background-repeat:repeat;
     background-size:cover; 
+    padding-right: 3%;
+
+    
     /* change it to inherit or contain to see different backgrounds */
   }
   
