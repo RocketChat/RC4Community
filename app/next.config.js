@@ -9,6 +9,7 @@ module.exports = {
     dangerouslyAllowSVG: true,
     domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com', 'user-images.githubusercontent.com']
   },
+  output: 'standalone',
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
