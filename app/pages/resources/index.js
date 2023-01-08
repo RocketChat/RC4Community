@@ -125,8 +125,8 @@ export default function Home() {
   }
   if (resource) {
     return (
-      <div className="bg-[#070707] min-h-screen">
-        <Nav />
+      <div className="bg-black  min-h-screen py-6 px-5 sm:px-16 bg-[url('/elipses.png')]  bg-repeat bg-contain">
+      <Nav/>
         <h1 className="flex text-white text-2xl justify-center sm:text-5xl font-bold pt-10">
           ALL RESOURCES
         </h1>
@@ -145,6 +145,7 @@ export default function Home() {
               }}
             />
           </div>
+          {/* <div className="flex flex-col justify-center"> */}
             <div className="flex flex-col items-center">
               {trigger &&
                 search(filtered)?.map((x) => {
@@ -162,6 +163,7 @@ export default function Home() {
                     )
                   );
                 })}
+            {/* </div> */}
           </div>
           <div className="flex justify-center mt-10">
             <Filter
@@ -180,3 +182,4 @@ export default function Home() {
     );
   }
 }
+
