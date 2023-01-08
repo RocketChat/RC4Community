@@ -36,7 +36,7 @@ export default function Timeline() {
       '1602253569335255045',
     ]);
     // console.log(size.width);
-  });
+  },[]);
 
   function render(tweet) {
     console.log(tweets.indexOf(tweet));
