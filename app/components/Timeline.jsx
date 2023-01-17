@@ -19,6 +19,7 @@ import {
 } from 'react-twitter-embed';
 import Tweet from './Tweet/EmbeddedTweet';
 
+
 export default function Timeline({ tweets }) {
   const router = useRouter();
 
@@ -50,16 +51,6 @@ export default function Timeline({ tweets }) {
             marginTop: '12.5%',
           }}
         >
-          {/* <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
-          /> */}
           <Tweet
             key={tweet.id}
             {...tweet}
