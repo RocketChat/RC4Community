@@ -7,7 +7,7 @@ module.exports = {
   },
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com', 'user-images.githubusercontent.com']
+    domains: ['global-uploads.webflow.com', 'avatars.githubusercontent.com', 'open.rocket.chat', 'media-exp1.licdn.com', 'user-images.githubusercontent.com', 'pbs.twimg.com']
   },
   output: 'standalone',
   webpack: (config, { isServer }) => {

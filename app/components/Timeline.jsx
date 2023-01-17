@@ -17,26 +17,13 @@ import {
   TwitterVideoEmbed,
   TwitterOnAirButton,
 } from 'react-twitter-embed';
+import Tweet from './Tweet/EmbeddedTweet';
 
-export default function Timeline() {
+
+export default function Timeline({ tweets }) {
   const router = useRouter();
 
-  const [tweets, setTweets] = useState([]);
   const size = useWindowSize();
-
-  useEffect(() => {
-    setTweets([
-      '1609858655389876225',
-      '1608799196081160195',
-      '1606092417710465024',
-      '1605768766918467584',
-      '1602540813338423296',
-      '1598537486283984897',
-      '1599454084381442049',
-      '1602253569335255045',
-    ]);
-    // console.log(size.width);
-  },[]);
 
   function render(tweet) {
     console.log(tweets.indexOf(tweet));
@@ -64,15 +51,9 @@ export default function Timeline() {
             marginTop: '12.5%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -100,15 +81,9 @@ export default function Timeline() {
             marginTop: '19%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -136,15 +111,9 @@ export default function Timeline() {
             marginTop: '17%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -172,15 +141,9 @@ export default function Timeline() {
             marginTop: '21%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -213,15 +176,10 @@ export default function Timeline() {
             marginTop: '21%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          {/* <TwitterTweetEmbed  tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/> */}
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -251,15 +209,9 @@ export default function Timeline() {
             marginTop: '32.5%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -289,15 +241,9 @@ export default function Timeline() {
             marginTop: '21%',
           }}
         >
-          <TwitterTweetEmbed
-            tweetId={tweet}
-            placeholder={
-              <div
-                style={{ backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10 }}
-              >
-                <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-              </div>
-            }
+          <Tweet
+            key={tweet.id}
+            {...tweet}
           />
         </VerticalTimelineElement>
       );
@@ -329,20 +275,9 @@ export default function Timeline() {
           }}
         >
           <div className={styles.height}>
-            <TwitterTweetEmbed
-              tweetId={tweet}
-              placeholder={
-                <div
-                  style={{
-                    backgroundColor: 'rgb(7, 7, 7)',
-                    color: 'white',
-                    margin: 10,
-                    padding: 10,
-                  }}
-                >
-                  <img src='https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g' />
-                </div>
-              }
+            <Tweet
+              key={tweet.id}
+              {...tweet}
             />
           </div>
         </VerticalTimelineElement>
@@ -421,6 +356,7 @@ export default function Timeline() {
     );
   }
 }
+
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -442,4 +378,19 @@ function useWindowSize() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return windowSize;
+}
+
+export async function getStaticProps() {
+  const tweets = await getTweets([
+    '1609858655389876225',
+    '1608799196081160195',
+    '1606092417710465024',
+    '1605768766918467584',
+    '1602540813338423296',
+    '1598537486283984897',
+    '1599454084381442049',
+    '1602253569335255045',
+  ]);
+
+  return { props: { tweets } };
 }
