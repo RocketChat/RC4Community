@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -5,18 +6,7 @@ import styles from '../styles/Timeline.module.css';
 import { useRouter } from 'next/router.js';
 import Link from 'next/link';
 
-import {
-  TwitterTimelineEmbed,
-  TwitterShareButton,
-  TwitterFollowButton,
-  TwitterHashtagButton,
-  TwitterMentionButton,
-  TwitterTweetEmbed,
-  TwitterMomentShare,
-  TwitterDMButton,
-  TwitterVideoEmbed,
-  TwitterOnAirButton,
-} from 'react-twitter-embed';
+
 import Tweet from './Tweet/EmbeddedTweet';
 
 
@@ -26,8 +16,6 @@ export default function Timeline({ tweets }) {
   const size = useWindowSize();
 
   function render(tweet) {
-    console.log(tweets.indexOf(tweet));
-
     if (tweets.indexOf(tweet) % 4 === 0) {
       return (
         <VerticalTimelineElement
@@ -176,7 +164,6 @@ export default function Timeline({ tweets }) {
             marginTop: '21%',
           }}
         >
-          {/* <TwitterTweetEmbed  tweetId={tweet} placeholder={<div style={{backgroundColor: 'rgb(7, 7, 7)', color: 'white', margin: 10, padding: 10}}><img src="https://media2.giphy.com/media/hWZBZjMMuMl7sWe0x8/giphy.gif?cid=ecf05e47l74dn8a8iz6s2atj1vs9k933ulhi09kyijk8fk8o&rid=giphy.gif&ct=g" /></div>}/> */}
           <Tweet
             key={tweet.id}
             {...tweet}
@@ -380,17 +367,3 @@ function useWindowSize() {
   return windowSize;
 }
 
-export async function getStaticProps() {
-  const tweets = await getTweets([
-    '1609858655389876225',
-    '1608799196081160195',
-    '1606092417710465024',
-    '1605768766918467584',
-    '1602540813338423296',
-    '1598537486283984897',
-    '1599454084381442049',
-    '1602253569335255045',
-  ]);
-
-  return { props: { tweets } };
-}

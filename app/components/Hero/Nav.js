@@ -8,7 +8,7 @@ const Nav = () => {
         <div className="flex items-center">
           <Link href="/" passHref legacyBehavior>
             <a className="self-center whitespace-nowrap hover:underline text-xl font-normal text-white font-roboto z-20">
-              Dev-Ops
+              DevOps
             </a>
           </Link>
         </div>

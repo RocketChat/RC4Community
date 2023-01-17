@@ -12,7 +12,6 @@ export const getTweets = async (ids) => {
       'duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics'
   });
 
-  console.log(queryParams)
   const response = await fetch(
     `https://api.twitter.com/2/tweets?${queryParams}`,
     {
@@ -22,8 +21,12 @@ export const getTweets = async (ids) => {
     }
   );
 
+  if (!response.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
   const tweets = await response.json();
-  console.log(tweets)
 
   const getAuthorInfo = (author_id) => {
     return tweets.includes.users.find((user) => user.id === author_id);
