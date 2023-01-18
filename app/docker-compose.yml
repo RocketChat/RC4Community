@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   devopscomm-rc4-frontend:
     image: palanikannanm1437/devopscomm-rc4-image
