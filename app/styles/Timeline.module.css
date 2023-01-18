@@ -1,42 +1,40 @@
 .timelineimg {
-    left: 50%;
-  }
-  
-  .bg {
-    background-color: rgb(0 0 0);
-    background-image: url("/elipses.png");
-    background-repeat:repeat;
-    background-size:cover; 
-    padding-right: 3%;
+  left: 50%;
+}
 
-    
-    /* change it to inherit or contain to see different backgrounds */
-  }
-  
-  .border {
-    border: 10px white;
-  }
-  
-  .button{
-    color: white;
-    border:5px groove white;
-    margin-left:33%;
-    width:30%;
-    justify-content: center;
-  }
+.bg {
+  background-color: rgb(0 0 0);
+  background-image: url('/elipses.png');
+  background-repeat: repeat;
+  background-size: cover;
+  padding-right: 3%;
 
-    
-  .button1{
+  /* change it to inherit or contain to see different backgrounds */
+}
+
+.border {
+  border: 10px white;
+}
+
+.button {
+  color: white;
+  margin-left: 33%;
+  font-size: large;
+  width: 30%;
+  justify-content: center;
+}
+
+.button1 {
   text-align: center;
   font-size: large;
-    color: white;
-    border:5px groove white;
-    width:30%;
-    margin-left: 35%;
-    align-self: center;
-    justify-content: center;
-  }
- 
-  .height{
-    max-width: 100%;
-  }
+  color: white;
+  border: 2px solid white;
+  width: 30%;
+  margin-left: 35%;
+  align-self: center;
+  justify-content: center;
+}
+
+.height {
+  max-width: 100%;
+}

@@ -22,7 +22,6 @@ const Hero = () => {
         explore DevOps with the help of experienced professionals.
         Opportunities are open to share.
       </p>
-      <div></div>
     </div>
     <div className="mt-10 sm:mt-0 sm:max-w-[40vw]  sm:align-baseline">
       <Box1 img1Url={img1Url} box1Text={box1Text} />

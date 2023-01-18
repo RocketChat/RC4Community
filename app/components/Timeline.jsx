@@ -1,14 +1,12 @@
-"use client"
+'use client';
 import React, { useEffect, useState } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import styles from '../styles/Timeline.module.css';
-import { useRouter } from 'next/router.js';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-
 import Tweet from './Tweet/EmbeddedTweet';
-
 
 export default function Timeline({ tweets }) {
   const router = useRouter();
@@ -289,14 +287,9 @@ export default function Timeline({ tweets }) {
             }}
           ></VerticalTimelineElement>
         </VerticalTimeline>
-        <button
-          className={styles.button1}
-          onClick={() => {
-            router.push('/resources');
-          }}
-        >
-          See All
-        </button>
+        <Link href={'/resources'}>
+          <div className={styles.button1}>See All</div>
+        </Link>
       </div>
     );
   } else {
@@ -328,15 +321,9 @@ export default function Timeline({ tweets }) {
               color: '#fff',
             }}
           >
-            {' '}
-            <button
-              className={styles.button}
-              onClick={() => {
-                router.push('/resources');
-              }}
-            >
-              See All
-            </button>
+            <Link href={'/resources'}>
+              <div className={styles.button}>See All</div>
+            </Link>
           </VerticalTimelineElement>
         </VerticalTimeline>
       </div>
@@ -366,4 +353,3 @@ function useWindowSize() {
   }, []);
   return windowSize;
 }
-
