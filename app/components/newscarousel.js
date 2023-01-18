@@ -58,6 +58,7 @@ const Item = (props) => {
           height={140}
           src={props.item.attributes.imageUrl}
           alt={props.item.attributes.name}
+          className={styles.imgItm}
         />
         <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
           <h2 className={`${styles.heading}`}>{props.item.attributes.name}</h2>
@@ -98,6 +99,13 @@ function Newscarousel(props) {
               initialSlide: 2,
             },
           },
+          {
+            breakpoint: 300,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            },
+          }
         ]}
         prevArrow={<PrevArrow />}
         nextArrow={<NextArrow />}
