@@ -1,7 +1,6 @@
 import Hero from "../components/Hero/Hero";
 import Nav from "../components/Hero/Nav";
 import { getTweets } from '../lib/twitterAPI.js';
-
 import Timeline from "../components/Timeline";
 
 let imgUrl = "bgdevops.gif";

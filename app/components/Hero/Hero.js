@@ -8,7 +8,7 @@ const Hero = () => {
   const box1Text = "Roadmap";
   const box2Text = "Resources";
   return (
-    <div className="relative flex min-h-screen flex-col items-center z-20 sm:items-start sm:flex-row sm:justify-around mt-[12vh] ">
+    <div className="relative flex min-h-[80vh] flex-col items-center z-20 sm:items-start sm:flex-row sm:justify-around mt-[12vh] ">
     <div className="sm:text-start text-center sm:mr-20 sm:max-w-[40vw] mt-[7vh] sm:mt-[10vh] ">
       <h1 className="mb-4 text-5xl sm:text-3xl  text-white  dark:text-white  md:text-6xl xl:text-7xl 2xl:text-8xl font-lato font-[900]">
         DevOps

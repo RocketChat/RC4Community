@@ -3,14 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import styles from '../styles/Timeline.module.css';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import Tweet from './Tweet/EmbeddedTweet';
 
 export default function Timeline({ tweets }) {
-  const router = useRouter();
-
   const size = useWindowSize();
 
   function render(tweet) {
@@ -19,7 +16,7 @@ export default function Timeline({ tweets }) {
         <VerticalTimelineElement
           className='vertical-timeline-element--left'
           contentStyle={{
-            border: '5px groove  rgb(255, 255, 255)',
+            border: '1px groove rgb(255, 255, 255)',
             background: 'rgb(7, 7, 7)',
             color: '#fff',
           }}
@@ -49,7 +46,7 @@ export default function Timeline({ tweets }) {
         <VerticalTimelineElement
           className='vertical-timeline-element--right'
           contentStyle={{
-            border: '5px groove rgb(255, 255, 255)',
+            border: '1px groove rgb(255, 255, 255)',
             background: 'rgb(7, 7, 7)',
             color: '#fff',
           }}
@@ -79,7 +76,7 @@ export default function Timeline({ tweets }) {
         <VerticalTimelineElement
           className='vertical-timeline-element--left'
           contentStyle={{
-            border: '5px groove  rgb(255, 255, 255)',
+            border: '1px groove  rgb(255, 255, 255)',
             background: 'rgb(7, 7, 7)',
             color: '#fff',
           }}
@@ -109,7 +106,7 @@ export default function Timeline({ tweets }) {
         <VerticalTimelineElement
           className='vertical-timeline-element--right'
           contentStyle={{
-            border: '5px groove  rgb(255, 255, 255)',
+            border: '1px groove  rgb(255, 255, 255)',
             background: 'rgb(7, 7, 7)',
             color: '#fff',
           }}
@@ -131,140 +128,6 @@ export default function Timeline({ tweets }) {
             key={tweet.id}
             {...tweet}
           />
-        </VerticalTimelineElement>
-      );
-    }
-  }
-
-  function renderSmallScreen(tweet) {
-    if (tweets.indexOf(tweet) % 4 === 0) {
-      return (
-        <VerticalTimelineElement
-          className='vertical-timeline-element--left'
-          contentStyle={{
-            paddingRight: '4%',
-            marginTop: '30px',
-            border: '2px groove  rgb(255, 255, 255)',
-            background: 'rgb(7, 7, 7)',
-            color: '#fff',
-          }}
-          contentArrowStyle={{
-            borderRight: '10px solid  rgb(255, 255, 255)',
-            marginTop: '20%',
-            marginRight: '1%',
-          }}
-          iconStyle={{
-            maxHeight: '15px',
-            maxWidth: '15px',
-            marginLeft: '13px',
-            background: 'rgb(255,20,147)',
-            color: '#fff',
-            marginTop: '21%',
-          }}
-        >
-          <Tweet
-            key={tweet.id}
-            {...tweet}
-          />
-        </VerticalTimelineElement>
-      );
-    }
-    if (tweets.indexOf(tweet) % 4 === 1) {
-      return (
-        <VerticalTimelineElement
-          className='vertical-timeline-element--right'
-          contentStyle={{
-            paddingRight: '4%',
-            marginTop: '30px',
-            border: '2px groove rgb(255, 255, 255)',
-            background: 'rgb(7, 7, 7)',
-            color: '#fff',
-          }}
-          contentArrowStyle={{
-            borderRight: '10px solid  rgb(255, 255, 255)',
-            marginTop: '33%',
-            marginRight: '1%',
-          }}
-          iconStyle={{
-            maxHeight: '15px',
-            maxWidth: '15px',
-            marginLeft: '13px',
-            background: 'rgb(138,43,226)',
-            color: '#fff',
-            marginTop: '32.5%',
-          }}
-        >
-          <Tweet
-            key={tweet.id}
-            {...tweet}
-          />
-        </VerticalTimelineElement>
-      );
-    }
-    if (tweets.indexOf(tweet) % 4 === 2) {
-      return (
-        <VerticalTimelineElement
-          className='vertical-timeline-element--left'
-          contentStyle={{
-            paddingRight: '4%',
-            marginTop: '30px',
-            border: '2px groove  rgb(255, 255, 255)',
-            background: 'rgb(7, 7, 7)',
-            color: '#fff',
-          }}
-          contentArrowStyle={{
-            borderRight: '10px solid  rgb(255, 255, 255)',
-            marginTop: '20%',
-            marginRight: '1%',
-          }}
-          iconStyle={{
-            maxHeight: '15px',
-            maxWidth: '15px',
-            marginLeft: '13px',
-            background: '	rgb(255,69,0)',
-            color: '#fff',
-            marginTop: '21%',
-          }}
-        >
-          <Tweet
-            key={tweet.id}
-            {...tweet}
-          />
-        </VerticalTimelineElement>
-      );
-    }
-    if (tweets.indexOf(tweet) % 4 === 3) {
-      return (
-        <VerticalTimelineElement
-          className={'vertical-timeline-element--work'}
-          contentStyle={{
-            paddingRight: '4%',
-            maxWidth: '100%',
-            marginTop: '30px',
-            border: '2px groove  rgb(255, 255, 255)',
-            background: 'rgb(7, 7, 7)',
-            color: '#fff',
-          }}
-          contentArrowStyle={{
-            borderRight: '10px solid  rgb(255, 255, 255)',
-            marginTop: '40%',
-            marginRight: '1%',
-          }}
-          iconStyle={{
-            maxHeight: '15px',
-            maxWidth: '15px',
-            marginLeft: '13px',
-            background: 'rgb(147,112,219)',
-            color: '#fff',
-            marginTop: '38%',
-          }}
-        >
-          <div className={styles.height}>
-            <Tweet
-              key={tweet.id}
-              {...tweet}
-            />
-          </div>
         </VerticalTimelineElement>
       );
     }
@@ -294,39 +157,15 @@ export default function Timeline({ tweets }) {
     );
   } else {
     return (
-      <div className={styles.bg}>
-        <VerticalTimeline lineColor={'#F3F3F3'}>
-          {tweets.map((tweet) => {
-            return <div key={tweet}>{renderSmallScreen(tweet)}</div>;
-          })}
-
-          <VerticalTimelineElement
-            contentStyle={{
-              marginTop: '30px',
-              border: '2px groove  rgb(255, 255, 255)',
-              background: 'rgb(7, 7, 7)',
-              color: '#fff',
-            }}
-            contentArrowStyle={{
-              borderRight: '10px solid  rgb(255, 255, 255)',
-              marginTop: '1%',
-              marginRight: '1%',
-            }}
-            iconStyle={{
-              maxHeight: '15px',
-              maxWidth: '15px',
-              background: 'rgb(16, 204, 82)',
-              marginLeft: '13px',
-              marginTop: '4%',
-              color: '#fff',
-            }}
-          >
-            <Link href={'/resources'}>
-              <div className={styles.button}>See All</div>
-            </Link>
-          </VerticalTimelineElement>
-        </VerticalTimeline>
+      <main
+        className="flex flex-col justify-center px-8 bg-gray-50 dark:bg-black"
+      >
+      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
+        {tweets.map((tweet) => (
+          <Tweet key={tweet.id} {...tweet} />
+        ))}
       </div>
+      </main>
     );
   }
 }
