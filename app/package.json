@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "framer-motion": "^8.0.2",
+    "comma-number": "^2.1.0",
+    "date-fns": "^2.29.3",
     "next": "^13.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
