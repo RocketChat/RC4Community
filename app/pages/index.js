@@ -14,7 +14,7 @@ export default function Home(props) {
   return (
     <>
       <Head>
-        <title>Rocket.Chat: Communications Platform You Can Fully Trust</title>
+        <title>Rocket.Chat:A Communications Platform You Can Fully Trust</title>
         <meta name='description' content='Rocket.Chat is a Communications Platform You Can Fully Trust' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
