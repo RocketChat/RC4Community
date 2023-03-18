@@ -1,0 +1,24 @@
+# Discourse Components for RC4Community
+
+## Client side set up
+1. The discourse components should be wrapped with `DiscourseProvider`. 
+```
+<DiscourseProvider host={discourseHostUrl}>
+	<DiscourseTopicList variant='latest'/>
+</DiscourseProvider>
+```
+
+2. `DiscourseTopicList` supports three variants `latest`, `top` and `unsolved`.
+
+3. `DiscourseTabList` could be used when user wants to show multiple variants.
+```
+<DiscourseProvider host={discourseHostUrl}>
+	<DiscourseTopicListTabs 
+		max={10} 
+		maxWidth={'900px'} 
+		tabs={['top', 'latest', 'unsolved']}/>
+</DiscourseProvider>
+```
+
+## Server side set up
+Coming soon. Contributors are welcomed to create server side components for discourse.
