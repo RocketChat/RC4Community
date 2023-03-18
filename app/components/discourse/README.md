@@ -10,7 +10,7 @@
 
 2. `DiscourseTopicList` supports three variants `latest`, `top` and `unsolved`.
 
-3. `DiscourseTabList` could be used when user wants to show multiple variants.
+3. `DiscourseTopicListTabs` could be used when user wants to show multiple variants.
 ```
 <DiscourseProvider host={discourseHostUrl}>
 	<DiscourseTopicListTabs 
