@@ -6,7 +6,7 @@ import DiscourseTopicList from './DiscourseTopicList';
 import styles from './styles/DiscourseTopicListTabs.module.css';
 
 const DiscourseTopicListTabs = ({
-	tabs = ['top', 'latest', 'unsolved'],
+	tabs = ['top', 'latest', 'unsolved', 'solved'],
 	max = 10,
 	className = '',
 	maxWidth = '100%'

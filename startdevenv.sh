@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ -n $NEXTJS_PORT ];then echo "NEXTJS_PORT is set to $NEXTJS_PORT"; else NEXTJS_PORT=3000; fi
-if [ -n $STRAPI_PORT ];then echo "STRAPI_PORT is set to $STRAPI_PORT"; else STRAPI_PORT=1337; fi
+if [ -z ${NEXTJS_PORT+x} ]; then NEXTJS_PORT=3000; else echo "STRAPI_PORT is set to $NEXTJS_PORT"; fi
+if [ -z ${STRAPI_PORT+x} ]; then STRAPI_PORT=1337; else echo "STRAPI_PORT is set to $STRAPI_PORT"; fi
 counter=0
 watchdog=5
 

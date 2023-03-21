@@ -35,7 +35,7 @@ function TimeSince(date) {
 }
 
 function DiscourseTopicList({
-	variant = 'latest', // latest, top, unsolved 
+	variant = 'latest', // latest, top, unsolved, unsolved
 	max = 10,
 	className = ''
 }) {
@@ -51,7 +51,7 @@ function DiscourseTopicList({
 			usersMap[u.id] = u;
 		})
 		setTopicUsers(usersMap);
-		if (variant === 'unsolved') {
+		if (variant === 'unsolved' || variant === 'solved') {
 			const postsMap = new Object();
 			(data.posts || []).map((p) => {
 				postsMap[p.topic_id] = p;
@@ -74,7 +74,7 @@ function DiscourseTopicList({
 	}
 
 	const getAvatarUrlsForTopic = (topic, size = 32) => {
-		if (variant === 'unsolved') {
+		if (variant === 'unsolved' || variant === 'solved') {
 			return [{
 				username: topic.username,
 				avatarUrl: getAvatarUrl(postsByTopicId[topic.id], size)
@@ -99,6 +99,9 @@ function DiscourseTopicList({
 				}
 				if (variant === 'unsolved') {
 					data = await discourse.getUnsolvedTopics()
+				}
+				if (variant === 'solved') {
+					data = await discourse.getSolvedTopics()
 				}
 				setTopicsAndUsers(data);
 			} catch (e) {
@@ -155,9 +158,9 @@ function DiscourseTopicList({
 							}`}
 					>
 						<Row className={`${styles.item_container}`}>
-							<div className={`${styles.heading} text-truncate`}>
+							<div className={`${styles.heading}`}>
 								<a href={`${discourse.host}/t/${item.slug}/${item.id}`}>
-									{item.title}
+									{`${item.has_accepted_answer ? '✅': ''} ${item.title}`}
 								</a>
 							</div>
 							<div className={`fw-light ${styles.time}`}>
@@ -182,7 +185,7 @@ function DiscourseTopicList({
 								<span className={`${styles.numbers}`}>
 									<Like />
 									{
-										variant === 'unsolved' ?
+										variant === 'unsolved' || variant === 'solved' ?
 										 	postsByTopicId[item.id]?.like_count :
 											item.like_count || 0
 									}
@@ -192,7 +195,7 @@ function DiscourseTopicList({
 									{item.posts_count - 1 || 0}
 								</span>
 								{
-									variant !== 'unsolved' ?
+									typeof item.views !== 'undefined' ?
 										<>
 											<span className={`${styles.numbers}`}>
 												<Eye />

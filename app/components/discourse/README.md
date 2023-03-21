@@ -8,7 +8,7 @@
 </DiscourseProvider>
 ```
 
-2. `DiscourseTopicList` supports three variants `latest`, `top` and `unsolved`.
+2. `DiscourseTopicList` supports three variants `latest`, `top`, `solved` and `unsolved`.
 
 3. `DiscourseTopicListTabs` could be used when user wants to show multiple variants.
 ```
@@ -16,7 +16,7 @@
 	<DiscourseTopicListTabs 
 		max={10} 
 		maxWidth={'900px'} 
-		tabs={['top', 'latest', 'unsolved']}/>
+		tabs={['top', 'latest', 'solved']}/>
 </DiscourseProvider>
 ```
 

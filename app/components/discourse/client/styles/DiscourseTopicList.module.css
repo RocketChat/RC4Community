@@ -35,6 +35,17 @@
   content: '';
 }
 
+.item_container .heading {
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item_container .heading a { 
+  text-decoration: none;
+}
+
 .time {
   font-size: clamp(8px, 3.6vw, 12px);
 }

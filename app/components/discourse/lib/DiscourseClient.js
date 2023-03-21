@@ -45,6 +45,13 @@ class DiscourseClient {
 		const response = await this.api.get(`/search?${q}`)
 		return response.data;
 	}
+
+	async getSolvedTopics() {
+		const q = new URLSearchParams();
+		q.append('q', 'status:solved order:created')
+		const response = await this.api.get(`/search?${q}`)
+		return response.data;
+	}
 }
 
 export default DiscourseClient;
