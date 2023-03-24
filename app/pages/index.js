@@ -82,30 +82,33 @@ export async function getStaticProps({ params }) {
   const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
 
-  const discourseClient = new DiscourseClient(process.env.NEXT_PUBLIC_DISCOURSE_HOST, {
-    /**
-     * Switch to false if using apiKey and apiUserName.
-     * Currently using only unauthenticated apis. So apiKey and apiUserName is not required
-     * */
-    isClient: true, 
-  });
-  const topTopics = await discourseClient.getTopTopics()
-  const latestTopics = await discourseClient.getLatestTopics()
-  const solvedTopics = await discourseClient.getSolvedTopics()
-  const unsolvedTopics = await discourseClient.getUnsolvedTopics()
-  const discourseTabsData = [{
-    variant: 'top',
-    data: topTopics,
-  }, {
-    variant: 'latest',
-    data: latestTopics,
-  }, {
-    variant: 'solved',
-    data: solvedTopics
-  }, {
-    variant: 'unsolved',
-    data: unsolvedTopics,
-  }];
+  let discourseTabsData = [];
+  if (process.env.NEXT_PUBLIC_DISCOURSE_HOST) {
+    const discourseClient = new DiscourseClient(process.env.NEXT_PUBLIC_DISCOURSE_HOST, {
+      /**
+       * Switch to false if using apiKey and apiUserName.
+       * Currently using only unauthenticated apis. So apiKey and apiUserName is not required
+       * */
+      isClient: true,
+    });
+    const topTopics = await discourseClient.getTopTopics()
+    const latestTopics = await discourseClient.getLatestTopics()
+    const solvedTopics = await discourseClient.getSolvedTopics()
+    const unsolvedTopics = await discourseClient.getUnsolvedTopics()
+    discourseTabsData = [{
+      variant: 'top',
+      data: topTopics,
+    }, {
+      variant: 'latest',
+      data: latestTopics,
+    }, {
+      variant: 'solved',
+      data: solvedTopics
+    }, {
+      variant: 'unsolved',
+      data: unsolvedTopics,
+    }];
+  }
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, discourseTabsData },

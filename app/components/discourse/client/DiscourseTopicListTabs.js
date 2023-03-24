@@ -12,6 +12,8 @@ const DiscourseTopicListTabs = ({
 	maxWidth = '100%'
 }) => {
 	const [currentTab, setCurrentTab] = useState(0)
+	if (!tabs.length)
+		return null;
 	return (
 		<Row
 			className={`${styles.container} ${className}`}
