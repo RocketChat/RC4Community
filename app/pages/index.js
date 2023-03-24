@@ -9,6 +9,7 @@ import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
 import { DiscourseProvider, DiscourseTopicListTabs } from '../components/discourse/client';
+import { DiscourseClient } from '../components/discourse/lib';
 
 export default function Home(props) {
   return (
@@ -67,7 +68,7 @@ export default function Home(props) {
           <h2 className={`mx-auto w-auto m-2 ${styles.title}`}>
             Community Activity
           </h2>
-          <DiscourseTopicListTabs max={10} maxWidth={'900px'}/>
+          <DiscourseTopicListTabs max={10} maxWidth={'900px'} tabs={props.discourseTabsData}/>
         </div>
       </Container>
     </DiscourseProvider>
@@ -80,12 +81,37 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI('/guide');
   const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
-  const topPosts = await fetchAPI('/discourses');
+
+  const discourseClient = new DiscourseClient(process.env.NEXT_PUBLIC_DISCOURSE_HOST, {
+    /**
+     * Switch to false if using apiKey and apiUserName.
+     * Currently using only unauthenticated apis. So apiKey and apiUserName is not required
+     * */
+    isClient: true, 
+  });
+  const topTopics = await discourseClient.getTopTopics()
+  const latestTopics = await discourseClient.getLatestTopics()
+  const solvedTopics = await discourseClient.getSolvedTopics()
+  const unsolvedTopics = await discourseClient.getUnsolvedTopics()
+  const discourseTabsData = [{
+    variant: 'top',
+    data: topTopics,
+  }, {
+    variant: 'latest',
+    data: latestTopics,
+  }, {
+    variant: 'solved',
+    data: solvedTopics
+  }, {
+    variant: 'unsolved',
+    data: unsolvedTopics,
+  }];
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
+    props: { carousels, personas, guides, releaseNotes, topNavItems, discourseTabsData },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 1 second
+    // - At most once every 20 * 60 second or 20 minutes
+    revalidate: 20*60
   };
 }

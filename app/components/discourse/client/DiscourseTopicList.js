@@ -1,5 +1,4 @@
 'use client';
-import {useState, useEffect, useCallback} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styles from './styles/DiscourseTopicList.module.css';
 import useDiscourseClient from './useDiscourseClient';
@@ -7,7 +6,6 @@ import Like from '../../SvgIcons/Like';
 import Comment from '../../SvgIcons/Comment';
 import Eye from '../../SvgIcons/Eye';
 import DefaultAvatarUrl from './assets/no_user.png';
-import { Loader } from '../../loader';
 
 function TimeSince(date) {
 	let seconds = Math.floor((new Date() - date) / 1000);
@@ -37,31 +35,26 @@ function TimeSince(date) {
 function DiscourseTopicList({
 	variant = 'latest', // latest, top, unsolved, unsolved
 	max = 10,
-	className = ''
+	className = '',
+	data
 }) {
 	const discourse = useDiscourseClient();
-	const [loading, setLoading] = useState(true);
-	const [topics, setTopics] = useState([]); 
-	const [postsByTopicId, setPosts] = useState(new Object()); 
-	const [topicUsers, setTopicUsers] = useState(new Object());
+	const topicUsers = new Object();
+	(data.users || []).map((u) => {
+		topicUsers[u.id] = u;
+	})
 
-	const setTopicsAndUsers = useCallback((data) => {
-		const usersMap = new Object();
-		(data.users || []).map((u) => {
-			usersMap[u.id] = u;
+	let topics = [];
+	const postsByTopicId = new Object();
+
+	if (variant === 'unsolved' || variant === 'solved') {
+		(data.posts || []).map((p) => {
+			postsByTopicId[p.topic_id] = p;
 		})
-		setTopicUsers(usersMap);
-		if (variant === 'unsolved' || variant === 'solved') {
-			const postsMap = new Object();
-			(data.posts || []).map((p) => {
-				postsMap[p.topic_id] = p;
-			})
-			setPosts(postsMap);
-			setTopics(data.topics);
-		} else {
-			setTopics(data.topic_list?.topics || []);
-		}
-	}, [variant]);
+		topics = (data.topics || []);
+	} else {
+		topics = (data.topic_list?.topics || [])
+	} 
 
 	const getAvatarUrl = (user, size = 32) => {
 		if (!user?.avatar_template)
@@ -86,33 +79,6 @@ function DiscourseTopicList({
 		}))
 	}
 
-	useEffect(()=> {
-		const loadTopics = async () => {
-			setLoading(true);
-			let data = {};
-			try {
-				if (variant === 'latest') {
-			 		data = await discourse.getLatestTopics()
-				}
-				if (variant === 'top') {
-					data = await discourse.getTopTopics()
-				}
-				if (variant === 'unsolved') {
-					data = await discourse.getUnsolvedTopics()
-				}
-				if (variant === 'solved') {
-					data = await discourse.getSolvedTopics()
-				}
-				setTopicsAndUsers(data);
-			} catch (e) {
-				console.error(e);
-			} finally {
-				setLoading(false);
-			}
-		}
-		loadTopics();
- 	}, [discourse, setTopicsAndUsers, variant]);
-
 	//generates random colour for border styling
 	const color = [
 		'border-primary',
@@ -122,29 +88,6 @@ function DiscourseTopicList({
 		'border-info',
 	];
 
-	if (loading) {
-		return (
-			<Col
-				className={`${styles.container}`}
-			>
-				{
-					Array(max)
-						.fill(null)
-						.map((_, i) => (
-							<Col
-								key={i}
-								className={`${styles.item
-									} ${
-										styles.loading
-									} ${color[Math.floor(i%color.length)]
-									}`}
-							>
-							</Col>
-						))
-				}
-			</Col>
-		)
-	}
 	return (
 		<>
 			<Col

@@ -41,14 +41,14 @@ class DiscourseClient {
 
 	async getUnsolvedTopics() {
 		const q = new URLSearchParams();
-		q.append('q','status:unsolved order:created')
+		q.append('q','status:unsolved order:created max_posts:10')
 		const response = await this.api.get(`/search?${q}`)
 		return response.data;
 	}
 
 	async getSolvedTopics() {
 		const q = new URLSearchParams();
-		q.append('q', 'status:solved order:created')
+		q.append('q', 'status:solved order:created max_posts:10')
 		const response = await this.api.get(`/search?${q}`)
 		return response.data;
 	}

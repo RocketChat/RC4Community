@@ -6,12 +6,12 @@ import DiscourseTopicList from './DiscourseTopicList';
 import styles from './styles/DiscourseTopicListTabs.module.css';
 
 const DiscourseTopicListTabs = ({
-	tabs = ['top', 'latest', 'unsolved', 'solved'],
+	tabs = [], // {[variant: "latest", data: DiscourseData ]}
 	max = 10,
 	className = '',
 	maxWidth = '100%'
 }) => {
-	const [currentTab, setCurrentTab] = useState('top')
+	const [currentTab, setCurrentTab] = useState(0)
 	return (
 		<Row
 			className={`${styles.container} ${className}`}
@@ -20,18 +20,18 @@ const DiscourseTopicListTabs = ({
 			}}>
 			<Col xs={12} className="d-flex justify-content-start p-3 pb-0">
 				<div className={styles.TabGroup}>
-					{tabs.map(tab => (
+					{tabs.map((tabData, idx) => (
 						<button
-							onClick={() => setCurrentTab(tab)}
-							className={`${styles.TabButton} ${tab === currentTab ? styles.active : ''}`}
-							key={tab}>
-							{tab}
+							onClick={() => setCurrentTab(idx)}
+							className={`${styles.TabButton} ${idx === currentTab ? styles.active : ''}`}
+							key={tabData.variant}>
+							{tabData.variant}
 						</button>
 					))}
 				</div>
 			</Col>
 			<Col xs={12} className='p-3'>
-				<DiscourseTopicList variant={currentTab} max={max}/>
+				<DiscourseTopicList variant={tabs[currentTab].variant} max={max} data={tabs[currentTab].data}/>
 			</Col>
 		</Row>
 	)
