@@ -112,9 +112,5 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems, discourseTabsData },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 20 * 60 second or 20 minutes
-    revalidate: 20*60
   };
 }
