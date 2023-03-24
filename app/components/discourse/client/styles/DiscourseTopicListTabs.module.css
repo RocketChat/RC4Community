@@ -1,0 +1,23 @@
+.container {
+	width: 100%;
+}
+
+.TabGroup {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.TabButton {
+	background: none;
+	border: none;
+	outline: none;
+	color: var(--theme-primary);
+	text-transform: capitalize;
+}
+.TabButton.active {
+	background: var(--theme-primary);
+	color: var(--theme-on-primary);
+}

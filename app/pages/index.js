@@ -3,16 +3,17 @@ import styles from '../styles/Home.module.css';
 import Infotiles from '../components/infotiles';
 import Newscarousel from '../components/newscarousel';
 import Personacircle from '../components/personalcircle';
-import Discourserankedlist from '../components/discourserankedlist';
 import Searchbox from '../components/searchbox';
 import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
+import { DiscourseProvider, DiscourseTopicListTabs } from '../components/discourse/client';
+import { DiscourseClient } from '../components/discourse/lib';
 
 export default function Home(props) {
   return (
-    <>
+    <DiscourseProvider host={process.env.NEXT_PUBLIC_DISCOURSE_HOST}>
       <Head>
         <title>Rocket.Chat: Communications Platform You Can Fully Trust</title>
         <meta name='description' content='Rocket.Chat is a Communications Platform You Can Fully Trust' />
@@ -63,14 +64,14 @@ export default function Home(props) {
         </h2>
         <Personacircle personas={props.personas.data}></Personacircle>
 
-        <div className={` d-flex flex-column py-5 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
+        <div className={` d-flex w-100 flex-column py-5 align-items-center`}>
+          <h2 className={`mx-auto w-auto m-2 ${styles.title}`}>
             Community Activity
           </h2>
-          <Discourserankedlist topposts={props.topPosts.data}></Discourserankedlist>
+          <DiscourseTopicListTabs max={10} maxWidth={'900px'} tabs={props.discourseTabsData}/>
         </div>
       </Container>
-    </>
+    </DiscourseProvider>
   );
 }
 
@@ -80,12 +81,36 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI('/guide');
   const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
-  const topPosts = await fetchAPI('/discourses');
+
+  let discourseTabsData = [];
+  if (process.env.NEXT_PUBLIC_DISCOURSE_HOST) {
+    const discourseClient = new DiscourseClient(process.env.NEXT_PUBLIC_DISCOURSE_HOST, {
+      /**
+       * Switch to false if using apiKey and apiUserName.
+       * Currently using only unauthenticated apis. So apiKey and apiUserName is not required
+       * */
+      isClient: true,
+    });
+    const topTopics = await discourseClient.getTopTopics()
+    const latestTopics = await discourseClient.getLatestTopics()
+    const solvedTopics = await discourseClient.getSolvedTopics()
+    const unsolvedTopics = await discourseClient.getUnsolvedTopics()
+    discourseTabsData = [{
+      variant: 'top',
+      data: topTopics,
+    }, {
+      variant: 'latest',
+      data: latestTopics,
+    }, {
+      variant: 'solved',
+      data: solvedTopics
+    }, {
+      variant: 'unsolved',
+      data: unsolvedTopics,
+    }];
+  }
 
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 1 second
+    props: { carousels, personas, guides, releaseNotes, topNavItems, discourseTabsData },
   };
 }

@@ -1,0 +1,89 @@
+.container {
+  --gap: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  width: 100%;
+}
+
+.item {
+  padding: 0.5rem;
+  background: #f7f8fa;
+  width: 100%;
+  flex-basis: 100%;
+  border-left-width: 0.33rem;
+  border-left-style: solid;
+  border-left-color: #d1d1d1;
+}
+.item.loading {
+  position: relative;
+  overflow: hidden;
+  height: 7rem;
+  max-width: 40rem;
+}
+.item.loading::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, #0000, #00000009, #0000);
+  animation: shimmer 2s infinite;
+  content: '';
+}
+
+.item_container .heading {
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item_container .heading a { 
+  text-decoration: none;
+}
+
+.time {
+  font-size: clamp(8px, 3.6vw, 12px);
+}
+
+.metrics {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.numbers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.33rem;
+  font-size: clamp(8px, 3.6vw, 16px);
+}
+
+.user_avatars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.user_avatars .user_avatar {
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+@media (min-width: 768px) {
+  .item {
+    flex-basis: calc(50% - var(--gap));
+    width: calc(50% - var(--gap));
+  }
+}
