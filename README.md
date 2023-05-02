@@ -4,6 +4,12 @@
 
 ![build and grow massive online communities with rocket.chat](./assets/readme-hero.png)
 
+<div align='center'>
+<a href="https://github.com/monoclehq">
+<img src="https://open-source-assets.middlewarehq.com/svgs/RocketChat-RC4Community-contributor-metrics-dark-widget.svg" ></img>
+</a>
+</div>
+
 ---
 
 <h2 align='center'>🚀 Features 🚀</h2>
