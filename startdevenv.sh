@@ -36,6 +36,11 @@ check_and_set_next_port() {
     fi
 }
 
+if ! docker info > /dev/null 2>&1; then
+  echo "Docker is not running, please start the Docker daemon and try again! 💪"
+  exit 1
+fi
+
 sh startBackend.sh $1
 
 check_and_set_strapi_port

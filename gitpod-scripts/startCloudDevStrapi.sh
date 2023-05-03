@@ -20,6 +20,11 @@ check_and_set_strapi_port() {
     fi
 }
 
+if ! docker info > /dev/null 2>&1; then
+  echo "Docker is not running, please start the Docker daemon and try again! 💪"
+  exit 1
+fi
+
 check_and_set_strapi_port
 
 printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://127.0.0.1:$STRAPI_PORT" >> app/.env
