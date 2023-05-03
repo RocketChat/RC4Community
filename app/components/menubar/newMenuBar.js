@@ -26,7 +26,10 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
   const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } =
     useRCAuth4Google();
   return (
-    <Navbar className='d-lg-none' expand={false}>
+    <Navbar
+      className='d-lg-none'
+      expand={false}
+    >
       <Container fluid>
         <Navbar.Toggle
           aria-controls='offcanvasNavbar'
@@ -50,14 +53,14 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
               href='/'
               className='d-flex justify-content-center align-items-center '
             >
-              <BrandLogo
-                brandLink={brandInfo.brandLink}
-                brandLogoSrc={brandInfo.brandLogoSrc}
-                imageTitle={brandInfo.imageTitle}
-                brandName={brandInfo.brandName}
-                height={30}
-                width={132}
-              />
+                <BrandLogo
+                  brandLink={brandInfo.brandLink}
+                  brandLogoSrc={brandInfo.brandLogoSrc}
+                  imageTitle={brandInfo.imageTitle}
+                  brandName={brandInfo.brandName}
+                  height={30}
+                  width={132}
+                />
             </Navbar.Brand>
           </Offcanvas.Header>
           <Offcanvas.Body>
@@ -157,7 +160,9 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         <Navbar.Brand className={styles.brand}>
-          {nft ? <NFTProfilePicture id='img2' /> :
+          {nft ? (
+            <NFTProfilePicture id='img2' />
+          ) : (
             <RCAuthGoogleLoginButton
               user={user}
               handleLogin={handleLogin}
@@ -166,7 +171,8 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               method={method}
-            />}
+            />
+          )}
         </Navbar.Brand>
       </Container>
     </Navbar>
@@ -195,7 +201,7 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
 
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
-      <BrandLogo
+      <a href='https://rocket.chat' target={"blank"} ><BrandLogo
         brandLink={brandInfo.brandLink}
         brandLogoSrc={brandInfo.brandLogoSrc}
         imageTitle={brandInfo.imageTitle}
@@ -203,6 +209,7 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
         height={32}
         width={132}
       />
+      </a>
       <Nav className='w-full ' ref={clickRef}>
         {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.data?.length > 1 ? (
