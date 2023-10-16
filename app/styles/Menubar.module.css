@@ -144,7 +144,16 @@
 
 .navbar_subitems_items {
   padding: 1rem 1rem 1rem 2rem;
-  width: 18rem;
+  width: 15rem;
+}
+
+.navbar_subitems_items:hover {
+  color: #ff5050;
+  background-color: #f0f2f5;
+  padding: 1rem 1rem 1rem 2rem;
+  width: 15rem;
+  font-weight: bold;
+  transition: 0.15s;
 }
 
 .subItemLinks {
@@ -170,7 +179,7 @@
   cursor: pointer;
   color: red;
   font-weight: bolder;
-  transition: 0.2s ease-in-out;
+  transition: 0.3s ease-in-out;
   transform: scale(1.1);
 }
 
@@ -217,4 +226,3 @@
   width: 50px;
   overflow: hidden;
 }
-

@@ -1,7 +1,4 @@
 {
-    "eslint.workingDirectories": [
-        "./app",
-        "./cms"
-    ],
-    "workbench.startupEditor": "none",
+  "eslint.workingDirectories": ["./app", "./cms"],
+  "workbench.startupEditor": "none"
 }
