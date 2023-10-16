@@ -195,14 +195,16 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
 
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
-      <BrandLogo
-        brandLink={brandInfo.brandLink}
-        brandLogoSrc={brandInfo.brandLogoSrc}
-        imageTitle={brandInfo.imageTitle}
-        brandName={brandInfo.brandName}
-        height={32}
-        width={132}
-      />
+      <Navbar.Brand href='/' className='navbar-logo'>
+        <BrandLogo
+          brandLink={brandInfo.brandLink}
+          brandLogoSrc={brandInfo.brandLogoSrc}
+          imageTitle={brandInfo.imageTitle}
+          brandName={brandInfo.brandName}
+          height={32}
+          width={132}
+        />
+      </Navbar.Brand>
       <Nav className='w-full ' ref={clickRef}>
         {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.data?.length > 1 ? (
@@ -217,9 +219,9 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
               }}
               onMouseLeave={() => setIsShown(0)}
             >
-              <span className={`${styles.navbar_item_hover} text-muted`}>
+              <span className={`${styles.navbar_item_hover}`} style={{fontWeight: 'bold'}}>
                 {nav_item.url ? (
-                  <a href={nav_item.url} className='text-decoration-none'>
+                  <a href={nav_item.url} >
                     {nav_item.label}
                   </a>
                 ) : (
@@ -273,9 +275,9 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
           ) : (
             <Nav.Link
               key={key}
-              className={`${styles.navbar_item_hover} text-muted mx-3`}
+              className={`${styles.navbar_item_hover} mx-3`}
             >
-              {nav_item.label}
+              <span style={{fontWeight: 'bold'}} >{nav_item.label}</span>
             </Nav.Link>
           )
         )}
