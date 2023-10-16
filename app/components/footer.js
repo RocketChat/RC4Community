@@ -4,7 +4,7 @@ function Footer() {
   return (
     <>
       <footer>
-        <div className="d-flex align-item-center justify-content-center text-decoration-none text-black">
+        <div className="d-flex align-item-center justify-content-center text-decoration-none text-black" style={{marginBottom: '1.5rem'}}>
           <span className="d-flex">Powered by </span>
           <span className="d-flex ps-2">
             <BrandLogo
