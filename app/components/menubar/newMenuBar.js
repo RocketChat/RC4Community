@@ -195,14 +195,16 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
 
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
-      <BrandLogo
-        brandLink={brandInfo.brandLink}
-        brandLogoSrc={brandInfo.brandLogoSrc}
-        imageTitle={brandInfo.imageTitle}
-        brandName={brandInfo.brandName}
-        height={32}
-        width={132}
-      />
+      <Navbar.Brand href='/'>
+        <BrandLogo
+          brandLink={brandInfo.brandLink}
+          brandLogoSrc={brandInfo.brandLogoSrc}
+          imageTitle={brandInfo.imageTitle}
+          brandName={brandInfo.brandName}
+          height={32}
+          width={132}
+        />
+      </Navbar.Brand>
       <Nav className='w-full ' ref={clickRef}>
         {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.data?.length > 1 ? (
