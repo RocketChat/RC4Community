@@ -55,7 +55,8 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
           <Offcanvas.Header closeButton>
             <Navbar.Brand
               href='/'
-              className='d-flex justify-content-center align-items-center '
+              className={`d-flex justify-content-center align-items-center ${styles.navbarLogo}`}
+              style={{ paddingTop: '0.5rem' }}
             >
               <BrandLogo
                 brandLink={brandInfo.brandLink}
@@ -70,23 +71,21 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
           <Offcanvas.Body>
             {nav_Items?.map((nav_Item) =>
               nav_Item.url ? (
-                <div key={nav_Item.id}>
-                  <Row
-                    className={`${styles.dropdown} d-flex flex-row justify-content-between align-items-center mt-3 `}
-                    onClick={() => {
-                      setDropDown({ show: false, _id: 0 });
-                    }}
-                  >
-                    <Col>
-                      <a
-                        href={nav_Item.url}
-                        className='text-decoration-none fs-4 fw-light text-dark'
-                      >
-                        {nav_Item.label}
-                      </a>
-                    </Col>
-                  </Row>
-                </div>
+                <a
+                  href={nav_Item.url}
+                  className='text-decoration-none fs-4 fw-light text-dark'
+                >
+                  <div key={nav_Item.id}>
+                    <Row
+                      className={`${styles.dropdown} d-flex flex-row justify-content-between align-items-center mt-3 `}
+                      onClick={() => {
+                        setDropDown({ show: false, _id: 0 });
+                      }}
+                    >
+                      <Col>{nav_Item.label}</Col>
+                    </Row>
+                  </div>
+                </a>
               ) : (
                 <div key={nav_Item.id}>
                   <Row
@@ -110,44 +109,40 @@ const MobileNav = ({ nav_Items, nft, brandInfo }) => {
                     </Col>
                     <Col>
                       {nav_Item.sub_menus?.data?.length > 1 && (
-                        <span
-                          className={
-                            dropDown.show
-                              ? `${styles.arrowRotate} bg-transparent me-2`
-                              : `${styles.arrow} bg-transparent me-2 `
-                          }
+                        <div
+                          className={dropDown.show ? `${styles.arrowRotate}` : `${styles.arrow}`}
                         >
                           <ArrowIcon />
-                        </span>
+                        </div>
                       )}
                     </Col>
                   </Row>
                   {dropDown._id === nav_Item.id && dropDown.show ? (
                     <div>
-                      <div>
+                      <div className={`${styles.dropDown}`}>
                         {nav_Item.sub_menus.data.map(
                           (item) =>
                             item.attributes.parent_id === null && (
                               <>
-                                <div className='p-2 fw-medium'>
-                                  <a
-                                    href={item.attributes.url}
-                                    className={styles.subItemLinks}
-                                  >
-                                    {item.attributes.label}
-                                  </a>
-                                </div>
+                                <a
+                                  href={item.attributes.url}
+                                  className={styles.subItemLinks}
+                                >
+                                  <div className='p-2 fw-medium'>{item.attributes.label}</div>
+                                </a>
+
+                                {/* If more sub-items are present */}
                                 {nav_Item.sub_menus.data.map(
                                   (subItem) =>
                                     subItem.attributes.parent_id === item.attributes.id && (
-                                      <div className='px-4 py-1 fw-light'>
-                                        <a
-                                          href={subItem.attributes.url}
-                                          className={styles.subItemLinks}
-                                        >
+                                      <a
+                                        href={subItem.attributes.url}
+                                        className={styles.subItemLinks}
+                                      >
+                                        <div className='px-4 py-1 fw-light'>
                                           {subItem.attributes.label}
-                                        </a>
-                                      </div>
+                                        </div>
+                                      </a>
                                     )
                                 )}
                               </>
@@ -207,7 +202,7 @@ const DesktopNav = ({ nav_Items, nft, brandInfo }) => {
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
       <Navbar.Brand
         href='/'
-        className='navbar-logo'
+        className={`${styles.navbarLogo}`}
       >
         <BrandLogo
           brandLink={brandInfo.brandLink}

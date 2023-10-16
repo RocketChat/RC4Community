@@ -36,12 +36,14 @@
   display: none;
 }
 
-.navbar-logo {
-  border-radius: 30px;
+.navbarLogo {
+  /* padding-left: 1rem; */
+  transition: 0.2s ease-in-out;
 }
-.navbar-logo:hover {
-  transform: scale(1.3);
+.navbarLogo:hover {
+  transform: scale(1.15);
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
 .chat {
@@ -160,7 +162,16 @@
   cursor: pointer;
 
   text-decoration: none;
-  color: black;
+  color: #858585;
+}
+
+.subItemLinks:hover {
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  font-weight: bold;
+  color: #ff5050;
+  background-color: #f0f2f5;
+  text-decoration: none;
 }
 
 .color {
@@ -171,10 +182,22 @@
   margin-left: 80%;
 }
 
+.arrow:hover {
+  margin-left: 80%;
+  font-weight: bold;
+}
+
 .arrowRotate {
   margin-left: 80%;
   transform: rotate(180deg);
 }
+
+.arrowRotate:hover {
+  margin-left: 80%;
+  transform: rotate(180deg);
+  font-weight: bold;
+}
+
 .navbar_item_hover:hover {
   cursor: pointer;
   color: red;
@@ -185,6 +208,18 @@
 
 .dropdown {
   cursor: pointer;
+  /* font-weight: bold; */
+}
+
+.dropdown:hover {
+  cursor: pointer;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  font-weight: bold;
+  color: #ff5050;
+  background-color: #f0f2f5;
+  transition: 0.15s ease-in-out;
 }
 
 .toggler_bar::before {
@@ -215,8 +250,12 @@
   border: 1px solid black;
 }
 
-.dropdown_menu_item:hover,
 .dropdown_menu_item {
+  color: black;
+  text-decoration: solid;
+}
+
+.dropdown_menu_item:hover {
   color: black;
   text-decoration: solid;
   transform: scale(1.3);
